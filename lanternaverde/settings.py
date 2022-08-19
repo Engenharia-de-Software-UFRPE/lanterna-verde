@@ -25,12 +25,15 @@ SECRET_KEY = 'django-insecure-y6q5j^gn3h@gi!_g43re9b^z0rnr9q7$)^fvby2&(l6p3ar1hv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'lanternaverde_web.Usuario'
+
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'lanternaverde_web',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
