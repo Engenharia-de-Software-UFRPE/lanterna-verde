@@ -35,6 +35,8 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
+
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username',
                                 max_length=20,
@@ -76,3 +78,17 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
+
+
+class Analista(models.Model):
+    available = models.BooleanField('Disponivel', default=True)
+    cpf = models.CharField('CPF', max_length=11)
+    specialty = models.CharField('Especialidade', max_length=255)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'analista'
+        verbose_name_plural = 'analistas'
+
+
