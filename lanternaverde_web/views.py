@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Usuario, Analista, UserManager
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -10,30 +10,28 @@ def index(request):
 
 
 def cadastro_analista(request):
+    print(request.POST)
     if request.method == 'GET':
         pass
 
-
     elif request.method == 'POST':
-        data = json.loads(request.body)
-        print(request.body)
-        print(data["username"])
-        usuario = Usuario.objects.create_user(username=data["username"], email=data["email"], password=data["password"])
+        data = request.POST
+        usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
         usuario.save()
-        analista = Analista.objects.create(cpf=data["cpf"],specialty=data["specialty"], user=usuario)
+        analista = Analista.objects.create(cpf=data.get('cpf'),specialty=data.get('specialty'), user=usuario)
         analista.save()
 
-    return HttpResponse(status=201)
+    return HttpResponseRedirect('http://localhost:3000/telaPerfilAnalista')
 
 
 def alterar_analista(request):
-    data = json.loads(request.body)
+    data = request.POST
     analista = Analista.objects.get(pk=2)
-    analista.cpf=data["cpf"]
-    analista.specialty=data["specialty"]
-    analista.user.username=data["username"]
-    analista.user.email=data["email"]
-    analista.user.password=data["password"]
+    analista.cpf = data.get("cpf")
+    analista.specialty = data.get("specialty")
+    analista.user.username = data.get("username")
+    analista.user.email = data.get("email")
+    analista.user.password = data.get("password")
     analista.save()
     analista.user.save()
     return HttpResponse(status=200)
