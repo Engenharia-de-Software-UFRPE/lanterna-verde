@@ -17,13 +17,25 @@ def cadastro_analista(request):
         data = json.loads(request.body)
         print(request.body)
         print(data["username"])
-        usuario = UserManager().create_user(username=data["username"], email=data["email"], password=data["password"])
+        usuario = Usuario.objects.create_user(username=data["username"], email=data["email"], password=data["password"])
         usuario.save()
         analista = Analista.objects.create(cpf=data["cpf"],specialty=data["specialty"], user=usuario)
         analista.save()
 
 
     return HttpResponse(status=201)
+@csrf_exempt
+def alterar_analista(request):
+    data = json.loads(request.body)
+    analista = Analista.objects.get(pk=2)
+    analista.cpf=data["cpf"]
+    analista.specialty=data["specialty"]
+    analista.user.username=data["username"]
+    analista.user.email=data["email"]
+    analista.user.password=data["password"]
+    analista.save()
+    analista.user.save()
+    return HttpResponse(status=200)
 
 
 
