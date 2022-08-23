@@ -8,10 +8,11 @@ import json
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
-@csrf_exempt
+
 def cadastro_analista(request):
     if request.method == 'GET':
         pass
+
 
     elif request.method == 'POST':
         data = json.loads(request.body)
@@ -22,9 +23,9 @@ def cadastro_analista(request):
         analista = Analista.objects.create(cpf=data["cpf"],specialty=data["specialty"], user=usuario)
         analista.save()
 
-
     return HttpResponse(status=201)
-@csrf_exempt
+
+
 def alterar_analista(request):
     data = json.loads(request.body)
     analista = Analista.objects.get(pk=2)
