@@ -79,6 +79,30 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
 
+class Administrador(models.Model):
+    """
+    Child class of User, called Administrador. The Administrator team is
+    responsable for the administration of lanterna-verde app.
+    """
+    DIRETOR = 'DR'
+    GERENTE = 'GR'
+    ROLE_CHOICES = [
+        (DIRETOR, 'Diretor'),
+        (GERENTE, 'Gerente')
+    ]
+    role = models.CharField(
+        max_length=2,
+        choices=ROLE_CHOICES,
+        default=GERENTE
+    )
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Administrador'
+        verbose_name_plural = 'Administradores'
 
 class Analista(models.Model):
     available = models.BooleanField('Disponivel', default=True)
@@ -90,5 +114,3 @@ class Analista(models.Model):
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
-
-
