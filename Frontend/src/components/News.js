@@ -1,8 +1,8 @@
 import React from 'react';
-import './Noticia.css'
+import './News.css'
 
-const Noticia = ({ noticia }) => {
+const News = ({ noticia }) => {
     return <div className='listNoticia'>{noticia.titulo}<br></br>{noticia.preview}</div>
 }; 
 
-export default Noticia;
+export default News;

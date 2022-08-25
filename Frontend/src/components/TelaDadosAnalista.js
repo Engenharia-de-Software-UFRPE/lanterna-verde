@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
-import './TelaDadosAnalista.css';
+import './AnalystDataScreen.css';
 
 function TelaDadosAnalista() {
   const [click, setClick] = useState(false);
@@ -32,7 +32,7 @@ function TelaDadosAnalista() {
   <div class="profile-card">
     <div class="card-header">
       <div class="pic">
-        <img src="../imagens/robson.jpg" alt=""/>
+        <img src="../images/robson.jpg" alt=""/>
       </div>
       <div class="name">Robson Pereira da Silva Alencar</div>
       <div class="desc">Analista Especialista</div>

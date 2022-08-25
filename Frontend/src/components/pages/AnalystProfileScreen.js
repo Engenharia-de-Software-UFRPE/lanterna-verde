@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import Navbar from '../Navbar';
-import TelaAnalista from '../TelaAnalista'
+import TelaAnalista from '../AnalystScreen'
 
 function TelaPerfilAnalista() {
   return (

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './TelaAnalista.css';
+import './AnalystScreen.css';
 import { Link } from 'react-router-dom';
-import './Analises'
-import Analises from './Analises.js';
-import Noticias from './Noticias';
+import './AnalysisMap'
+import AnalysisMap from './AnalysisMap.js';
+import NewsList from './NewsList';
+import Analysis from './Analysis';
 
-const Perfil = () => {
+const Profile = () => {
 
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -31,7 +32,7 @@ const Perfil = () => {
 
   window.addEventListener('resize', showButton);
 
-  const [analises] = useState([
+  const [analysis] = useState([
     {
       empresa :'Empresa 1',
       score : 2.4,
@@ -45,7 +46,7 @@ const Perfil = () => {
 
   ])
 
-  const [noticias] = useState([
+  const [news] = useState([
     {
       titulo :'Empresa 1 está numa fria!',
       preview : "Empresa 1 foi descmascarada e está sendo processada por greenwashing",
@@ -67,7 +68,7 @@ const Perfil = () => {
               to='/'
               onClick={closeMobileMenu}
               >
-              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../imagens/gl.png" alt="" /></div>
+              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../images/gl.png" alt="" /></div>
         </Link>
           <div className="searchbox">
             <input type="search" placeholder="Pesquise por analises de uma empresa " />
@@ -75,7 +76,7 @@ const Perfil = () => {
           </div>
           <div className="analista" href="perfil.html">
             ROBSON
-            <img src="../imagens/robson.jpg" />
+            <img src="../images/robson.jpg" />
           </div>
           <button onclick="openNav()">☰</button>
           <div id="mySidebar" className="sidebar">
@@ -90,12 +91,12 @@ const Perfil = () => {
       <div className='conteudo'>
         <div className='coluna'>
           <h1>Analises Pendentes:</h1>
-          <Analises analises={analises}/>
+          <AnalysisMap analises={analysis}/>
         </div>
 
         <div className='coluna'>
           <h1>Noticias:</h1>
-          <Noticias noticias={noticias}/>
+          <NewsList noticias={news}/>
         </div>
 
       </div>
@@ -103,4 +104,4 @@ const Perfil = () => {
   );
 }
 
-export default Perfil;
+export default Profile;

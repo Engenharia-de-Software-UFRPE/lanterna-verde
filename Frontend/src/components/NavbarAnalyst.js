@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './NavbarAnalista.css';
+import './NavbarAnalyst.css';
 import { Link } from 'react-router-dom';
 
 
@@ -38,7 +38,7 @@ function NavbarAnalista() {
               to='/'
               onClick={closeMobileMenu}
               >
-              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../imagens/gl.png" alt="" /></div>
+              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../images/gl.png" alt="" /></div>
         </Link>
           <div className="searchbox">
             <input type="search" placeholder="Pesquise por analises de uma empresa " />
@@ -46,7 +46,7 @@ function NavbarAnalista() {
           </div>
           <div className="analista" href="perfil.html">
             ROBSON
-            <img src="../imagens/robson.jpg" />
+            <img src="../images/robson.jpg" />
           </div>
           <button onclick="openNav()">☰</button>
           <div id="mySidebar" className="sidebar">

@@ -35,7 +35,7 @@ function Navbar() {
               to='/'
               onClick={closeMobileMenu}
               >
-              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../imagens/gl.png" alt="" /></div>
+              <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../images/gl.png" alt="" /></div>
       </Link>
           <div className="searchbox">
             <input type="search"  placeholder="Pesquise por uma empresa " />

@@ -90,9 +90,12 @@ function Container() {
               </span>
             </div>
             <div className="input-field button">
-          
+            <Link
+              to='/dadosAnalista'
+              onClick={closeMobileMenu}
+              >
               <input type="submit" defaultValue="Submit Now" />
-              
+              </Link>
               
             </div>
           </form>

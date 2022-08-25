@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Cadastro from './components/pages/Cadastro';
+import Cadastro from './components/pages/AnalystRegistration';
 import Home from './components/pages/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import TelaPerfilAnalista from './components/pages/TelaPerfilAnalista';
-import DadosAnalista from './components/pages/DadosAnalista';
+import TelaPerfilAnalista from './components/pages/AnalystProfileScreen';
+import DadosAnalista from './components/pages/DataAnalyst';
 
 
 function App() {
