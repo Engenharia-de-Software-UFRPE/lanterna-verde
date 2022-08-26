@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Popup.css';
-import './Container.css';
+import './ContainerHome.css';
 
 function Popup() {
     const [click, setClick] = useState(false);
