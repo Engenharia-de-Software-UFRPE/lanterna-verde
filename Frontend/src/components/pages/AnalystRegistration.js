@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import Navbar from '../Navbar';
-import Container from '../Container';
+import Navbar from '../AnalystScreen/Navbar';
+import Container from '../AnalystScreen/Container';
 
 function Cadastro() {
   return (
