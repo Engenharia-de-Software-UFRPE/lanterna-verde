@@ -108,6 +108,7 @@ class Analista(models.Model):
     available = models.BooleanField('Disponivel', default=True)
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
+    analysis = models.PositiveIntegerField('Analises', default=0)
 
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 

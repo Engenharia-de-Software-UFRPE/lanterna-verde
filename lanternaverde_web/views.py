@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 
+from lanternaverde_web.models import Analista
+
 # Create your views here.
 
 def index(request):
@@ -26,3 +28,6 @@ def login_redirect(request):
             return HttpResponseBadRequest()
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente")
+                            
+def select_Analist(amount):
+    analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
