@@ -1,9 +1,14 @@
+"""
+Script to populate `Questões` in lanternaverde_web with the Greenwashing Accute
+Score Questionnary.
+"""
 from lanternaverde_web.models import Questao
 
 # pylint: disable=E1101
 def run():
+    """Flow of object creations for the populate script"""
     Questao.objects.create(
-        dimension='D1', 
+        dimension='D1',
         body="Does the claim suggest that the product or service is green "
         "based on a narrow set of attributes without attention to other "
         "environmental issues?")
