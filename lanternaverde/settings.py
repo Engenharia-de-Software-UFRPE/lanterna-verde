@@ -40,12 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'dbbackup',
 ]
-
-DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': 'bancodequestoes'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
