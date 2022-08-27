@@ -1,12 +1,13 @@
 import React from 'react';
 import '../../App.css';
-import Navbar from '../Navbar';
+import NavbarHome from '../HomeScreen/NavbarHome';
+import ContainerHome from '../HomeScreen/ContainerHome';
 
 function Home() {
   return (
     <>
-      <Navbar />
-      
+      <NavbarHome />
+      <ContainerHome />
     </>
   );
 }

@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+#main-news{
+    display: flex;
+    position: absolute;
+    width: 1350px;
+    height: 280px;
+    left: 0px;
+    top: 50px;
+    
+    background: #E7E7E7;
+}
+
+.next-banner{
+    position: absolute;
+    height: 50px;
+    right: 20px;
+    top: 100px;
+    cursor: pointer;
+}
+
+.next-banner2{
+    position: absolute;
+    height: 50px;
+    left: 10px;
+    top: 100px;
+    cursor: pointer;
+}
+
+#title{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 16%;
+    bottom: 0%;
+    /* 96 sp • H1 Headline */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 62px;
+    line-height: 80px;
+    letter-spacing: -1.5px;
+    text-align: center;
+    margin-left: 20%;
+    /*Quebra de linha a cada 800px*/
+    width: 800px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    color: #263238;
+}
+
+#feednews{
+    position: absolute;
+    left: 45px;
+    top: 58%;
+}
+
+.col-feed{
+    font-size: 24px;
+    font-family: 'Inter', cursive;
+    font-weight: bold;
+}
+
+#news1{
+    box-sizing: border-box;
+    position: relative;
+    height: 145px;
+    width: 230px;
+    left: 30px;
+    right: 0px;
+    top: 360px;
+    bottom: 5px;
+    margin-top: 1%;
+    padding-top: 15px;
+    cursor: pointer;
+
+    background: #1BB55C;
+    border-radius: 20px;
+}
+
+/*a{ It's not working to generalize
+    text-decoration: none;
+    box-sizing: border-box;
+    cursor: pointer;
+}*/
+
+#news1 a{
+    text-decoration: none;
+}
+
+.label1{
+    position: relative;
+    left: 7%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 0%;
+
+    /* 34 sp • H4 Headline */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 55px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+}
+
+.resume1{
+    position: absolute;
+    left: 5%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 70px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+}
+
+#news2{
+    box-sizing: border-box;
+    position: relative;
+    height: 145px;
+    width: 230px;
+    left: 300px;
+    right: 0px;
+    top: 200px;
+    bottom: 0px;
+    margin-top: 1%;
+    padding-top: 15px;
+    cursor: pointer;
+
+    background: #1BB55C;
+    /*border: 0px solid #979797;*/
+    border-radius: 20px;
+}
+
+#news2 a{
+    text-decoration: none;
+}
+
+.label2{
+    position: relative;
+    left: 7%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 0%;
+
+    /* 34 sp • H4 Headline */
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 55px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+}
+
+.resume2{
+    position: absolute;
+    left: 5%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 70px;
+
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+}
+
+#news3{
+    box-sizing: border-box;
+    position: relative;
+    height: 145px;
+    width: 230px;
+    left: 575px;
+    right: 0px;
+    top: 45px;
+    bottom: 0px;
+    margin-top: 1%;
+    padding-top: 15px;
+    cursor: pointer;
+
+    background: #1BB55C;
+    /*border: 0px solid #979797;*/
+    border-radius: 20px;
+}
+
+#news3 a{
+    text-decoration: none;
+}
+
+.label3{
+    position: relative;
+    left: 7%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 0%;
+
+    /* 34 sp • H4 Headline */
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 55px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+}
+
+.resume3{
+    position: absolute;
+    left: 5%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 70px;
+
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+}
+
+#news4{
+    box-sizing: border-box;
+    position: relative;
+    height: 145px;
+    width: 230px;
+    left: 840px;
+    right: 0px;
+    top: -110px;
+    bottom: 0px;
+    margin-top: 1%;
+    padding-top: 15px;
+    cursor: pointer;
+
+    background: #1BB55C;
+    /*border: 0px solid #979797;*/
+    border-radius: 20px;
+}
+
+#news4 a{
+    text-decoration: none;
+}
+
+.label4{
+    position: relative;
+    left: 7%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 0%;
+
+    /* 34 sp • H4 Headline */
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 55px;
+    letter-spacing: 0.25px;
+    color: #ffffff;
+}
+
+.resume4{
+    position: absolute;
+    left: 5%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 70px;
+
+    /*font-family: 'Inter';*/
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+}
