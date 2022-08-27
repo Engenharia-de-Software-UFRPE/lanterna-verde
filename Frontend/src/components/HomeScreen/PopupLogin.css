@@ -1,0 +1,128 @@
+.popup{
+    width: 400px;
+    background: rgb(255, 255, 255);
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: rgb(51, 51, 51);
+    visibility: visible;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.popup a{
+    text-decoration: none;
+}
+
+.popup img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup p{
+    margin: 30px 0 10px;
+}
+
+.username{
+    width: 80%;
+    padding: 10px 10px;
+    background: #fff;
+    color: rgb(0, 0, 0);
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    cursor: text;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #333;
+    margin: 30px 0 10px;
+}
+
+.cPassword{
+    width: 80%;
+    padding: 10px 10px;
+    background: #fff;
+    color: rgb(0, 0, 0);
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    cursor: text;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #333;
+    margin: 30px 0 10px;
+}
+
+.popup button{
+    width: 30%;
+    margin-top: 50px;
+    margin-left: 40%;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#buttons{
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    justify-content: space-between;
+    text-align: center;
+    padding: -100px -100px;
+}
+
+#x-btn{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-left: 105%;
+    padding: 5px 15px;
+    right: 25px;
+    bottom: 10px;
+    background-color: #fdfdfd;
+    border: 0;
+    color: #6fd649;
+    outline: none;
+    font-size: 25px;
+    border-radius: 30px 35px 28px 30px;;
+    cursor: pointer;
+    /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);*/
+}
+
+#signin{
+    width: 170%;
+    margin-top: 50px;
+    margin-left: 450%;
+    padding: 10px 0;
+    background: #6fd649;
+    list-style: none;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#signin a{
+    color: white;
+    text-decoration: none;
+}
