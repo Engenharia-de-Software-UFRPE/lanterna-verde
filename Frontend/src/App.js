@@ -15,9 +15,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
-          {/*<Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
+          <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
           <Route path="cadastro" element={<Cadastro />} />
-          <Route path="dadosAnalista" element={<DadosAnalista />} />*/}
+          <Route path="dadosAnalista" element={<DadosAnalista />} />
         </Routes>
     </BrowserRouter>
   );
