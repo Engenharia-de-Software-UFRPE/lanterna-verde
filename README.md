@@ -23,8 +23,8 @@ Após instaladas as dependências pela primeira vez, não será mais necessário
 Inicialmente, é necessário criar um banco de dados local do projeto em sua máquina. O framework Django consegue montar o banco de dados, logo crie seu BD executando os comandos:
 
 ```console
-python manage.py makemigrations
-python manage.py migrate --run-syncdb
+python manage.py makemigrations lanternaverde_web
+python manage.py migrate
 ```
 
 > Sempre que você fizer alguma alteração nos modelos do Banco de Dados é necessário utilizar esses comandos, caso haja conflito use a flag `--run-syncdb` no comando `migrate`.
