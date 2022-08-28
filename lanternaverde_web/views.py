@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as djangoLogin
+from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
@@ -30,6 +30,16 @@ def login(request):
             return HttpResponseBadRequest(status=401)
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente", status=401)
+
+@login_required
+def logout(request):
+    """
+    Method that logs out an user.
+    """
+    if request.method in ['GET','POST']:
+        djangoLogout(request)
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
 
 @login_required(login_url='/')
 def get_logged_usuario(request):
