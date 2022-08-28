@@ -1,5 +1,5 @@
 .header{
-    background-color: var(--cor-header);
+    background-color: var(--header-color);
 }
 
 .container{
@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
 }
-
+/*--------------------LOGO & SEARCH BOX--------------------*/
 .logo{
     display: flex;
     gap: 10px;
@@ -16,14 +16,14 @@
 }
 
 .logo .logo-name{
-    color: var(--cor-texto);
+    color: var(--text-color);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .logo .logo-name span{
-    color: var(--cor-botoes);
+    color: var(--buttons-color);
 }
 
 .logo .logo-img{
@@ -31,7 +31,7 @@
     height: 50px;
 }
 
-.search-bar{
+.search-box{
     position: absolute;
     left: 30%;
     width: 50%;
@@ -43,6 +43,8 @@
     padding-left: 20px;
 
 }
+
+/*--------------------HAMBURGER MENU--------------------*/
 
 .icon{
     width: 32px;
@@ -77,7 +79,7 @@
     left: 10%;
     width: 32px;
     height: 5px;
-    background-color: var(--cor-texto);
+    background-color: var(--text-color);
     position: absolute;
     border-radius: 25px;
     transition: 0.3s;
@@ -91,7 +93,7 @@
     width: 32px;
     height: 5px;
     border-radius: 25px;
-    background: var(--cor-texto);
+    background: var(--text-color);
     transition: 0.3s;
 }
 
@@ -102,7 +104,7 @@
     width: 32px;
     height: 5px;
     border-radius: 25px;
-    background: var(--cor-texto);
+    background: var(--text-color);
     transition: 0.3s;
 }
 

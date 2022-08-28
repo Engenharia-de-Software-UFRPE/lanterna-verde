@@ -37,7 +37,7 @@
         margin: 40px 0px 0px 0px;
         font-weight: bold;
         font-size: 1.6em;
-        color: var(--cor-botoes);
+        color: var(--buttons-color);
     }
 
     .form{
@@ -59,7 +59,20 @@
         border-radius: 5px;
     }
 
-    .form select{
+    .form .select.selected{
+        width: 90%;
+        padding: 0px 15px;
+        height: 2em;
+        font-size: 12px;
+        font-weight: 400;
+        background: #F5F7F9;
+        border: 1px solid #406b3c;
+        border-radius: 5px;
+        color: #000;
+
+    }
+
+    .form .select{
         width: 90%;
         padding: 0px 15px;
         height: 2em;
@@ -69,8 +82,8 @@
         border: 1px solid #406b3c;
         border-radius: 5px;
         color: #757575;
-
     }
+
 
     .password, .contacts{
         display: flex;
@@ -86,7 +99,7 @@
     .confirm{
         width: 23em;
         line-height: 1.7em;
-        background: var(--cor-botoes);
+        background: var(--buttons-color);
         border-radius: 8px;
         color: #ffffff;
         text-align: center;
@@ -97,7 +110,7 @@
     }
     
     .confirm:hover{
-        background-color: var(--cor-botoes-hover);
+        background-color: var(--buttons-hover-color);
     }
 
     .stamp-section{

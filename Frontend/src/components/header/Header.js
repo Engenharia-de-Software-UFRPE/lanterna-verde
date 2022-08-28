@@ -26,7 +26,7 @@ const Header = () =>{
             </h1>
           </a>
 
-          <input className="search-bar" type="text" placeholder="Pesquisar" id=""/>
+          <input className="search-box" type="text" placeholder="Pesquisar" id=""/>
 
           <div className={active ? "icon icon-active" : "icon"} onClick={toggleMode}>
             <div className='hamburger hamburger-icon'></div>

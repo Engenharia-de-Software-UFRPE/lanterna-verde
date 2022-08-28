@@ -1,8 +1,19 @@
 import React from 'react';
+import {useState} from 'react'
 import './form.css'
 import stamp from '../../assets/stamp.png'
 
+var counter = 0;
+
 const RegistrationForm = () => {
+    const [selected, setMode] = useState(false)
+    const changeMode = () =>{
+        console.log(counter);
+        if(counter===0){
+            setMode(true);
+            counter = 1;
+        }
+    }
     return(
         <div className="main">
             <section className="form-section">
@@ -15,8 +26,8 @@ const RegistrationForm = () => {
                         <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id=""/>
                         <input className="input" type="text" placeholder="Digite o CNPJ" name="" id=""/>
 
-                        <select className=" select" id="">
-                            <option className="select-option default" value="" disabled selected>Selecione o segmento</option>
+                        <select className={selected ? "select selected" : "select"} onChangeCapture={changeMode} id="">
+                            <option className="select-option" value="" disabled selected>Selecione o segmento</option>
                             <option className="select-option" value="">Indústria</option>
                             <option className="select-option" value="">Comércio</option>
                             <option className="select-option" value="">Serviços</option>

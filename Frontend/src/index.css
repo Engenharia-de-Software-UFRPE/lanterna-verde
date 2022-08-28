@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-/*@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');*/
 
 *{
-  --cor-texto: #263238;
-  --cor-header: #F3F3F3;
-  --cor-botoes: #1BB55C;
-  --cor-botoes-hover: #27724e;
+  --text-color: #263238;
+  --header-color: #F3F3F3;
+  --buttons-color: #1BB55C;
+  --buttons-hover-color: #27724e;
 }
 
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  /*font-family: 'Nunito', sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
@@ -44,7 +42,7 @@ body::-webkit-scrollbar-track {
 
 /* scrollbar itself */
 body::-webkit-scrollbar-thumb {
-  background-color: #44a36b;
+  background-color: #88c4a1;
   border-radius: 16px;
   border: 2px solid #fff;
 }

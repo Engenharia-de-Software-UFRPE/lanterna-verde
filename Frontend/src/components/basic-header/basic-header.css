@@ -1,5 +1,5 @@
 .header{
-    background-color: var(--cor-header);
+    background-color: var(--header-color);
 }
 
 .container{
@@ -16,14 +16,14 @@
 }
 
 .logo .logo-name{
-    color: var(--cor-texto);
+    color: var(--text-color);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .logo .logo-name span{
-    color: var(--cor-botoes);
+    color: var(--buttons-color);
 }
 
 .logo .logo-img{
@@ -34,7 +34,7 @@
 .login{
     width: 5em;
     line-height: 1.8em;
-    background: var(--cor-botoes);
+    background: var(--buttons-color);
     border-radius: 8px;
     color: #ffffff;
     text-align: center;
@@ -45,7 +45,7 @@
 }
 
 .login:hover{
-    background-color: var(--cor-botoes-hover);
+    background-color: var(--buttons-hover-color);
 }
 
 
