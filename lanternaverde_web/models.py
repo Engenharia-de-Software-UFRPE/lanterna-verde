@@ -109,7 +109,9 @@ class Analista(models.Model):
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
 
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'analista'
