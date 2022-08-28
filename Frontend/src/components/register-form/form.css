@@ -1,0 +1,99 @@
+    .main{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        box-sizing: border-box;
+        background-color: #DADADA;
+        height: 100vh;
+        width: 100%;
+        padding-left: 20%;
+    }
+
+/************************Section Formulario********************/
+    
+    .form-section{
+        margin: 120px 0px;
+        width: 596px;
+        height: 687.33px;
+        background: #EEEDED;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 25px;
+        display:flex;
+        flex-direction: column;
+        gap: 35px;
+        box-sizing: border-box;
+    }
+
+    .form-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 15px;
+    }
+
+    .form-title{
+        margin: 40px 0px 0px 45px;
+        font-weight: bold;
+        font-size: 34px;
+        color: var(--cor-botoes);
+    }
+
+    .form{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .form .input{
+        padding-left:20px;
+        height: 34px;
+        font-size: 14px;
+        font-weight: 400;
+        background: #F5F7F9;
+        border: 1px solid #406b3c;
+        border-radius: 5px;
+    }
+
+    .form .input.select{
+        color: #757575;
+    }
+
+    .password, .contacts{
+        display: flex;
+        gap: 26px;
+    }
+
+    .form input.last{
+        box-sizing: border-box;
+        width: 240px;
+    }
+    
+    .confirm{
+        padding: 12px;
+        margin:0px 45px;
+        background: var(--cor-botoes);
+        border-radius: 8px;
+        color: #ffffff;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    
+        transition:  0.2s background-color ease-in-out ;
+    }
+    
+    .confirm:hover{
+        background-color: var(--cor-botoes-hover);
+    }
+
+    .stamp-section{
+        margin: 200px 0px;
+        max-width: 500px;
+    }
+
+    .stamp-img{
+        width: 272px;
+        height: 478px;
+        margin-left: 180px;
+    }
+
+

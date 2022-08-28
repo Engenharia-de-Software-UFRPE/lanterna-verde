@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');*/
+
+*{
+  --cor-texto: #263238;
+  --cor-header: #F3F3F3;
+  --cor-botoes: #1BB55C;
+  --cor-botoes-hover: #27724e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  /*font-family: 'Nunito', sans-serif;*/
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul{
+  list-style: none;
+}
