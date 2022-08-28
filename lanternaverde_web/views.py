@@ -30,6 +30,7 @@ def login(request):
             return HttpResponseBadRequest(status=401)
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente", status=401)
+    return HttpResponseBadRequest()
 
 @login_required
 def logout(request):
