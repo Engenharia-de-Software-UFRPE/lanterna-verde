@@ -114,3 +114,24 @@ class Analista(models.Model):
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
+
+class Empresa(models.Model):
+    TYPE = (
+        ('T1', 'Primeiro Setor'),
+        ('T2', 'Segundo Setor'),
+        ('T3', 'Terceiro Setor')
+    )
+    
+    tradeName = models.CharField('Nome Fantasia', max_length=100)
+    corporateName = models.CharField('Razão Social', max_length=100)
+    stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
+    cnpj = models.CharField('CNPJ', max_length=14)
+    tipo = models.CharField(choices=TYPE)
+    contactName= models.CharField('Nome do Contato', max_length=50)
+    phoneNumber = models.CharField('Telefone', max_length=12)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
