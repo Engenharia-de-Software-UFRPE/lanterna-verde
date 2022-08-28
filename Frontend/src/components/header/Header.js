@@ -1,12 +1,20 @@
 import React from 'react';
-import { slide as Menu } from 'react-burger-menu'
+import {useState} from 'react'
 import './header.css'
 import logo from '../../assets/logo-img.png'
 import companyPicture from '../../assets/apple.png'
 
 const Header = () =>{
+
+    const [active, setMode] = useState(false)
+    const toggleMode = () =>{
+      setMode(!active)
+    }
+
+
     return(
-        <header className="header">
+
+      <header className="header">
 
         <div className="container">
 
@@ -20,11 +28,11 @@ const Header = () =>{
 
           <input className="search-bar" type="text" placeholder="Pesquisar" id=""/>
 
-          <div className='hamburger'>
-            
+          <div className={active ? "icon icon-active" : "icon"} onClick={toggleMode}>
+            <div className='hamburger hamburger-icon'></div>
           </div>
 
-          <div className='menu'>
+          <div className={active ? "menu menu-open" : "menu menu-close" }>
 
             <div className="company-logged-in">
                 <div className='teste'>
@@ -39,10 +47,10 @@ const Header = () =>{
 
             <div className="buttons">
                 <ul>
-                    <li><a className="btn teste" href="#">Solicitar análise</a></li>
-                    <li><a className="btn b" href="#">Emitir relatório geral</a></li>
-                    <li><a className="btn c" href="#">Receber recomendações</a></li>
-                    <li><a className="btn d" href="#">Histórico de avaliações</a></li>
+                    <li><a className="btn" href="#">Solicitar análise</a></li>
+                    <li><a className="btn" href="#">Emitir relatório geral</a></li>
+                    <li><a className="btn" href="#">Receber recomendações</a></li>
+                    <li><a className="btn" href="#">Histórico de avaliações</a></li>
                 </ul>
             </div>
 

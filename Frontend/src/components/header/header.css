@@ -32,7 +32,9 @@
 }
 
 .search-bar{
-    width: 30%;
+    position: absolute;
+    left: 30%;
+    width: 50%;
     height: 2.2em;
     background: #FBFBFB;
     border: 1px solid #D9D9D9;
@@ -42,7 +44,69 @@
 
 }
 
-.menu{
+.icon{
+    width: 32px;
+    height: 40px;
+    position: absolute;
+    z-index: 4;
+    right: 2%;
+    cursor:pointer;
+    top: 1.2%;
+}
+
+.icon.icon-active .hamburger{
+    background:transparent;
+}
+
+.icon.icon-active .hamburger::before{
+    top: 0;
+    background: #fff;
+    transform: rotate(135deg);
+}
+
+.icon.icon-active .hamburger::after{
+    top: 0;
+    background: #fff;
+    transform: rotate(225deg);
+}
+
+
+.hamburger{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 32px;
+    height: 5px;
+    background-color: var(--cor-texto);
+    position: absolute;
+    border-radius: 25px;
+    transition: 0.3s;
+
+}
+
+.hamburger::before{
+    top: -10px;
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 5px;
+    border-radius: 25px;
+    background: var(--cor-texto);
+    transition: 0.3s;
+}
+
+.hamburger::after{
+    top: 10px;
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 5px;
+    border-radius: 25px;
+    background: var(--cor-texto);
+    transition: 0.3s;
+}
+
+.menu.menu-open{
     background-color: #373a47;
     position: fixed;
     top:0;
@@ -50,9 +114,17 @@
     width: 20%;
     height: 100vh;
     margin: 0;
-    padding: 0px 16px 0px 0px;
+    padding: 20px 16px 0px 0px;
+    opacity: 1;
+    height: 100vh;
+    transition: opacity 0.2s ease-out;
+    
+}
 
-    display: none;
+.menu.menu-close{
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 .company-logged-in{
