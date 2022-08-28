@@ -1,13 +1,15 @@
-import './header.css'
+import React from 'react';
+import './basic-header.css'
+import logo from '../../assets/logo-img.png'
 
-const Header = () =>{
+const BasicHeader = () =>{
     return(
         <header className="header">
 
         <div className="container">
 
           <a className="logo" href="#">
-            <img className="logo-img" src="./imagens/logo-img.png" alt="Imagem da Logo"/>
+            <img className="logo-img" src={logo} alt="Imagem da Logo"/>
 
             <h1 className="logo-name">
               Lanterna <span>Verde</span>
@@ -23,4 +25,4 @@ const Header = () =>{
     );
 }
 
-export default Header;
+export default BasicHeader;

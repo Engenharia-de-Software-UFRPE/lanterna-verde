@@ -1,17 +1,16 @@
-import Header from './components/header/header'
-import RegisterForm from './components/register-form/RegisterForm'
-import './index.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import RegistrationScreen from './pages/RegistrationScreen';
+import MainScreen from './pages/MainScreen';
 
 const App = () => {
     return (
-        <div className="App">
-            <header className="App-Header">
-                <Header/> 
-            </header>
-            <main className="App-Main">
-                <RegisterForm/>
-            </main>
-        </div>
+        <BrowserRouter>
+            <Routes>
+            <Route path='/Registration' element={<RegistrationScreen />} />
+            <Route path='/' element={<MainScreen />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

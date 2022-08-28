@@ -1,5 +1,8 @@
+import React from 'react';
 import './form.css'
-const RegisterForm = () => {
+import stamp from '../../assets/stamp.png'
+
+const RegistrationForm = () => {
     return(
         <div className="main">
             <section className="form-section">
@@ -12,7 +15,7 @@ const RegisterForm = () => {
                         <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id=""/>
                         <input className="input" type="text" placeholder="Digite o CNPJ" name="" id=""/>
 
-                        <select className="input select" id="">
+                        <select className=" select" id="">
                             <option className="select-option default" value="" disabled selected>Selecione o segmento</option>
                             <option className="select-option" value="">Indústria</option>
                             <option className="select-option" value="">Comércio</option>
@@ -21,7 +24,7 @@ const RegisterForm = () => {
 
                         <div className="password">
                             <input className="input last" type="password" placeholder="Digite uma senha" name="" id=""/>
-                            <input className="input last" type="password" placeholder="Digite uma senha" name="" id=""/>
+                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="" id=""/>
                         </div>
                         <div className="contacts">
                             <input className="input last" type="text" placeholder="Digite o seu Telefone " name="" id=""/>
@@ -35,11 +38,11 @@ const RegisterForm = () => {
             </section>
 
             <section className="stamp-section">
-                <img className="stamp-img" src="./imagens/selo-reciclagem.png" alt="Selo de incentivo a reciclagem"/>
+                <img className="stamp-img" src={stamp} alt="Selo de incentivo a reciclagem"/>
             </section>
 
         </div>
     );
 }
 
-export default RegisterForm;
+export default RegistrationForm;
