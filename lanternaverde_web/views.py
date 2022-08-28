@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
@@ -77,6 +78,23 @@ def get_logged_analista(request):
                 'Analista': ser_anal.data
             }
             return _JSONResponse(ser_return, status=201)
+    return HttpResponseBadRequest()
+
+@login_required
+@csrf_exempt
+def create_questao(request):
+    """
+    Function that creates a `Questao` object and stores it in the DataBase.
+    """
+    if request.method == 'POST':
+        try:
+            dimension = request.POST.get('dimension')
+            question = request.POST.get('questao')
+            #pylint: disable=E1101
+            Questao.objects.create(dimension=dimension, body=question)
+            return HttpResponse(status=201)
+        except IntegrityError:
+            pass
     return HttpResponseBadRequest()
 
 @login_required
