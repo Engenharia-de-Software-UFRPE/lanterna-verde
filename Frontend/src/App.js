@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RegistrationScreen from './pages/RegistrationScreen';
 import MainScreen from './pages/MainScreen';
-import ServicesScreen from './pages/ServicesScreen'
+import ServicesScreen from './pages/ServicesScreen';
 
 const App = () => {
     return (

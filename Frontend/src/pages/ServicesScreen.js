@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/header/Header'
-import ServicesScreenBody from '../components/services/ServicesScreenBody'
+import ServicesScreenBody from '../components/services/ServicesScreenBody';
 
 const ServicesScreen = () =>{
     return (

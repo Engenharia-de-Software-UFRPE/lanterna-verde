@@ -42,7 +42,7 @@ const Header = () =>{
               </div>
           </div>
 
-          <div className="buttons">
+          <div className="menu-buttons">
               <ul>
                   <li><a className="btn" href="#">Solicitar análise</a></li>
                   <li><a className="btn" href="#">Emitir relatório geral</a></li>

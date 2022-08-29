@@ -23,7 +23,7 @@ header{
 }
 
 .logo .logo-name span{
-    color: var(--buttons-color);
+    color: var(--menu-buttons-color);
 }
 
 .logo .logo-img{
@@ -169,14 +169,14 @@ header{
     color: #fff;
 }
 
-.buttons{
+.menu-buttons{
     display:flex;
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
 }
 
-.buttons ul{
+.menu-buttons ul{
     padding: 0;
     margin: 0px 20px;
     display: flex;
@@ -184,7 +184,7 @@ header{
     gap: 5em;
 }
 
-.buttons .btn{
+.menu-buttons .btn{
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -200,7 +200,7 @@ header{
 
 }
 
-.buttons .btn:hover{
+.menu-buttons .btn:hover{
     background-color: #FBFBFB;
     color:#373a47;
 }
