@@ -1,10 +1,10 @@
-main{
+.popup-section{
     margin:0;
     padding: 0;
     display: flex;
 }
 
-.popup-section{
+.popup-container{
     width: 30%;
     height: 35vh;
     min-height: 260px;

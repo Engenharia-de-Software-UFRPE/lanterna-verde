@@ -15,11 +15,11 @@ const RegistrationForm = () => {
         }
     }
     return(
-        <>
-            <section className="form-section">
+        <section className='form-section'>
+            <div className="form-container">
                 <h2 className="form-title">Cadastro</h2>
 
-                <div className="form-container">
+                <div className="form-div">
                     <form className="form">
                         <input className="input" type="text" placeholder="Digite o nome Fantasia " name="" id=""/>
                         <input className="input" type="text" placeholder="Digite a Razão Social " name="" id=""/>
@@ -46,13 +46,13 @@ const RegistrationForm = () => {
                 </div>
 
                 <a href="#loginScreen" class="confirm">Confirmar</a>
-            </section>
+            </div>
 
-            <section className="stamp-section">
+            <div className="stamp-container">
                 <img className="stamp-img" src={stamp} alt="Selo de incentivo a reciclagem"/>
-            </section>
+            </div>
 
-        </>
+        </section>
     );
 }
 

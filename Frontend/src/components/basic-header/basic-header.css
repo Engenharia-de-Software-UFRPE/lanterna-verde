@@ -1,12 +1,11 @@
-header{
-    background-color: var(--header-color);
-}
+
 
 .container{
     margin: 0px 30px 0px 30px;
     display:flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--header-color);
 }
 
 .logo{
@@ -16,13 +15,13 @@ header{
 }
 
 .logo .logo-name{
-    color: var(--text-color);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
+    gap: 4px;
 }
 
-.logo .logo-name span{
+.logo .logo-name div{
     color: var(--buttons-color);
 }
 

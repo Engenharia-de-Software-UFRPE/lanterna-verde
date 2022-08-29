@@ -19,7 +19,7 @@ const Header = () =>{
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>
 
           <h1 className="logo-name">
-            Lanterna <span>Verde</span>
+            Lanterna <div>Verde</div>
           </h1>
         </a>
 

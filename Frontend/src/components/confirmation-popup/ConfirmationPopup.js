@@ -3,8 +3,8 @@ import './confirmation-popup.css';
 
 const ConfirmationPopup = () => {
     return(
-        <>
-            <section className='popup-section'>
+        <section className='popup-section'>
+            <div className='popup-container'>
 
                 <h3 className="popup-title">Confirmação</h3>
                 <p className='popup-text'>Deseja confirmar a solicitação ?</p>
@@ -12,8 +12,8 @@ const ConfirmationPopup = () => {
                     <a href="#" className="btn">Confirmar</a>
                     <a href="#" className="btn cancel">Cancelar</a>
                 </div>
-            </section>
-        </>
+            </div>
+        </section>
     );
 }
 

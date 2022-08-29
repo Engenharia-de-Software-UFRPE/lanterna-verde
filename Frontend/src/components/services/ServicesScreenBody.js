@@ -3,10 +3,10 @@ import './services-screen-body.css';
 
 const ServicesScreenBody = () => {
     return(
-        <>
+        <section className='services-section'>
             <h2 className='title'>Escolha seu plano</h2>
 
-            <section className='services'>
+            <div className='services'>
                 <div className="service monthly">
                     <h3 className="service-title">Mensal</h3>
                     <p className='service-text'>Lorem ipsum dolor sit amet consectetur adipisicing
@@ -24,11 +24,11 @@ const ServicesScreenBody = () => {
                     minima maiores?</p>
                     <a href="#" className="sign-now">Assine Agora</a>
                 </div>
-            </section>
+            </div>
             
 
 
-        </>
+        </section>
     );
 }
 
