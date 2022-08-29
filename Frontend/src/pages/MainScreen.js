@@ -1,16 +1,19 @@
 import React from 'react';
 import Header from '../components/header/Header'
+import MainScreenAnalyzesSection from '../components/main-screen-analyzes-section/MainScreenAnalyzesSection'
+import MainScreenCenterSection from '../components/main-screen-center-section.css/MainScreenCenterSection'
 
 const MainScreen = () =>{
     return (
-        <div className="body">
-            <header className="Header">
+        <>
+            <header>
                 <Header/> 
             </header>
-            <main className="Main">
-                
+            <main>
+                <MainScreenAnalyzesSection />
+                <MainScreenCenterSection />
             </main>
-        </div>
+        </>
 
     );
 }

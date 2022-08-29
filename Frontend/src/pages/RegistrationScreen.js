@@ -4,14 +4,14 @@ import RegistrationForm from '../components/registration-form/RegistrationForm'
 
 const RegistrationScreen = () => {
     return (
-        <div className="body">
-            <header className="Header">
+        <>
+            <header>
                 <BasicHeader/> 
             </header>
-            <main className="Main">
+            <main>
                 <RegistrationForm/>
             </main>
-        </div>
+        </>
     );
 }
 

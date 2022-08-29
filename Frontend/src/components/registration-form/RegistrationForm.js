@@ -15,7 +15,7 @@ const RegistrationForm = () => {
         }
     }
     return(
-        <div className="main">
+        <>
             <section className="form-section">
                 <h2 className="form-title">Cadastro</h2>
 
@@ -52,7 +52,7 @@ const RegistrationForm = () => {
                 <img className="stamp-img" src={stamp} alt="Selo de incentivo a reciclagem"/>
             </section>
 
-        </div>
+        </>
     );
 }
 

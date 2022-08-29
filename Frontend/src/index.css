@@ -5,6 +5,10 @@
   --header-color: #F3F3F3;
   --buttons-color: #1BB55C;
   --buttons-hover-color: #27724e;
+  --table-color: #DBFFAE;
+  --center-section-color: #E7E7E7;
+  --left-section-color: #EDE8E8;
+  --decrescent-vector-color: #E74C3C;
 }
 
 body {
@@ -14,7 +18,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  overflow:auto;
+  overflow: auto;
 }
 
 a {
@@ -42,7 +46,7 @@ body::-webkit-scrollbar-track {
 
 /* scrollbar itself */
 body::-webkit-scrollbar-thumb {
-  background-color: #88c4a1;
+  background-color: #263238;
   border-radius: 16px;
   border: 2px solid #fff;
 }

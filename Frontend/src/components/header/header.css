@@ -1,4 +1,4 @@
-.header{
+header{
     background-color: var(--header-color);
 }
 
@@ -54,6 +54,9 @@
     right: 2%;
     cursor:pointer;
     top: 1.2%;
+}
+.icon.icon-active{
+    position:fixed;
 }
 
 .icon.icon-active .hamburger{
