@@ -13,7 +13,7 @@ const Header = () =>{
 
 
     return(
-      <div className="container">
+      <div className="header-container">
 
         <a className="logo" href="#">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>

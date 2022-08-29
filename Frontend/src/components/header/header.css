@@ -2,37 +2,39 @@ header{
     background-color: var(--header-color);
 }
 
-.container{
+.header-container{
     margin: 0px 30px 0px 30px;
     display:flex;
     justify-content: space-between;
     align-items: center;
+    background-color: var(--header-color);  
 }
 /*--------------------LOGO & SEARCH BOX--------------------*/
-.logo{
+.header-container .logo{
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.logo .logo-name{
+.header-container .logo .logo-name{
+    display: flex;
     color: var(--text-color);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    display: flex;
+    gap: 4px;
 }
 
-.logo .logo-name span{
-    color: var(--menu-buttons-color);
+.header-container .logo .logo-name div{
+    color: var(--buttons-color);    
 }
 
-.logo .logo-img{
+.header-container .logo .logo-img{
     width: 50px;
     height: 50px;
 }
 
-.search-box{
+.header-container .search-box{
     position: absolute;
     left: 30%;
     width: 50%;
@@ -47,7 +49,7 @@ header{
 
 /*--------------------HAMBURGER MENU--------------------*/
 
-.icon{
+.header-container .icon{
     width: 32px;
     height: 40px;
     position: absolute;
@@ -56,28 +58,28 @@ header{
     cursor:pointer;
     top: 1.2%;
 }
-.icon.icon-active{
+.header-container .icon.icon-active{
     position:fixed;
 }
 
-.icon.icon-active .hamburger{
+.header-container .icon.icon-active .hamburger{
     background:transparent;
 }
 
-.icon.icon-active .hamburger::before{
+.header-container .icon.icon-active .hamburger::before{
     top: 0;
     background: #fff;
     transform: rotate(135deg);
 }
 
-.icon.icon-active .hamburger::after{
+.header-container .icon.icon-active .hamburger::after{
     top: 0;
     background: #fff;
     transform: rotate(225deg);
 }
 
 
-.hamburger{
+.header-container .hamburger{
     position: absolute;
     top: 50%;
     left: 10%;
@@ -90,7 +92,7 @@ header{
 
 }
 
-.hamburger::before{
+.header-container .hamburger::before{
     top: -10px;
     content: '';
     position: absolute;
@@ -101,7 +103,7 @@ header{
     transition: 0.3s;
 }
 
-.hamburger::after{
+.header-container .hamburger::after{
     top: 10px;
     content: '';
     position: absolute;
@@ -112,7 +114,7 @@ header{
     transition: 0.3s;
 }
 
-.menu.menu-open{
+.header-container .menu.menu-open{
     background-color: #373a47;
     position: fixed;
     top:0;
@@ -127,13 +129,13 @@ header{
     
 }
 
-.menu.menu-close{
+.header-container .menu.menu-close{
     opacity: 0;
     height: 0;
     overflow: hidden;
 }
 
-.company-logged-in{
+.header-container .company-logged-in{
     width: 92%;
     margin: 40px 0px 0px 20px;
     display: flex;
@@ -144,18 +146,18 @@ header{
     border-bottom: 1.2px solid #fff;
 }
 
-.company-img{
+.header-container .company-img{
     width: 75px;
     border-radius: 50px;
 }
 
-.company-info{
+.header-container .company-info{
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.company-name{
+.header-container .company-name{
     font-size: 1.2em;
     font-weight: bold;
     margin: 0;
@@ -163,21 +165,21 @@ header{
     color: #fff;
 }
 
-.company-category, .company-position{
+.header-container .company-category, .company-position{
     font-weight: 600;
     font-size: 0.9em;
     margin: 0;
     color: #fff;
 }
 
-.menu-buttons{
+.header-container .menu-buttons{
     display:flex;
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
 }
 
-.menu-buttons ul{
+.header-container .menu-buttons ul{
     padding: 0;
     margin: 0px 20px;
     display: flex;
@@ -185,7 +187,7 @@ header{
     gap: 5em;
 }
 
-.menu-buttons .btn{
+.header-container .menu-buttons .btn{
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -201,7 +203,7 @@ header{
 
 }
 
-.menu-buttons .btn:hover{
+.header-container .menu-buttons .btn:hover{
     background-color: #FBFBFB;
     color:#373a47;
 }

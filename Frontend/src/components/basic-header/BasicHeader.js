@@ -4,7 +4,7 @@ import logo from '../../assets/logo-img.png'
 
 const BasicHeader = () =>{
     return(
-      <div className="container">
+      <div className="basic-header-container">
 
         <a className="logo" href="#">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>

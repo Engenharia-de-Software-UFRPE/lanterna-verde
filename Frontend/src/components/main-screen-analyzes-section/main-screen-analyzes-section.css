@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-.section-title{
+.left-section .section-title{
     margin: 10px 0px ;
     margin-bottom: 20px;
     font-size: 1.5em;
@@ -22,7 +22,7 @@
     color: var(--text-color);
 }
 
-.analysis{
+.left-section .analysis{
     width: 220px;
     height: 150px;
     box-sizing: border-box;
@@ -36,7 +36,7 @@
     gap: 12px;
 }
 
-.analysis .analysis-title{
+.left-section .analysis .analysis-title{
     margin: 20px 0px 0px 20px;
     font-weight: 600;
     font-size: 1.3em;
@@ -45,18 +45,18 @@
 
 }
 
-.stars{
+.left-section .stars{
     display:flex;
     justify-content:left;
     gap: 10px;
     margin-left: 18px;
 }
 
-.stars img{
+.left-section .stars img{
     width: 25px;
 }
 
-.vector-container{
+.left-section .vector-container{
     margin-top: 8px;
     display: flex;
     justify-content: end;
@@ -65,17 +65,17 @@
     margin-right: 32px;
 }
 
-.vector-container span{
+.left-section .vector-container span{
     color: var(--decrescent-vector-color);
     font-weight: 600;
     font-size: 1em;
 }
 
-.vector-container .vector{
+.left-section .vector-container .vector{
     height: 22px;
 }
 
-.see-all-analysis{
+.left-section .see-all-analysis{
     margin-top: 20px;
     padding: 10px 20px;
     background: var(--buttons-color);
@@ -87,6 +87,6 @@
     transition:  0.2s background-color ease-in-out ;
 }
 
-.see-all-analysis:hover{
+.left-section .see-all-analysis:hover{
     background-color: var(--buttons-hover-color);
 }

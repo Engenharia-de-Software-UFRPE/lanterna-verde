@@ -1,6 +1,6 @@
 
 
-.container{
+.basic-header-container{
     margin: 0px 30px 0px 30px;
     display:flex;
     justify-content: space-between;
@@ -8,29 +8,31 @@
     background-color: var(--header-color);
 }
 
-.logo{
+.basic-header-container .logo{
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.logo .logo-name{
+.basic-header-container .logo .logo-name{
+    display: flex;
+    color: var(--text-color);
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
     gap: 4px;
 }
 
-.logo .logo-name div{
+.basic-header-container .logo .logo-name div{
     color: var(--buttons-color);
 }
 
-.logo .logo-img{
+.basic-header-container .logo .logo-img{
     width: 50px;
     height: 50px;
 }
 
-.login{
+.basic-header-container .login{
     width: 5em;
     line-height: 1.8em;
     background: var(--buttons-color);
@@ -43,7 +45,7 @@
     transition:  0.2s background-color ease-in-out ;
 }
 
-.login:hover{
+.basic-header-container .login:hover{
     background-color: var(--buttons-hover-color);
 }
 
