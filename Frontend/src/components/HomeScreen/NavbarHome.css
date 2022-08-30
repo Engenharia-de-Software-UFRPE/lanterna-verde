@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body{
     background-color: #F5F5F5;
 }
 
 /*Configuração usada em todo texto*/
-*{
+/**{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -61,7 +61,7 @@ nav ol li a{
 }
   
 /*Mudar a cor do texto nos botões ao passar o cursor por cima*/
-nav ol li:hover a{
+/*nav ol li:hover a{
    color: black;
 }
 
@@ -85,4 +85,16 @@ nav .searchbox input{
     font-size: 15px;
     font-style: italic;
     width: 800px;
+}*/
+
+img{
+    height: 50px;
+}
+
+b{
+    color: rgb(113, 148, 61);
+}
+
+.position-fixed{
+    z-index: 999;
 }

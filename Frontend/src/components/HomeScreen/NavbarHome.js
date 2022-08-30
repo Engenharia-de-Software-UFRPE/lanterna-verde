@@ -2,63 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NavbarHome.css';
 
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+
 function NavbarHome() {
-    const [click, setClick] = useState(false);
-    const [button, setButton] = useState(true);
+    
 
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
+    return(
+      <div class="position-fixed col-12">
+        <Navbar bg="light" expand="lg">
+          <Container fluid>
+            <Navbar.Brand href="/"> <img src="../images/gl.png" alt=""/>Lanterna <b>Verde</b></Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll"> 
+              <span class="navbar-toggler-icon"></span>
+            </Navbar.Toggle>
+            <Navbar.Collapse id="navbarScroll">
+              <Nav
+                className="col-lg my-e ms-lg-0"
+                style={{ maxHeight: '1000px' }}
+                navbarScroll
+              >
 
-
-    const linkStyle = {
-        textDecoration: "none",
-    };
-    const showButton = () => {
-        if (window.innerWidth <= 960) {
-        setButton(false);
-        } else {
-        setButton(true);
-        }
-    };
-
-    useEffect(() => {
-        showButton();
-    }, []);
-
-    window.addEventListener('resize', showButton);
-
-    return (
-        <>
-         <nav>
-         <Link style={linkStyle}
-                  to='/'
-                  onClick={closeMobileMenu}
-                  >
-                  <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../images/gl.png" alt="" /></div>
-          </Link>
-              <div className="searchbox">
-                <input type="search"  placeholder="Pesquise por uma empresa " />
-                <span className="fa fa-search" />
-              </div>
-              <ol>
-                <li><Link
-                  to='/login'
-                  onClick={closeMobileMenu}
-                  >
-                  <a href="#">Login</a>
-                  </Link>
+                <Form className="col-lg">
+                  <Form.Control
+                    type="search"
+                    placeholder="Busque uma empresa"
+                    className=""
+                    aria-label="Search"
+                  />
+                </Form>
+              </Nav>
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="">Cadastro</a>
                 </li>
-                <li> <Link
-                  to='/cadastro'
-                  onClick={closeMobileMenu}
-                  >
-                  <a href="#">Cadastro</a>
-                  </Link>
-                  
+                <li class="nav-item">
+                  <a class="nav-link" href="Login">Login</a>
                 </li>
-              </ol>
-            </nav>
-        </>
+              </ul> 
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </div>
     );
 }
 
