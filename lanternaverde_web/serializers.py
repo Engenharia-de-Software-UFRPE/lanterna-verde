@@ -2,7 +2,7 @@
 Serializers Models for Django REST Framework
 """
 from rest_framework import serializers
-from .models import Questao, Usuario, Administrador, Analista
+from .models import Pergunta, Usuario, Administrador, Analista
 
 
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,12 +35,12 @@ class AnalistaSerializer(serializers.HyperlinkedModelSerializer):
         model = Analista
         exclude = ('url', )
 
-class QuestaoSerializer(serializers.HyperlinkedModelSerializer):
+class PerguntaSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serialization for Questao Model
     """
     
     class Meta:
-        """Analista serialization metadata"""
-        model = Questao
+        """Pergunta serialization metadata"""
+        model = Pergunta
         exclude = ('url', )

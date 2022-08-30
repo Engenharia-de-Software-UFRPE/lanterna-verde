@@ -115,9 +115,9 @@ class Analista(models.Model):
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
 
-class Questao(models.Model):
+class Pergunta(models.Model):
     """
-    Questao are questions about the GAS questionary used by Analists to review
+    Pergunta are questions about the GAS questionary used by Analists to review
     a greenwashing performance of a Company/Product.
     """
     D1 = 'D1'
@@ -139,8 +139,8 @@ class Questao(models.Model):
 
     class Meta:
         """database metadata"""
-        verbose_name = 'Questão'
-        verbose_name_plural = 'Questões'
+        verbose_name = 'Pergunta'
+        verbose_name_plural = 'Perguntas'
 
 
 class AvaliacaoAnalista(models.Model):

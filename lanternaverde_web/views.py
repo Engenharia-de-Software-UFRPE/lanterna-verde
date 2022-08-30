@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
-from lanternaverde_web.models import Questao
+from lanternaverde_web.models import Pergunta
 
-from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, QuestaoSerializer, UsuarioSerializer
+from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 
 # Create your views here.
 
@@ -91,7 +91,7 @@ def create_questao(request):
             dimension = request.POST.get('dimension')
             question = request.POST.get('questao')
             #pylint: disable=E1101
-            Questao.objects.create(dimension=dimension, body=question)
+            Pergunta.objects.create(dimension=dimension, body=question)
             return HttpResponse(status=201)
         except IntegrityError:
             pass
@@ -104,7 +104,7 @@ def get_questoes(request):
     """
     if request.method == 'GET':
         #pylint: disable=E1101
-        questoes = QuestaoSerializer(Questao.objects.all(), many=True)
+        questoes = PerguntaSerializer(Pergunta.objects.all(), many=True)
         ser_return = {
             'Questoes': questoes.data
         }
