@@ -27,6 +27,8 @@ def login_redirect(request):
                 return HttpResponseRedirect('analista')
             if hasattr(user, 'administrador'):
                 return HttpResponseRedirect('admin')
+            if hasattr(user, 'empresa'):
+                return HttpResponseRedirect('empresa')
             return HttpResponseBadRequest()
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente")
