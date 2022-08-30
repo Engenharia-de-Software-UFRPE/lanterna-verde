@@ -162,8 +162,8 @@ class AvaliacaoAnalista(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, default=Novo, max_length=10)
 
 
-class Question(models.Model):
-    question = models.ForeignKey(Questao)
+class Questao(models.Model):
+    question = models.ForeignKey(Pergunta)
     answer = models.BooleanField(default=False)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
 
