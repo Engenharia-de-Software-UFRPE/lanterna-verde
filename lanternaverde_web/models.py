@@ -35,8 +35,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username',
                                 max_length=20,
@@ -79,16 +77,67 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None):
         send_mail(subject, message, from_email, [self.email])
 
+class Administrador(models.Model):
+    """
+    Child class of User, called Administrador. The Administrator team is
+    responsable for the administration of lanterna-verde app.
+    """
+    DIRETOR = 'DR'
+    GERENTE = 'GR'
+    ROLE_CHOICES = [
+        (DIRETOR, 'Diretor'),
+        (GERENTE, 'Gerente')
+    ]
+    role = models.CharField(
+        max_length=2,
+        choices=ROLE_CHOICES,
+        default=GERENTE
+    )
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Administrador'
+        verbose_name_plural = 'Administradores'
 
 class Analista(models.Model):
     available = models.BooleanField('Disponivel', default=True)
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
 
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
 
+class Pergunta(models.Model):
+    """
+    Pergunta are questions about the GAS questionary used by Analists to review
+    a greenwashing performance of a Company/Product.
+    """
+    D1 = 'D1'
+    D2 = 'D2'
+    D3 = 'D3'
+    D4 = 'D4'
+    DIMENSIONS_CHOICES = [
+        (D1, 'D1'),
+        (D2, 'D2'),
+        (D3, 'D3'),
+        (D4, 'D4')
+    ]
+    dimension = models.CharField(
+        max_length=2,
+        choices=DIMENSIONS_CHOICES,
+        default=D1
+    )
+    body = models.CharField(max_length=255)
 
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Pergunta'
+        verbose_name_plural = 'Perguntas'
