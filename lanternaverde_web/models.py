@@ -141,3 +141,29 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
+
+
+class AvaliacaoAnalista(models.Model):
+    Novo = 'Novo'
+    Pendente = 'Pendente'
+    Concluido = 'Concluido'
+
+    STATUS_CHOICES = [
+        (Novo, 'Novo'),
+        (Pendente, 'Pendente'),
+        (Concluido, 'Concluido'),
+
+    ]
+
+    analyst = models.ManyToManyField(Analista)
+    score = models.FloatField(default=0)
+    question = models.ManyToManyField
+    comment = models.TextField
+    status = models.CharField(choices=STATUS_CHOICES, default=Novo, max_length=10)
+
+
+class Question(models.Model):
+    question = models.ForeignKey(Questao)
+    answer = models.BooleanField(default=False)
+    questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
+
