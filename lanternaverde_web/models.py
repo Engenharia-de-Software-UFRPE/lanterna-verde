@@ -115,6 +115,27 @@ class Analista(models.Model):
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
 
+class Empresa(models.Model):
+    TYPE = (
+        ('T1', 'Primeiro Setor'),
+        ('T2', 'Segundo Setor'),
+        ('T3', 'Terceiro Setor')
+    )
+    
+    tradeName = models.CharField('Nome Fantasia', max_length=100)
+    corporateName = models.CharField('Razão Social', max_length=100)
+    stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
+    cnpj = models.CharField('CNPJ', max_length=14, unique=True)
+    tipo = models.CharField(choices=TYPE, max_length=100)
+    contactName= models.CharField('Nome do Contato', max_length=50)
+    phoneNumber = models.CharField('Telefone', max_length=12)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
+
 class Pergunta(models.Model):
     """
     Pergunta are questions about the GAS questionary used by Analists to review
