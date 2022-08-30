@@ -18,10 +18,10 @@ def cadastro_analista(request):
         data = request.POST
         usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
         usuario.save()
-        analista = Analista.objects.create(cpf=data.get('cpf'),specialty=data.get('specialty'), user=usuario)
+        analista = Analista.objects.create(cpf=data.get('cpf'), specialty=data.get('specialty'), user=usuario)
         analista.save()
 
-    return HttpResponseRedirect('http://localhost:3000/telaPerfilAnalista')
+    return HttpResponse(status=201)
 
 
 def alterar_analista(request):
@@ -34,7 +34,7 @@ def alterar_analista(request):
     analista.user.password = data.get("password")
     analista.save()
     analista.user.save()
-    return HttpResponse(status=200)
+    return HttpResponse(status=201)
 
 
 
