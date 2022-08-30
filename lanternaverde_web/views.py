@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from lanternaverde_web.models import Pergunta
 
-from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
+from lanternaverde_web.serializers import AdministradorSerializer, AnaliseSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 
 # Create your views here.
 
@@ -120,3 +120,20 @@ class _JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(_JSONResponse, self).__init__(content, **kwargs)
+
+@login_required
+def listar_analises(request):
+    """
+    Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
+    """
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        analises = AnaliseSerializer(
+            request.user.analises.all(),
+            many=True
+        )
+        ser_return = {
+            'Analise': analises.data
+        }
+        return _JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
