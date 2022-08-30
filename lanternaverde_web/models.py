@@ -167,3 +167,8 @@ class Questao(models.Model):
     answer = models.BooleanField(default=False)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
 
+    class Meta:
+        """database metadata"""
+        verbose_name = 'questao'
+        verbose_name_plural = 'questoes'
+

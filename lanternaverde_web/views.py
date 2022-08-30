@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from lanternaverde_web.models import Pergunta
 
-from lanternaverde_web.serializers import AdministradorSerializer, AnaliseSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
+from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 
 # Create your views here.
 
@@ -128,10 +128,12 @@ def listar_analises(request):
     """
     if request.method == 'GET':
         #pylint: disable=E1101
-        analises = AnaliseSerializer(
-            request.user.analises.all(),
-            many=True
+        analises = AvaliacaoAnalistaSerializer(
+            request.user.analista.analises.all(),
+            many=True,
+            context={'request': None}
         )
+
         ser_return = {
             'Analise': analises.data
         }
