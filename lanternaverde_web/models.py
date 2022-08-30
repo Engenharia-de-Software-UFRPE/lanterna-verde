@@ -35,8 +35,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username',
                                 max_length=20,
@@ -116,3 +114,30 @@ class Analista(models.Model):
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
+
+class Pergunta(models.Model):
+    """
+    Pergunta are questions about the GAS questionary used by Analists to review
+    a greenwashing performance of a Company/Product.
+    """
+    D1 = 'D1'
+    D2 = 'D2'
+    D3 = 'D3'
+    D4 = 'D4'
+    DIMENSIONS_CHOICES = [
+        (D1, 'D1'),
+        (D2, 'D2'),
+        (D3, 'D3'),
+        (D4, 'D4')
+    ]
+    dimension = models.CharField(
+        max_length=2,
+        choices=DIMENSIONS_CHOICES,
+        default=D1
+    )
+    body = models.CharField(max_length=255)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Pergunta'
+        verbose_name_plural = 'Perguntas'

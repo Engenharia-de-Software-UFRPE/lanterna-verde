@@ -1,10 +1,12 @@
+from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
+from lanternaverde_web.models import Pergunta
 
-from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, UsuarioSerializer
+from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 
 # Create your views here.
 
@@ -76,6 +78,37 @@ def get_logged_analista(request):
                 'Analista': ser_anal.data
             }
             return _JSONResponse(ser_return, status=201)
+    return HttpResponseBadRequest()
+
+@login_required
+@csrf_exempt
+def create_questao(request):
+    """
+    Function that creates a `Questao` object and stores it in the DataBase.
+    """
+    if request.method == 'POST':
+        try:
+            dimension = request.POST.get('dimension')
+            question = request.POST.get('questao')
+            #pylint: disable=E1101
+            Pergunta.objects.create(dimension=dimension, body=question)
+            return HttpResponse(status=201)
+        except IntegrityError:
+            pass
+    return HttpResponseBadRequest()
+
+@login_required
+def get_questoes(request):
+    """
+    Function that groups all `Questão` objects into a JSON response.
+    """
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        questoes = PerguntaSerializer(Pergunta.objects.all(), many=True)
+        ser_return = {
+            'Questoes': questoes.data
+        }
+        return _JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
 class _JSONResponse(HttpResponse):
