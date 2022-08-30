@@ -155,15 +155,15 @@ class AvaliacaoAnalista(models.Model):
 
     ]
 
-    analyst = models.ManyToManyField(Analista)
+    analyst = models.ManyToManyField(Analista, related_name='analises')
     score = models.FloatField(default=0)
-    question = models.ManyToManyField
-    comment = models.TextField
+    question = models.ManyToManyField(Pergunta, related_name='analises')
+    comment = models.TextField()
     status = models.CharField(choices=STATUS_CHOICES, default=Novo, max_length=10)
 
 
 class Questao(models.Model):
-    question = models.ForeignKey(Pergunta)
+    question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
     answer = models.BooleanField(default=False)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
 
