@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
 from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, UsuarioSerializer
+from lanternaverde_web.models import Empresa, Usuario
 
 # Create your views here.
 
@@ -30,6 +31,7 @@ def login_redirect(request):
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente")
 
+@csrf_exempt
 def cadastro_empresa(request):
     print(request.POST)
     if request.method == 'GET':
@@ -51,7 +53,7 @@ def cadastro_empresa(request):
 
     return HttpResponseRedirect(status=201)
 
-
+@csrf_exempt
 def alterar_empresa(request):
     data = request.POST
     empresa = empresa.objects.get(pk=2)
