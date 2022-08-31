@@ -44,7 +44,7 @@ const CompanyMainScreenAnalyzesSection = () =>{
                     </div>
                 </div>
                 
-                <a className="see-all-analysis" href="#">Ver todas as análises</a>
+                <a className="see-all-analysis" href="/CompanyMainScreen/Analyzes">Ver todas as análises</a>
             </section>
         </>
     );

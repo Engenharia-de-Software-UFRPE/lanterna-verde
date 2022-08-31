@@ -55,8 +55,9 @@ header{
     z-index: 4;
     right: 2%;
     cursor:pointer;
-    top: 1.2%;
+    vertical-align: center;
 }
+
 .company-header-container .icon.icon-active{
     position:fixed;
 }

@@ -17,7 +17,7 @@ const CompanyHeader = () =>{
       <div className="company-header-container">
         <CompanyConfirmationPopup open= {openPopup} onClose={()=>setOpenPopup(false)}/>
 
-        <a className="logo" href="#">
+        <a className="logo" href="/CompanyMainScreen">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>
 
           <h1 className="logo-name">
