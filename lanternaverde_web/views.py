@@ -29,5 +29,6 @@ def login_redirect(request):
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente")
                             
-def select_Analist(amount):
+def _select_Analist(amount):
     analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
+    return analists
