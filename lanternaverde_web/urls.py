@@ -11,5 +11,8 @@ urlpatterns = [
     path('user/analista', views.get_logged_analista, name='get_anal'),
     path('perguntas', views.get_questoes, name='questoes'),
     path('perguntas/add', views.create_questao, name='create_questoes'),
-    path('analista/analises', views.listar_analises, name='listar_analises')
+    path('analista/analises', views.listar_analises, name='listar_analises'),
+    path('criar_analise', views.criar_analise, name='criar_analise'),
+    path('detalhar_analise', views.detalhar_analise, name='detalhar_analise')
+
 ]

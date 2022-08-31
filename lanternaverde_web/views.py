@@ -7,7 +7,7 @@ from rest_framework.renderers import JSONRenderer
 from lanternaverde_web.models import Pergunta
 
 from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
-from lanternaverde_web.models import Empresa, Usuario
+from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista
 
 # Create your views here.
 
@@ -179,4 +179,33 @@ def listar_analises(request):
             'Analise': analises.data
         }
         return _JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+def detalhar_analise(request):
+    """
+    Function that detail a analysis
+    """
+    if request.method == 'GET':
+        analysisid = request.GET.get('analysisid')
+        analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
+        ser_anal = AvaliacaoAnalistaSerializer(analysis)
+        ser_return = {
+            'analysis': ser_anal.data
+        }
+        return _JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+def criar_analise(request):
+    if request.method == 'POST':
+        post = request.POST
+        print(post.get('analysts')[1:-1].split(','))
+        analysts = post.get('analysts')[1:-1].split(',')
+        company = Empresa.objects.get(pk=post.get('company'))
+        analysts_set = Analista.objects.filter(pk__in=analysts)
+        analysis = AvaliacaoAnalista.objects.create(company=company)
+        print(analysis)
+        analysis.analyst.add(*analysts_set)
+        return HttpResponse(status=201)
     return HttpResponseBadRequest()
