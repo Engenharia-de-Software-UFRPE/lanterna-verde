@@ -1,0 +1,209 @@
+header{
+    background-color: var(--header-color);
+}
+
+.header-container{
+    margin: 0px 30px 0px 30px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--header-color);  
+}
+/*--------------------LOGO & SEARCH BOX--------------------*/
+.header-container .logo{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.header-container .logo .logo-name{
+    display: flex;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    gap: 4px;
+}
+
+.header-container .logo .logo-name div{
+    color: var(--buttons-color);    
+}
+
+.header-container .logo .logo-img{
+    width: 50px;
+    height: 50px;
+}
+
+.header-container .search-box{
+    position: absolute;
+    left: 30%;
+    width: 50%;
+    height: 2.2em;
+    background: #FBFBFB;
+    border: 1px solid #D9D9D9;
+    border-radius: 25px;
+    font-size: 16px;
+    padding-left: 20px;
+
+}
+
+/*--------------------HAMBURGER MENU--------------------*/
+
+.header-container .icon{
+    width: 32px;
+    height: 40px;
+    position: absolute;
+    z-index: 4;
+    right: 2%;
+    cursor:pointer;
+    top: 1.2%;
+}
+.header-container .icon.icon-active{
+    position:fixed;
+}
+
+.header-container .icon.icon-active .hamburger{
+    background:transparent;
+}
+
+.header-container .icon.icon-active .hamburger::before{
+    top: 0;
+    background: #fff;
+    transform: rotate(135deg);
+}
+
+.header-container .icon.icon-active .hamburger::after{
+    top: 0;
+    background: #fff;
+    transform: rotate(225deg);
+}
+
+
+.header-container .hamburger{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 32px;
+    height: 5px;
+    background-color: var(--text-color);
+    position: absolute;
+    border-radius: 25px;
+    transition: 0.3s;
+
+}
+
+.header-container .hamburger::before{
+    top: -10px;
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 5px;
+    border-radius: 25px;
+    background: var(--text-color);
+    transition: 0.3s;
+}
+
+.header-container .hamburger::after{
+    top: 10px;
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 5px;
+    border-radius: 25px;
+    background: var(--text-color);
+    transition: 0.3s;
+}
+
+.header-container .menu.menu-open{
+    background-color: #373a47;
+    position: fixed;
+    top:0;
+    right: 0;
+    width: 20%;
+    height: 100vh;
+    margin: 0;
+    padding: 20px 16px 0px 0px;
+    opacity: 1;
+    height: 100vh;
+    transition: opacity 0.2s ease-out;
+    
+}
+
+.header-container .menu.menu-close{
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.header-container .company-logged-in{
+    width: 92%;
+    margin: 40px 0px 0px 20px;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction:row;
+    gap: 20px;
+    padding-bottom: 50px;
+    border-bottom: 1.2px solid #fff;
+}
+
+.header-container .company-img{
+    width: 75px;
+    border-radius: 50px;
+}
+
+.header-container .company-info{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.header-container .company-name{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.header-container .company-category, .company-position{
+    font-weight: 600;
+    font-size: 0.9em;
+    margin: 0;
+    color: #fff;
+}
+
+.header-container .menu-buttons{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-container .menu-buttons ul{
+    padding: 0;
+    margin: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+}
+
+.header-container .menu-buttons .btn{
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    border-bottom: 1.2px solid #fff;
+    box-sizing: border-box;
+    position: fixed;
+    width: 18.4%;
+    height: 5em;
+    line-height: 4.9em;
+    text-align: center;
+
+    transition:  0.2s background-color ease-in-out ;
+
+}
+
+.header-container .menu-buttons .btn:hover{
+    background-color: #FBFBFB;
+    color:#373a47;
+}

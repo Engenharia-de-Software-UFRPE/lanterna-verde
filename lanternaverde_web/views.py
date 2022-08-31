@@ -7,6 +7,7 @@ from rest_framework.renderers import JSONRenderer
 from lanternaverde_web.models import Pergunta
 
 from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
+from lanternaverde_web.models import Empresa, Usuario
 
 # Create your views here.
 
@@ -31,6 +32,46 @@ def login_redirect(request):
             return HttpResponseBadRequest()
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
                             " novamente")
+
+@csrf_exempt
+def cadastro_empresa(request):
+    print(request.POST)
+    if request.method == 'GET':
+        pass
+
+    elif request.method == 'POST':
+        data = request.POST
+        usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
+        usuario.save()
+        empresa = Empresa.objects.create(tradeName=data.get('tradeName'),
+                                        corporateName=data.get('corporateName'),
+                                        stateRegistration=data.get('stateRegistration'),
+                                        cnpj=data.get('cnpj'),
+                                        tipo=data.get('tipo'),
+                                        contactName=data.get('contactName'),
+                                        phoneNumber=data.get('phoneNumber'),
+                                        user=usuario)
+        empresa.save()
+
+    return HttpResponseRedirect(status=201)
+
+@csrf_exempt
+def alterar_empresa(request):
+    data = request.POST
+    empresa = Empresa.objects.get(pk=2)
+    empresa.tradeName = data.get("tradeName")
+    empresa.corporateName = data.get("corporateName")
+    empresa.stateRegistration = data.get("stateRegistration")
+    empresa.cnpj = data.get("cnpj")
+    empresa.tipo = data.get("tipo")
+    empresa.contactName = data.get("contactName")
+    empresa.phoneNumber = data.get("phoneNumber")
+    empresa.user.username = data.get("username")
+    empresa.user.email = data.get("email")
+    empresa.user.password = data.get("password")
+    empresa.save()
+    empresa.user.save()
+    return HttpResponse(status=200)
 
 @login_required(login_url='/')
 def get_logged_usuario(request):
