@@ -115,6 +115,26 @@ class Analista(models.Model):
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
 
+class Empresa(models.Model):
+    TYPE = (
+        ('T1', 'Primeiro Setor'),
+        ('T2', 'Segundo Setor'),
+        ('T3', 'Terceiro Setor')
+    )
+
+    tradeName = models.CharField('Nome Fantasia', max_length=100)
+    corporateName = models.CharField('Razão Social', max_length=100)
+    stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
+    cnpj = models.CharField('CNPJ', max_length=14, unique=True)
+    tipo = models.CharField(choices=TYPE, max_length=100)
+    contactName= models.CharField('Nome do Contato', max_length=50)
+    phoneNumber = models.CharField('Telefone', max_length=12)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
 class Pergunta(models.Model):
     """
     Pergunta are questions about the GAS questionary used by Analists to review
@@ -141,3 +161,23 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+
+
+class AvaliacaoAnalista(models.Model):
+    analyst = models.ManyToManyField(Analista, related_name='analises')
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    score = models.FloatField(default=0)
+    comment = models.TextField(blank=True)
+    finished = models.BooleanField(default=False)
+
+
+class Questao(models.Model):
+    question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
+    answer = models.BooleanField(default=False)
+    questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'questao'
+        verbose_name_plural = 'questoes'
+
