@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+*{
+  --company-text-color: #263238;
+  --company-header-color: #F3F3F3;
+  --company-buttons-color: #1BB55C;
+  --company-buttons-hover-color: #27724e;
+  --company-table-color: #DBFFAE;
+  --company-center-section-color: #E7E7E7;
+  --company-left-section-color: #EDE8E8;
+  --company-decrescent-vector-color: #E74C3C;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  overflow: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul{
+  list-style: none;
+}

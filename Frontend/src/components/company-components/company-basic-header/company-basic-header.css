@@ -1,0 +1,53 @@
+.company-basic-header-container{
+    margin: 0px 30px 0px 30px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--company-header-color);
+}
+
+.company-basic-header-container .logo{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.company-basic-header-container .logo .logo-name{
+    display: flex;
+    color: var(--company-text-color);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    gap: 4px;
+    margin-top: 8px;
+
+}
+
+.company-basic-header-container .logo .logo-name div{
+    color: var(--company-buttons-color);
+}
+
+.company-basic-header-container .logo .logo-img{
+    width: 50px;
+    height: 50px;
+}
+
+.company-basic-header-container .login{
+    width: 5em;
+    line-height: 1.8em;
+    background: var(--company-buttons-color);
+    border-radius: 8px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 600;
+
+    transition:  0.2s background-color ease-in-out ;
+}
+
+.company-basic-header-container .login:hover{
+    background-color: var(--company-buttons-hover-color);
+}
+
+
+

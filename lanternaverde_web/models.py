@@ -35,8 +35,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username',
                                 max_length=20,
@@ -109,8 +107,58 @@ class Analista(models.Model):
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
 
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
+
+class Empresa(models.Model):
+    TYPE = (
+        ('T1', 'Primeiro Setor'),
+        ('T2', 'Segundo Setor'),
+        ('T3', 'Terceiro Setor')
+    )
+    
+    tradeName = models.CharField('Nome Fantasia', max_length=100)
+    corporateName = models.CharField('Razão Social', max_length=100)
+    stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
+    cnpj = models.CharField('CNPJ', max_length=14, unique=True)
+    tipo = models.CharField(choices=TYPE, max_length=100)
+    contactName= models.CharField('Nome do Contato', max_length=50)
+    phoneNumber = models.CharField('Telefone', max_length=12)
+
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
+
+class Pergunta(models.Model):
+    """
+    Pergunta are questions about the GAS questionary used by Analists to review
+    a greenwashing performance of a Company/Product.
+    """
+    D1 = 'D1'
+    D2 = 'D2'
+    D3 = 'D3'
+    D4 = 'D4'
+    DIMENSIONS_CHOICES = [
+        (D1, 'D1'),
+        (D2, 'D2'),
+        (D3, 'D3'),
+        (D4, 'D4')
+    ]
+    dimension = models.CharField(
+        max_length=2,
+        choices=DIMENSIONS_CHOICES,
+        default=D1
+    )
+    body = models.CharField(max_length=255)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Pergunta'
+        verbose_name_plural = 'Perguntas'
