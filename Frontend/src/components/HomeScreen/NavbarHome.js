@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NavbarHome.css';
+import './PopupLogin.css';
+import Popup from 'reactjs-popup';
 
 function NavbarHome() {
     const [click, setClick] = useState(false);
@@ -8,7 +10,6 @@ function NavbarHome() {
 
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
-
 
     const linkStyle = {
         textDecoration: "none",
@@ -41,11 +42,43 @@ function NavbarHome() {
                 <span className="fa fa-search" />
               </div>
               <ol>
-                <li><Link
-                  to='/login'
-                  onClick={closeMobileMenu}
+                <li>
+                  <Link
+                    to='/login'
+                    onClick={closeMobileMenu}
                   >
-                  <a href="#">Login</a>
+                  <Popup trigger={<a href="#">Login</a>}>
+                    <div className='popup'>  
+                      <Link
+                        to='/'
+                        onClick={closeMobileMenu}
+                        >
+                        <Popup trigger={<a href="" id='x-btn'><strong>X</strong></a>}/>
+                      </Link>            
+                      <img src="../images/tick.png" alt="" />
+                      <h2>Faça seu login</h2>
+                      <p>Por favor digite seu login e senha.</p>
+                      <div>
+                        <input type="username" placeholder="Login" className="username" name ='username'/>
+                      </div>
+                      <div>
+                        <input type="password" placeholder="Senha" className="cPassword" />
+                      </div>
+                      <div id='buttons'>
+                        <ol>
+                          <div id='signin'>
+                            <li> <Link
+                              to='/Admin'
+                              onClick={closeMobileMenu}
+                              >
+                              <a href="#">Entrar</a>
+                              </Link>
+                            </li>
+                          </div>
+                        </ol>
+                      </div>
+                    </div>
+                  </Popup>
                   </Link>
                 </li>
                 <li> <Link
