@@ -13,7 +13,6 @@ function App() {
     
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='home' element={<Home />} />
           <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
           <Route path="cadastro" element={<Cadastro />} />
           <Route path="dadosAnalista" element={<DadosAnalista />} />
