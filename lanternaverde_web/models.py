@@ -144,22 +144,10 @@ class Pergunta(models.Model):
 
 
 class AvaliacaoAnalista(models.Model):
-    Novo = 'Novo'
-    Pendente = 'Pendente'
-    Concluido = 'Concluido'
-
-    STATUS_CHOICES = [
-        (Novo, 'Novo'),
-        (Pendente, 'Pendente'),
-        (Concluido, 'Concluido'),
-
-    ]
-
     analyst = models.ManyToManyField(Analista, related_name='analises')
     score = models.FloatField(default=0)
-    question = models.ManyToManyField(Pergunta, related_name='analises')
-    comment = models.TextField()
-    status = models.CharField(choices=STATUS_CHOICES, default=Novo, max_length=10)
+    comment = models.TextField(blank=True)
+    finished = models.BooleanField(default=False)
 
 
 class Questao(models.Model):

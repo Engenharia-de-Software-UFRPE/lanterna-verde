@@ -121,7 +121,7 @@ class _JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(_JSONResponse, self).__init__(content, **kwargs)
 
-@login_required
+
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
