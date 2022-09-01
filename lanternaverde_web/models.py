@@ -164,7 +164,7 @@ class Pergunta(models.Model):
         verbose_name_plural = 'Perguntas'
 
 class AvaliacaoAnalista(models.Model):
-    analyst = models.ForeignKey(Analista, related_name='analista', on_delete=models.CASCADE)
+    analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
     company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)

@@ -153,6 +153,7 @@ def get_logged_administrador(request):
             return _JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required(login_url='/')
 def get_logged_analista(request):
     """
