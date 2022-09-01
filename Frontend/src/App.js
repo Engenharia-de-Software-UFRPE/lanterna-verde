@@ -8,12 +8,14 @@ import DadosAnalista from './components/pages/DataAnalyst';
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
+import Administrador from './components/pages/Administrador';
 
 function App() {
   return (
     <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path= '/Admin' element={<Administrador />} />
 
           {/******************************Analyst****************************/}
           <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />

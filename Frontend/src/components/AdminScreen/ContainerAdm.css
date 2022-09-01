@@ -1,0 +1,279 @@
+.btnMinhaConta{
+    width: 150px;
+    position: relative;
+    left: 26%;
+    height: 40px;
+    top: -4%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3AB06F;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #fff;
+    margin-top: 100px;
+}
+
+.btnConfiguracoes{
+    width: 150px;
+    position: relative;
+    left: -21%;
+    height: 40px;
+    top: 6%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3AB06F;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.btnCadastrarAnalista{
+    width: 150px;
+    position: relative;
+    left: 26%;
+    height: 40px;
+    top: 9%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3AB06F;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.btnQuestionario{
+    width: 150px;
+    position: relative;
+    left: -21%;
+    height: 40px;
+    top: 20%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3AB06F;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.btnHistoricoDeAnalises{
+    width: 150px;
+    position: relative;
+    left: 26.5%;
+    height: 40px;
+    top: 24%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #3AB06F;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+#logo{
+    position: absolute;
+    width: 178px;
+    height: 29px;
+    left: 47px;
+    top: 11px;
+    font-family: 'Poppins', cursive;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 29px;
+    color: #263238;
+}
+
+#admBoard{
+    position: absolute;
+    width: 320px;
+    height: 550px;
+    left: 0px;
+    top: 100px;
+    bottom: 100px;
+    border-radius: 10%;
+    background: #3AB06F;
+}
+
+#admPhoto{
+position: absolute;
+width: 120px;
+height: 120px;
+left: 6px;
+top: 47px;
+background: #b3b3b3;
+border-radius: 100px;
+}
+
+.photo{
+    position: relative;
+    width: 120px;
+    margin-left: 12%;
+    border-radius: 100px;
+    left: -11.5%;
+}
+
+#nameAdmArea{
+    box-sizing: border-box;
+    position: relative;
+    left: 130px;
+    right: 0px;
+    top: 35px;
+    bottom: 0px;
+    width: 180px;
+    height: 65px;
+    margin-top: 2%;
+    background: #FFFFFF;
+    border: 1px solid #979797;
+    border-radius: 20px;
+}
+
+.nameAdmTitle{
+    position: relative;
+    left: 25%;
+    right: 0%;
+    top: -9%;
+    bottom: 0%;
+    margin-top: 12%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 0px;
+    letter-spacing: 0.25px;
+    color: #263238;
+}
+
+.nameAdm{
+    position: relative;
+    left: 21%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    font-size: 15px;
+}
+
+
+#usernameAdmArea{
+    box-sizing: border-box;
+    position: relative;
+    left: 130px;
+    right: 0px;
+    top: 30px;
+    bottom: 0px;
+    width: 180px;
+    height: 65px;
+    margin-top: 2%;
+    background: #FFFFFF;
+    border: 1px solid #979797;
+    border-radius: 20px;
+}
+
+.usernameAdmTitle{
+    position: relative;
+    left: 25%;
+    right: 0%;
+    top: -10%;
+    bottom: 0%;
+    margin-top: 12%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 0px;
+    letter-spacing: 0.25px;
+    color: #263238;
+}
+
+.usernameAdm{
+    position: relative;
+    left: 20%;
+    right: 0%;
+    top: -5%;
+    bottom: 0%;
+    font-size: 15px;
+}
+
+#requestListArea{
+    position: absolute;
+    width: 960px;
+    height: 550px;
+    left: 408px;
+    top: 100px;
+    background: #ffffff;
+}
+
+.requestList{
+    position: relative;
+    left: 5%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    margin-top: 4%;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 0px;
+    letter-spacing: 0.25px;
+    color: #263238;
+}
+
+#table-wrapper {
+    position:relative;
+    
+  }
+  #table-scroll {
+    height:442px;
+    overflow:auto;  
+    margin-top:20px;
+    border-radius: 15px;
+  }
+  #table-wrapper table {
+    width:100%;
+  }
+  
+  table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+  }
+
+  td, th{
+    border: 1px solid #000000;
+    padding: 8px;
+  }
+
+  th{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  tr:hover{
+    color: white;
+    background-color: #3AB06F;
+  }
