@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import NavbarAnalyst from '../NavbarAnalyst';
-import TelaDadosAnalista from '../TelaDadosAnalista'
+import NavbarAnalyst from '../AnalystScreen/NavbarAnalyst'
+import TelaDadosAnalista from '../AnalystScreen/TelaDadosAnalista'
 
 function DadosAnalista() {
   return (

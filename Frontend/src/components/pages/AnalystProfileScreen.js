@@ -1,12 +1,11 @@
 import React from 'react';
 import '../../App.css';
-import Navbar from '../Navbar';
-import TelaAnalista from '../AnalystScreen'
+import TelaDadosAnalista from '../AnalystScreen/TelaDadosAnalista'
 
 function TelaPerfilAnalista() {
   return (
     <>
-      <TelaAnalista />
+      <TelaDadosAnalista />
       
     </>
   );
