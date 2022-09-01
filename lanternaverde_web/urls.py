@@ -16,7 +16,7 @@ urlpatterns = [
     path('analista/analises', views.listar_analises, name='listar_analises'),
     path('criar_analise', views.criar_analise, name='criar_analise'),
     path('detalhar_analise', views.detalhar_analise, name='detalhar_analise'),
-    path('atualizar_analise', views.atualizar_analise, name='atualizar_analise')
+    path('atualizar_analise', views.atualizar_analise, name='atualizar_analise'),
 
 
     path('cadastro_empresa', views.cadastro_empresa, name='cadastro_empresa'),
