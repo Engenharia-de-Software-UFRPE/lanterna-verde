@@ -275,10 +275,11 @@ def atualizar_analise(request):
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
-            for question in data['question']:
+            for question in data['questions']:
                 q = Questao.objects.get(pk=question['id'])
-                q.answer = data['answer']
-
+                q.answer = question['answer']
+                q.save()
             analysis.score = '2'
+        analysis.save()
         print(analysis)
     return HttpResponse(status=200)
