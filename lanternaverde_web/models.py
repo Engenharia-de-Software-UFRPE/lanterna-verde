@@ -110,7 +110,9 @@ class Analista(models.Model):
     specialty = models.CharField('Especialidade', max_length=255)
     analysis = models.PositiveIntegerField('Analises', default=0)
 
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    user = models.OneToOneField(Usuario,
+                                primary_key=True,
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'analista'
