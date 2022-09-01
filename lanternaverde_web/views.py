@@ -6,6 +6,8 @@ from rest_framework.renderers import JSONRenderer
 
 from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, UsuarioSerializer
 
+from lanternaverde_web.models import Analista
+
 # Create your views here.
 
 def index(request):
@@ -77,6 +79,10 @@ def get_logged_analista(request):
             }
             return _JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
+
+def _select_Analist(amount):
+    analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
+    return analists
 
 class _JSONResponse(HttpResponse):
     """
