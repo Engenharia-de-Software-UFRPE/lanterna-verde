@@ -135,6 +135,7 @@ class Empresa(models.Model):
     class Meta:
         verbose_name = 'empresa'
         verbose_name_plural = 'empresas'
+
 class Pergunta(models.Model):
     """
     Pergunta are questions about the GAS questionary used by Analists to review
@@ -162,7 +163,6 @@ class Pergunta(models.Model):
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
 
-
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analista', on_delete=models.CASCADE)
     company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
@@ -180,4 +180,5 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'questao'
         verbose_name_plural = 'questoes'
+
 

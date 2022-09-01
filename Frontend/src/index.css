@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 *{
-  --text-color: #263238;
-  --header-color: #F3F3F3;
-  --buttons-color: #1BB55C;
-  --buttons-hover-color: #27724e;
-  --table-color: #DBFFAE;
-  --center-section-color: #E7E7E7;
-  --left-section-color: #EDE8E8;
-  --decrescent-vector-color: #E74C3C;
+  --company-text-color: #263238;
+  --company-header-color: #F3F3F3;
+  --company-buttons-color: #1BB55C;
+  --company-buttons-hover-color: #27724e;
+  --company-table-color: #DBFFAE;
+  --company-center-section-color: #E7E7E7;
+  --company-left-section-color: #EDE8E8;
+  --company-decrescent-vector-color: #E74C3C;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,31 +28,4 @@ a {
 
 ul{
   list-style: none;
-}
-
-
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-
-/* total width */
-body::-webkit-scrollbar {
-  background-color: transparent;
-  width: 1em;
-}
-
-/* background of the scrollbar except button or resizer */
-body::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-/* scrollbar itself */
-body::-webkit-scrollbar-thumb {
-  background-color: #263238;
-  border-radius: 16px;
-  border: 2px solid #fff;
-}
-
-/* set button(top and bottom of the scrollbar) */
-body::-webkit-scrollbar-button {
-  display:none;
 }

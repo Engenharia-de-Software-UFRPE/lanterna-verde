@@ -1,16 +1,19 @@
-
 from django.shortcuts import render
 from .models import Usuario, Analista, UserManager
 import json
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
+from django.db import IntegrityError
+from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
+
 from lanternaverde_web.models import Pergunta
 from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
-from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista, Questao
+from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista, Questao, Pergunta
+
 
 # Create your views here.
 
@@ -48,23 +51,36 @@ def alterar_analista(request):
 
 
 @csrf_exempt # TODO: Remover csrf_exempt (REQ. não funcional)
-def login_redirect(request):
+def login(request):
     """
-    Method that tries to login an user and redirects to its designated area.
+    Method that tries to login an user.
     """
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
-            login(request, user)
+            djangoLogin(request, user)
             if hasattr(user, 'analista'):
-                return HttpResponseRedirect('analista')
+                return HttpResponse('analista', status=200)
             if hasattr(user, 'administrador'):
-                return HttpResponseRedirect('admin')
-            return HttpResponseBadRequest()
+                return HttpResponse('administrador', status=200)
+            if hasattr(user, 'empresa'):
+                return HttpResponse('empresa', status=200)
+            return HttpResponseBadRequest(status=401)
         return HttpResponse("Usuário ou senhas inválidos, por favor tente" +
-                            " novamente")
+                            " novamente", status=401)
+    return HttpResponseBadRequest()
+
+@login_required
+def logout(request):
+    """
+    Method that logs out an user.
+    """
+    if request.method in ['GET','POST']:
+        djangoLogout(request)
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
 
 @csrf_exempt
 def cadastro_empresa(request):

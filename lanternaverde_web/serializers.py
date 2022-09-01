@@ -5,6 +5,7 @@ from rest_framework import serializers
 from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao
 
 
+
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serialization for Usuario Model
@@ -39,7 +40,6 @@ class PerguntaSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serialization for Questao Model
     """
-
     class Meta:
         """Pergunta serialization metadata"""
         model = Pergunta

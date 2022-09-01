@@ -1,0 +1,134 @@
+.popup{
+    width: 300px;
+    background: rgb(255, 255, 255);
+    border-radius: 6px;
+    position: absolute;
+    top: 280px;
+    right: 280px;
+    z-index: 5; /*1*/
+    transform: translate(-50%, -50%) scale(0.9);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: rgb(51, 51, 51);
+    visibility: visible;
+    transition: transform 0.4s, top 0.4s;
+    box-shadow: 0px 0px 100000px #000;
+    -moz-box-shadow: 0px 0px 100000px #000;
+    -webkit-box-shadow: 0px 0px 100000px #000;
+}
+
+.popup a{
+    text-decoration: none;
+}
+
+.popup img{
+    width: 50px;
+    margin-top: -90px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+.popup p{
+    margin: 15px 0 0;
+}
+
+.username{
+    width: 80%;
+    padding: 10px 10px;
+    background: #fff;
+    color: rgb(0, 0, 0);
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    cursor: text;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #333;
+    margin: 20px 0 0px;
+}
+
+.cPassword{
+    width: 80%;
+    padding: 10px 10px;
+    background: #fff;
+    color: rgb(0, 0, 0);
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    cursor: text;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    color: #333;
+    margin: 10px 0 10px;
+}
+
+.popup button{
+    width: 30%;
+    margin-top: 50px;
+    margin-left: 40%;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#buttons{
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    justify-content: space-between;
+    text-align: center;
+    padding: -100px -100px;
+}
+
+#x-btn{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-left: 110%;
+    padding: 5px 15px;
+    right: 25px;
+    bottom: 10px;
+    background-color: #fdfdfd;
+    border: 0;
+    color: #6fd649;
+    outline: none;
+    font-size: 25px;
+    border-radius: 30px 35px 28px 30px;;
+    cursor: pointer;
+    /*box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);*/
+}
+
+#signin{
+    width: 170%;
+    margin-top: 20px;
+    margin-left: 210%; /*2*/
+    padding: 8px 0;
+    background: #6fd649;
+    list-style: none;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#signin a{
+    color: white;
+    text-decoration: none;
+    position: relative;
+    left: 10px; /*3*/
+}
