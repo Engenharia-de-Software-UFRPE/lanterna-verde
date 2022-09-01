@@ -9,15 +9,16 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from lanternaverde_web.models import Pergunta
-
 from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
-from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista
+from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista, Questao
 
 # Create your views here.
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
+
+@csrf_exempt
 def cadastro_analista(request):
     print(request.POST)
     if request.method == 'GET':
@@ -228,16 +229,39 @@ def detalhar_analise(request):
         return _JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+
 @csrf_exempt
 def criar_analise(request):
     if request.method == 'POST':
         post = request.POST
-        print(post.get('analysts')[1:-1].split(','))
-        analysts = post.get('analysts')[1:-1].split(',')
-        company = Empresa.objects.get(pk=post.get('company'))
+        data = json.loads(request.body)
+        analysts = data['analysts']
+        company = Empresa.objects.get(pk=data['company'])
         analysts_set = Analista.objects.filter(pk__in=analysts)
-        analysis = AvaliacaoAnalista.objects.create(company=company)
-        print(analysis)
-        analysis.analyst.add(*analysts_set)
+        print(list(analysts_set))
+        for analyst in list(analysts_set):
+            analysis = AvaliacaoAnalista.objects.create(company=company, analyst=analyst)
+            questions = list(Pergunta.objects.all())
+            for question in questions:
+                Questao.objects.create(question=question, questionnaire=analysis)
         return HttpResponse(status=201)
     return HttpResponseBadRequest()
+
+
+@csrf_exempt
+@login_required
+def atualizar_analise(request):
+    if request.method == 'POST':
+        post = request.POST
+        data = json.loads(request.body)
+
+        analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
+        if analysis.analyst.user == request.user:
+            analysis.comment = data['comment']
+            for question in data['question']:
+                q = Questao.objects.get(pk=question['id'])
+                q.answer = data['answer']
+
+            analysis.score = '2'
+        print(analysis)
+    return HttpResponse(status=200)

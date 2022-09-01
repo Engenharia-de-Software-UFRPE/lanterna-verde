@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path("criar_analista", views.cadastro_analista,name= 'criar_analista'),
-    path("alterar_analista", views.alterar_analista,name= 'alterar cadastro')
+    path("alterar_analista", views.alterar_analista,name= 'alterar cadastro'),
     path('', views.index, name='index'),
     path('login', views.login_redirect, name='login'),
     path('cadastro_empresa', views.cadastro_empresa, name='cadastro_empresa'),
@@ -15,6 +15,7 @@ urlpatterns = [
     path('perguntas/add', views.create_questao, name='create_questoes'),
     path('analista/analises', views.listar_analises, name='listar_analises'),
     path('criar_analise', views.criar_analise, name='criar_analise'),
-    path('detalhar_analise', views.detalhar_analise, name='detalhar_analise')
+    path('detalhar_analise', views.detalhar_analise, name='detalhar_analise'),
+    path('atualizar_analise', views.atualizar_analise, name='atualizar_analise')
 
 ]

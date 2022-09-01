@@ -164,7 +164,7 @@ class Pergunta(models.Model):
 
 
 class AvaliacaoAnalista(models.Model):
-    analyst = models.ManyToManyField(Analista, related_name='analises')
+    analyst = models.ForeignKey(Analista, related_name='analista', on_delete=models.CASCADE)
     company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
