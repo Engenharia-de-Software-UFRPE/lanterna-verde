@@ -1,7 +1,7 @@
 from django.http import HttpResponseBadRequest
 
 from lanternaverde_web.serializers import solicitacoesAnaliseSerializer as serializer
-from lanternaverde_web.models import Pergunta, SolicitacaoAnalise
+from lanternaverde_web.models import SolicitacaoAnalise
 from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 def get_solicitacoes(request):
