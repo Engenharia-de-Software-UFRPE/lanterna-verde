@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 
+import lanternaverde_web.solicitacaoAnalise as solAnalise
+
 from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 from lanternaverde_web.models import Empresa, Usuario, Pergunta, Analista
 from lanternaverde_web.utils.jsonresponse import JSONResponse
@@ -164,6 +166,13 @@ def get_questoes(request):
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
+
+@login_required
+def get_solicitacoes(request):
+    """
+    Groups all `SolicitacoesAnalise` objects into a JSON response.
+    """
+    return solAnalise.get_solicitacoes(request)
 
 def _select_Analist(amount):
     analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]

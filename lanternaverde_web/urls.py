@@ -12,4 +12,5 @@ urlpatterns = [
     path('alterar_empresa', views.cadastro_empresa, name='alterar_empresa'),
     path('perguntas', views.get_questoes, name='questoes'),
     path('perguntas/add', views.create_questao, name='create_questoes'),
+    path('solicitacoesAnalise', views.get_solicitacoes, name='get_solicitacoes'),
 ]
