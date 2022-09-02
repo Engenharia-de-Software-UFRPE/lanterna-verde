@@ -51,7 +51,6 @@ def alterar_analista(request):
         user.first_name = data.get("first_name")
         user.last_name = data.get("last_name")
         user.analista.email = data.get("email")
-        user.analista.password = user.set_password(data.get("password"))
         user.save()
         user.analista.save()
         return HttpResponse(status=201)
