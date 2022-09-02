@@ -25,9 +25,17 @@ def index(request):
 def cadastro_analista(request):
     if request.method == 'POST':
         data = request.POST
-        usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
+        usuario = Usuario.objects.create_user(username=data.get('username'),
+                                              email=data.get('email'),
+                                              password=data.get('password'),
+                                              first_name=data.get('first_name'),
+                                              last_name=data.get('last_name')
+                                              )
         usuario.save()
-        analista = Analista.objects.create(cpf=data.get('cpf'), specialty=data.get('specialty'), user=usuario)
+        analista = Analista.objects.create(cpf=data.get('cpf'),
+                                           specialty=data.get('specialty'),
+                                           user=usuario
+                                           )
         analista.save()
         return HttpResponse(status=201)
     return HttpResponseBadRequest()
@@ -39,7 +47,9 @@ def alterar_analista(request):
         user = request.user
         user.analista.cpf = data.get("cpf")
         user.analista.specialty = data.get("specialty")
-        user.analista.username = data.get("username")
+        user.username = data.get("username")
+        user.first_name = data.get("first_name")
+        user.last_name = data.get("last_name")
         user.analista.email = data.get("email")
         user.analista.password = user.set_password(data.get("password"))
         user.save()
