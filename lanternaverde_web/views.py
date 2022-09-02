@@ -23,31 +23,29 @@ def index(request):
 
 @csrf_exempt
 def cadastro_analista(request):
-    print(request.POST)
-    if request.method == 'GET':
-        pass
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.POST
         usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
         usuario.save()
         analista = Analista.objects.create(cpf=data.get('cpf'), specialty=data.get('specialty'), user=usuario)
         analista.save()
+        return HttpResponse(status=201)
+    return HttpResponseBadRequest()
 
-    return HttpResponse(status=201)
-
-
+@csrf_exempt
 def alterar_analista(request):
-    data = request.POST
-    analista = Analista.objects.get(pk=2)
-    analista.cpf = data.get("cpf")
-    analista.specialty = data.get("specialty")
-    analista.user.username = data.get("username")
-    analista.user.email = data.get("email")
-    analista.user.password = data.get("password")
-    analista.save()
-    analista.user.save()
-    return HttpResponse(status=201)
+    if request.method == 'POST':
+        data = request.POST
+        user = request.user
+        user.analista.cpf = data.get("cpf")
+        user.analista.specialty = data.get("specialty")
+        user.analista.username = data.get("username")
+        user.analista.email = data.get("email")
+        user.analista.password = user.set_password(data.get("password"))
+        user.save()
+        user.analista.save()
+        return HttpResponse(status=201)
+    return HttpResponseBadRequest()
 
 
 @csrf_exempt # TODO: Remover csrf_exempt (REQ. não funcional)
@@ -102,7 +100,7 @@ def cadastro_empresa(request):
                                         user=usuario)
         empresa.save()
 
-    return HttpResponseRedirect(status=201)
+    return HttpResponse(status=201)
 
 @csrf_exempt
 def alterar_empresa(request):
@@ -153,7 +151,7 @@ def get_logged_administrador(request):
             return _JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
-@csrf_exempt
+
 @login_required(login_url='/')
 def get_logged_analista(request):
     """
@@ -271,7 +269,6 @@ def atualizar_analise(request):
     if request.method == 'POST':
         post = request.POST
         data = json.loads(request.body)
-
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
@@ -282,4 +279,5 @@ def atualizar_analise(request):
             analysis.score = '2'
         analysis.save()
         print(analysis)
-    return HttpResponse(status=200)
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()

@@ -178,7 +178,7 @@ class Questao(models.Model):
 
     class Meta:
         """database metadata"""
-        verbose_name = 'questao'
-        verbose_name_plural = 'questoes'
+        verbose_name = 'Questão'
+        verbose_name_plural = 'Questões'
 
 
