@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
 from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
-from lanternaverde_web.models import Empresa, Usuario, Pergunta
+from lanternaverde_web.models import Empresa, Usuario, Pergunta, Analista
 
 # Create your views here.
 
