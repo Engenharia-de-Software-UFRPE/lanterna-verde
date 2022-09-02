@@ -18,38 +18,50 @@ def index(request):
 
 
 @csrf_exempt
+@login_required
 def cadastro_analista(request):
     if request.method == 'POST':
-        data = request.POST
-        usuario = Usuario.objects.create_user(username=data.get('username'),
-                                              email=data.get('email'),
-                                              password=data.get('password'),
-                                              first_name=data.get('first_name'),
-                                              last_name=data.get('last_name')
-                                              )
-        usuario.save()
-        analista = Analista.objects.create(cpf=data.get('cpf'),
-                                           specialty=data.get('specialty'),
-                                           user=usuario
-                                           )
-        analista.save()
-        return HttpResponse(status=201)
+        if hasattr(request.user, 'administrador'):
+            data = request.POST
+            try:
+                usuario = Usuario.objects.create_user(username=data.get('username'),
+                                                      email=data.get('email'),
+                                                      password=data.get('password'),
+                                                      first_name=data.get('first_name'),
+                                                      last_name=data.get('last_name')
+                                                      )
+                usuario.save()
+                analista = Analista.objects.create(cpf=data.get('cpf'),
+                                                   specialty=data.get('specialty'),
+                                                   user=usuario
+                                                   )
+                analista.save()
+            except IntegrityError:
+                return HttpResponse("Este usuário já está cadastrado", status=409)
+            return HttpResponse(status=201)
+        else:
+            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
 
+
 @csrf_exempt
+@login_required
 def alterar_analista(request):
     if request.method == 'POST':
-        data = request.POST
-        user = request.user
-        user.analista.cpf = data.get("cpf")
-        user.analista.specialty = data.get("specialty")
-        user.username = data.get("username")
-        user.first_name = data.get("first_name")
-        user.last_name = data.get("last_name")
-        user.analista.email = data.get("email")
-        user.save()
-        user.analista.save()
-        return HttpResponse(status=201)
+        if hasattr(request.user, 'administrador'):
+            data = request.POST
+            user = Usuario.objects.get(email=data.get("email"))
+            user.analista.cpf = data.get("cpf")
+            user.analista.specialty = data.get("specialty")
+            user.username = data.get("username")
+            user.first_name = data.get("first_name")
+            user.last_name = data.get("last_name")
+            user.analista.email = data.get("email")
+            user.save()
+            user.analista.save()
+            return HttpResponse(status=201)
+        else:
+            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
 
 
@@ -216,6 +228,7 @@ class _JSONResponse(HttpResponse):
         super(_JSONResponse, self).__init__(content, **kwargs)
 
 
+@login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
@@ -234,7 +247,9 @@ def listar_analises(request):
         return _JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+
 @csrf_exempt
+@login_required
 def detalhar_analise(request):
     """
     Function that detail a analysis
@@ -251,6 +266,7 @@ def detalhar_analise(request):
 
 
 @csrf_exempt
+@login_required
 def criar_analise(request):
     if request.method == 'POST':
         post = request.POST
@@ -283,6 +299,5 @@ def atualizar_analise(request):
                 q.save()
             analysis.score = '2'
         analysis.save()
-        print(analysis)
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
