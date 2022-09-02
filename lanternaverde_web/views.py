@@ -2,11 +2,12 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
-from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, UsuarioSerializer
+from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
+from lanternaverde_web.models import Empresa, Usuario, Pergunta
 
 # Create your views here.
 
