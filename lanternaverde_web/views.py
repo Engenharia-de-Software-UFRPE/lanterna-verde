@@ -174,6 +174,13 @@ def get_solicitacoes(request):
     """
     return solAnalise.get_solicitacoes(request)
 
+@login_required
+def get_solicitacao(request):
+    """
+    Takes a requested analysis by its ID and returns.
+    """
+    return solAnalise.get_analysis(request)
+
 def _select_Analist(amount):
     analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
     return analists
