@@ -163,3 +163,11 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+
+class SolicitacaoAnalise(models.Model):
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    date = models.DateTimeField('Data de solicitação', default=timezone.now)
+
+    class Meta:
+        verbose_name = 'solicitacaoAnalise'
+        verbose_name_plural = 'solicitacoesAnalise'
