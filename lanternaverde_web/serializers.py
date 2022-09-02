@@ -45,7 +45,7 @@ class PerguntaSerializer(serializers.HyperlinkedModelSerializer):
         model = Pergunta
         exclude = ('url', )
 
-class solicitacoesAnaliseSerializer(serializers.ModelSerializer):
+class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
     """
     Serialization for SolicitacaoAnalise Model
     """
