@@ -1,19 +1,15 @@
-from django.shortcuts import render
-from .models import Usuario, Analista, UserManager
 import json
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login
-from django.db import IntegrityError
+from django.contrib.auth import authenticate
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
-from lanternaverde_web.models import Pergunta
-from lanternaverde_web.serializers import AdministradorSerializer, AvaliacaoAnalistaSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
-from lanternaverde_web.models import Empresa, Usuario, AvaliacaoAnalista, Analista, Questao, Pergunta
-
+#pylint: disable=W0401
+from .models import *
+from .serializers import *
 
 # Create your views here.
 
