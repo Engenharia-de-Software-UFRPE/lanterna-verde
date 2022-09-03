@@ -168,6 +168,16 @@ def get_questoes(request):
     return HttpResponseBadRequest()
 
 @login_required
+def create_solicitacao(request):
+    """
+    Creates a new Solicitacao Analise Object.
+
+    This function restricts who can create new Analysis requirement to Company
+    Users.
+    """
+    return solAnalise.create_solicitacao(request)
+
+@login_required
 def get_solicitacoes(request):
     """
     Groups all `SolicitacoesAnalise` objects into a JSON response.

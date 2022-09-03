@@ -1,9 +1,33 @@
 from django.db import IntegrityError
-from django.http import HttpResponseBadRequest, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.utils import timezone
 
 from lanternaverde_web.serializers import SolicitacoesAnaliseSerializer as serializer
 from lanternaverde_web.models import SolicitacaoAnalise
 from lanternaverde_web.utils.jsonresponse import JSONResponse
+
+# TODO: Method to validate if a Company is not creating a duplicate Analysis
+# Requirement
+def create_solicitacao(request):
+    """
+    Creates a new Solicitacao Analise Object.
+
+    This function restricts who can create new Analysis requirement to Company
+    Users.
+    """
+    if request.method == 'GET':
+        if not hasattr(request.user, 'empresa'):
+            return HttpResponseForbidden()
+        empresa = request.user.empresa
+        try:
+            #pylint: disable=E1101
+            SolicitacaoAnalise.objects.create(empresa=empresa,
+                                              date=timezone.now())
+            return HttpResponse(status=200)
+        except IntegrityError:
+            return HttpResponse("Já existe uma solicitação em andamento "
+                                "para essa empresa", status=409)
+    return HttpResponseBadRequest()
 
 def get_solicitacoes(request):
     """

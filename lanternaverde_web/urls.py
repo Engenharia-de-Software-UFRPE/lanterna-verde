@@ -13,5 +13,6 @@ urlpatterns = [
     path('perguntas', views.get_questoes, name='questoes'),
     path('perguntas/add', views.create_questao, name='create_questoes'),
     path('solicitacoesAnalise', views.get_solicitacoes, name='get_solicitacoes'),
+    path('solicitacoesAnalise/add', views.create_solicitacao, name="Criar Solicitação de Análise"),
     path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise')
 ]
