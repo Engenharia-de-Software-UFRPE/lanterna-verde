@@ -121,7 +121,7 @@ class Empresa(models.Model):
         ('T2', 'Segundo Setor'),
         ('T3', 'Terceiro Setor')
     )
-    
+
     tradeName = models.CharField('Nome Fantasia', max_length=100)
     corporateName = models.CharField('Razão Social', max_length=100)
     stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
@@ -162,3 +162,23 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+
+class AvaliacaoAnalista(models.Model):
+    analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    score = models.FloatField(default=0)
+    comment = models.TextField(blank=True)
+    finished = models.BooleanField(default=False)
+
+
+class Questao(models.Model):
+    question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
+    answer = models.BooleanField(default=False)
+    questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Questão'
+        verbose_name_plural = 'Questões'
+
+
