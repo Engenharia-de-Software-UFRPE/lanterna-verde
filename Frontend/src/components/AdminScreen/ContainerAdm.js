@@ -4,6 +4,7 @@ import TableAnalisesEmpresa from './analisesDaEmpresa';
 import './ContainerAdm.css';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
+import TableQuestionario from './TelaQuestionario';
 
 
 function ContainerAdm() {
@@ -52,9 +53,10 @@ function ContainerAdm() {
 
       </div>
 
-      {/*<Tableadmin></Tableadmin>*/}
-      <TableListaEmpresas></TableListaEmpresas>
+      <Tableadmin></Tableadmin>
+      {/*<TableListaEmpresas></TableListaEmpresas>*/}
       {/*<TableAnalisesEmpresa></TableAnalisesEmpresa>*/}
+      {/*<TableQuestionario></TableQuestionario>*/}
 
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
