@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import TableAnalisesEmpresa from './analisesDaEmpresa';
 import './ContainerAdm.css';
+import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
 
 
@@ -50,8 +52,9 @@ function ContainerAdm() {
 
       </div>
 
-
-      <Tableadmin></Tableadmin>
+      {/*<Tableadmin></Tableadmin>*/}
+      <TableListaEmpresas></TableListaEmpresas>
+      {/*<TableAnalisesEmpresa></TableAnalisesEmpresa>*/}
 
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -59,6 +62,4 @@ function ContainerAdm() {
     </>
   );
 }
-
-
 export default ContainerAdm;

@@ -64,4 +64,3 @@ const Tableadmin = () => {
 }
 
 export default Tableadmin;
-

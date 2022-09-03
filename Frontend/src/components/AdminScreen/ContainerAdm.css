@@ -257,7 +257,7 @@ border-radius: 100px;
     width:100%;
   }
   
-  table{
+  table a{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
