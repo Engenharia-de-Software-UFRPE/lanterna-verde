@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './company-services-screen-body.css';
+import CompanyPaymentForm from '../company-payment-form/CompanyPaymentForm'
 
 const CompanyServicesScreenBody = () => {
+    const [openPopup, setOpenPopup] = useState(false);
     return(
         <section className='company-services-section'>
             <h2 className='title'>Escolha seu plano</h2>
+
+            <CompanyPaymentForm open= {openPopup} onClose={()=>setOpenPopup(false)}/>
 
             <div className='services'>
                 <div className="service monthly">
@@ -13,7 +17,7 @@ const CompanyServicesScreenBody = () => {
                     elit. Voluptates, sapiente voluptate, dicta sequi mollitia accusantium in vel 
                     vitae nam odit aut asperiores.Itaque rerum consectetur dolorum iure temporibus
                     minima maiores?</p>
-                    <a href="#" className="sign-now">Assine Agora</a>
+                    <a href="#" className="sign-now" onClick={() => setOpenPopup(true)}>Assine Agora</a>
                 </div>
 
                 <div className="service annual">
@@ -22,7 +26,7 @@ const CompanyServicesScreenBody = () => {
                     elit. Voluptates, sapiente voluptate, dicta sequi mollitia accusantium in vel 
                     vitae nam odit aut asperiores.Itaque rerum consectetur dolorum iure temporibus
                     minima maiores?</p>
-                    <a href="#" className="sign-now">Assine Agora</a>
+                    <a href="#" className="sign-now" onClick={() => setOpenPopup(true)}>Assine Agora</a>
                 </div>
             </div>
         </section>

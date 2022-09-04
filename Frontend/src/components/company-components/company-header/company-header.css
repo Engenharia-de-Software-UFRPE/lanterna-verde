@@ -7,7 +7,7 @@ header{
     display:flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--company-header-color);  
+    background-color: var(--company-header-color);
 }
 /***********************LOGO & SEARCH BOX***********************/
 .company-header-container .logo{
@@ -55,8 +55,9 @@ header{
     z-index: 4;
     right: 2%;
     cursor:pointer;
-    top: 1.2%;
+    vertical-align: center;
 }
+
 .company-header-container .icon.icon-active{
     position:fixed;
 }
@@ -125,6 +126,7 @@ header{
     opacity: 1;
     height: 100vh;
     transition: opacity 0.2s ease-out;
+    z-index: 1;
 }
 
 .company-header-container .menu.menu-close{

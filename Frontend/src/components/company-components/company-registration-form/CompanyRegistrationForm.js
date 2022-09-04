@@ -6,14 +6,48 @@ import stamp from '../../../images/stamp.png';
 var counter = 0;
 
 const CompanyRegistrationForm = () => {
-    const [selected, setMode] = useState(false)
-    const changeMode = () =>{
-        console.log(counter);
+    const[selected, setSelected] = useState(false);
+    const [stateRegistration, setStateRegistration] = useState('');
+    const [cnpj, setCnpj] = useState('');
+    const [type, setType] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const handleChangeStateRegistration = event => {
+        const result = event.target.value.replace(/[^0-9]/, '');
+        setStateRegistration(result);
+    };
+
+    const handleChangeCnpj = event => {
+        const result = event.target.value.replace(/[^0-9]/, '');
+        setCnpj(result);
+    };
+
+    const handleChangeType = event => {
+        const result = event.target.value;
         if(counter===0){
-            setMode(true);
+            setSelected(true);
             counter = 1;
         }
+        setType(result);
+        console.log(type)
+    };
+
+    function isValidEmail(email) {
+        return /\S+@\S+\.\S+/.test(email);
     }
+
+    const handleChangeEmail = event => {
+        if (isValidEmail(event.target.value)) {
+            setEmail(event.target.value);
+        }
+    };
+
+    const handleChangePhoneNumber = event => {
+        const result = event.target.value.replace(/[^0-9]/, '');
+        setPhoneNumber(result);
+    };
+
     return(
         <section className='company-form-section'>
             <div className="form-container">
@@ -21,25 +55,32 @@ const CompanyRegistrationForm = () => {
 
                 <div className="form-div">
                     <form className="form">
-                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite a Razão Social " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite o CNPJ" name="" id=""/>
-
-                        <select className={selected ? "select selected" : "select"} onChangeCapture={changeMode} id="">
-                            <option className="select-option" value="" disabled selected>Selecione o segmento</option>
-                            <option className="select-option" value="">Indústria</option>
-                            <option className="select-option" value="">Comércio</option>
-                            <option className="select-option" value="">Serviços</option>
+                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="" id="" maxLength={100} />
+                        
+                        <input className="input" type="text" placeholder="Digite a Razão Social " name="" id="" maxLength={100}/>
+                        
+                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id="" maxLength={9} value={stateRegistration} onChange={handleChangeStateRegistration}/>
+                        
+                        <input className="input" type="text" placeholder="Digite o CNPJ" name="" id="" maxLength={14} value={cnpj} onChange={handleChangeCnpj}/>
+                        
+                        {/* Não está pegando o tipo em tempo real, e sim o tipo anterior a mudança */}
+                        <select className={selected ? "select selected" : "select"} id="" onChange={handleChangeType}>
+                            <option className="select-option" value="default" disabled selected>Selecione o tipo</option>
+                            <option className="select-option" value="Primeiro Setor">Primeiro Setor</option>
+                            <option className="select-option" value="Segundo Setor">Segundo Setor</option>
+                            <option className="select-option" value="Terceiro Setor">Terceiro Setor</option>
                         </select>
 
                         <div className="password">
-                            <input className="input last" type="password" placeholder="Digite uma senha" name="" id=""/>
-                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="" id=""/>
+                            <input className="input last" type="password" placeholder="Digite uma senha" name="" id="" maxLength={100} />
+                            
+                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="" id="passwordConfirmation" maxLength={100} />
                         </div>
+
                         <div className="contacts">
-                            <input className="input last" type="text" placeholder="Digite o seu Telefone " name="" id=""/>
-                            <input className="input last" type="text" placeholder="Digite o seu email" name="" id=""/>
+                            <input className="input last" type="text" placeholder="Digite o seu Telefone " name="" id="" maxLength={12} value={phoneNumber} onChange={handleChangePhoneNumber} />
+
+                            <input className="input last" type="email" placeholder="Digite o seu email" name="" id=""maxLength={100}  onChange={handleChangeEmail}/>
                         </div>
 
                     </form>

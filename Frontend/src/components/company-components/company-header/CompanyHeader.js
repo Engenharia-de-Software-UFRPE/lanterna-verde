@@ -3,6 +3,7 @@ import {useState} from 'react';
 import './company-header.css';
 import logo from '../../../images/logo-img.png';
 import companyPicture from '../../../images/apple.png';
+import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 
 const CompanyHeader = () =>{
 
@@ -10,12 +11,13 @@ const CompanyHeader = () =>{
     const toggleMode = () =>{
       setMode(!active)
     }
-
+    const [openPopup, setOpenPopup] = useState(false);
 
     return(
       <div className="company-header-container">
+        <CompanyConfirmationPopup open= {openPopup} onClose={()=>setOpenPopup(false)}/>
 
-        <a className="logo" href="#">
+        <a className="logo" href="/CompanyMainScreen">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>
 
           <h1 className="logo-name">
@@ -44,7 +46,7 @@ const CompanyHeader = () =>{
 
           <div className="menu-buttons">
               <ul>
-                  <li><a className="btn" href="#">Solicitar análise</a></li>
+                  <li><a className="btn" href="#" onClick={() => setOpenPopup(true)}>Solicitar análise</a></li>
                   <li><a className="btn" href="#">Emitir relatório geral</a></li>
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>

@@ -8,7 +8,11 @@ import DadosAnalista from './components/pages/DataAnalyst';
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
+<<<<<<< HEAD
 import Administrador from './components/pages/Administrador';
+=======
+import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
+>>>>>>> ecf0e4d7cd5ac5f7ebc6596ee90bb8cd69ef8c32
 
 function App() {
   return (
@@ -26,6 +30,7 @@ function App() {
           <Route path='/CompanyMainScreen' element={<CompanyMainScreen />} />
           <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
           <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
+          <Route path='/CompanyMainScreen/Analyzes' element={<CompanyAnalyzesScreen />} />
         </Routes>
     </BrowserRouter>
   );
