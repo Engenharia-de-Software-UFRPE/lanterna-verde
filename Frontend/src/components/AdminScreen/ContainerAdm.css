@@ -108,7 +108,7 @@
     color: #263238;
 }
 
-#admBoard{
+#admBoard {
     position: absolute;
     width: 320px;
     height: 550px;
@@ -243,37 +243,37 @@ border-radius: 100px;
     color: #263238;
 }
 
-#table-wrapper {
+.admBoard-container #table-wrapper {
     position:relative;
     
-  }
-  #table-scroll {
+}
+.admBoard-container #table-scroll {
     height:442px;
     overflow:auto;  
     margin-top:20px;
     border-radius: 15px;
-  }
-  #table-wrapper table {
+}
+.admBoard-container #table-wrapper table {
     width:100%;
-  }
+}
   
-  table{
+.admBoard-container table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
-  }
+}
 
-  td, th{
+.admBoard-container td, th{
     border: 1px solid #000000;
     padding: 8px;
-  }
+}
 
-  th{
+.admBoard-container th{
     font-weight: bold;
     text-transform: uppercase;
-  }
+}
 
-  tr:hover{
+.admBoard-container tr:hover{
     color: white;
     background-color: #3AB06F;
-  }
+}

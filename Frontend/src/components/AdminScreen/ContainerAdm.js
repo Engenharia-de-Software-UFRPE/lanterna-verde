@@ -27,6 +27,8 @@ function ContainerAdm() {
 
   return (
     <>
+
+    <div className='admBoard-container'>
       <div id="admBoard">
 
         <div id="admPhoto">
@@ -52,10 +54,7 @@ function ContainerAdm() {
 
 
       <Tableadmin></Tableadmin>
-
-
-      <noscript>You need to enable JavaScript to run this app.</noscript>
-      <div id="root"></div>
+    </div>
     </>
   );
 }

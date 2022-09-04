@@ -1,18 +1,19 @@
 import React from 'react';
 import './App.css';
-import Cadastro from './components/pages/AnalystRegistration';
-import Home from './components/pages/Home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Administrador from './components/pages/Administrador';
+
+import Home from './components/pages/Home';
+
+import Cadastro from './components/pages/AnalystRegistration';
 import TelaPerfilAnalista from './components/pages/AnalystProfileScreen';
 import DadosAnalista from './components/pages/DataAnalyst';
+
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
-<<<<<<< HEAD
-import Administrador from './components/pages/Administrador';
-=======
 import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
->>>>>>> ecf0e4d7cd5ac5f7ebc6596ee90bb8cd69ef8c32
 
 function App() {
   return (
