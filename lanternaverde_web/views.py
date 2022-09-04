@@ -4,10 +4,12 @@ from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
+
+import lanternaverde_web.solicitacaoAnalise as solAnalise
 
 from lanternaverde_web.serializers import AdministradorSerializer, AnalistaSerializer, PerguntaSerializer, UsuarioSerializer
 from lanternaverde_web.models import Empresa, Usuario, Pergunta, Analista
+from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 # Create your views here.
 
@@ -96,7 +98,7 @@ def get_logged_usuario(request):
         ser_return = {
             'Usuario': serializer.data
         }
-        return _JSONResponse(ser_return, status=201)
+        return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 @login_required(login_url='/')
@@ -114,7 +116,7 @@ def get_logged_administrador(request):
                 'Usuario': ser_user.data,
                 'Administrador': ser_admin.data
             }
-            return _JSONResponse(ser_return, status=201)
+            return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 @login_required(login_url='/')
@@ -131,7 +133,7 @@ def get_logged_analista(request):
                 'Usuario': ser_user.data,
                 'Analista': ser_anal.data
             }
-            return _JSONResponse(ser_return, status=201)
+            return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 @login_required
@@ -162,19 +164,33 @@ def get_questoes(request):
         ser_return = {
             'Questoes': questoes.data
         }
-        return _JSONResponse(ser_return, status=200)
+        return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
+
+@login_required
+def create_solicitacao(request):
+    """
+    Creates a new Solicitacao Analise Object.
+
+    This function restricts who can create new Analysis requirement to Company
+    Users.
+    """
+    return solAnalise.create_solicitacao(request)
+
+@login_required
+def get_solicitacoes(request):
+    """
+    Groups all `SolicitacoesAnalise` objects into a JSON response.
+    """
+    return solAnalise.get_solicitacoes(request)
+
+@login_required
+def get_solicitacao(request):
+    """
+    Takes a requested analysis by its ID and returns.
+    """
+    return solAnalise.get_analysis(request)
 
 def _select_Analist(amount):
     analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
     return analists
-
-class _JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(_JSONResponse, self).__init__(content, **kwargs)

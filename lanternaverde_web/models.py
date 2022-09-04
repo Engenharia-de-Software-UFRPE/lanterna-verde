@@ -165,9 +165,15 @@ class Pergunta(models.Model):
         verbose_name_plural = 'Perguntas'
 
 class SolicitacaoAnalise(models.Model):
+    """
+    SolicitacaoAnalise is when a company requisits to lanterna verde a
+    professional analysis from a team of Analists. Administrators will evaluate
+    each `SolicitacaoAnalise` in order to create a new Analysis.
+    """
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
 
     class Meta:
-        verbose_name = 'solicitacaoAnalise'
-        verbose_name_plural = 'solicitacoesAnalise'
+        """SolicitacaoeAnalise metadata"""
+        verbose_name = "Solicitação de Análise"
+        verbose_name_plural = "Solicitações de Analise"
