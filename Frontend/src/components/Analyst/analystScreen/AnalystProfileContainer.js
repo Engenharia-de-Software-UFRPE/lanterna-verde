@@ -88,7 +88,6 @@ function AnalystProfileContainer() {
               </ListGroup>
             </Col>
           </Row>
-          <button onClick={handleButtonClick}>teste</button>
         </div>
       </body>
     </>

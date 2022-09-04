@@ -10,11 +10,12 @@ function Container() {
     <>
     <div className="cont">
         <div className="container">
-          <header>Cadastro Analista</header>
+          
           <form action="http://localhost:8000/analista/add" method='post'>
+          <h2>Cadastro Analista</h2>
             <div className="field name field">
               <div className="input-field">
-                <input type="username" placeholder="Insira seu nome de usuario" className="username" name ='username'/>
+                <input type="username" placeholder="Insira seu nome de usuario" className="user_name" name ='username'/>
               </div>
             </div>
             <div className="field first_name field">

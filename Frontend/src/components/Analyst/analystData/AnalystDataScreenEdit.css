@@ -23,6 +23,8 @@
   }
 
   div.cont.container{
+    background-color: white;
+    border: none;
     width: 1200px;
   }
   div.row-container-analyst.row{
@@ -57,7 +59,7 @@
   }
 
   .contact-btn{
-    
+    color: black;
     text-decoration: none;
     display: inline-block;
     padding: 12px 20px;
