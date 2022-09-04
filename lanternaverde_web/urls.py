@@ -23,6 +23,6 @@ urlpatterns = [
     path('analise/update', views.atualizar_analise, name='atualizar_analise'),
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
-    path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
+    path('empresa/update', views.alterar_empresa, name='alterar_empresa'),
 
 ]
