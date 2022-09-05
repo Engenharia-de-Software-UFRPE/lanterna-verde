@@ -9,7 +9,7 @@ from .serializers import AvaliacaoAnalistaSerializer
 
 # pylint: disable=E1101
 
-def criar_analise(request):
+def create_analysis(request):
     if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
         amount_analysts = data['amount_analysts']

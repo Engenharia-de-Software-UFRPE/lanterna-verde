@@ -267,7 +267,7 @@ def detalhar_analise(request):
 @csrf_exempt
 @login_required
 def criar_analise(request):
-    return avalAnalista.criar_analise(request)
+    return avalAnalista.create_analysis(request)
 
 @csrf_exempt
 @login_required
