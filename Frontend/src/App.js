@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { authReducer, LOGIN } from './reducers/authReducer';
 import './App.css';
 import Cadastro from './components/pages/AnalystRegistration';
 import Home from './components/pages/Home';
@@ -9,25 +10,46 @@ import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
 import Administrador from './components/pages/Administrador';
+import { AuthContext } from './context/AuthContext';
+import Switch from "react-switch";
+import axios from 'axios';
 
 function App() {
+
+  const [data, dispatch] = useReducer(authReducer, {token: null})
+  const loginThunk = async (username, password) => {
+    const res = await axios.post(
+      'http://localhost:8000/login',
+      { username: username, password: password}
+    )
+    console.log(res.data.token)
+    dispatch({ type: LOGIN, token: res.data.token })
+  }
+
   return (
-    <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path= '/Admin' element={<Administrador />} />
+    <AuthContext.Provider value={{
+      data,
+      loginThunk
+    }}>
+      <BrowserRouter>
+      {/*<Switch>*/}
+          <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path= '/Admin' element={<Administrador/>} />
 
-          {/******************************Analyst****************************/}
-          <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
-          <Route path="cadastro" element={<Cadastro />} />
-          <Route path="dadosAnalista" element={<DadosAnalista />} />
+            {/******************************Analyst****************************/}
+            <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
+            <Route path="cadastro" element={<Cadastro />} />
+            <Route path="dadosAnalista" element={<DadosAnalista />} />
 
-          {/******************************Company****************************/}
-          <Route path='/CompanyMainScreen' element={<CompanyMainScreen />} />
-          <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
-          <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
-        </Routes>
-    </BrowserRouter>
+            {/******************************Company****************************/}
+            <Route path='/CompanyMainScreen' element={<CompanyMainScreen />} />
+            <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
+            <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
+          </Routes>
+        {/*</Switch>*/}
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 
