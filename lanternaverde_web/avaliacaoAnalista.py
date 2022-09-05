@@ -10,6 +10,11 @@ from .serializers import AvaliacaoAnalistaSerializer
 # pylint: disable=E1101
 
 def create_analysis(request):
+    """
+    Method that allows Administrators to create a new analysis based on an
+    Analysis requirement and dinamically search for only available Analysts and
+    least busy Analysts.
+    """
     if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
         amount_analysts = data['amount_analysts']
