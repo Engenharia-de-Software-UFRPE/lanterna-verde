@@ -191,6 +191,8 @@ class AvaliacaoAnalista(models.Model):
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
+    requirement_date = models.DateTimeField("Data da Solicitação de Análise",
+                                            default=timezone.now)
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.company.tradeName

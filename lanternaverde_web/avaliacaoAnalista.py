@@ -35,12 +35,16 @@ def create_analysis(request):
                                     f"{amount_analysts}, porém apenas "
                                     f"{len(analysts_set)} estão disponíveis.",
                                     status=422)
+
+            requirement_date = solicitacao.date
             solicitacao.delete()
 
             # Creates the analysis
             for analyst in list(analysts_set):
                 analysis = AvaliacaoAnalista.objects.create(
-                    company=company, analyst=analyst)
+                    company=company,
+                    analyst=analyst,
+                    requirement_date=requirement_date)
                 questions = list(Pergunta.objects.all())
                 for question in questions:
                     Questao.objects.create(
