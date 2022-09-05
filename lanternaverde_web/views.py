@@ -307,3 +307,21 @@ def atualizar_analise(request):
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
+
+@csrf_exempt
+def detalhar_analiyt(request):
+    """
+    Function that detail a analyst
+    """
+    if request.method == 'GET':
+        if hasattr(request.user, 'administrador'):
+            analystid = request.GET.get('analystid')
+            analyst = Analista.objects.get(pk=analystid)
+            ser_anal = AvaliacaoAnalistaSerializer(analyst)
+            ser_return = {
+                'analyst': ser_anal.data
+            }
+            return _JSONResponse(ser_return, status=200)
+        else:
+            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+    return HttpResponseBadRequest()
