@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.views.decorators.csrf import csrf_exempt
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
+import lanternaverde_web.avaliacaoAnalista as avalAnalista
 
 #pylint: disable=W0401
 from .models import *
@@ -17,7 +18,6 @@ from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
-
 
 @csrf_exempt
 @login_required
@@ -249,29 +249,12 @@ def get_solicitacao(request):
     """
     return solAnalise.get_analysis(request)
 
-def _select_Analist(amount):
-    analists = Analista.objects.filter(available=True).order_by('analysis')[:amount]
-    return analists
-
 @login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
     """
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        analises = AvaliacaoAnalistaSerializer(
-            request.user.analista.analises.all(),
-            many=True,
-            context={'request': None}
-        )
-
-        ser_return = {
-            'Analise': analises.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.listar_analises(request)
 
 @csrf_exempt
 @login_required
@@ -279,50 +262,14 @@ def detalhar_analise(request):
     """
     Function that detail a analysis
     """
-    if request.method == 'GET':
-        analysisid = request.GET.get('analysisid')
-        analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
-        ser_anal = AvaliacaoAnalistaSerializer(analysis)
-        ser_return = {
-            'analysis': ser_anal.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.detalhar_analise(request)
 
 @csrf_exempt
 @login_required
 def criar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
-        data = json.loads(request.body)
-        analysts = data['analysts']
-        company = Empresa.objects.get(pk=data['company'])
-        analysts_set = Analista.objects.filter(pk__in=analysts)
-        print(list(analysts_set))
-        for analyst in list(analysts_set):
-            analysis = AvaliacaoAnalista.objects.create(company=company, analyst=analyst)
-            questions = list(Pergunta.objects.all())
-            for question in questions:
-                Questao.objects.create(question=question, questionnaire=analysis)
-        return HttpResponse(status=201)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.criar_analise(request)
 
 @csrf_exempt
 @login_required
 def atualizar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
-        data = json.loads(request.body)
-        analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
-        if analysis.analyst.user == request.user:
-            analysis.comment = data['comment']
-            for question in data['questions']:
-                q = Questao.objects.get(pk=question['id'])
-                q.answer = question['answer']
-                q.save()
-            analysis.score = '2'
-        analysis.save()
-        return HttpResponse(status=200)
-    return HttpResponseBadRequest()
+    return avalAnalista.atualizar_analise(request)
