@@ -118,7 +118,6 @@ def cadastro_empresa(request):
                                         stateRegistration=data.get('stateRegistration'),
                                         cnpj=data.get('cnpj'),
                                         tipo=data.get('tipo'),
-                                        contactName=data.get('contactName'),
                                         phoneNumber=data.get('phoneNumber'),
                                         user=usuario)
         empresa.save()
@@ -134,7 +133,6 @@ def alterar_empresa(request):
     empresa.stateRegistration = data.get("stateRegistration")
     empresa.cnpj = data.get("cnpj")
     empresa.tipo = data.get("tipo")
-    empresa.contactName = data.get("contactName")
     empresa.phoneNumber = data.get("phoneNumber")
     empresa.user.username = data.get("username")
     empresa.user.email = data.get("email")

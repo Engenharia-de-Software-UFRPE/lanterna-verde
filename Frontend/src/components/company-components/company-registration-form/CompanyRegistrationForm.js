@@ -3,50 +3,74 @@ import {useState} from 'react';
 import './company-form.css';
 import stamp from '../../../images/stamp.png';
 
-var counter = 0;
-
 const CompanyRegistrationForm = () => {
+    const [company, setCompany] = useState({
+        username: "",
+        email: "",
+        password: "",
+        tradeName: "",
+        corporateName: "",
+        stateRegistration: "",
+        cnpj: "",
+        type: "",
+        phoneNumber: ""
+    });
     const[selected, setSelected] = useState(false);
-    const [stateRegistration, setStateRegistration] = useState('');
-    const [cnpj, setCnpj] = useState('');
-    const [type, setType] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    
 
-    const handleChangeStateRegistration = event => {
-        const result = event.target.value.replace(/[^0-9]/, '');
-        setStateRegistration(result);
-    };
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
 
-    const handleChangeCnpj = event => {
-        const result = event.target.value.replace(/[^0-9]/, '');
-        setCnpj(result);
-    };
-
-    const handleChangeType = event => {
-        const result = event.target.value;
-        if(counter===0){
-            setSelected(true);
-            counter = 1;
+        if (name==='stateRegistration' ||
+        name==='cnpj' || name ==='phoneNumber'){
+            const result = event.target.value.replace(/[^0-9]/, '');
+            setCompany({
+                ...company,
+                [name]: result,
+            });
         }
-        setType(result);
-        console.log(type)
+        else if (name === 'type'){
+            if(value!==''){
+                setSelected(true);
+                setCompany({
+                    ...company,
+                    [name]: value,
+                });
+            }
+        }
+        else{
+            setCompany({
+                ...company,
+                [name]: value,
+            });
+        }
     };
 
-    function isValidEmail(email) {
-        return /\S+@\S+\.\S+/.test(email);
+    const handlePasswordConfirmation = (event) =>{
+        const result = event.target.value;
+        setPasswordConfirmation(result);
     }
 
-    const handleChangeEmail = event => {
-        if (isValidEmail(event.target.value)) {
-            setEmail(event.target.value);
-        }
-    };
+    function isValidEmail(email) {
+        return (/\S+@\S+\.\S+/.test(email));
+    }
 
-    const handleChangePhoneNumber = event => {
-        const result = event.target.value.replace(/[^0-9]/, '');
-        setPhoneNumber(result);
-    };
+
+
+    const confirm = (event) =>{
+        console.log(company);
+        console.log(passwordConfirmation);
+
+        if(passwordConfirmation !== company.password){
+            console.log("password");
+        }
+
+        if(!isValidEmail(company.email)){
+            console.log("email")
+        }
+    }
+
 
     return(
         <section className='company-form-section'>
@@ -55,38 +79,38 @@ const CompanyRegistrationForm = () => {
 
                 <div className="form-div">
                     <form className="form">
-                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="" id="" maxLength={100} />
+                        <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100} onChange={handleInputChange} />
+
+                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100} onChange={handleInputChange} />
                         
-                        <input className="input" type="text" placeholder="Digite a Razão Social " name="" id="" maxLength={100}/>
+                        <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100}
+                        onChange={handleInputChange} />
                         
-                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id="" maxLength={9} value={stateRegistration} onChange={handleChangeStateRegistration}/>
+                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} value={company.stateRegistration} onChange={handleInputChange}/>
                         
-                        <input className="input" type="text" placeholder="Digite o CNPJ" name="" id="" maxLength={14} value={cnpj} onChange={handleChangeCnpj}/>
+                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} value={company.cnpj} onChange={handleInputChange}/>
                         
-                        {/* Não está pegando o tipo em tempo real, e sim o tipo anterior a mudança */}
-                        <select className={selected ? "select selected" : "select"} id="" onChange={handleChangeType}>
+                        <select className={selected ? "select selected" : "select"} name="type" onChange={handleInputChange}>
                             <option className="select-option" value="default" disabled selected>Selecione o tipo</option>
                             <option className="select-option" value="Primeiro Setor">Primeiro Setor</option>
                             <option className="select-option" value="Segundo Setor">Segundo Setor</option>
                             <option className="select-option" value="Terceiro Setor">Terceiro Setor</option>
                         </select>
+                        
+                        <input className="input" type="email" placeholder="Digite o seu email" name="email" maxLength={100} onChange={handleInputChange}/>
+                        
+                        <input className="input" type="text" placeholder="Digite o seu Telefone " name="phoneNumber" maxLength={12} value={company.phoneNumber} onChange={handleInputChange} />
 
-                        <div className="password">
-                            <input className="input last" type="password" placeholder="Digite uma senha" name="" id="" maxLength={100} />
+                        <div className="password" on>
+                            <input className="input last" type="password" placeholder="Digite uma senha" name="password" maxLength={100} onChange={handleInputChange} />
                             
-                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="" id="passwordConfirmation" maxLength={100} />
-                        </div>
-
-                        <div className="contacts">
-                            <input className="input last" type="text" placeholder="Digite o seu Telefone " name="" id="" maxLength={12} value={phoneNumber} onChange={handleChangePhoneNumber} />
-
-                            <input className="input last" type="email" placeholder="Digite o seu email" name="" id=""maxLength={100}  onChange={handleChangeEmail}/>
+                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="passwordConfirmation" maxLength={100} onChange={handlePasswordConfirmation} />
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#loginScreen" class="confirm">Confirmar</a>
+                <a href="#loginScreen" class="confirm" onClick={confirm}>Confirmar</a>
             </div>
 
             <div className="stamp-container">

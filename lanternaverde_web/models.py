@@ -129,7 +129,6 @@ class Empresa(models.Model):
     stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
     cnpj = models.CharField('CNPJ', max_length=14, unique=True)
     tipo = models.CharField(choices=TYPE, max_length=100)
-    contactName= models.CharField('Nome do Contato', max_length=50)
     phoneNumber = models.CharField('Telefone', max_length=12)
 
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
