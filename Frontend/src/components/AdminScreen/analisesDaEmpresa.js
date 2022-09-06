@@ -33,7 +33,7 @@ const TableAnalisesEmpresa = () => {
         let dataHtml = '';
 
         for(let analise of listaAnalises){
-            dataHtml += `<tr><td>${analise.nomeAnalise}</td></tr>`
+            dataHtml += `<tr><td><a href = "#">${analise.nomeAnalise}</a></td></tr>`
         }
         corpoDaListaAnalise.innerHTML = dataHtml;
     }

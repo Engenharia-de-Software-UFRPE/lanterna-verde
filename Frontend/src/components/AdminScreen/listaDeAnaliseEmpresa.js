@@ -29,7 +29,7 @@ const TableListaEmpresas = () => {
         let dataHtml = '';
 
         for(let empresa of listaEmpresas){
-            dataHtml += `<tr><td>${empresa.nomeEmpresa}</td></tr>`
+            dataHtml += `<tr><td><a href = "#">${empresa.nomeEmpresa}</a></td></tr>`
         }
         corpoDaLista.innerHTML = dataHtml;
     }
