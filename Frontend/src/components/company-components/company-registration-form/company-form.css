@@ -5,15 +5,14 @@
     box-sizing: border-box;
     background-color: #DADADA;
     height: 100vh;
-    min-height: 800px;
+    min-height: 900px;
     width: 100%;
-    gap: 10%;
+    gap: min(10%, 150px);
     top: 0%;
-    padding-top: 5%;
+    padding-top: 120px;
 }
 
 .company-form-section .form-container{
-    width: 40%;
     max-width: 750px;
     height: 700px;
     background: #EEEDED;
@@ -86,7 +85,7 @@
 
 .company-form-section .password{
     display: flex;
-    gap: 14px;
+    gap: 3%;
     justify-content: center;
 }
 
@@ -117,6 +116,19 @@
     width: 200px;
     height: 350px;
     margin-top: 150px;
+}
+
+
+@media screen and (max-width:900px){
+    .company-form-section{
+        gap: 0;
+    }
+    .company-form-section .form-container{
+        margin: 0px 15px;
+    }
+    .company-form-section .stamp-img{
+        display: none;
+    }
 }
 
 
