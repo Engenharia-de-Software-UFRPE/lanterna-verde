@@ -1,3 +1,4 @@
+import json
 from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
@@ -21,8 +22,9 @@ def login(request):
     Method that tries to login an user.
     """
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        data = json.loads(request.body)
+        username = data['username']
+        password = data['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             djangoLogin(request, user)
