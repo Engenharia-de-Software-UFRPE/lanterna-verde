@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
+import axios from 'axios';
 import './company-form.css';
 import stamp from '../../../images/stamp.png';
 
@@ -56,19 +57,30 @@ const CompanyRegistrationForm = () => {
         return (/\S+@\S+\.\S+/.test(email));
     }
 
+    const sendPostRequest = async () => {
+        const data = JSON.stringify(company);
+        
+        axios.post('http://127.0.0.1:8000/empresa/add', company)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        })
+        .catch( error=>{
+            console.log(error);
+        })
+    };
 
 
     const confirm = (event) =>{
-        console.log(company);
-        console.log(passwordConfirmation);
-
         if(passwordConfirmation !== company.password){
-            console.log("password");
+            //console.log("password");
         }
 
         if(!isValidEmail(company.email)){
-            console.log("email")
+            //console.log("email")
         }
+
+        sendPostRequest();
     }
 
 
