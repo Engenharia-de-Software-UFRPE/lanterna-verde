@@ -18,12 +18,14 @@ function App() {
 
   const [data, dispatch] = useReducer(authReducer, {token: null})
   const loginThunk = async (username, password) => {
-    const res = await axios.post(
+    const response = await axios
+    .post(
       'http://localhost:8000/login',
       { username: username, password: password}
     )
-    console.log(res.data.token)
-    dispatch({ type: LOGIN, token: res.data.token })
+    .then((response) => response);
+    console.log(response.data)
+    dispatch({ type: LOGIN, token: response.data.token })
   }
 
   return (
