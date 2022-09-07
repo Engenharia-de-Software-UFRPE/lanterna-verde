@@ -51,32 +51,22 @@
     background-color: var(--company-buttons-hover-color);
 }
 
-@media screen and (max-width:450px){
+@media screen and (max-width:420px){
     .company-basic-header-container{
         margin: 0 20px;
-        font-size: 0.9em;
     }
 
     .company-basic-header-container .logo{
         gap: 5px;
     }
 
-    .company-basic-header-container .logo-img{
-        max-width: 40px;
-        max-height: 40px;
-    }
-
-    .company-basic-header-container .login{
-        width: 3.9em;
-        line-height: 1.65em;
-
-    }
-}
-
-@media screen and (max-width:340px){
-    .company-basic-header-container .logo-img{
+    .company-basic-header-container .logo .logo-name > div{
         display: none;
+        gap: 0px;
+        flex-direction: column;
     }
+
 }
+
 
 
