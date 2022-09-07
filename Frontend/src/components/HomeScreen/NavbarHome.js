@@ -10,6 +10,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
+
 function NavbarHome() {
     
 
@@ -41,6 +42,11 @@ function NavbarHome() {
                 <li class="nav-item">
                   <a class="nav-link" href="">Cadastro</a>
                 </li>
+
+                <li class="nav-item">
+                  <a href ='analystRegistration' class="nav-link">Cadastro Analista</a>
+                </li>
+
                 <li class="nav-item">
                   <Popup trigger={<a class="nav-link" href="#">Login</a>}>
                     <div className='popup'>  
@@ -73,6 +79,49 @@ function NavbarHome() {
                     </div>
                   </Popup>
                 </li>
+
+                <li class="nav-item">
+                  <Popup trigger={<a class="nav-link" href="#">Login Analista</a>}>
+                    <div className='popup'>  
+                      <Link
+                        to='/'
+                        >
+                        <Popup trigger={<a href="" id='x-btn'><strong>X</strong></a>}/>
+                      </Link>            
+                      <img src="../images/tick.png" alt="" />
+                      <h2>Faça seu login como analista</h2>
+                      <p>Por favor digite seu login e senha.</p>
+                      
+                      <form action="http://localhost:8000/login" method='post' 
+                      >
+                        <div className="field name field">
+                          <div className="input-field">
+                            <input type="username" placeholder="Insira seu Nome" className="username" name ='username'/>
+                          </div>
+                          <span className="error name-error">
+                            <i className="bx bx-error-circle error-icon" />
+                            <p className="error-text">Por favor, insira um nome valido</p>
+                          </span>
+                        </div>
+                        <div className="field create-password">
+                          <div className="input-field">
+                            <input type="password" placeholder="Insira sua senha" className="password" name = 'password'/>
+                            <i className="bx bx-hide show-hide" />
+                          </div>
+                          
+                        </div>
+                      
+                        <div className="input-field button">
+                        
+                          <input type="submit" defaultValue="Submit Now" />
+                        
+                          
+                        </div>
+                      </form>
+                    </div>
+                  </Popup>
+                </li>
+
               </ul> 
             </Navbar.Collapse>
           </Container>
