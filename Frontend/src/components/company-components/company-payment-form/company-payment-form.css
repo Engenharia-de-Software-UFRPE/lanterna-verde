@@ -12,7 +12,6 @@
 }
 
 .company-payment-form-modal .payment-title{
-    margin-top: 20px;
     font-weight: 700;
     font-size: 2em;
     color: var(--company-buttons-color);
@@ -20,13 +19,15 @@
 
 .company-payment-form-modal .payment-wrapper{
     margin-top: 50px;
-    padding-top: 10px;
     display: flex;
     width: 30%;
+    max-width: 400px;
+    min-width: 300px;
     height: 50%;
+    max-height: 300px;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     gap: 20px;
     background-color: #EEEDED;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -39,21 +40,29 @@
 .company-payment-form-modal .payment-form{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
 }
 
 .company-payment-form-modal .payment-form .input{
+    box-sizing: border-box;
     background-color: #F5F7F9;
-    padding: 5px 15px;
     font-size: 1em;
     border: 1px solid #2D6628;
     border-radius: 5px;
+    width: 92%;
+    height: 2.4em;
+    padding: 0px 20px;
+
 }
 
 .company-payment-form-modal .buttons{
     display: flex;
     gap: 20px;
     margin-top:10px;
+    width: 100%;
+    justify-content: center;
+
 }
 
 .company-payment-form-modal .buttons .btn{
@@ -61,8 +70,9 @@
     color: #fff;
     border: 0px;
     font-weight: 600;
-    padding: 3px 28px;
     transition:  0.2s background-color ease-in-out ;
+    width: 32%;
+    min-width: 110px;
 }
 
 .company-payment-form-modal .buttons .btn:hover{
