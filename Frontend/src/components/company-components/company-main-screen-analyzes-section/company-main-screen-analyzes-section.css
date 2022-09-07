@@ -13,6 +13,10 @@
     box-sizing: border-box;
 }
 
+.company-header-container .menu-buttons .btn.see-all-analyzes{
+    display: none;
+}
+
 .company-main-screen-left-section .section-title{
     margin: 10px 0px ;
     margin-bottom: 20px;
@@ -91,4 +95,14 @@
 
 .company-main-screen-left-section .see-all-analysis:hover{
     background-color: var(--company-buttons-hover-color);
+}
+
+@media screen and (max-width: 1050px){
+    .company-main-screen-left-section{
+        display: none;
+    }
+
+    .company-header-container .menu-buttons .btn.see-all-analyzes{
+        display: block;
+    }
 }

@@ -20,7 +20,7 @@ const CompanyMainScreenCenterSection = () =>{
                 
                 <thead class="table-header"> 
                   <tr>
-                    <th>#</th>
+                    <th>Rank</th>
                     <th>Nome da Empresa</th>
                     <th>Score</th>
                   </tr>
@@ -28,17 +28,17 @@ const CompanyMainScreenCenterSection = () =>{
                 
                 <tbody class="table-body">
                   <tr>
-                    <td>1</td>
+                    <td>1º</td>
                     <td>Empresa 1</td>
                     <td>9,7</td>
                   </tr>
                   <tr>
-                    <td>2</td>
+                    <td>2º</td>
                     <td>Empresa 2</td>
                     <td>9,5</td>
                   </tr>
                   <tr>
-                    <td>3</td>
+                    <td>3º</td>
                     <td>Empresa 3</td>
                     <td>9,0</td>
                   </tr>
