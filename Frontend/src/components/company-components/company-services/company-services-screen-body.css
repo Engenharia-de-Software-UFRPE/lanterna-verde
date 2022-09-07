@@ -1,18 +1,19 @@
 .company-services-section {
-    padding: 0;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: #DADADA;
     height: 100vh;
+    min-height: 700px;
+    gap: 40px;
 }
 
 .company-services-section .title{
-    margin-bottom: 60px;
     font-size: 40px;
     color:var(--company-buttons-color);
     font-weight: bold;
+    text-align: center;
 }
 
 .company-services-section .services{
@@ -24,12 +25,14 @@
     justify-content: center;
     gap:40px;
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .company-services-section .service{
-    width: 30%;
-    min-height: 460px;
-    height: 50vh;
+    min-width: 300px;
+    width: 50%;
+    max-width: 450px;
+    height: 500px;
     background: #EEEDED;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
@@ -70,4 +73,19 @@
 
 .company-services-section .sign-now:hover{
     background-color: var(--company-buttons-hover-color);
+}
+
+@media screen and (max-width: 950px) {
+    .company-services-section{
+        min-height: 1400px;
+    }
+    .company-services-section .service{
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .company-services-section .service{
+        height: 560px;
+    }
 }
