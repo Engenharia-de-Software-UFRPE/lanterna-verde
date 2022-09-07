@@ -5,7 +5,7 @@ import logo from '../../../images/logo-img.png';
 import companyPicture from '../../../images/apple.png';
 import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 
-const CompanyHeader = () =>{
+const CompanyHeader = ({newButton}) =>{
 
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
@@ -50,6 +50,7 @@ const CompanyHeader = () =>{
                   <li><a className="btn" href="#">Emitir relatório geral</a></li>
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>
+                  <li>{newButton}</li>
                   <li><a className="btn exit" href="#">Sair</a></li>
               </ul>
           </div>

@@ -37,7 +37,7 @@ header{
 }
 
 .company-header-container .search-box{
-    margin-left: 10%;
+    margin-left: 8%;
     width: 80%;
     height: 2.2em;
     background: #FBFBFB;
@@ -121,8 +121,7 @@ header{
     width: 320px;
     height: 100vh;
     opacity: 0.985;
-    height: 100vh;
-    min-height: 650px;
+    height: 107vh;
     transition: opacity 0.2s ease-out;
     z-index: 1;
 }
@@ -237,11 +236,17 @@ header{
     background: #fff;
 }
 
+@media screen and (max-width:1050px) {
+    .company-header-container .search-box{
+        margin-left: 5%;
+        width: 120%;
+    }
+}
+
 @media screen and (max-width:750px) {
     .company-header-container .search-box{
         margin-left: 3%;
         width: 180%;
-        height: 2.2em;
     }
 
     .company-header-container .logo .logo-name > div{
