@@ -82,9 +82,6 @@ function NavbarHome() {
                                   onClick={(e) => {
                                     e.preventDefault();
                                     loginThunk(formState.username, formState.password)
-                                    .then(() => {
-                                      // formState.clear(); ain't sure if it is giving me problem...
-                                    })
                                   }}/>
                               </li>
                             </div>
