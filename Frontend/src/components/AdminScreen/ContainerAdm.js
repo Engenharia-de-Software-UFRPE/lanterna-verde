@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import TableAnalisesEmpresa from './analisesDaEmpresa';
 import './ContainerAdm.css';
+import TableAnalysisData from './DadosDaAnalise';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
 import TableQuestionario from './TelaQuestionario';
@@ -53,7 +54,9 @@ function ContainerAdm() {
 
       </div>
 
+
       <Tableadmin></Tableadmin>
+      {/*<TableAnalysisData></TableAnalysisData>*/}
       {/*<TableListaEmpresas></TableListaEmpresas>*/}
       {/*<TableAnalisesEmpresa></TableAnalisesEmpresa>*/}
       {/*<TableQuestionario></TableQuestionario>*/}
