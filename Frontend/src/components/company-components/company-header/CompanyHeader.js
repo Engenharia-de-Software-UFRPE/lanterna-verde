@@ -50,6 +50,7 @@ const CompanyHeader = () =>{
                   <li><a className="btn" href="#">Emitir relatório geral</a></li>
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>
+                  <li><a className="btn exit" href="#">Sair</a></li>
               </ul>
           </div>
 
