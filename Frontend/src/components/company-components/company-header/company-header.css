@@ -52,14 +52,14 @@ header{
     width: 32px;
     height: 32px;
     position: absolute;
-    z-index: 4;
+    z-index: 3;
     right: 30px;
     cursor:pointer;
     vertical-align: center;
 }
 
 .company-header-container .icon.icon-active{
-    position:absolute;
+    position:fixed;
 }
 
 .company-header-container .icon.icon-active .hamburger{
@@ -115,15 +115,14 @@ header{
 .company-header-container .menu.menu-open{
     background-color: var(--company-text-color);
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     top:0;
     right: 0;
     width: 320px;
-    height: 100vh;
     opacity: 0.985;
     height: 107vh;
     transition: opacity 0.2s ease-out;
-    z-index: 1;
+    z-index: 2;
 }
 
 .company-header-container .menu.menu-close{
@@ -241,6 +240,7 @@ header{
         margin-left: 5%;
         width: 120%;
     }
+
 }
 
 @media screen and (max-width:750px) {
@@ -251,6 +251,24 @@ header{
 
     .company-header-container .logo .logo-name > div{
         display:none;
+    }
+
+    .company-header-container .not-menu.menu-open{
+        background-color: transparent;
+        box-sizing: border-box;
+        position: fixed;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 107vh;
+        transition: opacity 0.2s ease-out;
+        z-index: 2;
+    }
+    
+    .company-header-container .not-menu.menu-close{
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
     }
 }
 
@@ -312,5 +330,4 @@ header{
     .company-header-container .menu-buttons .btn.exit::before{
         width: 100%;
     }
-
 }

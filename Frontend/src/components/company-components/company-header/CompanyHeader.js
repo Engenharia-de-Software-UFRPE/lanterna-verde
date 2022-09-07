@@ -31,10 +31,11 @@ const CompanyHeader = ({newButton}) =>{
           <div className='hamburger hamburger-icon'></div>
         </div>
 
+        <div className={active ? "not-menu menu-open" : "not-menu menu-close" }></div>
+        
         <div className={active ? "menu menu-open" : "menu menu-close" }>
-
           <div className="company-logged-in">
-              <div className='teste'>
+              <div>
                 <img className="company-img" src={companyPicture} alt="Foto de perfil da empresa logada"/>
               </div>
               <div className="company-info">
