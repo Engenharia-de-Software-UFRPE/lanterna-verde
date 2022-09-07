@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './NavbarHome.css';
 import './PopupLogin.css';
 import { AuthContext } from '../../context/AuthContext';
-
 import Popup from 'reactjs-popup';
 
 import Form from 'react-bootstrap/Form';
@@ -17,7 +16,6 @@ function NavbarHome() {
     username: '',
     password: ''
   });
-  const navigate = useNavigate();
   const {username, password} = formState;
   const handleInputChange = ({target}) => {
     setFormState({
@@ -25,40 +23,6 @@ function NavbarHome() {
       [target.name]: target.value
     })
   }
-
-  {/*const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-    useEffect(() =>{
-      if(localStorage.getItem('token') !== null){
-        window.location.replace('http://localhost:3000/Admin');
-      } 
-    }, []);
-
-    const onSubmit = e => {
-      
-      const user = {
-        username: username,
-        password: password
-      };
-  
-      fetch('http://127.0.0.1:8000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.key){
-            localStorage.clear();
-            localStorage.setItem('token', data.key);
-            window.location.replace('http://localhost:3000/Admin');
-          }
-        });
-    };*/}
-
 
     return(
       <>
@@ -100,7 +64,6 @@ function NavbarHome() {
                       <img src="../images/tick.png" alt="" />
                       <h2>Faça seu login</h2>
                       <p>Por favor digite seu login e senha.</p>
-                      {/*<form action="http://localhost:8000/login" method='post'>*/}
                       <form>
                         <div>
                           <input name ='username' type="username" value={username} placeholder="Login" className="username" onChange={handleInputChange}/>
@@ -111,21 +74,17 @@ function NavbarHome() {
                         <div id='buttons'>
                           <ol>
                             <div id='signin'>
-                              <li> {/*<Link
-                                to='/Admin'
-                                >
-                                <a href="#">Entrar</a>
-                                </Link>*/}
+                              <li>
                                 <input 
                                   variant='primary' 
                                   type='submit' 
                                   defaultValue="Submit now" 
                                   onClick={(e) => {
-                                    e.preventDefault()
+                                    e.preventDefault();
                                     loginThunk(formState.username, formState.password)
-                                      .then(() => {
-                                        navigate.push('/Admin')
-                                      })
+                                    .then(() => {
+                                      // formState.clear(); ain't sure if it is giving me problem...
+                                    })
                                   }}/>
                               </li>
                             </div>

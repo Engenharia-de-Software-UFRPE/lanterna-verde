@@ -3,7 +3,7 @@ import { authReducer, LOGIN } from './reducers/authReducer';
 import './App.css';
 import Cadastro from './components/pages/AnalystRegistration';
 import Home from './components/pages/Home';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import TelaPerfilAnalista from './components/pages/AnalystProfileScreen';
 import DadosAnalista from './components/pages/DataAnalyst';
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
@@ -11,11 +11,10 @@ import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScr
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
 import Administrador from './components/pages/Administrador';
 import { AuthContext } from './context/AuthContext';
-import Switch from "react-switch";
 import axios from 'axios';
 
 function App() {
-
+  const navigate = useNavigate();
   const [data, dispatch] = useReducer(authReducer, {token: null})
   const loginThunk = async (username, password) => {
     const response = await axios
@@ -26,6 +25,14 @@ function App() {
     .then((response) => response);
     console.log(response.data)
     dispatch({ type: LOGIN, token: response.data.token })
+    {/*Condicional para troca de tela após realização do Login */}
+    if(response.data === 'administrador'){
+      navigate('/Admin');
+    } else if(response.data === 'analista'){
+      navigate('/analystProfile');
+    } else if(response.data === 'empresa'){
+      navigate('/CompanyMainScree');
+    } 
   }
 
   return (
@@ -33,8 +40,6 @@ function App() {
       data,
       loginThunk
     }}>
-      <BrowserRouter>
-      {/*<Switch>*/}
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path= '/Admin' element={<Administrador/>} />
@@ -49,8 +54,6 @@ function App() {
             <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
             <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
           </Routes>
-        {/*</Switch>*/}
-      </BrowserRouter>
     </AuthContext.Provider>
   );
 }
