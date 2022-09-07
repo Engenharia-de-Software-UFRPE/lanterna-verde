@@ -9,6 +9,7 @@ urlpatterns = [
 
     path("analista/add", views.cadastro_analista, name='criar_analista'),
     path("analista/update", views.alterar_analista, name='alterar cadastro'),
+    path("analista/detail", views.detalhar_analista, nome='detalhar_analista'),
 
     path('user', views.get_logged_usuario, name='test_permission'),
     path('user/admin', views.get_logged_administrador, name='get_admin'),

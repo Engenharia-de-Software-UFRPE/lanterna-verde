@@ -299,7 +299,7 @@ def atualizar_analise(request):
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
-            for question in data['questions']:
+            for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
@@ -309,7 +309,8 @@ def atualizar_analise(request):
     return HttpResponseBadRequest()
 
 @csrf_exempt
-def detalhar_analiyt(request):
+@login_required
+def detalhar_analista(request):
     """
     Function that detail a analyst
     """
