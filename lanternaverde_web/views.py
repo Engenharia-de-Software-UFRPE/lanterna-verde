@@ -190,7 +190,23 @@ def get_logged_analista(request):
             return _JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
-@login_required
+@login_required(login_url='/')
+def get_logged_empresa(request):
+    """
+    Function that creates a response to a GET request for a logged Empresa
+    """
+    if request.method == 'GET':
+        user = request.user
+        if hasattr(user, 'empresa'):
+            ser_user = UsuarioSerializer(user)
+            ser_empr = EmpresaSerializer(user.empresa)
+            ser_return = {
+                'Usuario': ser_user.data,
+                'Empresa': ser_empr.data
+            }
+            return _JSONResponse(ser_return, status=201)
+    return HttpResponseBadRequest()
+
 @csrf_exempt
 def create_questao(request):
     """
