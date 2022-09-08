@@ -107,21 +107,23 @@ def logout(request):
 @csrf_exempt
 def cadastro_empresa(request):
     print(request.POST)
-    if request.method == 'GET':
-        pass
 
-    elif request.method == 'POST':
-        data = request.POST
-        usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        usuario = Usuario.objects.create_user(username=data['username'], 
+                                            email=data['email'], 
+                                            password=data['password'])        
         usuario.save()
-        empresa = Empresa.objects.create(tradeName=data.get('tradeName'),
-                                        corporateName=data.get('corporateName'),
-                                        stateRegistration=data.get('stateRegistration'),
-                                        cnpj=data.get('cnpj'),
-                                        tipo=data.get('tipo'),
-                                        phoneNumber=data.get('phoneNumber'),
+        empresa = Empresa.objects.create(tradeName= data['tradeName'],
+                                        corporateName= data['corporateName'],
+                                        stateRegistration= data['stateRegistration'],
+                                        cnpj= data['cnpj'],
+                                        tipo= data['type'],
+                                        phoneNumber= data['phoneNumber'],
                                         user=usuario)
         empresa.save()
+
+        print(data) #debug
 
     return HttpResponse(status=201)
 

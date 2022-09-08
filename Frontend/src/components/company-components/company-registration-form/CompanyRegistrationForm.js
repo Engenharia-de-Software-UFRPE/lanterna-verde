@@ -60,7 +60,7 @@ const CompanyRegistrationForm = () => {
     const sendPostRequest = async () => {
         const data = JSON.stringify(company);
         
-        axios.post('http://127.0.0.1:8000/empresa/add', company)
+        await axios.post('http://127.0.0.1:8000/empresa/add', company)
         .then(res => {
             console.log(res);
             console.log(res.data);
