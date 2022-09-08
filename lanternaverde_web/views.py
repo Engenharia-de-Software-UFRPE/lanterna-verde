@@ -324,3 +324,13 @@ def atualizar_analise(request):
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
+
+
+@login_required
+def criar_relatorio(request):
+    if request.method == 'POST':
+        post = request.POST
+        report = Relatorio.objects.create(company=get_logged_empresa)
+        report.save()
+        return HttpResponse(status=201)
+    return HttpResponseBadRequest()
