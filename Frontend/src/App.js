@@ -1,19 +1,15 @@
 import React, { useReducer } from 'react';
 import { authReducer, LOGIN } from './reducers/authReducer';
-import './App.css';
-// import Cadastro from './components/pages/AnalystRegistration';
-import Home from './components/pages/Home';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-//import TelaPerfilAnalista from './components/pages/AnalystProfileScreen';
-//import DadosAnalista from './components/pages/DataAnalyst';
+import { AuthContext } from './context/AuthContext';
+import axios from 'axios';
+import './App.css';
+import Home from './components/pages/Home';
+import Administrador from './components/pages/Administrador';
+//Company
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
-import Administrador from './components/pages/Administrador';
-import { AuthContext } from './context/AuthContext';
-import axios from 'axios';
-
-
 //Analyst
 import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScreen';
 import DataAnalyst from './components/Analyst/pages/DataAnalyst';
