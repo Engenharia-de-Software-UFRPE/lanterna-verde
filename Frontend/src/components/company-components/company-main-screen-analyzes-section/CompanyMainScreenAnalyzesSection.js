@@ -19,9 +19,6 @@ const CompanyMainScreenAnalyzesSection = () =>{
             console.log(error);
         })
     }
-    useEffect=(()=>{
-        getAnalyzes();
-    }, [])
 
     return(
         <>
