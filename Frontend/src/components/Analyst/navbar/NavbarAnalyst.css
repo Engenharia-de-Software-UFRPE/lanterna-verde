@@ -1,0 +1,20 @@
+li{
+    display: flex;
+    padding-left: 5px;
+  }
+  .nav-item img{
+      display: inline-block;
+      padding: 2px;
+      background: linear-gradient(130deg, #74b9ff, #e66767);
+      margin: auto;
+      border-radius: 50%;
+      background-size: 200% 200%;
+      animation: animated-gradient 2s linear infinite;
+    margin: auto;
+    height: 35px;
+    border-radius: 50%;
+  }
+  .nav-item{
+    font-size: 20px;
+  }
+  

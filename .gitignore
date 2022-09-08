@@ -89,3 +89,4 @@ migrations
 
 .env
 db.sqlite3
+.idea/
