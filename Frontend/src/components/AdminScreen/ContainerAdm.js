@@ -15,6 +15,88 @@ function ContainerAdm() {
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
+  const [minhaConta, setConta] = useState(false);
+  const [configuracoes, setConfiguracoes] = useState(false);
+  const [cadastrarAnalista, setAnalista] = useState(false);
+  const [verQuestionario, setQuestionario] = useState(false);
+  const [historicoAnalises, setHistorico] = useState(false);
+
+  const mContaHandler = () => {
+    if(configuracoes == true){
+      setConfiguracoes((prevState) => !prevState);
+    }
+    if(cadastrarAnalista == true){
+      setAnalista((prevState) => !prevState);
+    }
+    if(verQuestionario == true){
+      setQuestionario((prevState) => !prevState);
+    }
+    if(historicoAnalises == true){
+      setHistorico((prevState) => !prevState);
+    }
+    setConta((prevState) => !prevState);
+  }
+  const configuracoesHandler = () => {
+    if(minhaConta == true){
+      setConta((prevState) => !prevState);
+    }
+    if(cadastrarAnalista == true){
+      setAnalista((prevState) => !prevState);
+    }
+    if(verQuestionario == true){
+      setQuestionario((prevState) => !prevState);
+    }
+    if(historicoAnalises == true){
+      setHistorico((prevState) => !prevState);
+    }
+    setConfiguracoes((prevState) => !prevState);
+  }
+  const cAnalistaHandler = () => {
+    if(minhaConta == true){
+      setConta((prevState) => !prevState);
+    }
+    if(configuracoes == true){
+      setConfiguracoes((prevState) => !prevState);
+    }
+    if(verQuestionario == true){
+      setQuestionario((prevState) => !prevState);
+    }
+    if(historicoAnalises == true){
+      setHistorico((prevState) => !prevState);
+    }
+    setAnalista((prevState) => !prevState);
+  }
+  const vQuestionarioHandler = () => {
+    if(minhaConta == true){
+      setConta((prevState) => !prevState);
+    }
+    if(configuracoes == true){
+      setConfiguracoes((prevState) => !prevState);
+    }
+    if(cadastrarAnalista == true){
+      setAnalista((prevState) => !prevState);
+    }
+    if(historicoAnalises == true){
+      setHistorico((prevState) => !prevState);
+    }
+    setQuestionario((prevState) => !prevState);
+  }
+  const hAnalisesHandler = () => {
+    if(minhaConta == true){
+      setConta((prevState) => !prevState);
+    }
+    if(configuracoes == true){
+      setConfiguracoes((prevState) => !prevState);
+    }
+    if(cadastrarAnalista == true){
+      setAnalista((prevState) => !prevState);
+    }
+    if(verQuestionario == true){
+      setQuestionario((prevState) => !prevState);
+    }
+    setHistorico((prevState) => !prevState);
+  }
+
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -46,20 +128,25 @@ function ContainerAdm() {
           <h6 class="usernameAdm">Username do administrador</h6>
         </div>
 
-        <button type="button" class="btnMinhaConta">Minha Conta</button>
-        <button type="button" class="btnConfiguracoes">Configurações</button>
-        <button type="button" class="btnCadastrarAnalista">Cadastrar Analista</button>
-        <button type="button" class="btnQuestionario">Ver Questionário</button>
-        <button type="button" class="btnHistoricoDeAnalises">Histórico de Análises</button>
-
+        <button onClick={mContaHandler} type="button" class='btnMinhaConta'>Minha Conta</button>
+        <button onClick={configuracoesHandler} type="button" class='btnConfiguracoes'>Configurações</button>
+        <button onClick={cAnalistaHandler} type="button" className='btnCadastrarAnalista'>Cadastrar Analista</button>
+        <button onClick={vQuestionarioHandler} type="button" className='btnQuestionario'>Ver Questionário</button>
+        <button onClick={hAnalisesHandler} type="button" className='btnHistoricoDeAnalises'>Histórico de Análises</button>
       </div>
 
 
-      <Tableadmin></Tableadmin>
-      {/*<TableAnalysisData></TableAnalysisData>*/}
-      {/*<TableListaEmpresas></TableListaEmpresas>*/}
-      {/*<TableAnalisesEmpresa></TableAnalisesEmpresa>*/}
-      {/*<TableQuestionario></TableQuestionario>*/}
+      {/*{minhaConta ? 'historico' : <Tableadmin></Tableadmin>}
+      {configuracoes ? 'configuracoes' : <Tableadmin></Tableadmin>}
+      {cadastrarAnalista ? 'cadastrar analista' : <Tableadmin></Tableadmin>}*/}
+      {verQuestionario ? <TableQuestionario></TableQuestionario> : <Tableadmin></Tableadmin>}
+      {historicoAnalises ? <TableListaEmpresas></TableListaEmpresas> : <Tableadmin></Tableadmin>}
+      
+      {/*<Tableadmin></Tableadmin>
+      <TableAnalysisData></TableAnalysisData>
+      <TableListaEmpresas></TableListaEmpresas>
+      <TableAnalisesEmpresa></TableAnalisesEmpresa>
+      <TableQuestionario></TableQuestionario>*/}
 
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
