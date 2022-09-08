@@ -190,3 +190,13 @@ class Questao(models.Model):
         verbose_name_plural = 'Questões'
 
 
+class Relatorio(models.Model):
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    allAnalysis = AvaliacaoAnalista.objects.filter(company=company).all()
+    scores = list(allAnalysis.score.all())
+    #scores = [score for score in allAnalysis]
+    scoresMean = (sum(scores)/len(scores))
+
+    class Meta:
+        verbose_name = 'Relatório'
+        verbose_name_plural = 'Relatórios'
