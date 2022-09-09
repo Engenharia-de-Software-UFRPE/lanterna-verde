@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
+from django.contrib.auth.hashers import check_password
 
 #pylint: disable=W0401
 from .models import *
@@ -307,3 +308,22 @@ def atualizar_analise(request):
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
+
+
+@csrf_exempt
+@login_required
+def alterar_senha(request):
+    if request.method == 'POST':
+        data = request.POST
+        old_password = data.get('old')
+        new_password = data.get('new')
+        user = request.user
+        matchcheck = check_password(old_password, user.password)
+        if matchcheck:
+            user.set_password(new_password)
+            user.save()
+            return HttpResponse("Senha alterada com sucesso", status=200)
+        else:
+            return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
+    return HttpResponseBadRequest()
+
