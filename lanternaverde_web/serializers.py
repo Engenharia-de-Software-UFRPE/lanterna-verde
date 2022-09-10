@@ -44,15 +44,6 @@ class PerguntaSerializer(serializers.HyperlinkedModelSerializer):
         model = Pergunta
         exclude = ('url', )
 
-class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
-    """
-    Serialization for SolicitacaoAnalise Model
-    """
-
-    class Meta:
-        """SolicitacaoAnalise metadata"""
-        model = SolicitacaoAnalise
-        fields = '__all__'
 
 class QuestaoSerializer(serializers.ModelSerializer):
     """
@@ -75,3 +66,16 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         model = AvaliacaoAnalista
         fields = '__all__'
         related_object = 'questao'
+
+
+class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
+    """
+    Serialization for SolicitacaoAnalise Model
+    """
+    analise = AvaliacaoAnalistaSerializer(many=True)
+    class Meta:
+        """SolicitacaoAnalise metadata"""
+        model = SolicitacaoAnalise
+        fields = '__all__'
+        related_object = 'analise'
+

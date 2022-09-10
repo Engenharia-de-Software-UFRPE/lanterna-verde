@@ -191,6 +191,7 @@ class AvaliacaoAnalista(models.Model):
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
+    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.company.tradeName

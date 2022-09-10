@@ -20,6 +20,7 @@ urlpatterns = [
     path('solicitacoesAnalise', views.get_solicitacoes, name='get_solicitacoes'),
     path('solicitacoesAnalise/add', views.create_solicitacao, name="Criar Solicitação de Análise"),
     path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise'),
+    path('solicitacoesAnalise/analises', views.get_analysis_by_request, name='get_analysis_by_request'),
 
     path('analise', views.listar_analises, name='listar_analises'),
     path('analise/add', views.criar_analise, name='criar_analise'),

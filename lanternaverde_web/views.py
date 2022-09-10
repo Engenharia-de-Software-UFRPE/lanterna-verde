@@ -273,3 +273,7 @@ def criar_analise(request):
 @login_required
 def atualizar_analise(request):
     return avalAnalista.atualizar_analise(request)
+
+
+def get_analysis_by_request(request):
+    return avalAnalista.get_analysis_by_request(request)
