@@ -266,7 +266,7 @@ def detalhar_analise(request):
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
         if hasattr(request.user, 'empresa'):
-            del data['id']
+            del data['analyst']
         ser_return = {
             'analysis': data
         }
