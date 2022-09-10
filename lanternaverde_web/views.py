@@ -264,8 +264,11 @@ def detalhar_analise(request):
         analysisid = request.GET.get('analysisid')
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
+        data = ser_anal.data
+        if hasattr(request.user, 'empresa'):
+            del data['id']
         ser_return = {
-            'analysis': ser_anal.data
+            'analysis': data
         }
         return _JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()

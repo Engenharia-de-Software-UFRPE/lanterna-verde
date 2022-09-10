@@ -67,14 +67,3 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         model = AvaliacaoAnalista
         fields = '__all__'
         related_object = 'questao'
-
-class ExcluirIDAnalista(serializers.ModelSerializer):
-    """
-    Serialization for Analista Model
-    """
-    analista_set = QuestaoSerializer(many=True)
-    class Meta:
-        """ExcluirIDAnalista serialization metadata"""
-        model = Analista
-        exclude = ['analyst']
-
