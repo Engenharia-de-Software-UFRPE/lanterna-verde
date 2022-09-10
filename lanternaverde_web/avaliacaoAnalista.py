@@ -33,8 +33,10 @@ def detalhar_analise(request):
         analysisid = request.GET.get('analysisid')
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
+        data = ser_anal.data
+        data['dimension_count'] = _count_dimension(data)
         ser_return = {
-            'analysis': ser_anal.data
+            'analysis': data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
@@ -50,9 +52,11 @@ def listar_analises(request):
             many=True,
             context={'request': None}
         )
-
+        data = analises.data
+        for analise in data:
+            analise['dimension_count'] = _count_dimension(analise)
         ser_return = {
-            'Analise': analises.data
+            'Analise': data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
@@ -87,7 +91,7 @@ def get_analysis_by_request(request):
         for analise in data:
             analise['dimension_count'] = _count_dimension(analise)
         ser_return = {
-            'Analise': analises.data,
+            'Analise': data,
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
@@ -95,7 +99,11 @@ def get_analysis_by_request(request):
 
 def _count_dimension(analysis):
     question_set = analysis['questao_set']
-    dimensions = {'D1': {'amount': 0, 'checked': 0}, 'D2': {'amount': 0, 'checked': 0}, 'D3': {'amount': 0, 'checked': 0}, 'D4': {'amount': 0, 'checked': 0}}
+    dimensions = {'D1': {'amount': 0, 'checked': 0},
+                  'D2': {'amount': 0, 'checked': 0},
+                  'D3': {'amount': 0, 'checked': 0},
+                  'D4': {'amount': 0, 'checked': 0}
+                  }
     for question in question_set:
         dimensions[question['question']['dimension']]['amount'] += 1
         if question['answer']:
