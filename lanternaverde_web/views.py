@@ -321,8 +321,10 @@ def detalhar_analista(request):
         if hasattr(request.user, 'administrador'):
             analystid = request.GET.get('analystid')
             analyst = Analista.objects.get(pk=analystid)
+            ser_user = UsuarioSerializer(analyst.user)
             ser_anal = AnalistaSerializer(analyst)
             ser_return = {
+                'user': ser_user.data
                 'analyst': ser_anal.data
             }
             return _JSONResponse(ser_return, status=200)
