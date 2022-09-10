@@ -27,15 +27,9 @@ function App() {
       'http://localhost:8000/login',
       { username: username, password: password}
     )
-    .then((response) => response)
-    .catch(function (error) {
-      if(error.response){
-        console.log(error.response.data); 
-      }
-    });
-    console.log(response.data)
+    .then((response) => response);
     dispatch({ type: LOGIN, token: response.data.token })
-    
+
     {/*Condicional para troca de tela após realização do Login */}
     if(response.data === 'administrador'){
       navigate('/Admin');
@@ -43,8 +37,8 @@ function App() {
       navigate('/analystProfile');
     } else if(response.data === 'empresa'){
       navigate('/CompanyMainScreen');
-    } 
-  }
+    }
+  };
 
   return (
     <AuthContext.Provider value={{

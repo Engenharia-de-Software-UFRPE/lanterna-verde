@@ -4,6 +4,7 @@ import './NavbarHome.css';
 import './PopupLogin.css';
 import { AuthContext } from '../../context/AuthContext';
 import Popup from 'reactjs-popup';
+import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -12,17 +13,34 @@ import Container from 'react-bootstrap/Container';
 
 function NavbarHome() {
   const{ loginThunk } = useContext(AuthContext);
+  const [errors, setErrors] = useState(false);
   const [formState, setFormState] = useState({
     username: '',
     password: ''
   });
   const {username, password} = formState;
+
   const handleInputChange = ({target}) => {
     setFormState({
       ...formState,
       [target.name]: target.value
     })
-  }
+  };
+  
+  const errorLog = async (username, password) => {
+    const response = await axios
+    .post(
+      'http://localhost:8000/login',
+      { username: username, password: password}
+    )
+    .then((response) => response)
+    .catch(function (error) {
+      if(error.response){
+        console.log(error.response.data);
+        setErrors(true);
+      }
+    });
+  };
 
     return(
       <>
@@ -81,10 +99,12 @@ function NavbarHome() {
                                   defaultValue="Submit now"
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    loginThunk(formState.username, formState.password)
+                                    loginThunk(formState.username, formState.password);
+                                    errorLog(formState.username, formState.password);
                                   }}/>
                               </li>
                             </div>
+                            <div id="error">{errors === true && <h5>Usuário e/ou senha inválidos</h5>}</div>
                           </ol>
                         </div>
                       </form>
