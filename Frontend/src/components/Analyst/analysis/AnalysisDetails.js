@@ -2,17 +2,20 @@ import React from 'react';
 import './Analysis.css'
 import Questions from './Questions';
 import QuestionsFinished from './QuestionsFinished';
-
+import {useNavigate} from 'react-router-dom';
 
 const Analysis = ({ analise }) => {
+
+    const navigate = useNavigate();
 
     const handleComentChange= () => {
         analise.comentario= document.getElementById("comentField").value;
         console.log("Valor da chave 'comentário' da analise: " + analise.comentario);
     }
 
+    
     const backButtonClickHandler =() => {
-
+        navigate('/analystProfile');
     }
 
     if (analise.finished === false){
