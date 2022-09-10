@@ -42,7 +42,7 @@ function App() {
     } else if(response.data === 'analista'){
       navigate('/analystProfile');
     } else if(response.data === 'empresa'){
-      navigate('/CompanyMainScree');
+      navigate('/CompanyMainScreen');
     } 
   }
 
