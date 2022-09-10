@@ -81,6 +81,19 @@ const CompanyRegistrationForm = () => {
         }
 
         sendPostRequest();
+
+        alert("Cadastro efetuado com sucesso")
+        setCompany({
+            username: "",
+            email: "",
+            password: "",
+            tradeName: "",
+            corporateName: "",
+            stateRegistration: "",
+            cnpj: "",
+            type: "",
+            phoneNumber: ""
+        })
     }
 
 
