@@ -11,12 +11,10 @@
   }
   .container {
     
-    background: #09aa4c;
     max-width: 100%;
     height: auto;
     width: 40%;
     padding: 25px;
-    border: 2px solid rgb(205, 201, 201)  
   }
   .container h2 {
     color: white;
