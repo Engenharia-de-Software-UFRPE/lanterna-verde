@@ -1,6 +1,6 @@
 import json
 from django.db import IntegrityError
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -322,6 +322,7 @@ def alterar_senha(request):
         if matchcheck:
             user.set_password(new_password)
             user.save()
+            update_session_auth_hash(request, request.user)
             return HttpResponse("Senha alterada com sucesso", status=200)
         else:
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
