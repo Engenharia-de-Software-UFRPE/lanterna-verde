@@ -3,14 +3,18 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from django.contrib.auth.hashers import check_password
 
+import lanternaverde_web.solicitacaoAnalise as solAnalise
+import lanternaverde_web.avaliacaoAnalista as avalAnalista
+
 #pylint: disable=W0401
 from .models import *
 from .serializers import *
+from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 # Create your views here.
 
@@ -154,7 +158,7 @@ def get_logged_usuario(request):
         ser_return = {
             'Usuario': serializer.data
         }
-        return _JSONResponse(ser_return, status=201)
+        return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 @login_required(login_url='/')
@@ -172,7 +176,7 @@ def get_logged_administrador(request):
                 'Usuario': ser_user.data,
                 'Administrador': ser_admin.data
             }
-            return _JSONResponse(ser_return, status=201)
+            return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 
@@ -190,7 +194,7 @@ def get_logged_analista(request):
                 'Usuario': ser_user.data,
                 'Analista': ser_anal.data
             }
-            return _JSONResponse(ser_return, status=201)
+            return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 @login_required
@@ -221,39 +225,39 @@ def get_questoes(request):
         ser_return = {
             'Questoes': questoes.data
         }
-        return _JSONResponse(ser_return, status=200)
+        return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
-class _JSONResponse(HttpResponse):
+@login_required
+def create_solicitacao(request):
     """
-    An HttpResponse that renders its content into JSON.
+    Creates a new Solicitacao Analise Object.
+
+    This function restricts who can create new Analysis requirement to Company
+    Users.
     """
+    return solAnalise.create_solicitacao(request)
 
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(_JSONResponse, self).__init__(content, **kwargs)
+@login_required
+def get_solicitacoes(request):
+    """
+    Groups all `SolicitacoesAnalise` objects into a JSON response.
+    """
+    return solAnalise.get_solicitacoes(request)
 
+@login_required
+def get_solicitacao(request):
+    """
+    Takes a requested analysis by its ID and returns.
+    """
+    return solAnalise.get_analysis(request)
 
 @login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
     """
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        analises = AvaliacaoAnalistaSerializer(
-            request.user.analista.analises.all(),
-            many=True,
-            context={'request': None}
-        )
-
-        ser_return = {
-            'Analise': analises.data
-        }
-        return _JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.listar_analises(request)
 
 @csrf_exempt
 @login_required
@@ -261,53 +265,21 @@ def detalhar_analise(request):
     """
     Function that detail a analysis
     """
-    if request.method == 'GET':
-        analysisid = request.GET.get('analysisid')
-        analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
-        ser_anal = AvaliacaoAnalistaSerializer(analysis)
-        ser_return = {
-            'analysis': ser_anal.data
-        }
-        return _JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.detalhar_analise(request)
 
 @csrf_exempt
 @login_required
 def criar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
-        data = json.loads(request.body)
-        analysts = data['analysts']
-        company = Empresa.objects.get(pk=data['company'])
-        analysts_set = Analista.objects.filter(pk__in=analysts)
-        print(list(analysts_set))
-        for analyst in list(analysts_set):
-            analysis = AvaliacaoAnalista.objects.create(company=company, analyst=analyst)
-            questions = list(Pergunta.objects.all())
-            for question in questions:
-                Questao.objects.create(question=question, questionnaire=analysis)
-        return HttpResponse(status=201)
-    return HttpResponseBadRequest()
-
+    return avalAnalista.criar_analise(request)
 
 @csrf_exempt
 @login_required
 def atualizar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
-        data = json.loads(request.body)
-        analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
-        if analysis.analyst.user == request.user:
-            analysis.comment = data['comment']
-            for question in data['questions']:
-                q = Questao.objects.get(pk=question['id'])
-                q.answer = question['answer']
-                q.save()
-            analysis.score = '2'
-        analysis.save()
-        return HttpResponse(status=200)
-    return HttpResponseBadRequest()
+    return avalAnalista.atualizar_analise(request)
+
+
+def get_analysis_by_request(request):
+    return avalAnalista.get_analysis_by_request(request)
 
 
 @csrf_exempt

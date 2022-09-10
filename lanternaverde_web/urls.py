@@ -18,6 +18,11 @@ urlpatterns = [
     path('perguntas', views.get_questoes, name='questoes'),
     path('perguntas/add', views.create_questao, name='create_questoes'),
 
+    path('solicitacoesAnalise', views.get_solicitacoes, name='get_solicitacoes'),
+    path('solicitacoesAnalise/add', views.create_solicitacao, name="Criar Solicitação de Análise"),
+    path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise'),
+    path('solicitacoesAnalise/analises', views.get_analysis_by_request, name='get_analysis_by_request'),
+
     path('analise', views.listar_analises, name='listar_analises'),
     path('analise/add', views.criar_analise, name='criar_analise'),
     path('analise/detail', views.detalhar_analise, name='detalhar_analise'),
@@ -25,5 +30,4 @@ urlpatterns = [
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
-
 ]

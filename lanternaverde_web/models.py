@@ -106,6 +106,7 @@ class Analista(models.Model):
     available = models.BooleanField('Disponivel', default=True)
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
+    analysis = models.PositiveIntegerField('Analises', default=0)
 
     user = models.OneToOneField(Usuario,
                                 primary_key=True,
@@ -166,8 +167,23 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+        
     def __str__(self):
         return self.body
+
+class SolicitacaoAnalise(models.Model):
+    """
+    SolicitacaoAnalise is when a company requisits to lanterna verde a
+    professional analysis from a team of Analists. Administrators will evaluate
+    each `SolicitacaoAnalise` in order to create a new Analysis.
+    """
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    date = models.DateTimeField('Data de solicitação', default=timezone.now)
+
+    class Meta:
+        """SolicitacaoeAnalise metadata"""
+        verbose_name = "Solicitação de Análise"
+        verbose_name_plural = "Solicitações de Analise"
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
@@ -175,6 +191,7 @@ class AvaliacaoAnalista(models.Model):
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
+    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.company.tradeName
@@ -189,5 +206,3 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
-
-
