@@ -68,7 +68,7 @@ def atualizar_analise(request):
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
-            for question in data['questions']:
+            for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
