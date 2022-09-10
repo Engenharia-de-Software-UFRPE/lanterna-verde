@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NavbarAdm.css';
+import axios from 'axios';
 
 
 import Popup from 'reactjs-popup';
@@ -11,7 +12,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
 function NavbarAdm() {
-    
+  // const loginThunk = async (username, password) => {
+  //   const response = await axios
+  //   .get(
+  //     'http://localhost:8000/logout/logout',
+  //     { username: username, password: password}
+  //   )
+  //   .then((response) => response);
+  // }
 
     return(
       <div class="position-fixed col-12">

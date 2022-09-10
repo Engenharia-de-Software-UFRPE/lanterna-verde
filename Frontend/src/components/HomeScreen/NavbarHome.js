@@ -77,8 +77,8 @@ function NavbarHome() {
                               <li>
                                 <input 
                                   variant='primary' 
-                                  type='submit' 
-                                  defaultValue="Submit now" 
+                                  type='submit'
+                                  defaultValue="Submit now"
                                   onClick={(e) => {
                                     e.preventDefault();
                                     loginThunk(formState.username, formState.password)
