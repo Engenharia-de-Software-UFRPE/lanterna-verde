@@ -110,12 +110,12 @@
 
 #admBoard{
     position: absolute;
-    width: 320px;
-    height: 550px;
+    width: 250px;
+    height: 100%;
     left: 0px;
-    top: 100px;
+    top: 76px;
     bottom: 100px;
-    border-radius: 10%;
+    border-radius: 8px;
     background: #3AB06F;
 }
 
@@ -241,6 +241,7 @@ border-radius: 100px;
     line-height: 0px;
     letter-spacing: 0.25px;
     color: #263238;
+    text-align: center;
 }
 
 #table-wrapper {

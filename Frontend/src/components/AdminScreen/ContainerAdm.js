@@ -22,76 +22,76 @@ function ContainerAdm() {
   const [historicoAnalises, setHistorico] = useState(false);
 
   const mContaHandler = () => {
-    if(configuracoes == true){
+    if (configuracoes == true) {
       setConfiguracoes((prevState) => !prevState);
     }
-    if(cadastrarAnalista == true){
+    if (cadastrarAnalista == true) {
       setAnalista((prevState) => !prevState);
     }
-    if(verQuestionario == true){
+    if (verQuestionario == true) {
       setQuestionario((prevState) => !prevState);
     }
-    if(historicoAnalises == true){
+    if (historicoAnalises == true) {
       setHistorico((prevState) => !prevState);
     }
     setConta((prevState) => !prevState);
   }
   const configuracoesHandler = () => {
-    if(minhaConta == true){
+    if (minhaConta == true) {
       setConta((prevState) => !prevState);
     }
-    if(cadastrarAnalista == true){
+    if (cadastrarAnalista == true) {
       setAnalista((prevState) => !prevState);
     }
-    if(verQuestionario == true){
+    if (verQuestionario == true) {
       setQuestionario((prevState) => !prevState);
     }
-    if(historicoAnalises == true){
+    if (historicoAnalises == true) {
       setHistorico((prevState) => !prevState);
     }
     setConfiguracoes((prevState) => !prevState);
   }
   const cAnalistaHandler = () => {
-    if(minhaConta == true){
+    if (minhaConta == true) {
       setConta((prevState) => !prevState);
     }
-    if(configuracoes == true){
+    if (configuracoes == true) {
       setConfiguracoes((prevState) => !prevState);
     }
-    if(verQuestionario == true){
+    if (verQuestionario == true) {
       setQuestionario((prevState) => !prevState);
     }
-    if(historicoAnalises == true){
+    if (historicoAnalises == true) {
       setHistorico((prevState) => !prevState);
     }
     setAnalista((prevState) => !prevState);
   }
   const vQuestionarioHandler = () => {
-    if(minhaConta == true){
+    if (minhaConta == true) {
       setConta((prevState) => !prevState);
     }
-    if(configuracoes == true){
+    if (configuracoes == true) {
       setConfiguracoes((prevState) => !prevState);
     }
-    if(cadastrarAnalista == true){
+    if (cadastrarAnalista == true) {
       setAnalista((prevState) => !prevState);
     }
-    if(historicoAnalises == true){
+    if (historicoAnalises == true) {
       setHistorico((prevState) => !prevState);
     }
     setQuestionario((prevState) => !prevState);
   }
   const hAnalisesHandler = () => {
-    if(minhaConta == true){
+    if (minhaConta == true) {
       setConta((prevState) => !prevState);
     }
-    if(configuracoes == true){
+    if (configuracoes == true) {
       setConfiguracoes((prevState) => !prevState);
     }
-    if(cadastrarAnalista == true){
+    if (cadastrarAnalista == true) {
       setAnalista((prevState) => !prevState);
     }
-    if(verQuestionario == true){
+    if (verQuestionario == true) {
       setQuestionario((prevState) => !prevState);
     }
     setHistorico((prevState) => !prevState);
@@ -113,6 +113,7 @@ function ContainerAdm() {
 
   return (
     <>
+
       <div id="admBoard">
 
         <div id="admPhoto">
@@ -120,12 +121,7 @@ function ContainerAdm() {
         </div>
 
         <div id="nameAdmArea">
-          <h6 class="nameAdmTitle">Seu nome:</h6>
-          <h6 class="nameAdm">Nome do administrador</h6>
-        </div>
-        <div id="usernameAdmArea">
-          <h6 class="usernameAdmTitle">Username:</h6>
-          <h6 class="usernameAdm">Username do administrador</h6>
+          <h6 class="nameAdm"></h6>
         </div>
 
         <button onClick={mContaHandler} type="button" class='btnMinhaConta'>Minha Conta</button>
@@ -141,7 +137,7 @@ function ContainerAdm() {
       {cadastrarAnalista ? 'cadastrar analista' : <Tableadmin></Tableadmin>}*/}
       {verQuestionario ? <TableQuestionario></TableQuestionario> : <Tableadmin></Tableadmin>}
       {historicoAnalises ? <TableListaEmpresas></TableListaEmpresas> : <Tableadmin></Tableadmin>}
-      
+
       {/*<Tableadmin></Tableadmin>
       <TableAnalysisData></TableAnalysisData>
       <TableListaEmpresas></TableListaEmpresas>
