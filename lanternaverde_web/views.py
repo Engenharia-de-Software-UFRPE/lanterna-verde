@@ -331,3 +331,16 @@ def detalhar_analista(request):
         else:
             return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def concluir_analise(request):
+    if request.method == 'POST':
+        data = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
+        if analysis.analyst.user == request.user:
+             analysis.status = True;
+             analysis.save()
+
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
