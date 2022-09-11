@@ -40,3 +40,10 @@
     color: black;
     background-color: red;
 }
+
+@media screen and (max-width: 1200px) {
+    .company-analyzes-filter-section-container {
+        display: none;
+    }
+
+}
