@@ -324,7 +324,7 @@ def detalhar_analista(request):
             ser_user = UsuarioSerializer(analyst.user)
             ser_anal = AnalistaSerializer(analyst)
             ser_return = {
-                'user': ser_user.data
+                'user': ser_user.data,
                 'analyst': ser_anal.data
             }
             return _JSONResponse(ser_return, status=200)
@@ -339,7 +339,7 @@ def concluir_analise(request):
         data = request.POST
         analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
         if analysis.analyst.user == request.user:
-             analysis.status = True;
+             analysis.finished = True
              analysis.save()
 
         return HttpResponse(status=200)
