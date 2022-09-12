@@ -1,17 +1,23 @@
+
+
+
 .cont{
-    min-height: 100vh;
+    min-height: 110vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: gray;
+    justify-content: center;
+    align-items: center;
   }
   .container {
+    
     max-width: 100%;
     height: auto;
-    width: 30%;
+    width: 40%;
     padding: 25px;
-    border-radius: 8px;
-    background-color: gray;
+  }
+  .container h2 {
+    color: white;
   }
   .container header {
     font-size: 22px;
@@ -19,10 +25,10 @@
     color: #333;
   }
   .container form {
-    margin-top: 30px;
+    margin-top: 60px;
   }
   form .field {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   form .input-field {
     position: relative;
@@ -42,7 +48,6 @@
     border-color: #d93025;
   }
   .input-field .show-hide {
-    position: absolute;
     right: 13px;
     top: 50%;
     transform: translateY(-50%);
@@ -59,25 +64,13 @@
     font-size: 13px;
     display: none;
   }
-  .invalid .error {
-    display: flex;
-  }
-  .error .error-icon {
-    margin-right: 6px;
-    font-size: 15px;
-  }
-  .create-password .error {
-    align-items: flex-start;
-  }
-  .create-password .error-icon {
-    margin-top: 4px;
-  }
+  
   .button {
     margin: 25px 0 6px;
   }
   .button input {
     color: #fff;
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 400;
     background-color: #4070f4;
     cursor: pointer;
