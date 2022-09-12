@@ -6,7 +6,7 @@ const CompanyBasicHeader = () =>{
     return(
       <div className="company-basic-header-container">
 
-        <a className="logo" href="#">
+        <a className="logo" href="/">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>
 
           <h1 className="logo-name">
