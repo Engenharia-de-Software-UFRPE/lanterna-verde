@@ -1,8 +1,5 @@
-
-
-
 .cont{
-    min-height: 110vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,10 +10,10 @@
     
     background: #09aa4c;
     max-width: 100%;
-    height: auto;
+    height: 692px;
     width: 40%;
     padding: 25px;
-    border: 2px solid rgb(205, 201, 201)  
+    border: 1px solid rgb(205, 201, 201)  
   }
   .container h2 {
     color: white;
@@ -34,7 +31,7 @@
   }
   form .input-field {
     position: relative;
-    height: 70px;
+    height: 57px;
     width: 100%;
   }
   .input-field input {
