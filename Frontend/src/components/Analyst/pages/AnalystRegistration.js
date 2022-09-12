@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../../App.css';
-import Navbar from '../navbar/Navbar';
 import Container from '../registration/ContainerRegistration';
-import NavbarHome from '../../HomeScreen/NavbarHome';
+import NavbarAdm from '../../AdminScreen/NavbarAdm';
 
 function AnalystRegistration() {
   return (
     <>
-      <NavbarHome />
+      <NavbarAdm />
       <Container />
     </>
   );
