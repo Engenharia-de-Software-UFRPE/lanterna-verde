@@ -44,7 +44,7 @@ function ContainerAdm() {
 
         <button type="button" class="btnMinhaConta">Minha Conta</button>
         <button type="button" class="btnConfiguracoes">Configurações</button>
-        <button type="button" class="btnCadastrarAnalista">Cadastrar Analista</button>
+        <button type="button" class="btnCadastrarAnalista"><a href="analystRegistration">Cadastrar Analista</a></button>
         <button type="button" class="btnQuestionario">Ver Questionário</button>
         <button type="button" class="btnHistoricoDeAnalises">Histórico de Análises</button>
 
