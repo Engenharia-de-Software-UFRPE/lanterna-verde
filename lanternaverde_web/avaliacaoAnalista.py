@@ -1,26 +1,61 @@
 import json
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa
+from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
 from .serializers import AvaliacaoAnalistaSerializer
 
-def criar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
+# pylint: disable=E1101
+
+def create_analysis(request):
+    """
+    Method that allows Administrators to create a new analysis based on an
+    Analysis requirement and dinamically search for only available Analysts and
+    least busy Analysts.
+    """
+    if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
-        analysts = data['analysts']
+        amount_analysts = data['amount_analysts']
         company = Empresa.objects.get(pk=data['company'])
-        analysts_set = Analista.objects.filter(pk__in=analysts)
-        for analyst in list(analysts_set):
-            analysis = AvaliacaoAnalista.objects.create(
-                company=company, analyst=analyst)
-            questions = list(Pergunta.objects.all())
-            for question in questions:
-                Questao.objects.create(
-                    question=question, questionnaire=analysis)
-        return HttpResponse(status=201)
+
+        # Checks if there's any Analysis ongoing about this company
+        if len(AvaliacaoAnalista.objects.filter(company=company)) > 0:
+            return HttpResponse("Há análises em andamento para essa empresa",
+                                status=422)
+
+        try:
+            solicitacao = SolicitacaoAnalise.objects.get(empresa=company)
+            analysts_set = _select_Analist(amount_analysts)
+
+            # Check if there's enough Analysts available for the request
+            if amount_analysts != len(analysts_set):
+                return HttpResponse("O número de analistas pedidos foi " +
+                                    f"{amount_analysts}, porém apenas "
+                                    f"{len(analysts_set)} estão disponíveis.",
+                                    status=422)
+
+            requirement_date = solicitacao.date
+            solicitacao.delete()
+
+            # Creates the analysis
+            for analyst in list(analysts_set):
+                analysis = AvaliacaoAnalista.objects.create(
+                    company=company,
+                    analyst=analyst,
+                    requirement_date=requirement_date)
+                questions = list(Pergunta.objects.all())
+                for question in questions:
+                    Questao.objects.create(
+                        question=question, questionnaire=analysis)
+            return HttpResponse(status=201)
+        except ObjectDoesNotExist:
+            # In case a Analysis requirement is not available for the requested
+            # company.
+            return HttpResponse("Não foi possível encontrar uma "
+                                "Solicitação de Análise para essa empresa.",
+                                status=422)
     return HttpResponseBadRequest()
 
 def detalhar_analise(request):
