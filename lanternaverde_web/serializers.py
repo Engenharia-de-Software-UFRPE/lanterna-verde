@@ -2,7 +2,7 @@
 Serializers Models for Django REST Framework
 """
 from rest_framework import serializers
-from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise
+from .models import Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise
 
 
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
@@ -79,3 +79,11 @@ class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
         fields = '__all__'
         related_object = 'analise'
 
+class RelatorioSerializer(serializers.ModelSerializer):
+    """
+    Serialization for Relatorio Model
+    """
+    class Meta:
+        """Relatorio metadata"""
+        model = Relatorio
+        fields = '__all__'

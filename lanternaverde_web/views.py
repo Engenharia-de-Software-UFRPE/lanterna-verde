@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
+import lanternaverde_web.relatorio as relatorio
 
 #pylint: disable=W0401
 from .models import *
@@ -235,6 +236,7 @@ def create_solicitacao(request):
     """
     return solAnalise.create_solicitacao(request)
 
+@csrf_exempt
 @login_required
 def get_solicitacoes(request):
     """
@@ -242,6 +244,7 @@ def get_solicitacoes(request):
     """
     return solAnalise.get_solicitacoes(request)
 
+@csrf_exempt
 @login_required
 def get_solicitacao(request):
     """
@@ -277,3 +280,8 @@ def atualizar_analise(request):
 
 def get_analysis_by_request(request):
     return avalAnalista.get_analysis_by_request(request)
+
+@csrf_exempt
+@login_required
+def gerar_relatorio(request):
+    return relatorio.gerar_relatorio(request)

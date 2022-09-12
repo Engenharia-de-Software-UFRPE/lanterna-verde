@@ -1,8 +1,11 @@
+from email.policy import default
+from typing import List
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core import validators
 from django.db import models
 from django.utils import timezone
+from .utils.countdimension import _count_dimension
 import re
 
 class UserManager(BaseUserManager):
@@ -206,3 +209,20 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
+
+class Relatorio(models.Model):
+
+    request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE)
+    adm_comment = models.TextField(blank=True)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    scoreD1 = models.FloatField(default=0)
+    scoreD2 = models.FloatField(default=0)
+    scoreD3 = models.FloatField(default=0)
+    scoreD4 = models.FloatField(default=0)
+    ascore = models.FloatField(default=0)
+    
+    
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Relatorio'
+        verbose_name_plural = 'Relatorios'

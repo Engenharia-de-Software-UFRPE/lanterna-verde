@@ -29,4 +29,6 @@ urlpatterns = [
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
+
+    path('relatorio/add', views.gerar_relatorio, name='gerar_relatorio')
 ]
