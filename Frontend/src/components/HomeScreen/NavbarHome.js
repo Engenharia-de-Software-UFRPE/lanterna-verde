@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './NavbarHome.css';
 import './PopupLogin.css';
-
+import { AuthContext } from '../../context/AuthContext';
 import Popup from 'reactjs-popup';
+import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -11,9 +12,38 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
 function NavbarHome() {
-    
+  const{ loginThunk } = useContext(AuthContext);
+  const [errors, setErrors] = useState(false);
+  const [formState, setFormState] = useState({
+    username: '',
+    password: ''
+  });
+  const {username, password} = formState;
+
+  const handleInputChange = ({target}) => {
+    setFormState({
+      ...formState,
+      [target.name]: target.value
+    })
+  };
+  
+  const errorLog = async (username, password) => {
+    const response = await axios
+    .post(
+      'http://localhost:8000/login',
+      { username: username, password: password}
+    )
+    .then((response) => response)
+    .catch(function (error) {
+      if(error.response){
+        console.log(error.response.data);
+        setErrors(true);
+      }
+    });
+  };
 
     return(
+      <>
       <div class="position-fixed col-12">
         <Navbar bg="light" expand="lg">
           <Container fluid>
@@ -39,7 +69,7 @@ function NavbarHome() {
               </Nav>
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="">Cadastro</a>
+                  <a class="nav-link" href="/CompanyRegistration">Cadastro</a>
                 </li>
                 <li class="nav-item">
                   <Popup trigger={<a class="nav-link" href="#">Login</a>}>
@@ -52,24 +82,32 @@ function NavbarHome() {
                       <img src="../images/tick.png" alt="" />
                       <h2>Faça seu login</h2>
                       <p>Por favor digite seu login e senha.</p>
-                      <div>
-                        <input type="username" placeholder="Login" className="username" name ='username'/>
-                      </div>
-                      <div>
-                        <input type="password" placeholder="Senha" className="cPassword" />
-                      </div>
-                      <div id='buttons'>
-                        <ol>
-                          <div id='signin'>
-                            <li> <Link
-                              to='/Admin'
-                              >
-                              <a href="#">Entrar</a>
-                              </Link>
-                            </li>
-                          </div>
-                        </ol>
-                      </div>
+                      <form>
+                        <div>
+                          <input name ='username' type="username" value={username} placeholder="Login" className="username" onChange={handleInputChange}/>
+                        </div>
+                        <div>
+                          <input name ='password' type="password" value={password} placeholder="Senha" className="cPassword" onChange={handleInputChange}/>
+                        </div>
+                        <div id='buttons'>
+                          <ol>
+                            <div id='signin'>
+                              <li>
+                                <input 
+                                  variant='primary' 
+                                  type='submit'
+                                  defaultValue="Submit now"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    loginThunk(formState.username, formState.password);
+                                    errorLog(formState.username, formState.password);
+                                  }}/>
+                              </li>
+                            </div>
+                            <div id="error">{errors === true && <h5>Usuário e/ou senha inválidos</h5>}</div>
+                          </ol>
+                        </div>
+                      </form>
                     </div>
                   </Popup>
                 </li>
@@ -78,6 +116,7 @@ function NavbarHome() {
           </Container>
         </Navbar>
       </div>
+      </>
     );
 }
 

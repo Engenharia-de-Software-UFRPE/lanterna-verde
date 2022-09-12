@@ -1,36 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './AnalystScreen.css';
 import { Link } from 'react-router-dom';
-import './AnalysisMap'
-import AnalysisMap from './AnalysisMap.js';
-import NewsList from './NewsList';
-import Analysis from './Analysis';
+import AnalysisMap from '../analysis/AnalysisMap.js';
+import NewsList from '../analysis/NewsList';
 
 const Profile = () => {
 
-  const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
-
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
-
-
-  const linkStyle = {
-    textDecoration: "none",
-  };
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
-  useEffect(() => {
-    showButton();
-  }, []);
-
-  window.addEventListener('resize', showButton);
+  
 
   const [analysis] = useState([
     {
@@ -64,9 +40,8 @@ const Profile = () => {
     <div>
       <div className="main">
         <nav>
-        <Link  style={linkStyle}
+        <Link  
               to='/'
-              onClick={closeMobileMenu}
               >
               <div className="icon">Lanterna <b style={{color: 'rgb(22, 182, 44)'}}>Verde</b> <img src="../images/gl.png" alt="" /></div>
         </Link>
@@ -78,25 +53,18 @@ const Profile = () => {
             ROBSON
             <img src="../images/robson.jpg" />
           </div>
-          <button onclick="openNav()">☰</button>
-          <div id="mySidebar" className="sidebar">
-            <a href="#" className="closebtn" onclick="closeNav()">×</a>
-            <a href="#">Alterar Perfil</a>
-            <a href="#">Ver Minhas Análises</a>
-            <a href="#">Alguma coisa</a>
-            <a href="#">Outra Coisa</a>
-          </div>
+          
         </nav>
       </div>
       <div className='conteudo'>
         <div className='coluna'>
           <h1>Analises Pendentes:</h1>
-          <AnalysisMap analises={analysis}/>
+          <AnalysisMap analysis={analysis}/>
         </div>
 
         <div className='coluna'>
           <h1>Noticias:</h1>
-          <NewsList noticias={news}/>
+          <NewsList news={news}/>
         </div>
 
       </div>
