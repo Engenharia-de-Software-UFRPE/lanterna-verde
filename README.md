@@ -56,7 +56,7 @@ O lanterna verde é um projeto da disciplina de Engenharia de Software do curso 
 
 ## Nosso time
 
-| Joyce e cia      | Time de Ganso       | Time de Sebastião |
+| Joyce e cia      | Megaman e os Reploids       | Time de Sebastião |
 |:----------------:|:-------------------:|:-----------------:|
 | <img src="https://avatars.githubusercontent.com/u/71048167?v=4" width="100px;" alt=""/><br /><sub><b>Lucas Gonzaga</b></sub></a> | <img src="https://avatars.githubusercontent.com/u/74150316?v=4" width="100px;" alt=""/><br /><sub><b>Ronaldo Rodrigues</b></sub></a> | <img src="https://avatars.githubusercontent.com/u/51674137?v=4" width="100px;" alt=""/><br /><sub><b>Izabelle Tais</b></sub></a> |
 | <img src="https://avatars.githubusercontent.com/u/66442236?v=4" width="100px;" alt=""/><br /><sub><b>Julyanne Correia</b></sub></a> | <img src="https://avatars.githubusercontent.com/u/77673388?v=4" width="100px;" alt=""/><br /><sub><b>Gabriel Santos</b></sub></a> | <img src="https://avatars.githubusercontent.com/u/55095158?v=4" width="100px;" alt=""/><br /><sub><b>Sebastian Vieira</b></sub></a> |

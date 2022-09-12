@@ -1,10 +1,10 @@
 import React from 'react'
-import News from './News'
+import News from './News';
 
-const NewsList =({newsList}) => {
+const NewsList =({noticias}) => {
     return(
         <>
-            {newsList.map((news) => (
+            {noticias.map((news) => (
                 <News news={news} />
             ))
 
