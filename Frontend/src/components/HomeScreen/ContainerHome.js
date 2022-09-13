@@ -19,7 +19,7 @@ function ContTest2() {
                         <h1 class="main__heading">Crescimento Verde</h1>
                         <p class="main__description">Análises e metas concretas para o desempenho da sua empresa</p>
                         <button class="main__btn">
-                            <a href="#">Cadastre-se</a>
+                            <a href="/CompanyRegistration">Cadastre-se</a>
                         </button>
                     </div>
                 </div>        
