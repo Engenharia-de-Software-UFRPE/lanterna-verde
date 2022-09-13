@@ -13,7 +13,7 @@ const Analysis = ({ analise }) => {
 
 
     const [analysis,setAnalysis] = useState("placeholder");
-    const [dimensions,setDimensions] = useState("placeholder");
+    const [dimensions,setDimensions] = useState({});
 
     function setScr (score) {
       
@@ -58,7 +58,7 @@ const Analysis = ({ analise }) => {
         console.log(url);
     }
 
-    const handleCheckBoxClick= (quest) => {
+    function handleCheckBoxClick(quest) {
       quest.answer= !quest.answer;
 
       let valor = 1;
@@ -71,13 +71,12 @@ const Analysis = ({ analise }) => {
 
       analysis.dimension_count[quest.question.dimension].checked += valor
       const copy = analysis.dimension_count
-
-      setDimensions(() => copy)
+      setDimensions({...copy})
 
 
     //   console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
     
-    console.log(dimensions)
+    console.log(dimensions);
     // console.log(questao.question.dimension)
   }
 
@@ -87,7 +86,7 @@ const Analysis = ({ analise }) => {
         Empresa: {analysis.company}<br></br>
         {/* Questões: {analise.questoes} <br></br> */}
 
-        Score D1: {(dimensions['D1'].checked)}<br></br>
+        Score D1: {(dimensions['D1'].checked)/dimensions['D1'].amount}<br></br>
         <Score score ={dimensions['D1'].checked}/>
         <button className='btn-save' onClick={handleSaveClick}>Salvar</button>
 
