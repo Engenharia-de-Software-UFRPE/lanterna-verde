@@ -26,12 +26,14 @@ function ContainerAdm() {
   const [administrator, setAdministrator] = useState("placeholder");
 
   async function listAnalysis() {
+    axios.defaults.withCredentials = true;
     let response = await axios
       .get("http://localhost:8000/user/admin", { withCredentials: true })
       .then((response) => response);
       setAdministrator(response.data.Administrador);
       setUser(response.data.Usuario);
-      console.log(response)
+      console.log(response);
+      
   }
 
   if (administrator === "placeholder") {
@@ -131,9 +133,7 @@ function ContainerAdm() {
   }, []);
 
   window.addEventListener('resize', showButton);
-  console.log(user.username);
-  console.log(user);
-  console.log(administrator);
+  
   return (
     <>
       <div id="admBoard">
@@ -144,7 +144,7 @@ function ContainerAdm() {
 
         <div id="nameAdmArea">
           <h6 class="nameAdmTitle">Nome:</h6>
-          <h6 class="nameAdm">Nome do administrador</h6>
+          <h6 class="nameAdm">{user.first_name}</h6>
         </div>
         <div id="usernameAdmArea">
           <h6 class="usernameAdmTitle">Username:</h6>
