@@ -29,7 +29,8 @@ function App() {
     )
     .then((response) => response);
     dispatch({ type: LOGIN, token: response.data.token })
-
+    console.log(response.data);
+    
     {/*Condicional para troca de tela após realização do Login */}
     if(response.data === 'administrador'){
       navigate('/Admin');

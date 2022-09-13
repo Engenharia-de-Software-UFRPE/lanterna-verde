@@ -6,6 +6,7 @@ import TableAnalysisData from './DadosDaAnalise';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
 import TableQuestionario from './TelaQuestionario';
+import axios from 'axios';
 
 
 function ContainerAdm() {
@@ -20,6 +21,25 @@ function ContainerAdm() {
   const [cadastrarAnalista, setAnalista] = useState(false);
   const [verQuestionario, setQuestionario] = useState(false);
   const [historicoAnalises, setHistorico] = useState(false);
+
+  const [user, setUser] = useState(["placeholder"]);
+  const [administrator, setAdministrator] = useState(["placeholder"]);
+
+  async function listAnalysis() {
+    let response = await axios
+      .get("http://localhost:8000/user/admin", { withCredentials: true })
+      .then((response) => response);
+      setAdministrator(response.data.Administrador);
+      setUser(response.data.Usuario);
+  }
+
+  if (administrator[0] === "placeholder") {
+    listAnalysis();
+  }
+  if (user[0] === "placeholder") {
+    listAnalysis();
+  }
+  
 
   const mContaHandler = () => {
     if(configuracoes == true){
@@ -110,7 +130,9 @@ function ContainerAdm() {
   }, []);
 
   window.addEventListener('resize', showButton);
-
+  console.log(user.username);
+  console.log(user);
+  console.log(administrator);
   return (
     <>
       <div id="admBoard">
@@ -120,17 +142,17 @@ function ContainerAdm() {
         </div>
 
         <div id="nameAdmArea">
-          <h6 class="nameAdmTitle">Seu nome:</h6>
+          <h6 class="nameAdmTitle">Nome:</h6>
           <h6 class="nameAdm">Nome do administrador</h6>
         </div>
         <div id="usernameAdmArea">
           <h6 class="usernameAdmTitle">Username:</h6>
-          <h6 class="usernameAdm">Username do administrador</h6>
+          <h6 class="usernameAdm">{user.username}</h6>
         </div>
 
         <button onClick={mContaHandler} type="button" class='btnMinhaConta'>Minha Conta</button>
         <button onClick={configuracoesHandler} type="button" class='btnConfiguracoes'>Configurações</button>
-        <button onClick={cAnalistaHandler} type="button" className='btnCadastrarAnalista'>Cadastrar Analista</button>
+        <button onClick={cAnalistaHandler} type="button" className='btnCadastrarAnalista'><a href="analystRegistration">Cadastrar Analista</a></button>
         <button onClick={vQuestionarioHandler} type="button" className='btnQuestionario'>Ver Questionário</button>
         <button onClick={hAnalisesHandler} type="button" className='btnHistoricoDeAnalises'>Histórico de Análises</button>
       </div>
