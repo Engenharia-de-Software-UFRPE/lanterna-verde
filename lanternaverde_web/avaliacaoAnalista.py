@@ -30,7 +30,7 @@ def detalhar_analise(request):
     Function that detail a analysis
     """
     if request.method == 'GET':
-        analysisid = request.GET.get('analysisid')
+        analysisid = request.GET.get('analysisid')  
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
