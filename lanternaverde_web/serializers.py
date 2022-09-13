@@ -67,4 +67,3 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         model = AvaliacaoAnalista
         fields = '__all__'
         related_object = 'questao'
-

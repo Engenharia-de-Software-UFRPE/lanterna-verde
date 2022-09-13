@@ -266,9 +266,14 @@ def detalhar_analise(request):
         analysisid = request.GET.get('analysisid')
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
+        data = ser_anal.data
+        if hasattr(request.user, 'empresa'):
+            del data['analyst']
+            if analysis.finished is False:
+                return HttpResponse("Essa análise ainda não foi concluída ", status=403)
         ser_return = {
-            'analysis': ser_anal.data
-        }
+                    'analysis': data
+                }
         return _JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
@@ -301,7 +306,7 @@ def atualizar_analise(request):
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
-            for question in data['questions']:
+            for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
@@ -310,6 +315,39 @@ def atualizar_analise(request):
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
+@csrf_exempt
+@login_required
+def detalhar_analista(request):
+    """
+    Function that detail a analyst
+    """
+    if request.method == 'GET':
+        if hasattr(request.user, 'administrador'):
+            analystid = request.GET.get('analystid')
+            analyst = Analista.objects.get(pk=analystid)
+            ser_user = UsuarioSerializer(analyst.user)
+            ser_anal = AnalistaSerializer(analyst)
+            ser_return = {
+                'user': ser_user.data,
+                'analyst': ser_anal.data
+            }
+            return _JSONResponse(ser_return, status=200)
+        else:
+            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def concluir_analise(request):
+    if request.method == 'POST':
+        data = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
+        if analysis.analyst.user == request.user:
+            analysis.finished = True
+            analysis.save()
+            return HttpResponse(status=200)
+        return HttpResponse("Você não é o responsável por essa análise.", status=403)
+    return HttpResponseBadRequest()
 
 @csrf_exempt
 @login_required
@@ -328,4 +366,3 @@ def alterar_senha(request):
         else:
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
-
