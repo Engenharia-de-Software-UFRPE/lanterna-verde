@@ -110,6 +110,17 @@ def atualizar_analise(request):
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
+def concluir_analise(request):
+    if request.method == 'POST':
+        data = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
+        if analysis.analyst.user == request.user:
+            analysis.finished = True
+            analysis.save()
+            return HttpResponse(status=200)
+        return HttpResponse("Você não é o responsável por essa análise.", status=403)
+    return HttpResponseBadRequest()
+
 def _select_Analist(amount):
     analists = Analista.objects.filter(
         available=True).order_by('analysis')[:amount]

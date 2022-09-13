@@ -260,7 +260,7 @@ def listar_analises(request):
 
 @csrf_exempt
 @login_required
-def detalhar_analista(request):
+def detalhar_analise(request):
     """
     Function that detail a analyst
     """
@@ -292,7 +292,7 @@ def detalhar_analista(request):
                 'user': ser_user.data,
                 'analyst': ser_anal.data
             }
-            return _JSONResponse(ser_return, status=200)
+            return JSONResponse(ser_return, status=200)
         else:
             return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
@@ -300,15 +300,7 @@ def detalhar_analista(request):
 @csrf_exempt
 @login_required
 def concluir_analise(request):
-    if request.method == 'POST':
-        data = request.POST
-        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
-        if analysis.analyst.user == request.user:
-            analysis.finished = True
-            analysis.save()
-            return HttpResponse(status=200)
-        return HttpResponse("Você não é o responsável por essa análise.", status=403)
-    return HttpResponseBadRequest()
+    return avalAnalista.concluir_analise(request)
 
 @csrf_exempt
 @login_required
