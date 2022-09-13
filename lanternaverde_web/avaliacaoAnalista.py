@@ -37,7 +37,6 @@ def create_analysis(request):
                                     status=422)
 
             requirement_date = solicitacao.date
-            solicitacao.delete()
 
             # Creates the analysis
             for analyst in list(analysts_set):
