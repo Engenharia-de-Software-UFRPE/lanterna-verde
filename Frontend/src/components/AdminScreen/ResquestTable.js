@@ -53,12 +53,10 @@ const Tableadmin = () => {
 
     return (<div id="requestListArea">
         <h6 class="requestList">Solicitações de Análise</h6>
-        <div id="table-wrapper">
-            <div className="table-scroll">
-                <table>
-                    <tbody id="tableData"></tbody>
-                </table>
-            </div>
+        <div className="table-scroll">
+            <table>
+                <tbody id="tableData"></tbody>
+            </table>
         </div>
     </div >)
 }
