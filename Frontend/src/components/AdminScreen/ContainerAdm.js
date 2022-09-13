@@ -22,8 +22,8 @@ function ContainerAdm() {
   const [verQuestionario, setQuestionario] = useState(false);
   const [historicoAnalises, setHistorico] = useState(false);
 
-  const [user, setUser] = useState(["placeholder"]);
-  const [administrator, setAdministrator] = useState(["placeholder"]);
+  const [user, setUser] = useState("placeholder");
+  const [administrator, setAdministrator] = useState("placeholder");
 
   async function listAnalysis() {
     let response = await axios
@@ -31,12 +31,13 @@ function ContainerAdm() {
       .then((response) => response);
       setAdministrator(response.data.Administrador);
       setUser(response.data.Usuario);
+      console.log(response)
   }
 
-  if (administrator[0] === "placeholder") {
+  if (administrator === "placeholder") {
     listAnalysis();
   }
-  if (user[0] === "placeholder") {
+  if (user === "placeholder") {
     listAnalysis();
   }
   
