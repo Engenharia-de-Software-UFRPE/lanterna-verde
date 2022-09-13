@@ -186,11 +186,12 @@ class SolicitacaoAnalise(models.Model):
     PENDING = 0
     PROCESSING = 1
     FINISHED = 2
-
+    DELIVERED = 3
     STATUS_CHOICES = (
         (PENDING, 'Pending'),
         (PROCESSING, 'Processing'),
-        (FINISHED, 'Finished')
+        (FINISHED, 'Finished'),
+        (DELIVERED, 'Delivered')
     )
 
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)

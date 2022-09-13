@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
@@ -10,9 +11,11 @@ def gerar_relatorio(request):
         if hasattr(request.user, 'administrador'):
             analysisrequestid = request.POST.get('analrequestid')
             analysis_request = SolicitacaoAnalise.objects.get(pk=analysisrequestid)
-            if analysis_request.status == SolicitacaoAnalise.PROCESSING:
-                report = Relatorio.objects.create(request=analysis_request, company=analysis_request.empresa)
-
+            if analysis_request.status == SolicitacaoAnalise.FINISHED:
+                try:
+                    report = Relatorio.objects.create(request=analysis_request, company=analysis_request.empresa)
+                except IntegrityError:
+                    return HttpResponse("Um relatório já foi gerado para esta solicitação", status=409)
                 analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
                 data = analises.data
 
@@ -39,8 +42,6 @@ def gerar_relatorio(request):
                                  report.scoreD4)/4
 
                 report.save()
-                analysis_request.status = SolicitacaoAnalise.FINISHED
-                analysis_request.save()
 
                 ser_report = RelatorioSerializer(report)
                 ser_return = {'report': ser_report.data}
