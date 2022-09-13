@@ -65,8 +65,13 @@ def detalhar_analise(request):
         analysisid = request.GET.get('analysisid')
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
+        data = ser_anal.data
+        if hasattr(request.user, 'empresa'):
+            del data['analyst']
+            if analysis.finished is False:
+                return HttpResponse("Essa análise ainda não foi concluída ", status=403)
         ser_return = {
-            'analysis': ser_anal.data
+            'analysis': data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
@@ -96,7 +101,7 @@ def atualizar_analise(request):
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
-            for question in data['questions']:
+            for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
