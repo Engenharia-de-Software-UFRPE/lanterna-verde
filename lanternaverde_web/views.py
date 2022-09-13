@@ -226,6 +226,7 @@ def get_questoes(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 def create_solicitacao(request):
     """

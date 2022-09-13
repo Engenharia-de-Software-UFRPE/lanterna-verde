@@ -8,22 +8,24 @@ from .serializers import AvaliacaoAnalistaSerializer
 from .utils.countdimension import _count_dimension
 
 def criar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
+    if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
-        company = Empresa.objects.get(pk=data['company'])
         analysts_set = _select_Analist(data['analystamount'])
         analysis_request = SolicitacaoAnalise.objects.get(pk=data['analysis_request'])
-        for analyst in list(analysts_set):
-            analyst.analysis += 1
-            analyst.save()
-            analysis = AvaliacaoAnalista.objects.create(
-                company=company, analyst=analyst, analysis_request=analysis_request)
-            questions = list(Pergunta.objects.all())
-            for question in questions:
-                Questao.objects.create(
-                    question=question, questionnaire=analysis)
-        return HttpResponse(status=201)
+        if analysis_request.status == SolicitacaoAnalise.PENDING:
+
+            for analyst in list(analysts_set):
+                analyst.analysis += 1
+                analyst.save()
+                analysis = AvaliacaoAnalista.objects.create(analyst=analyst, analysis_request=analysis_request)
+                questions = list(Pergunta.objects.all())
+                for question in questions:
+                    Questao.objects.create(
+                        question=question, questionnaire=analysis)
+                analysis_request.status = SolicitacaoAnalise.PROCESSING
+                analysis_request.save()
+            return HttpResponse(status=201)
+        return HttpResponse("Esta solicitação já está sendo processada", status=422)
     return HttpResponseBadRequest()
 
 def detalhar_analise(request):

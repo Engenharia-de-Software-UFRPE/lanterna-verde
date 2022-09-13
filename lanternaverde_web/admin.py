@@ -20,7 +20,7 @@ class AnalistaAdmin(admin.ModelAdmin):
 
 @admin.register(AvaliacaoAnalista)
 class AvaliacaoAnalistaAdmin(admin.ModelAdmin):
-    list_display = ['analyst', 'company', 'score', 'finished']
+    list_display = ['analyst', 'analysis_request', 'finished']
 
 
 @admin.register(Pergunta)
@@ -39,7 +39,7 @@ class EmpresaAdmin(admin.ModelAdmin):
 
 @admin.register(SolicitacaoAnalise)
 class SolicitacaoAnaliseAdmin(admin.ModelAdmin):
-    list_display = ['empresa', 'date']
+    list_display = ['empresa', 'date', 'status']
 
 @admin.register(Relatorio)
 class RelatorioAdmin(admin.ModelAdmin):

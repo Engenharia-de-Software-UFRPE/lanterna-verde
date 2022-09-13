@@ -10,40 +10,42 @@ def gerar_relatorio(request):
         if hasattr(request.user, 'administrador'):
             analysisrequestid = request.POST.get('analrequestid')
             analysis_request = SolicitacaoAnalise.objects.get(pk=analysisrequestid)
-            report = Relatorio.objects.create(request=analysis_request, company=analysis_request.empresa)
+            if analysis_request.status == SolicitacaoAnalise.PROCESSING:
+                report = Relatorio.objects.create(request=analysis_request, company=analysis_request.empresa)
 
-            analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
-            data = analises.data
+                analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
+                data = analises.data
 
-            sD1 = list()
-            sD2 = list()
-            sD3 = list()
-            sD4 = list()
+                sD1 = list()
+                sD2 = list()
+                sD3 = list()
+                sD4 = list()
 
-            for analise in data:
-                analise['dimension_count'] = _count_dimension(analise)
-                sD1.append(analise['dimension_count']['D1']['checked']/analise['dimension_count']['D1']['amount'])
-                sD2.append(analise['dimension_count']['D2']['checked']/analise['dimension_count']['D2']['amount'])
-                sD3.append(analise['dimension_count']['D3']['checked']/analise['dimension_count']['D3']['amount'])
-                sD4.append(analise['dimension_count']['D4']['checked']/analise['dimension_count']['D4']['amount'])
-            
-            report.scoreD1 = sum(sD1)/len(sD1)
-            report.scoreD2 = sum(sD2)/len(sD2)
-            report.scoreD3 = sum(sD3)/len(sD3)
-            report.scoreD4 = sum(sD4)/len(sD4)
+                for analise in data:
+                    analise['dimension_count'] = _count_dimension(analise)
+                    sD1.append(analise['dimension_count']['D1']['checked']/analise['dimension_count']['D1']['amount'])
+                    sD2.append(analise['dimension_count']['D2']['checked']/analise['dimension_count']['D2']['amount'])
+                    sD3.append(analise['dimension_count']['D3']['checked']/analise['dimension_count']['D3']['amount'])
+                    sD4.append(analise['dimension_count']['D4']['checked']/analise['dimension_count']['D4']['amount'])
 
-            report.ascore = (report.scoreD1 +
-                                report.scoreD2 +
-                                report.scoreD3 +
-                                report.scoreD4)/4
+                report.scoreD1 = sum(sD1)/len(sD1)
+                report.scoreD2 = sum(sD2)/len(sD2)
+                report.scoreD3 = sum(sD3)/len(sD3)
+                report.scoreD4 = sum(sD4)/len(sD4)
 
-            report.save()
+                report.ascore = (report.scoreD1 +
+                                 report.scoreD2 +
+                                 report.scoreD3 +
+                                 report.scoreD4)/4
 
-            ser_report = RelatorioSerializer(report)
-            ser_return = {'report': ser_report.data}
+                report.save()
+                analysis_request.status = SolicitacaoAnalise.FINISHED
+                analysis_request.save()
 
-            return JSONResponse(ser_return, status=201)
-        else:
-            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+                ser_report = RelatorioSerializer(report)
+                ser_return = {'report': ser_report.data}
+
+                return JSONResponse(ser_return, status=201)
+            return HttpResponse(f"O status da análise é {analysis_request.get_status_display()}", status=422)
+        return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
-    
