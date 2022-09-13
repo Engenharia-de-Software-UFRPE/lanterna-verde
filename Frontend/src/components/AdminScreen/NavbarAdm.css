@@ -99,13 +99,8 @@ b{
     z-index: 999;
 }
 
-#error{
-    position: absolute;
-    left: 38px;
-    top: 70px;
-}
-
-div h5{
-    font-size: 12px;
-    font-weight: bolder;
+ul input{
+    background-color: #f8f9fa;
+    color: #818182;
+    border: 0;
 }

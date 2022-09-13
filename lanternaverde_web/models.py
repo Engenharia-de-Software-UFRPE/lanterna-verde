@@ -114,6 +114,8 @@ class Analista(models.Model):
     class Meta:
         verbose_name = 'analista'
         verbose_name_plural = 'analistas'
+    def __str__(self):
+        return self.user.username
 
 class Empresa(models.Model):
     TYPE = (
@@ -135,6 +137,8 @@ class Empresa(models.Model):
     class Meta:
         verbose_name = 'empresa'
         verbose_name_plural = 'empresas'
+    def __str__(self):
+        return self.tradeName
 
 class Pergunta(models.Model):
     """
@@ -162,6 +166,8 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+    def __str__(self):
+        return self.body
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
@@ -169,6 +175,9 @@ class AvaliacaoAnalista(models.Model):
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.analyst.user.username + ' -> ' + self.company.tradeName
 
 
 class Questao(models.Model):
