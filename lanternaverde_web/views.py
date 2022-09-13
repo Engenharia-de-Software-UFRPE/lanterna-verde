@@ -1,6 +1,6 @@
 import json
 from django.db import IntegrityError
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
@@ -9,6 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
+
+from rest_framework.renderers import JSONRenderer
+from django.contrib.auth.hashers import check_password
+
 
 #pylint: disable=W0401
 from .models import *
@@ -80,8 +84,9 @@ def login(request):
     Method that tries to login an user.
     """
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        data = json.loads(request.body)
+        username = data['username']
+        password = data['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             djangoLogin(request, user)
@@ -268,6 +273,7 @@ def detalhar_analise(request):
     """
     return avalAnalista.detalhar_analise(request)
 
+
 @csrf_exempt
 @login_required
 def criar_analise(request):
@@ -286,3 +292,58 @@ def get_analysis_by_request(request):
 @login_required
 def gerar_relatorio(request):
     return relatorio.gerar_relatorio(request)
+
+   
+
+@csrf_exempt
+@login_required
+def detalhar_analista(request):
+    """
+    Function that detail a analyst
+    """
+    if request.method == 'GET':
+        if hasattr(request.user, 'administrador'):
+            analystid = request.GET.get('analystid')
+            analyst = Analista.objects.get(pk=analystid)
+            ser_user = UsuarioSerializer(analyst.user)
+            ser_anal = AnalistaSerializer(analyst)
+            ser_return = {
+                'user': ser_user.data,
+                'analyst': ser_anal.data
+            }
+            return _JSONResponse(ser_return, status=200)
+        else:
+            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def concluir_analise(request):
+    if request.method == 'POST':
+        data = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
+        if analysis.analyst.user == request.user:
+            analysis.finished = True
+            analysis.save()
+            return HttpResponse(status=200)
+        return HttpResponse("Você não é o responsável por essa análise.", status=403)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def alterar_senha(request):
+    if request.method == 'POST':
+        data = request.POST
+        old_password = data.get('old')
+        new_password = data.get('new')
+        user = request.user
+        matchcheck = check_password(old_password, user.password)
+        if matchcheck:
+            user.set_password(new_password)
+            user.save()
+            update_session_auth_hash(request, request.user)
+            return HttpResponse("Senha alterada com sucesso", status=200)
+        else:
+            return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
+    return HttpResponseBadRequest()
+

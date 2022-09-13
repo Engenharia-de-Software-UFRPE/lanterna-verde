@@ -67,7 +67,6 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         fields = '__all__'
         related_object = 'questao'
 
-
 class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
     """
     Serialization for SolicitacaoAnalise Model
