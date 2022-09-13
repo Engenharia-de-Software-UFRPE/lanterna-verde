@@ -3,6 +3,7 @@
     flex-direction: row;
     height: 920px;
 }
+
 .btn{
     width: 175px;
     height: 40px;
@@ -62,42 +63,12 @@
 .nameAdm{
     font-size: 15px;
 }
-
-#requestListArea{
-    margin-top: 110px;
-    width: 100%;
-    background: white;
+.tables{
+    height: 910px;
+    overflow:auto;  
 }
-
-.requestList{
-    font-weight: 600;
-    font-size: 30px;
-    color: #263238;
-    text-align: center;
-    margin : 32px
-}
-.tableBody{
-    width: 100%;
+.tabela{
+    margin: 90px;
+    width: 1499px;
     text-align: center;
 }
-  .table-scroll {
-    height:80vh;
-    overflow:auto;
-    margin-top:20px;
-    border-radius: 15px;
-    width:100%;
-  }
-  table a{
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-  }
-
-  td, th{
-    border: 1px solid #000000;
-    padding: 8px;
-  }
-
-  .card{
-    margin: 300px;
-  }

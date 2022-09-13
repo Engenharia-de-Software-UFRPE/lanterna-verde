@@ -33,7 +33,7 @@ function ContainerAdm() {
 
       </div>
 
-      <div>
+      <div className='tables'>
         {active === "FirstCard" && <Tableadmin />}
         {active === "SecondCard" && <config />}
         {active === "ThirdCard" && <cadasanal />}

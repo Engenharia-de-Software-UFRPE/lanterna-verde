@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './ContainerAdm.css';
 
 const Tableadmin = () => {
-
     let companyData = [
         { companyAnalysis: 'Análise da empresa A' },
         { companyAnalysis: 'Análise da empresa B' },
@@ -36,13 +35,15 @@ const Tableadmin = () => {
         { companyAnalysis: 'Análise da empresa C' },
         { companyAnalysis: 'Análise da empresa C' }
     ];
-
+    window.onclick = () => {
+        loadTableData(companyData);
+    }
     window.onload = () => {
         loadTableData(companyData);
     }
 
     function loadTableData(companyData) {
-        const tableBody = document.getElementById('tableData');
+        const tableBody = document.getElementById('tbody');
         let dataHtml = '';
 
         for (let company of companyData) {
@@ -51,14 +52,19 @@ const Tableadmin = () => {
         tableBody.innerHTML = dataHtml;
     }
 
-    return (<div id="requestListArea">
-        <h6 class="requestList">Solicitações de Análise</h6>
-        <div className="table-scroll">
+
+
+    return (
+        <div className='tabela'>
+
+            <h1>Solicitações de analises</h1>
             <table>
-                <tbody id="tableData"></tbody>
+                <tbody id='tbody'>
+                </tbody>
             </table>
-        </div>
-    </div >)
+        </div >
+
+    )
 }
 
 export default Tableadmin;
