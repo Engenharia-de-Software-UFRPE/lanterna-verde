@@ -112,42 +112,35 @@ function ContainerAdm() {
   window.addEventListener('resize', showButton);
 
   return (
-    <>
+    <div id="body">
 
       <div id="admBoard">
 
         <div id="admPhoto">
-          <img src="../images/testeprojeto.png" alt="" class="photo" />
+
         </div>
 
         <div id="nameAdmArea">
-          <h6 class="nameAdm"></h6>
+          <h6 class="nameAdm">Lucas Henrique Lindo</h6>
         </div>
 
-        <button onClick={mContaHandler} type="button" class='btnMinhaConta'>Minha Conta</button>
-        <button onClick={configuracoesHandler} type="button" class='btnConfiguracoes'>Configurações</button>
-        <button onClick={cAnalistaHandler} type="button" className='btnCadastrarAnalista'>Cadastrar Analista</button>
-        <button onClick={vQuestionarioHandler} type="button" className='btnQuestionario'>Ver Questionário</button>
-        <button onClick={hAnalisesHandler} type="button" className='btnHistoricoDeAnalises'>Histórico de Análises</button>
+        <button onClick={mContaHandler} type="button" class='btn'>Minha Conta</button>
+        <button onClick={configuracoesHandler} type="button" class='btn'>Configurações</button>
+        <button onClick={cAnalistaHandler} type="button" className='btn'>Cadastrar Analista</button>
+        <button onClick={vQuestionarioHandler} type="button" className='btn'>Ver Questionário</button>
+        <button onClick={hAnalisesHandler} type="button" className='btn'>Histórico de Análises</button>
+
+
       </div>
 
-
-      {/*{minhaConta ? 'historico' : <Tableadmin></Tableadmin>}
-      {configuracoes ? 'configuracoes' : <Tableadmin></Tableadmin>}
-      {cadastrarAnalista ? 'cadastrar analista' : <Tableadmin></Tableadmin>}*/}
-      {verQuestionario ? <TableQuestionario></TableQuestionario> : <Tableadmin></Tableadmin>}
-      {historicoAnalises ? <TableListaEmpresas></TableListaEmpresas> : <Tableadmin></Tableadmin>}
-
-      {/*<Tableadmin></Tableadmin>
-      <TableAnalysisData></TableAnalysisData>
-      <TableListaEmpresas></TableListaEmpresas>
-      <TableAnalisesEmpresa></TableAnalisesEmpresa>
-      <TableQuestionario></TableQuestionario>*/}
-
+      <div className='tableBody'>
+        {verQuestionario ? <TableQuestionario></TableQuestionario> : <Tableadmin></Tableadmin>}
+        {/* {historicoAnalises ? <TableListaEmpresas></TableListaEmpresas> : <Tableadmin></Tableadmin>} */}
+      </div>
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
       <div id="root"></div>
-    </>
+    </div>
   );
 }
 export default ContainerAdm;

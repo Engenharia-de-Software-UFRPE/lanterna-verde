@@ -52,9 +52,9 @@ const Tableadmin = () => {
     }
 
     return (<div id="requestListArea">
-        <h6 class="requestList"><strong>Solicitações de Análise</strong></h6>
+        <h6 class="requestList">Solicitações de Análise</h6>
         <div id="table-wrapper">
-            <div id="table-scroll">
+            <div className="table-scroll">
                 <table>
                     <tbody id="tableData"></tbody>
                 </table>
