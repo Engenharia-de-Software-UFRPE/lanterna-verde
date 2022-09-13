@@ -21,11 +21,11 @@ const CompanyRegistrationForm = () => {
     
 
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
+        let { name, value } = event.target;
 
         if (name==='stateRegistration' ||
         name==='cnpj' || name ==='phoneNumber'){
-            const result = event.target.value.replace(/[^0-9]/, '');
+            let result = event.target.value.replace(/[^0-9]/, '');
             setCompany({
                 ...company,
                 [name]: result,
@@ -49,7 +49,7 @@ const CompanyRegistrationForm = () => {
     };
 
     const handlePasswordConfirmation = (event) =>{
-        const result = event.target.value;
+        let result = event.target.value;
         setPasswordConfirmation(result);
     }
 
@@ -58,42 +58,49 @@ const CompanyRegistrationForm = () => {
     }
 
     const sendPostRequest = async () => {
-        const data = JSON.stringify(company);
+        let data = JSON.stringify(company);
         
         await axios.post('http://127.0.0.1:8000/empresa/add', company)
         .then(res => {
-            console.log(res);
-            console.log(res.data);
+            {/*console.log(res) DEBUG*/}
+            setCompany({
+                username: "",
+                email: "",
+                password: "",
+                tradeName: "",
+                corporateName: "",
+                stateRegistration: "",
+                cnpj: "",
+                type: "",
+                phoneNumber: ""
+            })
+            setSelected(false)
+            alert("Cadastro confirmado!")
         })
         .catch( error=>{
-            console.log(error);
+            {/*console.log(error) DEBUG*/}
+            alert("Erro")
         })
+
+        console.log( data)
     };
 
 
     const confirm = (event) =>{
+        let confirm = true;
+        
         if(passwordConfirmation !== company.password){
-            //console.log("password");
+            confirm = false
         }
 
         if(!isValidEmail(company.email)){
-            //console.log("email")
+            confirm = false
         }
 
-        sendPostRequest();
-
-        alert("Cadastro efetuado com sucesso")
-        setCompany({
-            username: "",
-            email: "",
-            password: "",
-            tradeName: "",
-            corporateName: "",
-            stateRegistration: "",
-            cnpj: "",
-            type: "",
-            phoneNumber: ""
-        })
+        if(confirm === true){
+            sendPostRequest()
+        }
+        
     }
 
 
@@ -104,30 +111,29 @@ const CompanyRegistrationForm = () => {
 
                 <div className="form-div">
                     <form className="form">
-                        <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100} onChange={handleInputChange} />
+                        <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100} onChange={handleInputChange} value={company.username} />
 
-                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100} onChange={handleInputChange} />
+                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100} onChange={handleInputChange} value={company.tradeName}/>
                         
-                        <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100}
-                        onChange={handleInputChange} />
+                        <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100} onChange={handleInputChange} value={company.corporateName}/>
                         
-                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} value={company.stateRegistration} onChange={handleInputChange}/>
+                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} onChange={handleInputChange} value={company.stateRegistration}/>
                         
-                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} value={company.cnpj} onChange={handleInputChange}/>
+                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} onChange={handleInputChange} value={company.cnpj}/>
                         
-                        <select className={selected ? "select selected" : "select"} name="type" onChange={handleInputChange}>
-                            <option className="select-option" value="default" disabled selected>Selecione o tipo</option>
+                        <select className={selected ? "select selected" : "select"} name="type" onChange={handleInputChange} value={company.type}>
+                            <option className="select-option" value="" disabled selected>Selecione o tipo</option>
                             <option className="select-option" value="Primeiro Setor">Primeiro Setor</option>
                             <option className="select-option" value="Segundo Setor">Segundo Setor</option>
                             <option className="select-option" value="Terceiro Setor">Terceiro Setor</option>
                         </select>
                         
-                        <input className="input" type="email" placeholder="Digite o seu email" name="email" maxLength={100} onChange={handleInputChange}/>
+                        <input className="input" type="email" placeholder="Digite o seu email" name="email" maxLength={100} onChange={handleInputChange} value={company.email}/>
                         
-                        <input className="input" type="text" placeholder="Digite o seu Telefone " name="phoneNumber" maxLength={12} value={company.phoneNumber} onChange={handleInputChange} />
+                        <input className="input" type="text" placeholder="Digite o seu Telefone " name="phoneNumber" maxLength={12} onChange={handleInputChange} value={company.phoneNumber}/>
 
                         <div className="password" on>
-                            <input className="input last" type="password" placeholder="Digite uma senha" name="password" maxLength={100} onChange={handleInputChange} />
+                            <input className="input last" type="password" placeholder="Digite uma senha" name="password" maxLength={100} onChange={handleInputChange} value={company.password} />
                             
                             <input className="input last" type="password" placeholder="Confirme a sua senha" name="passwordConfirmation" maxLength={100} onChange={handlePasswordConfirmation} />
                         </div>
