@@ -86,7 +86,7 @@ const Analysis = ({ analise }) => {
   }
 
   async function confirmButtonHandler(inp){
-    let res = await axios.post("http://localhost:8000/analise/update",
+    let res = await axios.post("http://localhost:8000/analise/finish",
     {
      password: inp,
      analysisid: idAnalysis
@@ -133,7 +133,7 @@ const Analysis = ({ analise }) => {
     else {
         return <div className='listAnalise'>
         Empresa que foi avaliada: {analise.company}<br></br>
-        {/* Questões: {analise.questoes} <br></br> */}
+
         Respostas: {analise.questao_set.map((questao) => (<QuestionsFinished questao={questao} />))}
         Score Atual: {analise.score}<br></br><br></br>
         Comentário feito: <br></br>
