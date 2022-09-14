@@ -310,6 +310,18 @@ def listar_analises(request):
     """
     return avalAnalista.listar_analises(request)
 
+@login_required
+def listar_analises_empresa(request, empresa):
+    return avalAnalista.listar_analises_empresa(request, empresa)
+
+@login_required
+def listar_analises_empresa_data(request, empresa):
+    return avalAnalista.listar_analises_empresa_data(request, empresa)
+
+@login_required
+def listar_analises_passiveis_reanalise(request, empresa):
+    return avalAnalista.listar_analises_passiveis_reanalise(request, empresa)
+
 @csrf_exempt
 @login_required
 def detalhar_analise(request):

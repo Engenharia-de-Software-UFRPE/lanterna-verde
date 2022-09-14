@@ -94,6 +94,51 @@ def listar_analises(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+def listar_analises_empresa(request, empresa):
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        analises = AvaliacaoAnalistaSerializer(
+            AvaliacaoAnalista.objects.filter(company = empresa),
+            many=True,
+            context={'request': None}
+        )
+
+        ser_return = {
+            'Analises empresa': analises.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def listar_analises_empresa_data(request, empresa):
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        analises = AvaliacaoAnalistaSerializer(
+            AvaliacaoAnalista.objects.order_by('-update_date').filter(company=empresa),
+            many=True,
+            context={'request': None}
+        )
+
+        ser_return = {
+            'Analises empresa': analises.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def listar_analises_passiveis_reanalise(request, empresa):
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        analises = AvaliacaoAnalistaSerializer(
+            AvaliacaoAnalista.objects.filter(company=empresa, reanalyzed = False),
+            many=True,
+            context={'request': None}
+        )
+
+        ser_return = {
+            'Analises empresa': analises.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
 def atualizar_analise(request):
     if request.method == 'POST':
         post = request.POST

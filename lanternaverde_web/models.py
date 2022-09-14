@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.core import validators
 from django.db import models
 from django.utils import timezone
+import re
 
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, is_staff, is_superuser,
@@ -200,6 +201,8 @@ class AvaliacaoAnalista(models.Model):
     finished = models.BooleanField(default=False)
     requirement_date = models.DateTimeField("Data da Solicitação de Análise",
                                             default=timezone.now)
+    update_date = models.DateTimeField(auto_now=True)
+    reanalyzed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.company.tradeName
