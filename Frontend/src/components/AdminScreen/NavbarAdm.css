@@ -98,3 +98,9 @@ b{
 .position-fixed{
     z-index: 999;
 }
+
+ul input{
+    background-color: #f8f9fa;
+    color: #818182;
+    border: 0;
+}

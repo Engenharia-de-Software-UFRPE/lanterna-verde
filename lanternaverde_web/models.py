@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.core import validators
 from django.db import models
 from django.utils import timezone
-import re
 
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, is_staff, is_superuser,
@@ -106,6 +105,7 @@ class Analista(models.Model):
     available = models.BooleanField('Disponivel', default=True)
     cpf = models.CharField('CPF', max_length=11)
     specialty = models.CharField('Especialidade', max_length=255)
+    analysis = models.PositiveIntegerField('Analises', default=0)
 
     user = models.OneToOneField(Usuario,
                                 primary_key=True,
@@ -165,8 +165,23 @@ class Pergunta(models.Model):
         """database metadata"""
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
+        
     def __str__(self):
         return self.body
+
+class SolicitacaoAnalise(models.Model):
+    """
+    SolicitacaoAnalise is when a company requisits to lanterna verde a
+    professional analysis from a team of Analists. Administrators will evaluate
+    each `SolicitacaoAnalise` in order to create a new Analysis.
+    """
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    date = models.DateTimeField('Data de solicitação', default=timezone.now)
+
+    class Meta:
+        """SolicitacaoeAnalise metadata"""
+        verbose_name = "Solicitação de Análise"
+        verbose_name_plural = "Solicitações de Analise"
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
@@ -174,6 +189,8 @@ class AvaliacaoAnalista(models.Model):
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
+    requirement_date = models.DateTimeField("Data da Solicitação de Análise",
+                                            default=timezone.now)
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.company.tradeName
@@ -188,7 +205,6 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
-
 
 class PacoteAnalise(models.Model):
     MONTHLY = 'P1'
@@ -207,4 +223,3 @@ class PacoteAnalise(models.Model):
     class Meta:
         verbose_name = 'Pacote de análise'
         verbose_name_plural = 'Pacotes de análise'
-

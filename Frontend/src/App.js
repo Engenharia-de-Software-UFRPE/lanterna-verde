@@ -1,34 +1,62 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { authReducer, LOGIN } from './reducers/authReducer';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
+import axios from 'axios';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Administrador from './components/pages/Administrador';
-
 import Home from './components/pages/Home';
-
-import Cadastro from './components/pages/AnalystRegistration';
-import TelaPerfilAnalista from './components/pages/AnalystProfileScreen';
-import DadosAnalista from './components/pages/DataAnalyst';
-
+import Administrador from './components/pages/Administrador';
+//Company
 import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
 import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
 import CompanyPerformanceScreen from './components/pages/CompanyPerformanceScreen';
 import CompanyProfileChangeScreen from './components/pages/CompanyProfileChangeScreen';
+//Analyst
+import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScreen';
+import DataAnalyst from './components/Analyst/pages/DataAnalyst';
+import AnalysisScreen from './components/Analyst/pages/AnalysisScreen';
+import DataAnalystEdit from './components/Analyst/pages/DataAnalystEdit';
+import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
 
 function App() {
+  const navigate = useNavigate();
+  const [data, dispatch] = useReducer(authReducer, {token: null})
+  const loginThunk = async (username, password) => {
+    const response = await axios
+    .post(
+      'http://localhost:8000/login',
+      { username: username, password: password}
+    )
+    .then((response) => response);
+    dispatch({ type: LOGIN, token: response.data.token })
+
+    {/*Condicional para troca de tela após realização do Login */}
+    if(response.data === 'administrador'){
+      navigate('/Admin');
+    } else if(response.data === 'analista'){
+      navigate('/analystProfile');
+    } else if(response.data === 'empresa'){
+      navigate('/CompanyMainScreen');
+    }
+  };
+
   return (
-    <BrowserRouter>
+    <AuthContext.Provider value={{
+      data,
+      loginThunk
+    }}>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path= '/Admin' element={<Administrador />} />
 
           {/******************************Analyst****************************/}
-          <Route path='telaPerfilAnalista' element={<TelaPerfilAnalista />} />
-          <Route path="cadastro" element={<Cadastro />} />
-          <Route path="dadosAnalista" element={<DadosAnalista />} />
-
+          <Route path='analystProfile' element={<AnalystProfileScreen />} />
+          <Route path="analystRegistration" element={<AnalystRegistration />} />
+          <Route path="dataAnalyst" element={<DataAnalyst />} />
+          <Route path="dataAnalystEdit" element={<DataAnalystEdit />} />
+          <Route path='analysisScreen' element ={<AnalysisScreen/>} />
           {/******************************Company****************************/}
           <Route path='/CompanyMainScreen' element={<CompanyMainScreen />} />
           <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
@@ -36,8 +64,8 @@ function App() {
           <Route path='/CompanyMainScreen/Analyzes' element={<CompanyAnalyzesScreen />} />
           <Route path='/CompanyMainScreen/Performance' element={<CompanyPerformanceScreen />} />
           <Route path='/CompanyProfileChange' element={<CompanyProfileChangeScreen />} />
-        </Routes>
-    </BrowserRouter>
+      </Routes>
+    </AuthContext.Provider>
   );
 }
 
