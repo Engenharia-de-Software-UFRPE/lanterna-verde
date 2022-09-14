@@ -15,6 +15,12 @@ def criar_analise(request):
     if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
         analysts_set = _select_Analist(data['analystamount'])
+        # Check if there's enough Analysts available for the request
+        if data['analystamount'] != len(analysts_set):
+            return HttpResponse("O número de analistas pedidos foi " +
+                                f"{data['analystamount']}, porém apenas "
+                                f"{len(analysts_set)} estão disponíveis.",
+                                status=422)
         analysis_request = SolicitacaoAnalise.objects.get(pk=data['analysis_request'])
         if analysis_request.status == SolicitacaoAnalise.PENDING:
 
