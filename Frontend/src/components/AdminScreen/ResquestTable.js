@@ -1,69 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import './ContainerAdm.css';
+import SolAnaliseMap from './SolAnaliseMap';
+import SolAnalise from './SolAnalise';
+import axios from 'axios';
 
 const Tableadmin = () => {
-    let companyData = [
-        { companyAnalysis: 'Análise da empresa A' },
-        { companyAnalysis: 'Análise da empresa B' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa D' },
-        { companyAnalysis: 'Análise da empresa E' },
-        { companyAnalysis: 'Análise da empresa F' },
-        { companyAnalysis: 'Análise da empresa G' },
-        { companyAnalysis: 'Análise da empresa H' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' },
-        { companyAnalysis: 'Análise da empresa C' }
-    ];
-    window.onclick = () => {
-        loadTableData(companyData);
+
+    const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
+
+    async function solicitaAnalise() {
+      let response = await axios.get(
+        "http://localhost:8000/solicitacoesAnalise",
+        { withCredentials: true }
+      )
+      .then(response => response)
+      setSolicitaAnalise(response.data.solicitacoes_analise)
     }
-    window.onload = () => {
-        loadTableData(companyData);
-    }
-
-    function loadTableData(companyData) {
-        const tableBody = document.getElementById('tbody');
-        let dataHtml = '';
-
-        for (let company of companyData) {
-            dataHtml += `<tr><td> <a href = "">${company.companyAnalysis}</a></td></tr>`;
-        }
-        //tableBody.innerHTML = dataHtml;
-    }
-
-
-
-    return (
-        <div className='tabela'>
-            <h1>Solicitações de analises</h1>
-            <table>
-                <tbody id='tbody'>
-                </tbody>
-            </table>
-        </div >
-
-    )
+    
+    if (solAnalise[0] === "placeholder") {
+        solicitaAnalise();
+      }
+      
+      console.log(solAnalise)
+    return (<div id="requestListArea">
+        <h6 class="requestList"><strong>Solicitações de Análise</strong></h6>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table>
+                    <tbody> 
+                    <SolAnaliseMap soliciatoes_analise ={solAnalise} />
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div >)
 }
-
 export default Tableadmin;

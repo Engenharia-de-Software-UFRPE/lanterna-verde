@@ -36,8 +36,9 @@ def get_solicitacoes(request):
     if request.method == 'GET':
         #pylint: disable=E1101
         solicitacoes = serializer(SolicitacaoAnalise.objects.all(), many=True)
+        data=solicitacoes.data
         ser_return = {
-            'solicitacoes_analise': solicitacoes.data
+            'solicitacoes_analise': data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
