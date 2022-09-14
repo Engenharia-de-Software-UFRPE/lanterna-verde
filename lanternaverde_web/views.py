@@ -11,6 +11,7 @@ import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
 
 from rest_framework.renderers import JSONRenderer
+
 from django.contrib.auth.hashers import check_password
 
 
@@ -231,6 +232,7 @@ def get_questoes(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+
 @csrf_exempt
 @login_required
 def create_solicitacao(request):
@@ -242,6 +244,7 @@ def create_solicitacao(request):
     """
     return solAnalise.create_solicitacao(request)
 
+
 @csrf_exempt
 @login_required
 def get_solicitacoes(request):
@@ -249,6 +252,7 @@ def get_solicitacoes(request):
     Groups all `SolicitacoesAnalise` objects into a JSON response.
     """
     return solAnalise.get_solicitacoes(request)
+
 
 @csrf_exempt
 @login_required
@@ -269,7 +273,7 @@ def listar_analises(request):
 @login_required
 def detalhar_analise(request):
     """
-    Function that detail a analysis
+    Function that detail a analyst
     """
     return avalAnalista.detalhar_analise(request)
 
@@ -278,6 +282,7 @@ def detalhar_analise(request):
 @login_required
 def criar_analise(request):
     return avalAnalista.criar_analise(request)
+
 
 @csrf_exempt
 @login_required
@@ -293,7 +298,6 @@ def get_analysis_by_request(request):
 def gerar_relatorio(request):
     return relatorio.gerar_relatorio(request)
 
-   
 
 @csrf_exempt
 @login_required
@@ -311,7 +315,7 @@ def detalhar_analista(request):
                 'user': ser_user.data,
                 'analyst': ser_anal.data
             }
-            return _JSONResponse(ser_return, status=200)
+            return JSONResponse(ser_return, status=200)
         else:
             return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
@@ -319,15 +323,7 @@ def detalhar_analista(request):
 @csrf_exempt
 @login_required
 def concluir_analise(request):
-    if request.method == 'POST':
-        data = request.POST
-        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
-        if analysis.analyst.user == request.user:
-            analysis.finished = True
-            analysis.save()
-            return HttpResponse(status=200)
-        return HttpResponse("Você não é o responsável por essa análise.", status=403)
-    return HttpResponseBadRequest()
+    return avalAnalista.concluir_analise(request)
 
 @csrf_exempt
 @login_required

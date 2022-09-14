@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise
 
+
 # Register your models here.
 
 @admin.register(Usuario)
@@ -44,3 +45,4 @@ class SolicitacaoAnaliseAdmin(admin.ModelAdmin):
 @admin.register(Relatorio)
 class RelatorioAdmin(admin.ModelAdmin):
     pass
+

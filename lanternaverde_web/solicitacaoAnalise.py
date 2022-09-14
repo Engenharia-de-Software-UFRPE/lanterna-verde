@@ -19,13 +19,11 @@ def create_solicitacao(request):
         if not hasattr(request.user, 'empresa'):
             return HttpResponseForbidden()
         empresa = request.user.empresa
-        print(len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])))
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             SolicitacaoAnalise.objects.create(empresa=empresa,
                                               date=timezone.now())
             return HttpResponse(status=200)
         return HttpResponse("Há análises em andamento para essa empresa", status=422)
-
     return HttpResponseBadRequest()
 
 def get_solicitacoes(request):

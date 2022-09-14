@@ -24,6 +24,7 @@ urlpatterns = [
     path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise'),
     path('solicitacoesAnalise/analises', views.get_analysis_by_request, name='get_analysis_by_request'),
 
+
     path('analise', views.listar_analises, name='listar_analises'),
     path('analise/add', views.criar_analise, name='criar_analise'),
     path('analise/detail', views.detalhar_analise, name='detalhar_analise'),
@@ -32,6 +33,7 @@ urlpatterns = [
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
-
+    
     path('relatorio/add', views.gerar_relatorio, name='gerar_relatorio')
+
 ]
