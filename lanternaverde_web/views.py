@@ -102,6 +102,7 @@ def login(request):
                             " novamente", status=401)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 def logout(request):
     """
@@ -298,6 +299,15 @@ def get_analysis_by_request(request):
 def gerar_relatorio(request):
     return relatorio.gerar_relatorio(request)
 
+@csrf_exempt
+@login_required
+def get_relatorios(request):
+    return relatorio.get_relatorios(request)
+
+@csrf_exempt
+@login_required
+def comment_relatorio(request):
+    return relatorio.comment_relatorio(request)
 
 @csrf_exempt
 @login_required
