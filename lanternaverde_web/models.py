@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.core import validators
 from django.db import models
 from django.utils import timezone
-from .utils.countdimension import _count_dimension
 import re
 
 class UserManager(BaseUserManager):
