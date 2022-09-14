@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
 from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
-from .serializers import AvaliacaoAnalistaSerializer
+from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.relatorio as relatorio
 
@@ -42,6 +42,7 @@ def detalhar_analise(request):
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
         data['dimension_count'] = _count_dimension(data)
+        data['company'] = EmpresaSerializer(analysis.analysis_request.empresa).data
         if hasattr(request.user, 'empresa'):
             del data['analyst']
             if analysis.finished is False:
