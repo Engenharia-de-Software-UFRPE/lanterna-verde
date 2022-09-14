@@ -22,6 +22,7 @@ function App() {
   const navigate = useNavigate();
   const [data, dispatch] = useReducer(authReducer, {token: null})
   const loginThunk = async (username, password) => {
+    axios.defaults.withCredentials = true;
     const response = await axios
     .post(
       'http://localhost:8000/login',
@@ -30,7 +31,7 @@ function App() {
     .then((response) => response);
     dispatch({ type: LOGIN, token: response.data.token })
     console.log(response.data);
-    
+
     {/*Condicional para troca de tela após realização do Login */}
     if(response.data === 'administrador'){
       navigate('/Admin');
