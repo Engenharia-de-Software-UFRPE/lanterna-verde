@@ -9,7 +9,14 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
 
     const navigate = useNavigate();
 
-    function teste(){
+    function makeAnalysisButton(){
+        navigate('/analysisScreen',{
+             state: {analise} }
+        );
+        
+    }
+
+    function seeAnalysisButton(){
         navigate('/analysisScreen',{
              state: {analise} }
         );
@@ -27,11 +34,11 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 Score: {analise.score} <br></br>
                 
                 Finalizada: {analise.finished.toString()}
-                <button className ='makeAnalysisButton'onClick={teste}>Fazer análise</button>
+                <button className ='makeAnalysisButton'onClick={makeAnalysisButton}>Fazer análise</button>
                 </div>
             </ListGroup.Item>
         }
-        else { //caso contrário nenhum botão será mostrado
+        else { //caso contrário um botão para visualizar a análise finalizada será mostrado
                 return  <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
@@ -41,6 +48,7 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 Score: {analise.score} <br></br>
         
                 Finalizada: {analise.finished.toString()}
+                <button className ='seeAnalysisButton'onClick={seeAnalysisButton}>Ver  análise</button>
                 </div>
             </ListGroup.Item>
         }
