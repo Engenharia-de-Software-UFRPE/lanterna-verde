@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -20,44 +21,6 @@ def criar_analise(request):
                 analyst.analysis += 1
                 analyst.save()
                 analysis = AvaliacaoAnalista.objects.create(analyst=analyst, analysis_request=analysis_request)
-
-# pylint: disable=E1101
-
-def create_analysis(request):
-    """
-    Method that allows Administrators to create a new analysis based on an
-    Analysis requirement and dinamically search for only available Analysts and
-    least busy Analysts.
-    """
-    if request.method == 'POST' and hasattr(request.user, 'administrador'):
-        data = json.loads(request.body)
-        amount_analysts = data['amount_analysts']
-        company = Empresa.objects.get(pk=data['company'])
-
-        # Checks if there's any Analysis ongoing about this company
-        if len(AvaliacaoAnalista.objects.filter(company=company)) > 0:
-            return HttpResponse("Há análises em andamento para essa empresa",
-                                status=422)
-
-        try:
-            solicitacao = SolicitacaoAnalise.objects.get(empresa=company)
-            analysts_set = _select_Analist(amount_analysts)
-
-            # Check if there's enough Analysts available for the request
-            if amount_analysts != len(analysts_set):
-                return HttpResponse("O número de analistas pedidos foi " +
-                                    f"{amount_analysts}, porém apenas "
-                                    f"{len(analysts_set)} estão disponíveis.",
-                                    status=422)
-
-            requirement_date = solicitacao.date
-
-            # Creates the analysis
-            for analyst in list(analysts_set):
-                analysis = AvaliacaoAnalista.objects.create(
-                    company=company,
-                    analyst=analyst,
-                    requirement_date=requirement_date)
                 questions = list(Pergunta.objects.all())
                 for question in questions:
                     Questao.objects.create(
@@ -66,13 +29,6 @@ def create_analysis(request):
                 analysis_request.save()
             return HttpResponse(status=201)
         return HttpResponse("Esta solicitação já está sendo processada", status=422)
-            return HttpResponse(status=201)
-        except ObjectDoesNotExist:
-            # In case a Analysis requirement is not available for the requested
-            # company.
-            return HttpResponse("Não foi possível encontrar uma "
-                                "Solicitação de Análise para essa empresa.",
-                                status=422)
     return HttpResponseBadRequest()
 
 def detalhar_analise(request):
@@ -126,29 +82,14 @@ def atualizar_analise(request):
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
-            analysis.score = '2'
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
-
-
-def concluir_analise(request):
-    if request.method == 'POST':
-        data = request.POST
-        analysis = AvaliacaoAnalista.objects.get(pk=data.get('id'))
-        if analysis.analyst.user == request.user:
-            analysis.finished = True
-            analysis.save()
-            return HttpResponse(status=200)
-        return HttpResponse("Você não é o responsável por essa análise.", status=403)
-    return HttpResponseBadRequest()
-
 
 def _select_Analist(amount):
     analists = Analista.objects.filter(
         available=True).order_by('analysis')[:amount]
     return analists
-
 
 
 def get_analysis_by_request(request):
@@ -162,4 +103,24 @@ def get_analysis_by_request(request):
             'Analise': data,
         }
         return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+
+def finalizar_analise(request):
+    if request.method == 'POST':
+        post = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=post.get('analysisid'))
+        if analysis.analyst.user == request.user:
+            password = post.get('password')
+            matchcheck = check_password(password, request.user.password)
+            if matchcheck:
+                analysis.finished = True
+                analysis.save()
+                analysis_request = analysis.analysis_request
+                if len(analysis_request.analises.filter(finished=False)) == 0:
+                    analysis_request.status = SolicitacaoAnalise.FINISHED
+                    analysis_request.save()
+                return HttpResponse("Análise finalizada", status=200)
+            return HttpResponse("Senha incorreta, a análise não foi finalizada", status=401)
+        return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()

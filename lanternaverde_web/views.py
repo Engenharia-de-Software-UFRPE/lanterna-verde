@@ -343,3 +343,8 @@ def alterar_senha(request):
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
 
+
+@csrf_exempt
+@login_required
+def finalizar_analise(request):
+    return avalAnalista.finalizar_analise(request)

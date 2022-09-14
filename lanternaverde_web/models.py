@@ -214,7 +214,7 @@ class AvaliacaoAnalista(models.Model):
                                             default=timezone.now)
 
     def __str__(self):
-        return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName
+        return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
 
 
 class Questao(models.Model):
