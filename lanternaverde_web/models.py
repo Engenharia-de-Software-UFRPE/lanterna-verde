@@ -207,9 +207,6 @@ class AvaliacaoAnalista(models.Model):
     finished = models.BooleanField(default=False)
     analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
-    requirement_date = models.DateTimeField("Data da Solicitação de Análise",
-                                            default=timezone.now)
-
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
 
