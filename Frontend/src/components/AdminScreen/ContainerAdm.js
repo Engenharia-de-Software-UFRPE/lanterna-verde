@@ -4,9 +4,12 @@ import TableAnalisesEmpresa from './analisesDaEmpresa';
 import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
-import Tableadmin from './ResquestTable.js';
+
+import Tableadmin from './ResquestTable.js';//
+
 import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
+import SolAnaliseMap from './SolAnaliseMap.js';
 
 
 function ContainerAdm() {
@@ -24,6 +27,10 @@ function ContainerAdm() {
 
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
+
+
+
+
 
   async function listAnalysis() {
     axios.defaults.withCredentials = true;
@@ -151,6 +158,8 @@ function ContainerAdm() {
           <h6 class="usernameAdm">{user.username}</h6>
         </div>
 
+        
+
         <button onClick={mContaHandler} type="button" class='btnMinhaConta'>Minha Conta</button>
         <button onClick={configuracoesHandler} type="button" class='btnConfiguracoes'>Configurações</button>
         <button onClick={cAnalistaHandler} type="button" className='btnCadastrarAnalista'><a href="analystRegistration">Cadastrar Analista</a></button>
@@ -164,7 +173,8 @@ function ContainerAdm() {
       {cadastrarAnalista ? 'cadastrar analista' : <Tableadmin></Tableadmin>}*/}
       {verQuestionario ? <TableQuestionario></TableQuestionario> : <Tableadmin></Tableadmin>}
       {historicoAnalises ? <TableListaEmpresas></TableListaEmpresas> : <Tableadmin></Tableadmin>}
-      
+
+
       {/*<Tableadmin></Tableadmin>
       <TableAnalysisData></TableAnalysisData>
       <TableListaEmpresas></TableListaEmpresas>
