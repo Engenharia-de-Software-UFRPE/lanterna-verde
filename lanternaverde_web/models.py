@@ -189,3 +189,22 @@ class Questao(models.Model):
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
 
+
+class PacoteAnalise(models.Model):
+    MONTHLY = 'P1'
+    BIANNUAL = 'P2'
+    YEARLY = 'P3'
+    
+    PACKAGE = (
+        (MONTHLY, 'Mensal'),
+        (BIANNUAL, 'Semestral'),
+        (YEARLY, 'Anual')
+    )
+    
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    package = models.CharField(choices=PACKAGE, max_length=100, default=0)
+    
+    class Meta:
+        verbose_name = 'Pacote de análise'
+        verbose_name_plural = 'Pacotes de análise'
+

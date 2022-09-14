@@ -15,6 +15,7 @@ import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScr
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
 import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
 import CompanyPerformanceScreen from './components/pages/CompanyPerformanceScreen';
+import CompanyProfileChangeScreen from './components/pages/CompanyProfileChangeScreen';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
           <Route path='/CompanyMainScreen/Analyzes' element={<CompanyAnalyzesScreen />} />
           <Route path='/CompanyMainScreen/Performance' element={<CompanyPerformanceScreen />} />
+          <Route path='/CompanyProfileChange' element={<CompanyProfileChangeScreen />} />
         </Routes>
     </BrowserRouter>
   );
