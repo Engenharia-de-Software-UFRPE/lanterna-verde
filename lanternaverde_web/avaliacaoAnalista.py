@@ -67,6 +67,8 @@ def listar_analises(request):
         data = analises.data
         for analise in data:
             analise['dimension_count'] = _count_dimension(analise)
+            analise_obj = AvaliacaoAnalista.objects.get(pk=analise['id'])
+            analise['company'] = EmpresaSerializer(analise_obj.analysis_request.empresa).data
         ser_return = {
             'Analise': data
         }
@@ -125,6 +127,6 @@ def finalizar_analise(request):
                     analysis_request.save()
                     relatorio.gerar_relatorio(analysis_request)
                 return HttpResponse("Análise finalizada", status=200)
-            return HttpResponse("Senha incorreta, a análise não foi finalizada", status=401)
+            return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()
