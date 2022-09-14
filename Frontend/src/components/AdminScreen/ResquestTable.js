@@ -46,7 +46,7 @@ const Tableadmin = () => {
         let dataHtml = '';
 
         for (let company of companyData) {
-            dataHtml += `<tr><td>${company.companyAnalysis}</td></tr>`;
+            dataHtml += `<tr><td> <a href = "#">${company.companyAnalysis}</a></td></tr>`;
         }
         tableBody.innerHTML = dataHtml;
     }
@@ -64,4 +64,3 @@ const Tableadmin = () => {
 }
 
 export default Tableadmin;
-
