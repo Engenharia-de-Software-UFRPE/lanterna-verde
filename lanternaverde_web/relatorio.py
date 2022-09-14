@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, Relatorio, SolicitacaoAnalise
+from .models import Relatorio, SolicitacaoAnalise
 from .serializers import RelatorioSerializer, AvaliacaoAnalistaSerializer
 from .utils.countdimension import _count_dimension
 
