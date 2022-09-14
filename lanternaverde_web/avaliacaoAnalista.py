@@ -9,6 +9,7 @@ from .utils.jsonresponse import JSONResponse
 from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
 from .serializers import AvaliacaoAnalistaSerializer
 from .utils.countdimension import _count_dimension
+import lanternaverde_web.relatorio as relatorio
 
 def criar_analise(request):
     if request.method == 'POST' and hasattr(request.user, 'administrador'):
@@ -121,6 +122,7 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(finished=False)) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
+                    relatorio.gerar_relatorio(analysis_request)
                 return HttpResponse("Análise finalizada", status=200)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=401)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
