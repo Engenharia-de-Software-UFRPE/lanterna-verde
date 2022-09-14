@@ -311,7 +311,7 @@ def detalhar_analista(request):
                 'user': ser_user.data,
                 'analyst': ser_anal.data
             }
-            return _JSONResponse(ser_return, status=200)
+            return JSONResponse(ser_return, status=200)
         else:
             return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
@@ -347,3 +347,8 @@ def alterar_senha(request):
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
 
+
+@csrf_exempt
+@login_required
+def finalizar_analise(request):
+    return avalAnalista.finalizar_analise(request)

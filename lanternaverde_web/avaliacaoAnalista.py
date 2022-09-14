@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
@@ -75,7 +76,6 @@ def atualizar_analise(request):
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
-            analysis.score = '2'
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
@@ -97,4 +97,24 @@ def get_analysis_by_request(request):
             'Analise': data,
         }
         return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+
+def finalizar_analise(request):
+    if request.method == 'POST':
+        post = request.POST
+        analysis = AvaliacaoAnalista.objects.get(pk=post.get('analysisid'))
+        if analysis.analyst.user == request.user:
+            password = post.get('password')
+            matchcheck = check_password(password, request.user.password)
+            if matchcheck:
+                analysis.finished = True
+                analysis.save()
+                analysis_request = analysis.analysis_request
+                if len(analysis_request.analises.filter(finished=False)) == 0:
+                    analysis_request.status = SolicitacaoAnalise.FINISHED
+                    analysis_request.save()
+                return HttpResponse("Análise finalizada", status=200)
+            return HttpResponse("Senha incorreta, a análise não foi finalizada", status=401)
+        return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()

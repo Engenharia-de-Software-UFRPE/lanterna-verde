@@ -28,7 +28,7 @@ urlpatterns = [
     path('analise/add', views.criar_analise, name='criar_analise'),
     path('analise/detail', views.detalhar_analise, name='detalhar_analise'),
     path('analise/update', views.atualizar_analise, name='atualizar_analise'),
-    path('analise/finish', views.concluir_analise, name='concluir_analise'),
+    path('analise/finish', views.finalizar_analise, name='concluir_analise'),
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),

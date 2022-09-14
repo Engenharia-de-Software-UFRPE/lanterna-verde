@@ -209,7 +209,7 @@ class AvaliacaoAnalista(models.Model):
     analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
     def __str__(self):
-        return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName
+        return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
 
 
 class Questao(models.Model):
