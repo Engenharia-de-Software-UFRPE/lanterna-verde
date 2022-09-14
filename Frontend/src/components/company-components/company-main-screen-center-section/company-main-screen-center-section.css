@@ -42,7 +42,7 @@
     color: #ffffff;
     display:flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
 
     transition:  0.2s background-color ease-in-out ;
 }
