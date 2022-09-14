@@ -103,9 +103,10 @@ def get_analysis_by_request(request):
 def finalizar_analise(request):
     if request.method == 'POST':
         post = request.POST
-        analysis = AvaliacaoAnalista.objects.get(pk=post.get('analysisid'))
+        data = json.loads(request.body)
+        analysis = AvaliacaoAnalista.objects.get(pk=data['analysisid'])
         if analysis.analyst.user == request.user:
-            password = post.get('password')
+            password = data['password']
             matchcheck = check_password(password, request.user.password)
             if matchcheck:
                 analysis.finished = True
