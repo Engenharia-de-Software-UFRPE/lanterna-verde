@@ -177,24 +177,41 @@ class SolicitacaoAnalise(models.Model):
     professional analysis from a team of Analists. Administrators will evaluate
     each `SolicitacaoAnalise` in order to create a new Analysis.
     """
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='solicitacoes')
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
+
+    PENDING = 0
+    PROCESSING = 1
+    FINISHED = 2
+    DELIVERED = 3
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (PROCESSING, 'Processing'),
+        (FINISHED, 'Finished'),
+        (DELIVERED, 'Delivered')
+    )
+
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+
 
     class Meta:
         """SolicitacaoeAnalise metadata"""
         verbose_name = "Solicitação de Análise"
         verbose_name_plural = "Solicitações de Analise"
 
+
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
-    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
     analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
+    requirement_date = models.DateTimeField("Data da Solicitação de Análise",
+                                            default=timezone.now)
+
     def __str__(self):
-        return self.analyst.user.username + ' -> ' + self.company.tradeName
+        return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
 
 
 class Questao(models.Model):
@@ -206,3 +223,21 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
+
+
+class Relatorio(models.Model):
+
+    request = models.OneToOneField(SolicitacaoAnalise, on_delete=models.CASCADE)
+    adm_comment = models.TextField(blank=True)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    scoreD1 = models.FloatField(default=0)
+    scoreD2 = models.FloatField(default=0)
+    scoreD3 = models.FloatField(default=0)
+    scoreD4 = models.FloatField(default=0)
+    ascore = models.FloatField(default=0)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'Relatorio'
+        verbose_name_plural = 'Relatorios'
+

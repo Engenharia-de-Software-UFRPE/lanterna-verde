@@ -15,18 +15,15 @@ def create_solicitacao(request):
     This function restricts who can create new Analysis requirement to Company
     Users.
     """
-    if request.method == 'GET':
+    if request.method == 'POST':
         if not hasattr(request.user, 'empresa'):
             return HttpResponseForbidden()
         empresa = request.user.empresa
-        try:
-            #pylint: disable=E1101
+        if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             SolicitacaoAnalise.objects.create(empresa=empresa,
                                               date=timezone.now())
             return HttpResponse(status=200)
-        except IntegrityError:
-            return HttpResponse("Já existe uma solicitação em andamento "
-                                "para essa empresa", status=409)
+        return HttpResponse("Há análises em andamento para essa empresa", status=422)
     return HttpResponseBadRequest()
 
 def get_solicitacoes(request):

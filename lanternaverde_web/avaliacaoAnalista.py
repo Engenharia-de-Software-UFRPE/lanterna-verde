@@ -1,28 +1,34 @@
 import json
 
+from django.contrib.auth.hashers import check_password
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from .utils.jsonresponse import JSONResponse
 from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
 from .serializers import AvaliacaoAnalistaSerializer
+from .utils.countdimension import _count_dimension
 
 def criar_analise(request):
-    if request.method == 'POST':
-        post = request.POST
+    if request.method == 'POST' and hasattr(request.user, 'administrador'):
         data = json.loads(request.body)
-        company = Empresa.objects.get(pk=data['company'])
         analysts_set = _select_Analist(data['analystamount'])
         analysis_request = SolicitacaoAnalise.objects.get(pk=data['analysis_request'])
-        for analyst in list(analysts_set):
-            analyst.analysis += 1
-            analyst.save()
-            analysis = AvaliacaoAnalista.objects.create(
-                company=company, analyst=analyst, analysis_request=analysis_request)
-            questions = list(Pergunta.objects.all())
-            for question in questions:
-                Questao.objects.create(
-                    question=question, questionnaire=analysis)
-        return HttpResponse(status=201)
+        if analysis_request.status == SolicitacaoAnalise.PENDING:
+
+            for analyst in list(analysts_set):
+                analyst.analysis += 1
+                analyst.save()
+                analysis = AvaliacaoAnalista.objects.create(analyst=analyst, analysis_request=analysis_request)
+                questions = list(Pergunta.objects.all())
+                for question in questions:
+                    Questao.objects.create(
+                        question=question, questionnaire=analysis)
+                analysis_request.status = SolicitacaoAnalise.PROCESSING
+                analysis_request.save()
+            return HttpResponse(status=201)
+        return HttpResponse("Esta solicitação já está sendo processada", status=422)
     return HttpResponseBadRequest()
 
 def detalhar_analise(request):
@@ -35,6 +41,10 @@ def detalhar_analise(request):
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
         data['dimension_count'] = _count_dimension(data)
+        if hasattr(request.user, 'empresa'):
+            del data['analyst']
+            if analysis.finished is False:
+                return HttpResponse("Essa análise ainda não foi concluída ", status=403)
         ser_return = {
             'analysis': data
         }
@@ -72,7 +82,6 @@ def atualizar_analise(request):
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
                 q.save()
-            analysis.score = '2'
         analysis.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
@@ -97,15 +106,22 @@ def get_analysis_by_request(request):
     return HttpResponseBadRequest()
 
 
-def _count_dimension(analysis):
-    question_set = analysis['questao_set']
-    dimensions = {'D1': {'amount': 0, 'checked': 0},
-                  'D2': {'amount': 0, 'checked': 0},
-                  'D3': {'amount': 0, 'checked': 0},
-                  'D4': {'amount': 0, 'checked': 0}
-                  }
-    for question in question_set:
-        dimensions[question['question']['dimension']]['amount'] += 1
-        if question['answer']:
-            dimensions[question['question']['dimension']]['checked'] += 1
-    return dimensions
+def finalizar_analise(request):
+    if request.method == 'POST':
+        post = request.POST
+        data = json.loads(request.body)
+        analysis = AvaliacaoAnalista.objects.get(pk=data['analysisid'])
+        if analysis.analyst.user == request.user:
+            password = data['password']
+            matchcheck = check_password(password, request.user.password)
+            if matchcheck:
+                analysis.finished = True
+                analysis.save()
+                analysis_request = analysis.analysis_request
+                if len(analysis_request.analises.filter(finished=False)) == 0:
+                    analysis_request.status = SolicitacaoAnalise.FINISHED
+                    analysis_request.save()
+                return HttpResponse("Análise finalizada", status=200)
+            return HttpResponse("Senha incorreta, a análise não foi finalizada", status=401)
+        return HttpResponse("Você não é o responsável por esta análise", status=403)
+    return HttpResponseBadRequest()
