@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './NavbarAdm.css';
-
-
 import Popup from 'reactjs-popup';
 
 import Form from 'react-bootstrap/Form';
@@ -11,7 +9,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
 function NavbarAdm() {
-    
+  const navigate = useNavigate();
+  const handleLogout = e => {
+    e.preventDefault();
+    fetch('http://localhost:8000/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${localStorage.getItem('token')}`
+      }
+    })
+    .then((response) => {response.json()
+      console.log(response);
+      localStorage.clear();
+      navigate('/');
+    });
+  };
 
     return(
       <div class="position-fixed col-12">
@@ -38,11 +51,8 @@ function NavbarAdm() {
                 </Form>
               </Nav>
               <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><Link
-                to='/'
-                >
-                  <a class="nav-link" href="">Sair</a>
-                </Link>
+                <li class="nav-item">
+                <input type="button" value="Sair" onClick={handleLogout}/>
                 </li>
                 <li class="nav-item">
                 
