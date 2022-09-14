@@ -15,7 +15,7 @@ import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScree
 import DataAnalyst from './components/Analyst/pages/DataAnalyst';
 import AnalysisScreen from './components/Analyst/pages/AnalysisScreen';
 import DataAnalystEdit from './components/Analyst/pages/DataAnalystEdit';
-import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
+//import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
 
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
 
           {/******************************Analyst****************************/}
           <Route path='analystProfile' element={<AnalystProfileScreen />} />
-          <Route path="analystRegistration" element={<AnalystRegistration />} />
+          {/* <Route path="analystRegistration" element={<AnalystRegistration />} /> */}
           <Route path="dataAnalyst" element={<DataAnalyst />} />
           <Route path="dataAnalystEdit" element={<DataAnalystEdit />} />
           <Route path='analysisScreen' element ={<AnalysisScreen/>} />

@@ -1,15 +1,15 @@
-import React from 'react';
-import '../../../App.css';
-import Container from '../registration/ContainerRegistration';
-import NavbarAdm from '../../AdminScreen/NavbarAdm';
+// import React from 'react';
+// import '../../../App.css';
+// import Container from '../registration/ContainerRegistration';
+// import NavbarAdm from '../../AdminScreen/NavbarAdm';
 
-function AnalystRegistration() {
-  return (
-    <>
-      <NavbarAdm />
-      <Container />
-    </>
-  );
-}
+// function AnalystRegistration() {
+//   return (
+//     <>
+//       <NavbarAdm />
+//       <Container />
+//     </>
+//   );
+// }
 
-export default AnalystRegistration;
+// export default AnalystRegistration;
