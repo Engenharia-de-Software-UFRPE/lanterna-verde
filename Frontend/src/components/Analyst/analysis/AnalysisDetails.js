@@ -7,10 +7,12 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
 import { useAlert } from "react-alert";
+import { Navigate } from 'react-router-dom';
 
 
 const Analysis = ({ analise }) => {
 
+    const navigate = useNavigate();
     const idAnalysis = analise.id
     const url = "http://localhost:8000/analise/detail?analysisid="+analise.id
 
@@ -37,7 +39,7 @@ const Analysis = ({ analise }) => {
 
 
 
-    const navigate = useNavigate();
+    
 
     const handleComentChange= () => {
       analysis.comment= document.getElementById("comentField").value;
@@ -86,6 +88,9 @@ const Analysis = ({ analise }) => {
   }
 
   async function confirmButtonHandler(inp){
+
+    handleSaveClick()
+
     let res = await axios.post("http://localhost:8000/analise/finish",
     {
      password: inp,
@@ -93,30 +98,38 @@ const Analysis = ({ analise }) => {
     },
     {withCredentials: true},
     );
+    
+    if (res.status === 401) {
+      navigate(-1);
+    }
+    else {
+      navigate('/analystProfile');
+    }
 
-    console.log(inp)
+    // console.log(inp)
   }
 
-    // console.log(analysis.dimension_count)
+    console.log(analise.company.tradeName)
     if (analysis.finished === false){
-        return <div className='listAnalise'>
-        Empresa: {analysis.company}<br></br>
+        return (<div className='listAnalise'>
+        Empresa: {analysis.company.tradeName}<br></br>
         {/* Questões: {analise.questoes} <br></br> */}
 
         Score D1: {((dimensions['D1'].checked)/dimensions['D1'].amount).toFixed(2)}<br></br>
         Score D2: {((dimensions['D2'].checked)/dimensions['D2'].amount).toFixed(2)}<br></br>
         Score D3: {((dimensions['D3'].checked)/dimensions['D3'].amount).toFixed(2)}<br></br>
         Score D4: {((dimensions['D4'].checked)/dimensions['D4'].amount).toFixed(2)}<br></br>
+        Score TOTAL: {((((dimensions['D1'].checked)/dimensions['D1'].amount) + ((dimensions['D2'].checked)/dimensions['D2'].amount) + ((dimensions['D3'].checked)/dimensions['D3'].amount) + ((dimensions['D4'].checked)/dimensions['D4'].amount))/4).toFixed(2)} <br></br>
         
         <button className='btns' onClick={handleSaveClick}>Salvar</button>
 
         <Popup trigger={<button className='btns'>Finalizar</button>}
               anchor={null}>
           <div className='finish_him'>
-            <div className='title'>Bota a senha ai moral</div>
+            <div className='title'>Insira sua senha</div>
             <input className='inp-pass' id='password-conf' type="password"></input>
-            <div className='title'>vai peidar na tanga agora?</div>
-            <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NAAAH</button></div>
+            <div className='title'>Deseja finalizar a análise?</div>
+            <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NÃO</button></div>
           </div>
         </Popup>
 
@@ -128,19 +141,23 @@ const Analysis = ({ analise }) => {
         <textarea id='comentField' className='comentArea' onChange={handleComentChange}>{analysis.comment}</textarea>
 
 
-    </div>
+    </div>)
     }
     else {
-        return <div className='listAnalise'>
-        Empresa que foi avaliada: {analise.company}<br></br>
+        return (<div className='listAnalise'>
+        Empresa que foi avaliada: {analise.company.tradeName  }<br></br>
 
+        Score D1: {(analise.dimension_count['D1'].checked/analise.dimension_count['D1'].amount).toFixed(2)}<br></br>
+        Score D2: {(analise.dimension_count['D2'].checked/analise.dimension_count['D2'].amount).toFixed(2)}<br></br>
+        Score D3: {(analise.dimension_count['D3'].checked/analise.dimension_count['D3'].amount).toFixed(2)}<br></br>
+        Score D4: {(analise.dimension_count['D4'].checked/analise.dimension_count['D4'].amount).toFixed(2)}<br></br>
         Respostas: {analise.questao_set.map((questao) => (<QuestionsFinished questao={questao} />))}
         Score Atual: {analise.score}<br></br><br></br>
         Comentário feito: <br></br>
         <textarea readonly='true' id='comentField' className='comentArea' >{analise.comment}</textarea>
         <button className='btn-back' onClick={backButtonClickHandler}>Voltar</button>
 
-    </div>
+    </div>)
     }
 
 }; 

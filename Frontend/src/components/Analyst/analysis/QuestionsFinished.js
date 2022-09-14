@@ -3,11 +3,6 @@ import './Analysis.css'
 
 const QuestionsFinished = ({ questao }) => {
 
-    const handleCheckBoxClick= () => {
-          questao.anwser= !questao.anwser;
-          console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
-    }
-
     return <div className='listQuestoes'>
                 Questão: {questao.question.body} 
                 <label class="switch">

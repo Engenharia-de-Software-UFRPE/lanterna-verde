@@ -30,7 +30,7 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 className="d-flex justify-content-between align-items-start"
                 >
             <div className='ms-2 me-auto'>
-                <div className="fw-bold">ID da Empresa: {analise.company}</div>
+                <div className="fw-bold">Empresa: {analise.company.tradeName}</div>
                 Score: {analise.score} <br></br>
                 
                 Finalizada: {analise.finished.toString()}
@@ -44,7 +44,7 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 className="d-flex justify-content-between align-items-start"
                 >
             <div className='ms-2 me-auto'>
-                <div className="fw-bold">ID da Empresa: {analise.company}</div>
+                <div className="fw-bold">Empresa: {analise.company.tradeName}</div>
                 Score: {analise.score} <br></br>
         
                 Finalizada: {analise.finished.toString()}

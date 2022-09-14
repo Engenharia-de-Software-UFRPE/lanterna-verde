@@ -6,10 +6,11 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import AnalysisMap from "../analysis/AnalysisMap.js";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 
 function AnalystProfileContainer() {
 
-
+  const navigate = useNavigate();
   const [analysis,setAnalysis] = useState(['placeholder']);
 
     //[
@@ -39,6 +40,10 @@ function AnalystProfileContainer() {
     .then(response => response)
     setAnalysis(response.data.Analise)
 
+
+    // if (response.status !== 201) {
+    //   navigate("/")
+    // }
     
   }
   console.log(analysis);
