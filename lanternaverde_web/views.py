@@ -10,8 +10,6 @@ import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
 
-from rest_framework.renderers import JSONRenderer
-
 from django.contrib.auth.hashers import check_password
 
 
