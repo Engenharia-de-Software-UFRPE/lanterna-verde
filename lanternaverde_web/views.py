@@ -106,8 +106,6 @@ def logout(request):
 
 @csrf_exempt
 def cadastro_empresa(request):
-    print(request.POST)
-
     if request.method == 'POST':
         data = json.loads(request.body)
         usuario = Usuario.objects.create_user(username=data['username'], 
@@ -124,25 +122,51 @@ def cadastro_empresa(request):
         empresa.save()
 
         print(data) #debug
-
-    return HttpResponse(status=201)
+        return HttpResponse(status=201)
+    return HttpResponseBadRequest()
 
 @csrf_exempt
+@login_required
 def alterar_empresa(request):
-    data = request.POST
-    empresa = Empresa.objects.get(pk=2)
-    empresa.tradeName = data.get("tradeName")
-    empresa.corporateName = data.get("corporateName")
-    empresa.stateRegistration = data.get("stateRegistration")
-    empresa.cnpj = data.get("cnpj")
-    empresa.tipo = data.get("tipo")
-    empresa.phoneNumber = data.get("phoneNumber")
-    empresa.user.username = data.get("username")
-    empresa.user.email = data.get("email")
-    empresa.user.password = data.get("password")
-    empresa.save()
-    empresa.user.save()
-    return HttpResponse(status=200)
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        usuario = Usuario.objects.filter(email=data['email'])
+        empresa = Empresa.objects.get(pk=data['cnpj'])
+        """ 
+        Visto que sao unicos nao sei se seriam alterados
+        
+        usuario.username = data['username']
+        usuario.email = data['email']
+        empresa.cnpj = data['cnpj'] 
+        """
+
+        usuario.password = data['password']
+        usuario.save
+
+        empresa.tradeName = data['tradeName']
+        empresa.corporateName = data['corporateName']
+        empresa.stateRegistration = data['stateRegistration']
+        empresa.tipo = data['type']
+        empresa.phoneNumber = data['phoneNumber']
+        empresa.user = usuario
+        empresa.save()
+        print(empresa) #debug
+
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
+def get_empresas(request):
+    if request.method == 'GET':
+        empresas = EmpresaSerializer(
+            Empresa.objects.all(),
+            many=True
+        )
+        ser_return = {
+            'Empresas': empresas.data
+        }
+        return _JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
 
 @login_required(login_url='/')
 def get_logged_usuario(request):

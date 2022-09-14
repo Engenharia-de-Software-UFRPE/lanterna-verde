@@ -24,5 +24,6 @@ urlpatterns = [
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.alterar_empresa, name='alterar_empresa'),
-
+    path('empresas', views.get_empresas, name='get_empresas'),
+    
 ]

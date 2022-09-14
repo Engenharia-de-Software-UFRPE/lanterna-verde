@@ -68,12 +68,12 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         fields = '__all__'
         related_object = 'questao'
 
-class EmpresaSerializer(serializers.HyperlinkedModelSerializer):
+class EmpresaSerializer(serializers.ModelSerializer):
     """
     Serialization for Empresa Model
     """
-
+    
     class Meta:
         """Empresa serialization metadata"""
         model = Empresa
-        exclude = ('url', )
+        fields = '__all__'
