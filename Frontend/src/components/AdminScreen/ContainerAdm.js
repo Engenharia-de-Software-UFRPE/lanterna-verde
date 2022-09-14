@@ -9,20 +9,33 @@ import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
+import GASForm from './GASForm';
 
 
 function ContainerAdm() {
+
   const [active, setActive] = useState("FirstCard")
-
-
   const [minhaConta, setConta] = useState(false);
   const [configuracoes, setConfiguracoes] = useState(false);
   const [cadastrarAnalista, setAnalista] = useState(false);
   const [verQuestionario, setQuestionario] = useState(false);
   const [historicoAnalises, setHistorico] = useState(false);
-
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
+  const [question,setQuestions] = useState(['placeholder']);
+
+  async function listQuestions() {
+      let response = await axios.get(
+        "http://localhost:8000/perguntas",
+        { withCredentials: true }
+      )
+      .then(response => response)
+      setQuestions(response.data.Questoes)
+  }
+  console.log(question);
+  if (question[0] === 'placeholder'){
+      listQuestions()
+  }
 
   async function listAnalysis() {
     axios.defaults.withCredentials = true;
@@ -70,7 +83,7 @@ function ContainerAdm() {
         {active === "FirstCard" && <Tableadmin />}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
-        {active === "FourCard" && <TableQuestionario />}
+        {active === "FourCard" && <GASForm analise={question}/>}
         {active === "FiveCard" && <TableAnalysisData />}
       </div>
 
