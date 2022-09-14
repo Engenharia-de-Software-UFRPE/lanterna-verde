@@ -325,3 +325,21 @@ def atualizar_analise(request):
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
+@login_required
+def assinar_pacote(request):
+    if request.method == 'POST':
+        post = request.POST
+        data = json.loads(request.body)
+        companyPackage = PacoteAnalise.objects.filter(company=data['company'])
+        if companyPackage.exists() :
+            package = PacoteAnaliseSerializer(companyPackage, many=False)
+            package.package = data['package']
+            package.save()
+            return HttpResponse(status=200)
+        else:
+            package = PacoteAnalise.objects.create(company=data['company'], package=data['package'])
+            package.save()
+            return HttpResponse(status=201)
+    return HttpResponseBadRequest()
+        
+
