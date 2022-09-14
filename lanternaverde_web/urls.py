@@ -33,7 +33,8 @@ urlpatterns = [
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
-    
-    path('relatorio/add', views.gerar_relatorio, name='gerar_relatorio')
 
+    path('relatorio', views.get_relatorios, name='get_relatorios'),
+    path('relatorio/add', views.gerar_relatorio, name='gerar_relatorio'),
+    path('relatorio/comment', views.comment_relatorio, name='comment_relatorio')
 ]

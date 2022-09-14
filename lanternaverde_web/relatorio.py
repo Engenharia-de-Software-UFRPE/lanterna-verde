@@ -1,3 +1,4 @@
+import json
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
@@ -48,5 +49,26 @@ def gerar_relatorio(request):
 
                 return JSONResponse(ser_return, status=201)
             return HttpResponse(f"O status da análise é {analysis_request.get_status_display()}", status=422)
+        return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+    return HttpResponseBadRequest()
+
+def get_relatorios(request):
+    if request.method == 'GET':
+        relatorios = RelatorioSerializer(Relatorio.objects.all(), many=True)
+        ser_return = {'relatorios': relatorios.data}
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def comment_relatorio(request):
+    if request.method == 'POST':
+        if hasattr(request.user, 'administrador'):
+            reportid = request.POST.get('reportid')
+            comment = request.POST.get('comment')
+            report = Relatorio.objects.get(pk=reportid)
+            report.adm_comment = comment
+            report.request.status = SolicitacaoAnalise.DELIVERED
+            report.save()
+            report.request.save()
+            return HttpResponse('Relatorio finalizado.', status=200)
         return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
