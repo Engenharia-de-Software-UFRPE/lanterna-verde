@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
@@ -290,6 +290,18 @@ def get_solicitacao(request):
     Takes a requested analysis by its ID and returns.
     """
     return solAnalise.get_analysis(request)
+
+@login_required
+def create_solicitacao_reanalise(request):
+    if request.method == 'POST':
+        if not hasattr(request.user, 'empresa'):
+            return HttpResponseForbidden()
+        empresa = request.user.empresa
+        if len(empresa.solicitacoes.filter(status__in=[SolicitacaoReanalise.PROCESSING, SolicitacaoReanalise.PENDING])) == 0:
+            SolicitacaoReanalise.objects.create(empresa=empresa, date=timezone.now())
+            return HttpResponse(status=200)
+        return HttpResponse("Há reanálises em andamento para essa empresa", status=422)
+    return HttpResponseBadRequest()
 
 @login_required
 def listar_analises(request):

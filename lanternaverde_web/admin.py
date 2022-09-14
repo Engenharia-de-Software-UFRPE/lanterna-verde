@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise
+from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise, PacoteAnalise
 
 # Register your models here.
 
@@ -36,6 +36,10 @@ class QuestaoAdmin(admin.ModelAdmin):
 @admin.register(Empresa)
 class EmpresaAdmin(admin.ModelAdmin):
     list_display = ['user', 'tradeName', 'cnpj', 'tipo']
+
+@admin.register(PacoteAnalise)
+class PacoteAnalise(admin.ModelAdmin):
+    list_display = ['company', 'package']
 
 @admin.register(SolicitacaoAnalise)
 class SolicitacaoAnaliseAdmin(admin.ModelAdmin):

@@ -177,11 +177,20 @@ class SolicitacaoAnalise(models.Model):
     """
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
+    reanalysis = models.BooleanField(defatul=True)
 
     class Meta:
         """SolicitacaoeAnalise metadata"""
         verbose_name = "Solicitação de Análise"
         verbose_name_plural = "Solicitações de Analise"
+
+class SolicitacaoReanalise(models.Model):
+    analysisRequest = models.OneToOneField(SolicitacaoAnalise, primary_key=True, on_delete=models.CASCADE)
+    reanalysis = models.BooleanField(default=False, editable=False)
+    
+    class Meta:
+        verbose_name = "Solicitação de Reanálise"
+        verbose_name_plural = "Solicitações de Reanalise"
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
