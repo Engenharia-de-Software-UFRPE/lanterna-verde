@@ -7,6 +7,9 @@ import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
 import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
+import AdmScreenData from './AdmScreenData';
+import AnalystRegistration from './AnalystRegistration';
+import GASForm from './GASForm';
 
 
 function ContainerAdm() {
@@ -39,7 +42,7 @@ function ContainerAdm() {
   if (user === "placeholder") {
     listAnalysis();
   }
-  window.addEventListener('resize', showButton);
+  //window.addEventListener('resize', showButton);
 
   return (
     <div id="body">
@@ -50,14 +53,14 @@ function ContainerAdm() {
         </div>
 
         <div id="nameAdmArea">
-          <h6 class="nameAdm">{user.first_name}</h6>
+          <h6 class="nameAdm">Nome: {`${user.first_name} ${user.last_name} `}</h6>
         </div>
         <div id="usernameAdmArea">
-          <h6 class="usernameAdm">{user.username}</h6>
+          <h6 class="usernameAdm">Username: {user.username}</h6>
         </div>
 
 
-        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Analise</button>
+        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Análise</button>
         <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'></h5>Minha Conta </button>
         <button onClick={() => setActive("ThirdCard")} className='btn'> <h5 className='nameAdm'>Cadastrar Analista</h5> </button>
         <button onClick={() => setActive("FourCard")} className='btn'> <h5 className='nameAdm'>Ver Questionário</h5> </button>
@@ -66,9 +69,9 @@ function ContainerAdm() {
 
       <div className='tables'>
         {active === "FirstCard" && <Tableadmin />}
-        {active === "SecondCard" && <a />}
-        {active === "ThirdCard" && <cadasanal />}
-        {active === "FourCard" && <TableQuestionario />}
+        {active === "SecondCard" && <AdmScreenData />}
+        {active === "ThirdCard" && <AnalystRegistration />}
+        {active === "FourCard" && <GASForm />}
         {active === "FiveCard" && <TableAnalysisData />}
       </div>
 
