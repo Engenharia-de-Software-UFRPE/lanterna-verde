@@ -49,7 +49,7 @@ const Tableadmin = () => {
         for (let company of companyData) {
             dataHtml += `<tr><td> <a href = "">${company.companyAnalysis}</a></td></tr>`;
         }
-        tableBody.innerHTML = dataHtml;
+        //tableBody.innerHTML = dataHtml;
     }
 
 
