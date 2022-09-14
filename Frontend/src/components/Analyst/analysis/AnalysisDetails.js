@@ -5,9 +5,12 @@ import QuestionsFinished from './QuestionsFinished';
 import Score from './Score';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import { render } from 'react-dom';
+import Popup from 'reactjs-popup';
+import { useAlert } from "react-alert";
+
 
 const Analysis = ({ analise }) => {
+
     const idAnalysis = analise.id
     const url = "http://localhost:8000/analise/detail?analysisid="+analise.id
 
@@ -15,9 +18,6 @@ const Analysis = ({ analise }) => {
     const [analysis,setAnalysis] = useState("placeholder");
     const [dimensions,setDimensions] = useState({});
 
-    function setScr (score) {
-      
-    }
     async function analysisDetail() {
         let response = await axios.get(
           url,
@@ -58,6 +58,11 @@ const Analysis = ({ analise }) => {
         console.log(url);
     }
 
+    function handleFInishClick() {
+
+
+    }
+
     function handleCheckBoxClick(quest) {
       quest.answer= !quest.answer;
 
@@ -80,15 +85,40 @@ const Analysis = ({ analise }) => {
     // console.log(questao.question.dimension)
   }
 
+  async function confirmButtonHandler(inp){
+    let res = await axios.post("http://localhost:8000/analise/update",
+    {
+     password: inp,
+     analysisid: idAnalysis
+    },
+    {withCredentials: true},
+    );
+
+    console.log(inp)
+  }
+
     // console.log(analysis.dimension_count)
     if (analysis.finished === false){
         return <div className='listAnalise'>
         Empresa: {analysis.company}<br></br>
         {/* Questões: {analise.questoes} <br></br> */}
 
-        Score D1: {(dimensions['D1'].checked)/dimensions['D1'].amount}<br></br>
-        <Score score ={dimensions['D1'].checked}/>
-        <button className='btn-save' onClick={handleSaveClick}>Salvar</button>
+        Score D1: {((dimensions['D1'].checked)/dimensions['D1'].amount).toFixed(2)}<br></br>
+        Score D2: {((dimensions['D2'].checked)/dimensions['D2'].amount).toFixed(2)}<br></br>
+        Score D3: {((dimensions['D3'].checked)/dimensions['D3'].amount).toFixed(2)}<br></br>
+        Score D4: {((dimensions['D4'].checked)/dimensions['D4'].amount).toFixed(2)}<br></br>
+        
+        <button className='btns' onClick={handleSaveClick}>Salvar</button>
+
+        <Popup trigger={<button className='btns'>Finalizar</button>}
+              anchor={null}>
+          <div className='finish_him'>
+            <div className='title'>Bota a senha ai moral</div>
+            <input className='inp-pass' id='password-conf' type="password"></input>
+            <div className='title'>vai peidar na tanga agora?</div>
+            <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NAAAH</button></div>
+          </div>
+        </Popup>
 
         Questões: {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick}/>))}
         {/* Score D1: {analise.dimension_count['D1'].checked / analise.dimension_count['D1'].amount}<br></br> */}

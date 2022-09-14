@@ -13,6 +13,42 @@
     text-align: center;
 }
 
+.finish_him {
+  position:absolute;
+  justify-content: center;
+  align-items: center;
+  left: 50vh;
+  width: 20vw;
+  height: 10vw;
+  background-color: #21f33d;
+  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.inp-pass {
+
+}
+
+.finish-Buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.example-warper {
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border: 1px #cfcece dashed;
+}
+
+
+
 .makeAnalysisButton{
   background-color: #21f33d;
   border: none;
@@ -30,7 +66,7 @@
   resize: none;
 }
 
- .btn-save{
+ .btns{
   margin-top: 20px;
   background-color: rgb(56, 57, 58);
   border-radius: 5px;
