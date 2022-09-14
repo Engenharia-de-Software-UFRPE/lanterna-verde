@@ -5,12 +5,10 @@
 }
 
 .btn{
-    width: 175px;
-    height: 40px;
+    width: 9vw;
+    height: 50px;
     cursor: pointer;
     text-align: center;
-    font-size: 13px;
-    font-weight: 700;
     color: #3AB06F;
     border-radius: 8px;
     background: #fff;
@@ -26,9 +24,9 @@
 }
 
 #admBoard{
-    width: 220px;
+    width: 11.7vw;
     height: 92.7%;
-    margin-top: 76px;
+    margin-top: 4%;
     border-radius: 5px;
     background: #3AB06F;
     display: flex;
@@ -45,11 +43,6 @@
     align-self: center;
 }
 
-.photo{
-    width: 120px;
-    border-radius: 100px;
-}
-
 #nameAdmArea{
     box-sizing: border-box;
     width: 180px;
@@ -62,13 +55,36 @@
 }
 .nameAdm{
     font-size: 15px;
+    font-weight: normal;
+    margin:0;
 }
+
 .tables{
-    height: 910px;
-    overflow:auto;  
+    height: 80vh;
+    overflow:auto;
 }
 .tabela{
     margin: 90px;
-    width: 1499px;
+    width: 958px;
     text-align: center;
+}
+
+@media (max-width: 1250px)
+{
+    .nameAdm{
+        font-size: 10px;
+    }
+
+    #admPhoto{
+        width: 100px;
+        height: 100px;
+    }
+    .btn{
+        width: 9vw;
+        height: 40px;
+    }
+    .nameAdm{
+        font-size: px;
+    }
+    
 }

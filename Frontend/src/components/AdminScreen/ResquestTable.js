@@ -47,7 +47,7 @@ const Tableadmin = () => {
         let dataHtml = '';
 
         for (let company of companyData) {
-            dataHtml += `<tr><td> <a href = "#">${company.companyAnalysis}</a></td></tr>`;
+            dataHtml += `<tr><td> <a href = "">${company.companyAnalysis}</a></td></tr>`;
         }
         tableBody.innerHTML = dataHtml;
     }
@@ -56,7 +56,6 @@ const Tableadmin = () => {
 
     return (
         <div className='tabela'>
-
             <h1>Solicitações de analises</h1>
             <table>
                 <tbody id='tbody'>

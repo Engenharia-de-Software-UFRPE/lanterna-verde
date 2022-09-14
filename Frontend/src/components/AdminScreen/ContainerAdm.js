@@ -24,21 +24,21 @@ function ContainerAdm() {
           <h6 class="nameAdm">Lucas Henrique Lindo</h6>
         </div>
 
-        <button onClick={() => setActive("FirstCard")} class='btn'>Minha Conta</button>
-        <button onClick={() => setActive("SecondCard")} class='btn'>Configurações</button>
-        <button onClick={() => setActive("ThirdCard")} className='btn'>Cadastrar Analista</button>
-        <button onClick={() => setActive("FourCard")} className='btn'>Ver Questionário</button>
-        <button onClick={() => setActive("FiveCard")} className='btn'>Histórico de Análises</button>
+        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Analise</button>
+        <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'></h5>Minha Conta </button>
+        <button onClick={() => setActive("ThirdCard")} className='btn'> <h5 className='nameAdm'>Cadastrar Analista</h5> </button>
+        <button onClick={() => setActive("FourCard")} className='btn'> <h5 className='nameAdm'>Ver Questionário</h5> </button>
+        <button onClick={() => setActive("FiveCard")} className='btn'> <h5 className='nameAdm'>Histórico de Análises</h5> </button>
 
 
       </div>
 
       <div className='tables'>
         {active === "FirstCard" && <Tableadmin />}
-        {active === "SecondCard" && <config />}
+        {active === "SecondCard" && <a />}
         {active === "ThirdCard" && <cadasanal />}
         {active === "FourCard" && <TableQuestionario />}
-        {active === "FiveCard" && <TableAnalysisData />}
+        {active === "FiveCard" && <TableAnalysisData/>}
       </div>
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
