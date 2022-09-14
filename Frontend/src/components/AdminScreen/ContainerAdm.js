@@ -9,7 +9,6 @@ import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
-import GASForm from './GASForm';
 
 
 function ContainerAdm() {
@@ -71,7 +70,7 @@ function ContainerAdm() {
         {active === "FirstCard" && <Tableadmin />}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
-        {active === "FourCard" && <GASForm />}
+        {active === "FourCard" && <TableQuestionario />}
         {active === "FiveCard" && <TableAnalysisData />}
       </div>
 
