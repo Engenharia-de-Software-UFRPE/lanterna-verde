@@ -18,12 +18,13 @@ import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScree
 import DataAnalyst from './components/Analyst/pages/DataAnalyst';
 import AnalysisScreen from './components/Analyst/pages/AnalysisScreen';
 import DataAnalystEdit from './components/Analyst/pages/DataAnalystEdit';
-import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
+//import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
 
 function App() {
   const navigate = useNavigate();
   const [data, dispatch] = useReducer(authReducer, {token: null})
   const loginThunk = async (username, password) => {
+    axios.defaults.withCredentials = true;
     const response = await axios
     .post(
       'http://localhost:8000/login',
@@ -31,6 +32,7 @@ function App() {
     )
     .then((response) => response);
     dispatch({ type: LOGIN, token: response.data.token })
+    console.log(response.data);
 
     {/*Condicional para troca de tela após realização do Login */}
     if(response.data === 'administrador'){
@@ -53,7 +55,7 @@ function App() {
 
           {/******************************Analyst****************************/}
           <Route path='analystProfile' element={<AnalystProfileScreen />} />
-          <Route path="analystRegistration" element={<AnalystRegistration />} />
+          {/* <Route path="analystRegistration" element={<AnalystRegistration />} /> */}
           <Route path="dataAnalyst" element={<DataAnalyst />} />
           <Route path="dataAnalystEdit" element={<DataAnalystEdit />} />
           <Route path='analysisScreen' element ={<AnalysisScreen/>} />
