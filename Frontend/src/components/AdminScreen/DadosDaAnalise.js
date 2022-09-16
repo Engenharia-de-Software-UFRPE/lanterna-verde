@@ -20,7 +20,7 @@ const TableAnalysisData = () => {
         corpoDadosAnalise.innerHTML = dataHtml;
     }
 
-    return (<div id="requestListArea">
+    return (<div id="requestListArea" className='requestListArea'>
         <h6 class="requestList"><strong>Informações sobre a análise feita:</strong></h6>
         <div id="table-wrapper">
             <div id="table-scroll">

@@ -38,7 +38,7 @@ const TableAnalisesEmpresa = () => {
         corpoDaListaAnalise.innerHTML = dataHtml;
     }
 
-    return (<div id="requestListArea">
+    return (<div id="requestListArea" className='requestListArea'>
         <h6 class="requestList"><strong>Empresa A</strong></h6>
         <div id="table-wrapper">
             <div id="table-scroll">

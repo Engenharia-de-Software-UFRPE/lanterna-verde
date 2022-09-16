@@ -4,7 +4,7 @@
     height: 920px;
 }
 
-.btn{
+.admBoard-container .btn{
     width: 9vw;
     height: 50px;
     cursor: pointer;
@@ -15,7 +15,7 @@
     margin:20px;
 }
 
-#logo{
+.admBoard-container #logo{
     width: 178px;
     height: 29px;
     font-size: 20px;
@@ -24,7 +24,7 @@
 }
 
 
-#admBoard{
+.admBoard-container #admBoard{
     width: 11.7vw;
     height: 92.7%;
     margin-top: 4%;
@@ -32,9 +32,9 @@
     background: #3AB06F;
     display: flex;
     flex-direction: column;
-}z
+}
 
-#admPhoto{
+.admBoard-container #admPhoto{
     justify-content: center;
     width: 120px;
     height: 120px;
@@ -44,7 +44,7 @@
     align-self: center;
 }
 
-#nameAdmArea{
+.admBoard-container #nameAdmArea{
     box-sizing: border-box;
     width: 180px;
     height: 20px;
@@ -54,18 +54,18 @@
     margin-top: 20px;
     margin-bottom: 40px;
 }
-.nameAdm{
+.admBoard-container .nameAdm{
     font-size: 15px;
     font-weight: normal;
     margin:0;
 }
 
-.tables{
+.admBoard-container .tables{
     height: 100vh;
     width: 800px;
     overflow:auto;
 }
-.tabela{
+.admBoard-container .tabela{
     margin: 90px;
     width: 958px;
     text-align: center;
@@ -73,20 +73,20 @@
 
 @media (max-width: 1250px)
 {
-    .nameAdm{
+    .admBoard-container .nameAdm{
         font-size: 10px;
     }
 
 
-    #admPhoto{
+    .admBoard-container #admPhoto{
         width: 100px;
         height: 100px;
     }
-    .btn{
+    .admBoard-container .btn{
         width: 9vw;
         height: 40px;
     }
-    .nameAdm{
+    .admBoard-container .nameAdm{
         font-size: px;
     }
     

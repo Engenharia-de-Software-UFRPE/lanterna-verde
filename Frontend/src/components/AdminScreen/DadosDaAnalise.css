@@ -1,34 +1,34 @@
-#table-wrapper {
+  .requestListArea #table-wrapper {
     position:relative;
     
   }
-  #table-scroll {
+  .requestListArea #table-scroll {
     height:442px;
     overflow:auto;  
     margin-top:20px;
     border-radius: 15px;
   }
-  #table-wrapper table {
+  .requestListArea #table-wrapper table {
     width:100%;
   }
   
-  table{
+  .requestListArea table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 50%;
   }
 
-  td, th{
+  .requestListArea td, th{
     border: 1px solid #000000;
     padding: 8px;
   }
 
-  th{
+  .requestListArea th{
     font-weight: bold;
     text-transform: uppercase;
   }
 
-  tr:hover{
+  .requestListArea tr:hover{
     color: white;
     background-color: #ba3b14;
   }

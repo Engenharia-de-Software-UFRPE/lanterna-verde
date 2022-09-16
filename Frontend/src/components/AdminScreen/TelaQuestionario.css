@@ -1,34 +1,36 @@
-#table-wrapper {
+  .requestListArea #table-wrapper {
     position:relative;
     
   }
-  #table-scroll {
+  .requestListArea #table-scroll {
     height:442px;
     overflow:auto;  
     margin-top:20px;
     border-radius: 15px;
   }
-  #table-wrapper table {
+  .requestListArea #table-wrapper table {
     width:100%;
   }
   
-  table{
+  .requestListArea table{
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 80%;
   }
 
-  td, th{
+  .requestListArea td{
     border: 1px solid #000000;
     padding: 8px;
   }
 
-  th{
+  .requestListArea th{
     font-weight: bold;
     text-transform: uppercase;
+    border: 1px solid #000000;
+    padding: 8px;
   }
 
-  .btnVoltarPtelaPrincipal{
+  .requestListArea .btnVoltarPtelaPrincipal{
     width: 90px;
     position: relative;
     left: 87%;
