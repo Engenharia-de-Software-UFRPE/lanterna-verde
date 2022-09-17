@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TableAnalisesEmpresa from './analisesDaEmpresa';
+import axios from 'axios';
 import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
-import TableQuestionario from './TelaQuestionario';
-import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
 import GASForm from './GASForm';
@@ -37,7 +36,7 @@ function ContainerAdm() {
       listQuestions()
   }
 
-  async function listAnalysis() {
+  async function loadAdministrator() {
     axios.defaults.withCredentials = true;
     let response = await axios
       .get("http://localhost:8000/user/admin", { withCredentials: true })
@@ -49,12 +48,11 @@ function ContainerAdm() {
   }
 
   if (administrator === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
   if (user === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
-  //window.addEventListener('resize', showButton);
 
   return (
     <div id="body">
