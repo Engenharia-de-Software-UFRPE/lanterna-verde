@@ -1,0 +1,53 @@
+#table-wrapper {
+    position:relative;
+    
+  }
+  #table-scroll {
+    height:442px;
+    overflow:auto;  
+    margin-top:20px;
+    border-radius: 15px;
+  }
+  #table-wrapper table {
+    width:100%;
+  }
+  
+  table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+  }
+
+  td, th{
+    border: 1px solid #000000;
+    padding: 8px;
+  }
+
+  th{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  tr:hover{
+    color: white;
+    background-color: #3AB06F;
+  }
+
+  .btnVoltarPtelaPrincipal{
+    width: 90px;
+    position: relative;
+    left: 87%;
+    height: 40px;
+    top: 30%;
+    padding: 10px 24px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 10px;
+    border-radius: 8px;
+    background: #3AB06F;
+}
