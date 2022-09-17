@@ -11,8 +11,8 @@ import Container from 'react-bootstrap/Container';
 function NavbarAdm() {
   const navigate = useNavigate();
   const handleLogout = e => {
-    e.preventDefault();
-    fetch('http://localhost:8000/user', {
+    e.preventDefault(); {/* VERIFICAR O 'LOGOUT' DEPOIS */}
+    fetch('http://localhost:8000/user', { 
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ function NavbarAdm() {
             </Navbar.Toggle>
             <Navbar.Collapse id="navbarScroll">
               <Nav
-                className="col-lg my-e ms-lg-0"
+                className="col-11 my-e ms-lg-0"
                 style={{ maxHeight: '1000px' }}
                 navbarScroll
               >
@@ -51,6 +51,18 @@ function NavbarAdm() {
                 </Form>
               </Nav>
               <ul class="navbar-nav ms-auto">
+                <li>
+                  <Popup trigger={
+                    <a id="notificationMenuButton" className="notification-link">
+                    <span className="notification">
+                      <span className="notification-icon"></span>
+                    </span>
+                    </a>}>
+                    <div className='popupBell'>
+                      <h5><strong>No notifications so far</strong></h5>
+                    </div>
+                  </Popup>
+                </li>
                 <li class="nav-item">
                 <input type="button" value="Sair" onClick={handleLogout}/>
                 </li>
