@@ -9,6 +9,9 @@ def administrador_required(function):
     def wrap(request, *args, **kwargs):
         if hasattr(request.user, 'administrador'):
             return function(request, *args, **kwargs)
+        return HttpResponseForbidden(content="Você precisa ser um "
+                                     "administrador para realizar esta "
+                                     "solicitação")
 
     return wrap
 
@@ -20,6 +23,8 @@ def analista_required(function):
     def wrap(request, *args, **kwargs):
         if hasattr(request.user, 'analista'):
             return function(request, *args, **kwargs)
+        return HttpResponseForbidden(content="Você precisa ser um analista "
+                                     "para realizar esta solicitação")
 
     return wrap
 
@@ -31,5 +36,7 @@ def empresa_required(function):
     def wrap(request, *args, **kwargs):
         if hasattr(request.user, 'empresa'):
             return function(request, *args, **kwargs)
+        return HttpResponseForbidden(content="Você precisa ser uma empresa "
+                                     "para realizar esta solicitação")
 
     return wrap
