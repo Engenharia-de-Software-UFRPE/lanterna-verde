@@ -15,7 +15,7 @@ def create_analysis(request):
     Analysis requirement and dinamically search for only available Analysts and
     least busy Analysts.
     """
-    if request.method == 'POST' and hasattr(request.user, 'administrador'):
+    if request.method == 'POST':
         data = json.loads(request.body)
         amount_analysts = data['amount_analysts']
         company = Empresa.objects.get(pk=data['company'])

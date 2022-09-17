@@ -1,5 +1,5 @@
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.utils import timezone
 
 from lanternaverde_web.serializers import SolicitacoesAnaliseSerializer as serializer
@@ -16,8 +16,6 @@ def create_solicitacao(request):
     Users.
     """
     if request.method == 'GET':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden()
         empresa = request.user.empresa
         try:
             #pylint: disable=E1101
