@@ -1,7 +1,6 @@
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
-import {useNavigate} from 'react-router-dom';
 
 const SolAnalise = ({solicita_a_analise}) =>{
 
