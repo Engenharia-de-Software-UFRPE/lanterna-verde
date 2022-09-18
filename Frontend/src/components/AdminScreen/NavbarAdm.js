@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavbarAdm.css';
 import Popup from 'reactjs-popup';
@@ -7,24 +7,40 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import axios from 'axios';
 
 function NavbarAdm() {
   const navigate = useNavigate();
-  const handleLogout = e => {
-    e.preventDefault(); {/* VERIFICAR O 'LOGOUT' DEPOIS */}
-    fetch('http://localhost:8000/user', { 
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${localStorage.getItem('token')}`
-      }
-    })
-    .then((response) => {response.json()
+  const [logout,setLogout] = useState(false);
+  const logoutBtn = async (username, password) => {
+    axios.defaults.withCredentials = true;
+    const response = await axios.get(
+      "http://localhost:8000/logout",
+      { withCredentials: true }
+    )
+    .then((response) => {
       console.log(response);
-      localStorage.clear();
       navigate('/');
+      localStorage.clear();
+      setLogout(true);
     });
-  };
+    
+  }
+  // const handleLogout = e => {
+  //   e.preventDefault(); // VERIFICAR O 'LOGOUT' DEPOIS 
+  //   fetch('http://localhost:8000/user', { 
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: `Token ${localStorage.getItem('token')}`
+  //     }
+  //   })
+  //   .then((response) => {response.json()
+  //     console.log(response);
+  //     localStorage.clear();
+  //     navigate('/');
+  //   });
+  // };
 
     return(
       <div class="position-fixed col-12">
@@ -59,12 +75,13 @@ function NavbarAdm() {
                     </span>
                     </a>}>
                     <div className='popupBell'>
-                      <h5><strong>No notifications so far</strong></h5>
+                      <h3>Notificações</h3>
+                      <h6>No notifications</h6>
                     </div>
                   </Popup>
                 </li>
                 <li class="nav-item">
-                <input type="button" value="Sair" onClick={handleLogout}/>
+                <input type="button" value="Sair" onClick={logoutBtn}/>
                 </li>
                 <li class="nav-item">
                 
