@@ -30,6 +30,87 @@ ul input{
     color: #818182;
 }
 
+.notification-badge {
+    display: block;
+    position: absolute;
+    top: 22px;
+    right: 65px;
+    background: #fff;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 13px;
+    height:13px;
+    border: 2px solid #fff;
+    will-change: transform, background;
+    transition: .2s transform ease-in-out, .2s background ease-in-out;
+    transform: scale(0);
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px #818182;
+}
+
+.notification-badge--active {
+    transform: scale(1);
+}
+
+.notification-badge--limit {
+    background: #F74D4D;
+}
+
+.notification-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    color: rgba(58,176,111,255);
+    font-weight: 600;
+    font-family: open-sans, sans-serif;
+    font-size: 11px;
+    line-height: 18;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.5px;
+    transform: translate3d(0, 0, 0) scaleY(1);
+    opacity: 1;
+    will-change: opacity, transform;
+    transition: .3s transform ease-in-out, .3s opacity ease-in-out;
+}
+
+.notification-counter--old {
+    transform: translate3d(0, 100%, 0) scaleY(0);
+    opacity: 0;
+}
+
+.notification-counter--new {
+    transform: translate3d(0, -100%, 0) scaleY(0);
+    opacity: 0;
+}
+
+.increase{
+    background: rgb(192, 151, 151);
+    border: 1px solid transparent;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #039ae5;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    cursor: pointer;
+    outline: none !important;
+    will-change: color, background, border;
+    transition: .2s border ease-in-out, .2s background ease-in-out, .2s color ease-in-out;
+}
+
+.increase:hover {
+    border: 1px solid rgb(163, 26, 26);
+    color: rgb(65, 58, 58);
+    background: transparent;
+}
+
 .popupBell{
     height: 450px;
     width: 300px;
@@ -51,15 +132,27 @@ ul input{
     -webkit-box-shadow: 0px 0px 10px rgba(58,176,111,255);
 }
 
-.popupBell h5{
+.popupBell h3{
     display: inline;
     position: absolute;
-    top: 50px;
+    top: 40px;
+    right: 20px;
+    transform: translate(-50%, -50%) scale(0.9);
+
+    font-family: 'Inter';
+    font-size: 1.8rem;
+}
+
+.popupBell h6{
+    display: inline;
+    position: absolute;
+    top: 220px;
     transform: translate(-50%, -50%) scale(0.9);
 
     font-family: 'Inter';
     font-size: 1rem;
 }
+
 
 @media screen and (max-width: 990px) {
     .popupBell{

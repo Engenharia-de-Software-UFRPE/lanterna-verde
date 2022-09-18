@@ -68,8 +68,6 @@ function ContainerAdm() {
         <div id="usernameAdmArea">
           <h6 class="usernameAdm">Username: {user.username}</h6>
         </div>
-
-
         <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Análise</button>
         <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'></h5>Minha Conta </button>
         <button onClick={() => setActive("ThirdCard")} className='btn'> <h5 className='nameAdm'>Cadastrar Analista</h5> </button>

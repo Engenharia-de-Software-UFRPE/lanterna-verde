@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
-import SolAnalise from './SolAnalise';
 import axios from 'axios';
+import NoteBadge from './Notification';
 
 const Tableadmin = () => {
-
+  
     const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
     async function solicitaAnalise() {
@@ -31,8 +31,10 @@ const Tableadmin = () => {
                     <SolAnaliseMap soliciatoes_analise ={solAnalise} />
                     </tbody>
                 </table>
+                <NoteBadge></NoteBadge>
             </div>
         </div>
-    </div >)
+    </div >
+    )
 }
 export default Tableadmin;
