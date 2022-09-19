@@ -59,6 +59,19 @@
     margin: 15px;
     align-items: center;
 }
+.company-profile-change .confirm{
+    max-width:450px;
+    width: 80%;
+    line-height: 2.4em;
+    background: var(--company-buttons-color);
+    border-radius: 8px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+
+    transition:  0.2s background-color ease-in-out ;
+}
 
 
 @media screen and (max-width: 1200px) {

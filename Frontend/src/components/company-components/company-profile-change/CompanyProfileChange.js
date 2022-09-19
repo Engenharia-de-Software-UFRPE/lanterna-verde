@@ -23,6 +23,7 @@ const CompanyProfileChange = () => {
                             
                             <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14}/* value={company.cnpj} onChange={handleInputChange}*/np/>
                     </form>
+                    <a href="#loginScreen" class="confirm" /*onClick={confirm}*/>Confirmar</a>
                 </div>
             </div>
         </section>
