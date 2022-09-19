@@ -5,7 +5,7 @@ import AnalysisForm from '../analysis/MakeAnalysis';
 import {useLocation} from 'react-router-dom';
 
 
-function AnalysisScreen({state}) {
+function AnalysisScreen() {
   const location = useLocation();
   console.log(location.state.analise);
   return (

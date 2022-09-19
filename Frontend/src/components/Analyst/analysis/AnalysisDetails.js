@@ -110,7 +110,7 @@ const Analysis = ({ analise }) => {
   }
 
     console.log(analise.company.tradeName)
-    if (analysis.finished === false){
+    if (analysis.status < 2 ){
         return (<div className='listAnalise'>
         Empresa: {analysis.company.tradeName}<br></br>
         {/* Questões: {analise.questoes} <br></br> */}
@@ -131,7 +131,7 @@ const Analysis = ({ analise }) => {
             <div className='title'>Deseja finalizar a análise?</div>
             <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NÃO</button></div>
           </div>
-        </Popup>
+        </Popup><br></br><br></br>
 
         Questões: {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick}/>))}
         {/* Score D1: {analise.dimension_count['D1'].checked / analise.dimension_count['D1'].amount}<br></br> */}
@@ -151,10 +151,12 @@ const Analysis = ({ analise }) => {
         Score D2: {(analise.dimension_count['D2'].checked/analise.dimension_count['D2'].amount).toFixed(2)}<br></br>
         Score D3: {(analise.dimension_count['D3'].checked/analise.dimension_count['D3'].amount).toFixed(2)}<br></br>
         Score D4: {(analise.dimension_count['D4'].checked/analise.dimension_count['D4'].amount).toFixed(2)}<br></br>
+        Score TOTAL: {(((analise.dimension_count['D1'].checked/analise.dimension_count['D1'].amount)+(analise.dimension_count['D2'].checked/analise.dimension_count['D2'].amount)+(analise.dimension_count['D3'].checked/analise.dimension_count['D3'].amount)+(analise.dimension_count['D4'].checked/analise.dimension_count['D4'].amount))/4).toFixed(2)} <br></br>
         Respostas: {analise.questao_set.map((questao) => (<QuestionsFinished questao={questao} />))}
         Score Atual: {analise.score}<br></br><br></br>
         Comentário feito: <br></br>
-        <textarea readonly='true' id='comentField' className='comentArea' >{analise.comment}</textarea>
+        {/* <textarea readonly='true' id='comentFieldFinished' className='comentArea' >{analise.comment}</textarea> */}
+        {analise.comment}<br></br>
         <button className='btn-back' onClick={backButtonClickHandler}>Voltar</button>
 
     </div>)

@@ -204,7 +204,18 @@ class SolicitacaoAnalise(models.Model):
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
     comment = models.TextField(blank=True)
-    finished = models.BooleanField(default=False)
+    
+    PENDING = 0
+    PROCESSING = 1
+    FINISHED = 2
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (PROCESSING, 'Processing'),
+        (FINISHED, 'Finished')
+    )
+    
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    
     analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
 
     def __str__(self):
@@ -215,6 +226,9 @@ class Questao(models.Model):
     question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
     answer = models.BooleanField(default=False)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
+    
+    justification = models.TextField(blank=True)
+    source = models.TextField(blank=True)
 
     class Meta:
         """database metadata"""

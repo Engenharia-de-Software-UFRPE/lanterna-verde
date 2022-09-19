@@ -23,8 +23,8 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
         
     }
 
-    if (analise.finished == booleanAnalysis){// caso o atributo "finalizado" da análise tenha o mesmo valor que o booleano passado
-        if (analise.finished == false){ //caso seu valor seja igual a false, um botão para seguir para a pagina de fazer a análise será mostrado
+    if (analise.status == booleanAnalysis){// caso o atributo "finalizado" da análise tenha o mesmo valor que o booleano passado
+        if (analise.status < 2){ //caso seu valor seja igual a false, um botão para seguir para a pagina de fazer a análise será mostrado
                 return  <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
@@ -33,7 +33,7 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 <div className="fw-bold">Empresa: {analise.company.tradeName}</div>
                 Score: {analise.score} <br></br>
                 
-                Finalizada: {analise.finished.toString()}
+                Finalizada: {analise.status.toString()}
                 <button className ='makeAnalysisButton'onClick={makeAnalysisButton}>Fazer análise</button>
                 </div>
             </ListGroup.Item>
@@ -47,7 +47,7 @@ const Analysis = ({ analise ,booleanAnalysis}) => {
                 <div className="fw-bold">Empresa: {analise.company.tradeName}</div>
                 Score: {analise.score} <br></br>
         
-                Finalizada: {analise.finished.toString()}
+                Finalizada: {analise.status.toString()}
                 <button className ='seeAnalysisButton'onClick={seeAnalysisButton}>Ver  análise</button>
                 </div>
             </ListGroup.Item>
