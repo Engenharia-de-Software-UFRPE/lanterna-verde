@@ -1,5 +1,5 @@
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.utils import timezone
 
 from lanternaverde_web.serializers import SolicitacoesAnaliseSerializer as serializer
@@ -16,8 +16,6 @@ def create_solicitacao(request):
     Users.
     """
     if request.method == 'POST':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden(),
         empresa = request.user.empresa
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             SolicitacaoAnalise.objects.create(empresa=empresa,
