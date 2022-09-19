@@ -65,7 +65,7 @@ function App() {
           <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
           <Route path='/CompanyMainScreen/Analyzes' element={<CompanyAnalyzesScreen />} />
           <Route path='/CompanyMainScreen/Performance' element={<CompanyPerformanceScreen />} />
-          <Route path='/CompanyProfileChange' element={<CompanyProfileChangeScreen />} />
+          <Route path='/CompanyMainScreen/ProfileChange' element={<CompanyProfileChangeScreen />} />
       </Routes>
     </AuthContext.Provider>
   );

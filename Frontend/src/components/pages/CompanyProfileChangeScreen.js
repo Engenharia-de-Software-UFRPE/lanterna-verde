@@ -1,12 +1,12 @@
 import React from 'react';
-import CompanyBasicHeader from '../company-components/company-basic-header/CompanyBasicHeader';
+import CompanyHeader from '../company-components/company-header/CompanyHeader';
 import CompanyProfileChange from '../company-components/company-profile-change/CompanyProfileChange';
 
 const CompanyProfileChangeScreen = () => {
     return (
         <>
             <header>
-                <CompanyBasicHeader/> 
+                <CompanyHeader/> 
             </header>
             <main>
                 <CompanyProfileChange/>

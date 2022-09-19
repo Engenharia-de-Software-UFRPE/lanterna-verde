@@ -14,6 +14,7 @@ urlpatterns = [
     path('user', views.get_logged_usuario, name='test_permission'),
     path('user/admin', views.get_logged_administrador, name='get_admin'),
     path('user/analista', views.get_logged_analista, name='get_anal'),
+    path('user/empresa', views.get_logged_empresa, name='get_empresa'),
     path('user/password/change', views.alterar_senha, name='alterar_senha'),
 
     path('perguntas', views.get_questoes, name='questoes'),
