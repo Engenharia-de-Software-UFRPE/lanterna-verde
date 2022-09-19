@@ -8,7 +8,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
+import lanternaverde_web.relatorio as relatorio
+
 from django.contrib.auth.hashers import check_password
+
 
 #pylint: disable=W0401
 from .models import *
@@ -94,6 +97,7 @@ def login(request):
                             " novamente", status=401)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 def logout(request):
     """
@@ -226,6 +230,8 @@ def get_questoes(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+
+@csrf_exempt
 @login_required
 @empresa_required
 def create_solicitacao(request):
@@ -237,6 +243,8 @@ def create_solicitacao(request):
     """
     return solAnalise.create_solicitacao(request)
 
+
+@csrf_exempt
 @login_required
 @administrador_required
 def get_solicitacoes(request):
@@ -245,6 +253,8 @@ def get_solicitacoes(request):
     """
     return solAnalise.get_solicitacoes(request)
 
+
+@csrf_exempt
 @login_required
 def get_solicitacao(request):
     """
@@ -267,16 +277,37 @@ def detalhar_analise(request):
     """
     return avalAnalista.detalhar_analise(request)
 
+
 @csrf_exempt
 @login_required
 @administrador_required
 def criar_analise(request):
-    return avalAnalista.create_analysis(request)
+    return avalAnalista.criar_analise(request)
+
 
 @csrf_exempt
 @login_required
 def atualizar_analise(request):
     return avalAnalista.atualizar_analise(request)
+
+
+def get_analysis_by_request(request):
+    return avalAnalista.get_analysis_by_request(request)
+
+@csrf_exempt
+@login_required
+def gerar_relatorio(request):
+    return relatorio.gerar_relatorio(request)
+
+@csrf_exempt
+@login_required
+def get_relatorios(request):
+    return relatorio.get_relatorios(request)
+
+@csrf_exempt
+@login_required
+def comment_relatorio(request):
+    return relatorio.comment_relatorio(request)
 
 @csrf_exempt
 @login_required
@@ -319,3 +350,9 @@ def alterar_senha(request):
         else:
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
+
+
+@csrf_exempt
+@login_required
+def finalizar_analise(request):
+    return avalAnalista.finalizar_analise(request)
