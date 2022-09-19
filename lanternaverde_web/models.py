@@ -178,7 +178,7 @@ class SolicitacaoAnalise(models.Model):
     """
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
-    reanalysis = models.BooleanField(defatul=True)
+    reanalysis = models.BooleanField(default=True)
 
     class Meta:
         """SolicitacaoeAnalise metadata"""
