@@ -368,9 +368,9 @@ def compilar_relatorio_geral(request):
         if initialDate and finalDate:
             report = report.objects.filter(dat__gte=datetime.date(initialDate), dat__lte=datetime.date(finalDate))
             report.objects.scores.repr()
-            ser_report = RelatorioSerializer(report)
+            ser_report = RelatorioSerializer(report, many=True)
         else:
-            ser_report = RelatorioSerializer(report)
+            ser_report = RelatorioSerializer(report, many=True)
         
         scoresD1 = [scoreD1 for scoreD1 in ser_report.scoreD1]
         scoresD2 = [scoreD2 for scoreD2 in ser_report.scoreD2]
@@ -422,7 +422,7 @@ def areas_pior_avaliacao(request):
 def verificar_ranking(request):
     if request.method == 'GET':
         reports = Relatorio.objects.all().order_by('-ascore')
-        ser_reports = RelatorioSerializer(reports)
+        ser_reports = RelatorioSerializer(reports, many=True)
         companyRanking = [company for company in ser_reports.company]
         scoreRanking = [ascore for ascore in ser_reports.ascore]
 
