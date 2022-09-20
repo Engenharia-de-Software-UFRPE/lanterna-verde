@@ -46,6 +46,16 @@ const Analysis = ({ analise }) => {
       console.log("Valor da chave 'comentário' da analise: " + analysis.comment);
     }
 
+    const handleSourceChange= (e,quest) => {
+      console.log("Valor do que esta sendo escrito: " + e + " da questão: " + quest.question.body);
+      quest.source = e
+    }
+
+    const handleJustificationChange= (e,quest) => {
+      console.log("Valor do que esta sendo escrito: " + e + " da questão: " + quest.question.body);
+      quest.justification = e
+    }
+
     
     const backButtonClickHandler =() => {
         navigate('/analystProfile');
@@ -133,7 +143,7 @@ const Analysis = ({ analise }) => {
           </div>
         </Popup><br></br><br></br>
 
-        Questões: {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick}/>))}
+        Questões: {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick} handleSourceChange={handleSourceChange} handleJustificationChange={handleJustificationChange}/>))}
         {/* Score D1: {analise.dimension_count['D1'].checked / analise.dimension_count['D1'].amount}<br></br> */}
 
         {/* Score Atual: {analise.score}<br></br><br></br> */}

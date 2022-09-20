@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Analysis.css'
 
-const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick }) => {
+const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, handleSourceChange, handleJustificationChange }) => {
     
 
 
@@ -26,15 +26,31 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick }) =>
     //     // console.log(questao.question.dimension)
     // }
 
-    return <div className='listQuestoes'>
-                Questão: {questao.question.body} 
-                <label class="switch">
-                    <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}>
-                    </input>
-                    <span class="slider round">
-                    </span>
-                </label> 
+
+    function sourceAreaChange() {
+        let sourceValue = document.getElementById("questionSource"+questao.id).value
+        handleSourceChange(sourceValue,questao)
+    }
+
+    function justificationAreaChange() {
+        let justificationValue = document.getElementById("questionJustification"+questao.id).value
+        handleJustificationChange(justificationValue,questao)
+    }
+    return <>
+            <div className='listQuestoes'>
+                {/* <div className='question-and-awnser'> */}
+                        Questão: {questao.question.body} 
+                        <label class="switch">
+                            <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}>
+                            </input>
+                            <span class="slider round">
+                            </span>
+                        </label> 
+                {/* </div> */}
             </div>
+            Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
+            Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
+            </>
 }; 
 
 export default Questions;
