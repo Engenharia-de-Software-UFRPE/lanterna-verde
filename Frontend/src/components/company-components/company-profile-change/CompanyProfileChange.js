@@ -5,6 +5,9 @@ import companyImage from '../../../images/testeprojeto.png';
 
 const CompanyProfileChange = () => {
     const [company, setCompany] = useState({
+        oldUsername: "",
+        oldCnpj: "",
+
         username: "",
         email: "",
         password: "",
@@ -19,9 +22,12 @@ const CompanyProfileChange = () => {
     const sendGetRequest = async () => {
         await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
         .then(res => {
-        console.log(res.data);
-        let data = res.data;           
-        setCompany({
+            console.log(res.data);
+            let data = res.data;           
+            setCompany({
+                oldUsername: data.Usuario.username,
+                oldCnpj: data.Empresa.cnpj,
+
                 username: data.Usuario.username,
                 email: data.Usuario.email,
                 password: "",
@@ -31,7 +37,18 @@ const CompanyProfileChange = () => {
                 cnpj: data.Empresa.cnpj,
                 type: data.Empresa.tipo,
                 phoneNumber: data.Empresa.phoneNumber
-        })           
+            })           
+        })
+        .catch( error=>{
+            alert("Erro")
+        })
+    };
+
+    const sendPutRequest = async () => {
+        await axios.put('http://localhost:8000/empresa/update', company, { withCredentials: true })
+        .then(res=>{
+            console.log(res.data)
+            alert("Dados alterados com sucesso")
         })
         .catch( error=>{
             alert("Erro")
@@ -68,6 +85,20 @@ const CompanyProfileChange = () => {
             });
         }
     };
+
+    function isValidEmail(email) {
+        return (/\S+@\S+\.\S+/.test(email));
+    }
+
+    const confirm = (event) =>{
+
+        if(isValidEmail(company.email)){
+            sendPutRequest()
+        }
+        else{
+            alert("ERRO")
+        }
+    }
     
 
     return (
@@ -106,7 +137,7 @@ const CompanyProfileChange = () => {
                     </form>
                 </div>
                 <div className='buttons'>
-                    <input className='btn' type="button" value="Confirmar"></input>
+                    <input className='btn' type="button" value="Confirmar" onClick={confirm}></input>
                     <input className='btn cancel' type="button" value="Cancelar" onClick={sendGetRequest}></input>
                 </div>
             </div>
@@ -116,31 +147,6 @@ const CompanyProfileChange = () => {
     
     export default CompanyProfileChange;
     
-    /*
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
-
-    const handlePasswordConfirmation = (event) =>{
-        const result = event.target.value;
-        setPasswordConfirmation(result);
-    }
-
-    function isValidEmail(email) {
-        return (/\S+@\S+\.\S+/.test(email));
-    }
-
-    const confirm = (event) =>{
-        if(passwordConfirmation !== company.password){
-            //console.log("password");
-        }
-
-        if(!isValidEmail(company.email)){
-            //console.log("email")
-        }
-
-        alert("")
-    }
-
-*/
 
 
 
