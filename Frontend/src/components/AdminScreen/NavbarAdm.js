@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavbarAdm.css';
 import Popup from 'reactjs-popup';
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import ListGroup from "react-bootstrap/ListGroup";
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -76,7 +78,65 @@ function NavbarAdm() {
                     </a>}>
                     <div className='popupBell'>
                       <h3>Notificações</h3>
+                      <hr></hr>
                       <h6>No notifications</h6>
+                       <table>
+                        <tbody>
+                          <ListGroup.Item>
+                            {/* Dentro da tag 'ListGroup.Item' haverá a tag do componente
+                              <Notification> vindo do back. Desse modo, as notificações serão
+                              exibidas dentro da table já com as configurações de hover do mouse.
+                              
+                              Abaixo segue apenas um teste para visualizar o ScrollBar funcionando */}
+                            
+                            {/*<tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                             <tr> 
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr>
+                            <tr>
+                              <td><h5>No notifications</h5></td>
+                            </tr> */}
+                          </ListGroup.Item>
+                        </tbody>
+                      </table> 
                     </div>
                   </Popup>
                 </li>

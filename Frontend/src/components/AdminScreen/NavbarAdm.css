@@ -112,6 +112,8 @@ ul input{
 }
 
 .popupBell{
+    scroll-behavior: smooth;
+    overflow-y: scroll;
     height: 450px;
     width: 300px;
     background: rgb(255, 255, 255);
@@ -136,11 +138,16 @@ ul input{
     display: inline;
     position: absolute;
     top: 40px;
-    right: 20px;
+    left: 140px;
     transform: translate(-50%, -50%) scale(0.9);
 
     font-family: 'Inter';
     font-size: 1.8rem;
+}
+
+.popupBell hr{
+    position: relative;
+    top: 50px;
 }
 
 .popupBell h6{
@@ -151,6 +158,12 @@ ul input{
 
     font-family: 'Inter';
     font-size: 1rem;
+}
+
+.popupBell tbody{
+    position: absolute;
+    top: 80px;
+    left: 15px;
 }
 
 
