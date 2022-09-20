@@ -292,18 +292,6 @@ def get_solicitacao(request):
     return solAnalise.get_analysis(request)
 
 @login_required
-def create_solicitacao_reanalise(request):
-    if request.method == 'POST':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden()
-        empresa = request.user.empresa
-        if len(empresa.solicitacoes.filter(status__in=[SolicitacaoReanalise.PROCESSING, SolicitacaoReanalise.PENDING])) == 0:
-            SolicitacaoReanalise.objects.create(empresa=empresa, date=timezone.now())
-            return HttpResponse(status=200)
-        return HttpResponse("Há reanálises em andamento para essa empresa", status=422)
-    return HttpResponseBadRequest()
-
-@login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
@@ -386,19 +374,13 @@ def alterar_senha(request):
 
 @login_required
 def assinar_pacote(request):
-    if request.method == 'POST':
-        post = request.POST
-        data = json.loads(request.body)
-        companyPackage = PacoteAnalise.objects.filter(company=data['company'])
-        if companyPackage.exists() :
-            package = PacoteAnaliseSerializer(companyPackage, many=False)
-            package.package = data['package']
-            package.save()
-            return HttpResponse(status=200)
-        else:
-            package = PacoteAnalise.objects.create(company=data['company'], package=data['package'])
-            package.save()
-            return HttpResponse(status=201)
-    return HttpResponseBadRequest()
+   if request.method == 'POST':
+        data = request.POST
+        company = data['company']
+        company.package = data['package']
+        return HttpResponse(status=201)
+   return HttpResponseBadRequest()
+
+
         
 

@@ -87,20 +87,3 @@ class EmpresaSerializer(serializers.ModelSerializer):
         model = Empresa
         fields = '__all__'
 
-class PacoteAnaliseSerializer(serializers.ModelSerializer):
-    """
-    Serialization for PacoteAnalise Model
-    """
-    
-    class Meta:
-        model = PacoteAnalise
-
-class SolicitacaoReanaliseSerializer(serializers.ModelSerializer):
-    """
-    Serialization for SolicitacaoReanalise Model
-    """
-
-    class Meta:
-        """SolicitacaoReanalise metadata"""
-        model = SolicitacaoReanalise
-        fields = '__all__'
