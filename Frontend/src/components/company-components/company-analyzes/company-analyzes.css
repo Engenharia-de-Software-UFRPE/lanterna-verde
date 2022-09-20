@@ -34,7 +34,7 @@
 
 .company-analyzes-section .analysis{
     width: 220px;
-    height: 190px;
+    height: 210px;
     box-sizing: border-box;
     background-color: #FFFFFF;
     border: 1px solid #979797;
@@ -46,27 +46,50 @@
     gap: 12px;
 }
 
+.company-analyzes-section .analysis .analysis-text-container{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .company-analyzes-section .analysis .analysis-title{
     margin: 20px 0px 0px 20px;
     font-weight: 600;
     font-size: 1.3em;
     text-align: start;
-    color: var(--company-text-color);
-
 }
 
-.company-analyzes-section .stars{
+.company-analyzes-section .analysis .analysis-date{
+    margin: 0px 0px 0px 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-align: start;
+    color: gray;
+}
+
+.company-analyzes-section .analysis .stars{
     display:flex;
     justify-content:left;
-    gap: 10px;
     margin-left: 18px;
 }
 
-.company-analyzes-section .stars img{
-    width: 27px;
+.company-analyzes-section .analysis .stars img{
+    width: 28px;
     height: 25px;
     
 }
+
+.company-analyzes-section .analysis .stars .gray-stars{
+    display: flex;
+    gap:10px
+}
+
+.company-analyzes-section .analysis .stars .green-stars{
+    display: flex;    
+    margin-left: -180px;
+    gap:10px
+}
+
 
 .company-analyzes-section .vector-container{
     margin-top: 8px;
@@ -77,10 +100,17 @@
     margin-right: 32px;
 }
 
-.company-analyzes-section .vector-container span{
-    color: var(--company-decrescent-vector-color);
+.company-analyzes-section .vector-container .vector-value{
     font-weight: 600;
     font-size: 1em;
+}
+
+.company-analyzes-section .vector-container .vector-value.positive{
+    color: var(--company-buttons-color);
+}
+
+.company-analyzes-section .vector-container .vector-value.negative{
+    color: var(--company-decrescent-vector-color);
 }
 
 .company-analyzes-section .vector-container .vector{

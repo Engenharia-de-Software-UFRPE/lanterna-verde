@@ -30,8 +30,7 @@ urlpatterns = [
     path('analise/finish', views.concluir_analise, name='concluir_analise'),
 
     path('analise/empresa', views.listar_analises_empresa, name='listar_analises_empresa'),
-    path('analise/empresa-data', views.listar_analises_empresa_data, name='listar_analises_empresa'),
-    path('analise/reanalise', views.listar_analises_empresa_data, name='listar_analises_empresa'),
+    path('analise/reanalise', views.listar_analises_passiveis_reanalise, name='listar_analises_empresa'),
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.alterar_empresa, name='alterar_empresa'),
