@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, update_session_auth_hash
@@ -356,3 +357,78 @@ def alterar_senha(request):
 @login_required
 def finalizar_analise(request):
     return avalAnalista.finalizar_analise(request)
+
+def compilar_relatorio_geral(request):
+    if request.method == 'POST':
+        data = request.POST
+        report = Relatorio.objects.filter(company=data['company'])
+        initialDate = data['init date']
+        finalDate = data['final date']
+
+        if initialDate and finalDate:
+            report = report.objects.filter(dat__gte=datetime.date(initialDate), dat__lte=datetime.date(finalDate))
+            report.objects.scores.repr()
+            ser_report = RelatorioSerializer(report)
+        else:
+            ser_report = RelatorioSerializer(report)
+        
+        scoresD1 = [scoreD1 for scoreD1 in ser_report.scoreD1]
+        scoresD2 = [scoreD2 for scoreD2 in ser_report.scoreD2]
+        scoresD3 = [scoreD3 for scoreD3 in ser_report.scoreD3]
+        scoresD4 = [scoreD4 for scoreD4 in ser_report.scoreD4]
+        ascores = [ascore for ascore in ser_report.ascore]
+
+        mediumD1 = sum(scoresD1)/len(scoresD1)
+        mediumD2 = sum(scoresD2)/len(scoresD2)
+        mediumD3 = sum(scoresD3)/len(scoresD3)
+        mediumD4 = sum(scoresD4)/len(scoresD4)
+        mediumAscores = sum(ascores)/len(ascores)
+        
+        relatorio_geral = {
+            'Score D1': mediumD1.data,
+            'Score D2': mediumD2.data,
+            'Score D3': mediumD3.data, 
+            'Score D4': mediumD4.data,
+            'Média geral': mediumAscores.data
+        } 
+        return JSONResponse(relatorio_geral, status=200)
+    return HttpResponseBadRequest()
+
+@login_required
+def areas_pior_avaliacao(request):
+    if request.method == 'GET':
+        data = json.loads(request.body)
+        relatorio = json.loads(compilar_relatorio_geral(request))
+
+        scores = [relatorio['Score D1'],
+                    relatorio['Score D2'],
+                    relatorio['Score D3'],
+                    relatorio['Score D4']]
+        scoreSort = scores.sort()
+        piorScore = [scoreSort[0], scoreSort[1]]
+
+        resultado = []
+        [resultado.append("D" + str(i+1) + " = " + str(piorScore[j]))
+            for i in range(len(scores))
+                for j in range(len(piorScore))
+                    if piorScore[j] == scores[i]
+        ]
+
+        resultado_return = {
+            'Áreas de pior avaliação' : resultado.data
+        }
+        return JSONResponse(resultado_return, status=200)
+
+def verificar_ranking(request):
+    if request.method == 'GET':
+        reports = Relatorio.objects.all().order_by('-ascore')
+        ser_reports = RelatorioSerializer(reports)
+        companyRanking = [company for company in ser_reports.company]
+        scoreRanking = [ascore for ascore in ser_reports.ascore]
+
+        ranking_return = {
+            'Empresa': companyRanking,
+            'Pontuação': scoreRanking
+        }
+        return JSONResponse(ranking_return, status=200)
+    return HttpResponseBadRequest()  
