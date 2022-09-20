@@ -1,6 +1,5 @@
 import SolAnalise from './SolAnalise';
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 const SolAnaliseMap =({soliciatoes_analise}) => {
     return(
