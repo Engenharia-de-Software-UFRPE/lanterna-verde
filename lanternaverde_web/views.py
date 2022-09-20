@@ -381,6 +381,17 @@ def assinar_pacote(request):
         return HttpResponse(status=201)
    return HttpResponseBadRequest()
 
+def solicitar_reanalise(request):
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        analysisRequest = json.loads(solAnalise.get_analysis(request))
+
+        analysisRequest.status = data['status']
+        analysisRequest.date = data['date']
+        analysisRequest.save()
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
 
         
 
