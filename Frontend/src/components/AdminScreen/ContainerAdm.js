@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import TableAnalisesEmpresa from './analisesDaEmpresa';
 import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
-import TableListaEmpresas from './listaDeAnaliseEmpresa';
+import TableListaEmpresas from './CompanyHistory';
 import Tableadmin from './ResquestTable.js';
 import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
@@ -23,6 +23,17 @@ function ContainerAdm() {
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
   const [question,setQuestions] = useState(['placeholder']);
+
+  async function listAnalysisHistory(){
+    let response = await axios.get( "http://localhost:8000/analise",
+    { withCredentials: true }
+    ).then(response => response)
+    setHistorico(response.data.listar_analises)
+  } 
+  if(historicoAnalises === false){
+    listAnalysisHistory()
+  }
+
 
   async function listQuestions() {
       let response = await axios.get(
