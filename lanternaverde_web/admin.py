@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise, PacoteAnalise
+from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise
 
 # Register your models here.
 
