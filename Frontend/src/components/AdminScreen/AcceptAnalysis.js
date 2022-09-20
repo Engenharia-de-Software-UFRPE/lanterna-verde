@@ -1,4 +1,4 @@
-import '/AnalysisDetail.css'
+import '/AcceptAnalysis.css'
 import SolAnalise from './SolAnalise'
 import SolAnaliseMap from './SolAnaliseMap'
 
@@ -44,3 +44,4 @@ function SolicitaAnaliseDetail(){
         </>
     )
 }
+export default SolicitaAnaliseDetail;

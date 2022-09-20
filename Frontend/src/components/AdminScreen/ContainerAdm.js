@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import TableAnalisesEmpresa from './analisesDaEmpresa';
+import AnalysisTableList from './AnalysisTableList';
 import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
-import TableListaEmpresas from './CompanyHistory';
-import Tableadmin from './ResquestTable.js';
+import AnalysisHistory from './AnalysisHistory';
+import ResquestTable from './ResquestTable';
 import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
@@ -91,7 +91,7 @@ function ContainerAdm() {
       </div>
 
       <div className='tables'>
-        {active === "FirstCard" && <Tableadmin />}
+        {active === "FirstCard" && <ResquestTable />}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
         {active === "FourCard" && <GASForm analise={question}/>}

@@ -4,7 +4,7 @@ import SolAnaliseMap from './SolAnaliseMap';
 import SolAnalise from './SolAnalise';
 import axios from 'axios';
 
-const Tableadmin = () => {
+const ResquestTable = () => {
 
     const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
@@ -35,4 +35,4 @@ const Tableadmin = () => {
         </div>
     </div >)
 }
-export default Tableadmin;
+export default ResquestTable;
