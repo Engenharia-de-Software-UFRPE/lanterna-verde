@@ -1,39 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './company-profile-change.css';
-import {useState} from 'react';
 import axios from 'axios';
-import testeprojeto from '../../../images/testeprojeto.png';
+import companyImage from '../../../images/testeprojeto.png';
+
 const CompanyProfileChange = () => {
-    return (
-        <section className='company-profile-change'>
-            <div className='comapany-container-profile-change'>
-                <h2 className='form-title-profile-change'>Editar Perfil</h2>
-                <div className='stamp-container'>
-                    <img className="testeprojeto" src={testeprojeto} alt="Imagem da empresa"/>
-                </div>
-                <div className='form-div-profile-change'>
-                    <form className='form-profile-change'>
-                         <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100}/* onChange={handleInputChange}*/ />
-    
-                            <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100}/* onChange={handleInputChange}*/ />
-                            
-                            <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100}
-                            /*onChange={handleInputChange}*/ />
-                            <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} /*value={company.stateRegistration} onChange={handleInputChange}*//>
-                            
-                            <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14}/* value={company.cnpj} onChange={handleInputChange}*/np/>
-                    </form>
-                    <a href="#loginScreen" class="confirm" /*onClick={confirm}*/>Confirmar</a>
-                </div>
-            </div>
-        </section>
-      )
-    }
-    
-    export default CompanyProfileChange;
-    
-    /*
     const [company, setCompany] = useState({
+        oldUsername: "",
         username: "",
         email: "",
         password: "",
@@ -44,9 +16,43 @@ const CompanyProfileChange = () => {
         type: "",
         phoneNumber: ""
     });
-    const[selected, setSelected] = useState(false);
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    
+
+    const sendGetRequest = async () => {
+        await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
+        .then(res => {
+            let data = res.data;           
+            setCompany({
+                oldUsername: data.Usuario.username,
+                username: data.Usuario.username,
+                email: data.Usuario.email,
+                password: "",
+                tradeName: data.Empresa.tradeName,
+                corporateName: data.Empresa.corporateName,
+                stateRegistration: data.Empresa.stateRegistration,
+                cnpj: data.Empresa.cnpj,
+                type: data.Empresa.tipo,
+                phoneNumber: data.Empresa.phoneNumber
+            })           
+        })
+        .catch( error=>{
+            alert("Erro")
+        })
+    };
+
+    const sendPutRequest = async () => {
+        await axios.put('http://localhost:8000/empresa/update', company, { withCredentials: true })
+        .then(res=>{
+            console.log(res.data)
+            alert("Dados alterados com sucesso")
+        })
+        .catch( error=>{
+            alert("Erro")
+        })
+    };
+
+    useEffect( () => {
+        sendGetRequest();
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -61,7 +67,6 @@ const CompanyProfileChange = () => {
         }
         else if (name === 'type'){
             if(value!==''){
-                setSelected(true);
                 setCompany({
                     ...company,
                     [name]: value,
@@ -76,55 +81,67 @@ const CompanyProfileChange = () => {
         }
     };
 
-    const handlePasswordConfirmation = (event) =>{
-        const result = event.target.value;
-        setPasswordConfirmation(result);
-    }
-
     function isValidEmail(email) {
         return (/\S+@\S+\.\S+/.test(email));
     }
 
-    const sendPostRequest = async () => {
-        const data = JSON.stringify(company);
-        
-        await axios.post('http://127.0.0.1:8000/empresa/add', company)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
-        .catch( error=>{
-            console.log(error);
-        })
-    };
-
-
     const confirm = (event) =>{
-        if(passwordConfirmation !== company.password){
-            //console.log("password");
+
+        if(isValidEmail(company.email)){
+            sendPutRequest()
         }
-
-        if(!isValidEmail(company.email)){
-            //console.log("email")
+        else{
+            alert("ERRO")
         }
-
-        sendPostRequest();
-
-        alert("Cadastro efetuado com sucesso")
-        setCompany({
-            username: "",
-            email: "",
-            password: "",
-            tradeName: "",
-            corporateName: "",
-            stateRegistration: "",
-            cnpj: "",
-            type: "",
-            phoneNumber: ""
-        })
     }
+    
 
-*/
+    return (
+        <section className='company-profile-change'>
+            <div className='company-container-profile-change'>
+                <h2 className='form-title-profile-change'>Editar Perfil</h2>
+                <div className='company-img-container'>
+                    <img className="company-img" src={companyImage} alt="Imagem da empresa"/>
+                </div>
+                <div className='form-div-profile-change'>
+                    <form className='form-profile-change'>
+                        <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100} onChange={handleInputChange} value={company.username} />
+
+                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100} onChange={handleInputChange} value={company.tradeName}/>
+
+                        <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100} onChange={handleInputChange} value={company.corporateName}/>
+
+                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} onChange={handleInputChange} value={company.stateRegistration}/>
+
+                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} onChange={handleInputChange} value={company.cnpj}/>
+
+                        <select className='select selected' name="type" onChange={handleInputChange} value={company.type}>
+                            <option className="select-option" value="" disabled selected>Selecione o tipo</option>
+                            <option className="select-option" value="Primeiro Setor">Primeiro Setor</option>
+                            <option className="select-option" value="Segundo Setor">Segundo Setor</option>
+                            <option className="select-option" value="Terceiro Setor">Terceiro Setor</option>
+                        </select>
+
+                        <input className="input" type="email" placeholder="Digite o seu email" name="email" maxLength={100} onChange={handleInputChange} value={company.email}/>
+
+                        <input className="input" type="text" placeholder="Digite o seu Telefone " name="phoneNumber" maxLength={12} onChange={handleInputChange} value={company.phoneNumber}/>
+
+                        
+                        <input className="input last" type="password" placeholder="Digite uma senha" name="password" maxLength={100} onChange={handleInputChange} value={company.password} />
+                            
+                    </form>
+                </div>
+                <div className='buttons'>
+                    <input className='btn' type="button" value="Confirmar" onClick={confirm}></input>
+                    <input className='btn cancel' type="button" value="Cancelar" onClick={sendGetRequest}></input>
+                </div>
+            </div>
+        </section>
+      )
+    }
+    
+    export default CompanyProfileChange;
+    
 
 
 

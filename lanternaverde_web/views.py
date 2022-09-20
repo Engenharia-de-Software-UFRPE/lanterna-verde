@@ -114,7 +114,7 @@ def cadastro_empresa(request):
         usuario = Usuario.objects.create_user(username=data['username'], 
                                             email=data['email'], 
                                             password=data['password'])        
-        usuario.save()
+        usuario.save() 
         empresa = Empresa.objects.create(tradeName= data['tradeName'],
                                         corporateName= data['corporateName'],
                                         stateRegistration= data['stateRegistration'],
@@ -129,23 +129,20 @@ def cadastro_empresa(request):
     return HttpResponseBadRequest()
 
 @csrf_exempt
-@login_required
+@login_required(login_url='CompanyMainScreen/ProfileChange')
 def alterar_empresa(request):
     if(request.method == 'PUT'):
         data = json.loads(request.body)
-        usuario = Usuario.objects.filter(email=data['email'])
-        empresa = Empresa.objects.get(pk=data['cnpj'])
-        """ 
-        Visto que sao unicos nao sei se seriam alterados
         
+        usuario = request.user
         usuario.username = data['username']
         usuario.email = data['email']
-        empresa.cnpj = data['cnpj'] 
-        """
+        usuario.set_password(data['password'])
+        usuario.save()
 
-        usuario.password = data['password']
-        usuario.save
-
+        update_session_auth_hash(request, request.user)
+        
+        empresa = Empresa.objects.get(user=usuario.id)
         empresa.tradeName = data['tradeName']
         empresa.corporateName = data['corporateName']
         empresa.stateRegistration = data['stateRegistration']
@@ -153,7 +150,6 @@ def alterar_empresa(request):
         empresa.phoneNumber = data['phoneNumber']
         empresa.user = usuario
         empresa.save()
-        print(empresa) #debug
 
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
