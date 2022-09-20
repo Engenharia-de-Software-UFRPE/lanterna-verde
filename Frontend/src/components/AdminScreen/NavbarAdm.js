@@ -28,21 +28,6 @@ function NavbarAdm() {
     });
     
   }
-  // const handleLogout = e => {
-  //   e.preventDefault(); // VERIFICAR O 'LOGOUT' DEPOIS 
-  //   fetch('http://localhost:8000/user', { 
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Token ${localStorage.getItem('token')}`
-  //     }
-  //   })
-  //   .then((response) => {response.json()
-  //     console.log(response);
-  //     localStorage.clear();
-  //     navigate('/');
-  //   });
-  // };
 
     return(
       <div class="position-fixed col-12">

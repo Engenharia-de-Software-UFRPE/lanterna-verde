@@ -90,27 +90,6 @@ ul input{
     opacity: 0;
 }
 
-.increase{
-    background: rgb(192, 151, 151);
-    border: 1px solid transparent;
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: #039ae5;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 1.6px;
-    cursor: pointer;
-    outline: none !important;
-    will-change: color, background, border;
-    transition: .2s border ease-in-out, .2s background ease-in-out, .2s color ease-in-out;
-}
-
-.increase:hover {
-    border: 1px solid rgb(163, 26, 26);
-    color: rgb(65, 58, 58);
-    background: transparent;
-}
-
 .popupBell{
     scroll-behavior: smooth;
     overflow-y: scroll;
