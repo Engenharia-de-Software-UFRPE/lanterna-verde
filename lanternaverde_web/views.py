@@ -415,7 +415,8 @@ def areas_pior_avaliacao(request):
         ]
 
         resultado_return = {
-            'Áreas de pior avaliação' : resultado.data
+            'Primeira área de pior avaliação' : resultado[0].data,
+            'Segunda área de pior avaliação' : resultado[1].data,
         }
         return JSONResponse(resultado_return, status=200)
 
