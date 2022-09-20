@@ -142,7 +142,7 @@ def alterar_empresa(request):
 
         update_session_auth_hash(request, request.user)
         
-        empresa = Empresa.objects.get(cnpj=data['oldCnpj'])
+        empresa = Empresa.objects.get(user=usuario.id)
         empresa.tradeName = data['tradeName']
         empresa.corporateName = data['corporateName']
         empresa.stateRegistration = data['stateRegistration']

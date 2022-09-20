@@ -6,8 +6,6 @@ import companyImage from '../../../images/testeprojeto.png';
 const CompanyProfileChange = () => {
     const [company, setCompany] = useState({
         oldUsername: "",
-        oldCnpj: "",
-
         username: "",
         email: "",
         password: "",
@@ -22,12 +20,9 @@ const CompanyProfileChange = () => {
     const sendGetRequest = async () => {
         await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
         .then(res => {
-            console.log(res.data);
             let data = res.data;           
             setCompany({
                 oldUsername: data.Usuario.username,
-                oldCnpj: data.Empresa.cnpj,
-
                 username: data.Usuario.username,
                 email: data.Usuario.email,
                 password: "",
