@@ -37,10 +37,6 @@ class QuestaoAdmin(admin.ModelAdmin):
 class EmpresaAdmin(admin.ModelAdmin):
     list_display = ['user', 'tradeName', 'cnpj', 'tipo']
 
-@admin.register(PacoteAnalise)
-class PacoteAnalise(admin.ModelAdmin):
-    list_display = ['company', 'package']
-
 @admin.register(SolicitacaoAnalise)
 class SolicitacaoAnaliseAdmin(admin.ModelAdmin):
     list_display = ['empresa', 'date']

@@ -134,7 +134,7 @@ class Empresa(models.Model):
         (T3, 'Terceiro Setor')
     ]
     PACKAGE = [
-        (NOPACK, 'Nenhum pacote assinado')
+        (NOPACK, 'Nenhum pacote assinado'),
         (MONTHLY, 'Mensal'),
         (BIANNUAL, 'Semestral'),
         (YEARLY, 'Anual')
