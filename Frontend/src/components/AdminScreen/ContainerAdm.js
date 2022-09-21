@@ -20,20 +20,20 @@ function ContainerAdm() {
   const [configuracoes, setConfiguracoes] = useState(false);
   const [cadastrarAnalista, setAnalista] = useState(false);
   const [verQuestionario, setQuestionario] = useState(false);
-  const [historicoAnalises, setHistorico] = useState(false);
+  const [historicoAnalises, setHistorico] = useState(['placeholder']);
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
   const [question,setQuestions] = useState(['placeholder']);
 
-  async function listAnalysisHistory(){
-    let response = await axios.get( "http://localhost:8000/analise",
-    { withCredentials: true }
-    ).then(response => response)
-    setHistorico(response.data.listar_analises)
-  } 
-  if(historicoAnalises === false){
-    listAnalysisHistory()
-  }
+  // async function listAnalysisHistory(){
+  //   let response = await axios.get("http://localhost:8000/analise/detail",
+  //   { withCredentials: true }
+  //   ).then(response => response)
+  //   setHistorico(response.data.listar_analises)
+  // } 
+  // if(historicoAnalises[0] === 'placeholder'){
+  //   listAnalysisHistory();
+  // }
 
 
   async function listQuestions() {
@@ -46,7 +46,7 @@ function ContainerAdm() {
   }
   console.log(question);
   if (question[0] === 'placeholder'){
-      listQuestions()
+      listQuestions();
   }
 
   async function listAnalysis() {
@@ -77,10 +77,10 @@ function ContainerAdm() {
         </div>
 
         <div id="nameAdmArea">
-          <h6 class="nameAdm">Nome: {`${user.first_name} ${user.last_name} `}</h6>
+          <h6 class="nameAdm">{`${user.first_name} ${user.last_name} `}</h6>
         </div>
         <div id="usernameAdmArea">
-          <h6 class="usernameAdm">Username: {user.username}</h6>
+          <h6 class="usernameAdm">{user.username}</h6>
         </div>
 
 
