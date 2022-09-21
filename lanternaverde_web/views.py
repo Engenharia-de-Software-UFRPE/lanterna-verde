@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
+import lanternaverde_web.notificacaoAdm as notificacaoAdm
 
 from django.contrib.auth.hashers import check_password
 
@@ -356,3 +357,13 @@ def alterar_senha(request):
 @login_required
 def finalizar_analise(request):
     return avalAnalista.finalizar_analise(request)
+
+@csrf_exempt
+@login_required
+def listar_notificacoesAdm(request):
+    return notificacaoAdm.listar_notificacoesAdm(request)
+
+@csrf_exempt
+@login_required
+def notificacao_lida(request):
+    return notificacaoAdm.notificacao_lida(request)

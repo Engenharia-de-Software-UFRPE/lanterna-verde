@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise
-
+from .models import *
 
 # Register your models here.
 
@@ -46,3 +45,6 @@ class SolicitacaoAnaliseAdmin(admin.ModelAdmin):
 class RelatorioAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(NotificacaoAdm)
+class NotificacaoAdmAdmin(admin.ModelAdmin):
+    pass
