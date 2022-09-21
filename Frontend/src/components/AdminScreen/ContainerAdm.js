@@ -5,7 +5,6 @@ import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
 import AnalysisHistory from './AnalysisHistory';
 import ResquestTable from './ResquestTable';
-import TableQuestionario from './TelaQuestionario';
 import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
