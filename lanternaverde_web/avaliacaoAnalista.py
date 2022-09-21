@@ -86,6 +86,34 @@ def listar_analises(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+def listar_analises_empresa(request):
+    """
+    Method that groups `AvaliacaoAnalista` from a specific company into a JSON
+    response.
+    """
+    if request.method == 'GET':
+        body_request = json.loads(request.body)
+        company = Empresa.objects.get(id=body_request['companyid'])
+        ser_company = EmpresaSerializer(company)
+
+        #pylint: disable=E1101
+        analysis_set = [AvaliacaoAnalista.objects.filter(analysis_request=analysis_request) for analysis_request in SolicitacaoAnalise.objects.filter(empresa=company)]
+        if len(analysis_set) == 0:
+            return HttpResponse(content="A empresa solicitada nunca foi "
+                                "analisada por analistas", status=422)
+
+        ser_analysis_set = {}
+        for analysis, local_id in zip(analysis_set, range(len(analysis_set))):
+            ser_analysis_set[str(local_id)] = AvaliacaoAnalistaSerializer(
+                analysis, many=True).data
+
+        ser_return = {
+            'company': ser_company.data,
+            'analysis': ser_analysis_set
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()    
+
 def atualizar_analise(request):
     if request.method == 'POST':
         post = request.POST
