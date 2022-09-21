@@ -5,7 +5,7 @@ import SolicitaAnaliseDetail from './AnalysisDetail';
 
 const SolAnalise = ({solicita_a_analise}) =>{
 
-    const [active, setActive] = useState(false)
+    const [active, setActive] = useState(false);
 
     const detailsHandler = () => {
         setActive((prevState) => !prevState);
@@ -19,10 +19,10 @@ const SolAnalise = ({solicita_a_analise}) =>{
                 >
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
-                ID da Empresa: {solicita_a_analise.empresa}
-                <button onClick={detailsHandler} class='btn'> <h5 className='nameAdm'></h5>Abrir análise</button>
+                    ID da Empresa: {solicita_a_analise.empresa.tradeName}
+                    <button onClick={detailsHandler} class='btn'> Abrir análise</button>
                 </div>
-                </div>
+            </div>
             </ListGroup.Item>
             {active ? <SolicitaAnaliseDetail/> : ''}
         </>
