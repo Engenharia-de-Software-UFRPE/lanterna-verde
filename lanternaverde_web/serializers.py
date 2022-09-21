@@ -3,8 +3,7 @@ Serializers Models for Django REST Framework
 """
 from rest_framework import serializers
 
-from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise, Empresa
-
+from .models import Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise, Empresa
 
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     """
@@ -66,11 +65,18 @@ class QuestaoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class EmpresaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Empresa
+        fields = '__all__'
+
+
 class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
     """
     Serialization for AvaliacaoAnalista Model
     """
     questao_set = QuestaoSerializer(many=True)
+    company = EmpresaSerializer
     class Meta:
         """AvaliacaoAnalista serialization metadata"""
         model = AvaliacaoAnalista
@@ -87,3 +93,23 @@ class EmpresaSerializer(serializers.ModelSerializer):
         model = Empresa
         fields = '__all__'
 
+class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
+    """
+    Serialization for SolicitacaoAnalise Model
+    """
+    analises = AvaliacaoAnalistaSerializer(many=True)
+    empresa = EmpresaSerializer()
+    class Meta:
+        """SolicitacaoAnalise metadata"""
+        model = SolicitacaoAnalise
+        fields = '__all__'
+        related_object = ['analises', 'empresa']
+
+class RelatorioSerializer(serializers.ModelSerializer):
+    """
+    Serialization for Relatorio Model
+    """
+    class Meta:
+        """Relatorio metadata"""
+        model = Relatorio
+        fields = '__all__'

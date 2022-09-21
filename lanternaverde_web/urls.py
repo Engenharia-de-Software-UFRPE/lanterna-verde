@@ -23,12 +23,14 @@ urlpatterns = [
     path('solicitacoesAnalise', views.get_solicitacoes, name='get_solicitacoes'),
     path('solicitacoesAnalise/add', views.create_solicitacao, name="Criar Solicitação de Análise"),
     path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise'),
+    path('solicitacoesAnalise/analises', views.get_analysis_by_request, name='get_analysis_by_request'),
+
 
     path('analise', views.listar_analises, name='listar_analises'),
     path('analise/add', views.criar_analise, name='criar_analise'),
     path('analise/detail', views.detalhar_analise, name='detalhar_analise'),
     path('analise/update', views.atualizar_analise, name='atualizar_analise'),
-    path('analise/finish', views.concluir_analise, name='concluir_analise'),
+    path('analise/finish', views.finalizar_analise, name='concluir_analise'),
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
     path('empresa/update', views.alterar_empresa, name='alterar_empresa'),
@@ -37,8 +39,10 @@ urlpatterns = [
     path('empresa/analises/reanalise', views.listar_analises_passiveis_reanalise, name='listar_analises_empresa'),
     path('empresa/analise/<str:pk>', views.get_analise_empresa, name='get_analise_empresa'),
     path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
-
     path('empresas', views.get_empresas, name='get_empresas'),
     path('empresa/ranking', views.get_ranking_empresa, name='get_ranking_empresa'),
     path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
+
+    path('relatorio', views.get_relatorios, name='get_relatorios'),
+    path('relatorio/comment', views.comment_relatorio, name='comment_relatorio')
 ]
