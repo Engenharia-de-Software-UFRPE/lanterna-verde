@@ -6,7 +6,7 @@ import NavbarAdm from '../AdminScreen/NavbarAdm';
 function Administrador() {
   return (
     <>
-      {/*<NavbarAdm />*/}
+      <NavbarAdm />
       <ContainerAdm />
     </>
   );

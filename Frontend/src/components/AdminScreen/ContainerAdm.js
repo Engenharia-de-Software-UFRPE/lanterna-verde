@@ -11,6 +11,7 @@ import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
 import GASForm from './GASForm';
 import TableListaEmpresas from './CompanyHistory';
+import InfoAnalysis from './InfoAnalysis';
 
 
 function ContainerAdm() {
@@ -84,19 +85,21 @@ function ContainerAdm() {
         </div>
 
 
-        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Análise</button>
+        <button onClick={() => setActive("FifthCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Análise</button>
         <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'></h5>Minha Conta </button>
         <button onClick={() => setActive("ThirdCard")} className='btn'> <h5 className='nameAdm'>Cadastrar Analista</h5> </button>
-        <button onClick={() => setActive("FourCard")} className='btn'> <h5 className='nameAdm'>Ver Questionário</h5> </button>
-        <button onClick={() => setActive("FiveCard")} className='btn'> <h5 className='nameAdm'>Histórico de Análises</h5> </button>
+        <button onClick={() => setActive("FourthCard")} className='btn'> <h5 className='nameAdm'>Ver Questionário</h5> </button>
+        <button onClick={() => setActive("FirstCard")} className='btn'> <h5 className='nameAdm'>Histórico de Análises</h5> </button>
       </div>
 
       <div className='tables'>
-        {active === "FirstCard" && <ResquestTable />}
+        {/* Depois vamos trocar a posição de RequestTable com  TableListaEmpresas*/}
+        {active === "FirstCard" && <TableListaEmpresas />}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
-        {active === "FourCard" && <GASForm analise={question}/>}
-        {active === "FiveCard" && <TableListaEmpresas />}
+        {active === "FourthCard" && <GASForm analise={question}/>}
+        {active === "FifthCard" && <ResquestTable/>}
+        {/*{active === "FifthCard" && <InfoAnalysis analise={historicoAnalises}/>}*/}
       </div>
 
       <noscript>You need to enable JavaScript to run this app.</noscript>

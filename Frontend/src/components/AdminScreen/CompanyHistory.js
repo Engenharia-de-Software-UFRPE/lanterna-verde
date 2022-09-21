@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CompanyHistory.css';
+import './ContainerAdm.css';
 
 const TableListaEmpresas = () => {
     let listaEmpresas = [
@@ -35,14 +36,15 @@ const TableListaEmpresas = () => {
     }
 
     return (<div id="requestListArea">
-        <h6 class="requestList"><strong>Selecione a empresa que deseja ver o histórico de análises</strong></h6>
+        <h6><strong>Selecione a empresa que deseja ver o histórico de análises</strong></h6>
         <div id="table-wrapper">
             <div id="table-scroll">
                 <table>
-                    <tbody id="listaEmpresas"></tbody>
+                    <thead>
+                            <tbody id="listaEmpresas"></tbody>
+                    </thead>
                 </table>
             </div>
-            <button type="button" class="btnVoltarPlistaEmpresa">Voltar</button>
         </div>
     </div >)
 }
