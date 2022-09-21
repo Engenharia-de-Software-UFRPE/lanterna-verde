@@ -154,25 +154,6 @@ def alterar_empresa(request):
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
-@csrf_exempt
-@login_required
-def alterar_pacote_empresa(request):
-    if(request.method == 'PUT'):
-        data = json.loads(request.body)
-        
-        usuario = request.user        
-        empresa = Empresa.objects.get(user=usuario.id)
-        print("\n-------antes-------\n")
-        print(empresa.package)
-        print("\n-------depois-------\n")
-        empresa.package = data
-        print(empresa.package)
-        print("\n--------------\n")
-        empresa.save()
-        
-        return HttpResponse(status=200)
-    return HttpResponseBadRequest()
-
 def get_empresas(request):
     if request.method == 'GET':
         empresas = EmpresaSerializer(
@@ -383,14 +364,17 @@ def alterar_senha(request):
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 def assinar_pacote(request):
-   if request.method == 'POST':
-        data = request.POST
-        company = data['company']
-        company.package = data['package']
-        return HttpResponse(status=201)
-   return HttpResponseBadRequest()
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        usuario = request.user        
+        empresa = Empresa.objects.get(user=usuario.id) 
+        empresa.package = data
+        empresa.save()
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
 
 def solicitar_reanalise(request):
     if(request.method == 'PUT'):

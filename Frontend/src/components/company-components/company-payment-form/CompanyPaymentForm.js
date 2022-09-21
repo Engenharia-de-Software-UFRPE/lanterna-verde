@@ -13,7 +13,7 @@ const CompanyPaymentForm = ({open, onClose, packageSelected }) =>{
   };
   
   const sendPutRequest = async () => {
-      await axios.put('http://localhost:8000/empresa/update-package', JSON.stringify(packageSelected), { withCredentials: true })
+      await axios.put('http://localhost:8000/empresa/assign-package', JSON.stringify(packageSelected), { withCredentials: true })
       .then(res=>{
           console.log(res.data)
           alert("Assinatura confirmada com sucesso")

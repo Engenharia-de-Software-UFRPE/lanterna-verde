@@ -20,7 +20,7 @@ const CompanyAnalyzes = () =>{
     }
 
     const sendGetRequest = async () => {
-        await axios.get('http://localhost:8000/analise/empresa', { withCredentials: true })
+        await axios.get('http://localhost:8000/empresa/analises', { withCredentials: true })
         .then(res => {
             setAnalyzes(res.data['Analises'])
         })
