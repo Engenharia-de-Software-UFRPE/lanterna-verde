@@ -27,7 +27,7 @@ def listar_notificacoesAdm(request):
         notificacoesAdm = NotificacoesAdmSerializer(NotificacaoAdm.objects.all(), many=True)
         ser_return = {'notificacoesAdm': notificacoesAdm.data}
         return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest
+    return HttpResponseBadRequest()
 
 def notificacao_lida(request):
     if request.method == 'POST':
