@@ -6,7 +6,6 @@ import companyPicture from '../../../images/apple.png';
 import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 
 const CompanyHeader = ({newButton}) =>{
-
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
@@ -15,7 +14,7 @@ const CompanyHeader = ({newButton}) =>{
 
     return(
       <div className="company-header-container">
-        <CompanyConfirmationPopup open= {openPopup} onClose={()=>setOpenPopup(false)}/>
+        <CompanyConfirmationPopup open= {openPopup} isAnalysis={true} onClose={()=>setOpenPopup(false)}/>
 
         <a className="logo" href="/CompanyMainScreen">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>

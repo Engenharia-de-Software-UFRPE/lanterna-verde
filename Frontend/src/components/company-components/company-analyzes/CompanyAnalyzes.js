@@ -93,7 +93,7 @@ const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScor
 
     return(
         <>
-            <CompanyConfirmationPopup open= {popup} analysisId={analysisId} onClose={()=>setPopup(false)}/>
+            <CompanyConfirmationPopup open= {popup} analysisId={analysisId} isAnalysis={false} onClose={()=>setPopup(false)}/>
 
             <div className="analysis">
                 <div className='analysis-text-container'>
