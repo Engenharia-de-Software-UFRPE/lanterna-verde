@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
-import SolAnalise from './SolAnalise';
 import axios from 'axios';
+import NoteBadge from './Notification';
 
 const ResquestTable = () => {
 
@@ -31,8 +31,10 @@ const ResquestTable = () => {
                     <SolAnaliseMap soliciatoes_analise ={solAnalise} />
                     </tbody>
                 </table>
+                <NoteBadge></NoteBadge>
             </div>
         </div>
-    </div >)
+    </div >
+    )
 }
 export default ResquestTable;

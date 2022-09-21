@@ -99,6 +99,10 @@ b{
     z-index: 999;
 }
 
+.col-lg{
+    background-color: #f8f9fa;
+}
+
 #error{
     position: absolute;
     left: 38px;

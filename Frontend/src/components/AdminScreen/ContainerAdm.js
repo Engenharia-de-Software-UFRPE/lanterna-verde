@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnalysisTableList from './AnalysisTableList';
 import './ContainerAdm.css';
@@ -50,7 +50,7 @@ function ContainerAdm() {
       listQuestions();
   }
 
-  async function listAnalysis() {
+  async function loadAdministrator() {
     axios.defaults.withCredentials = true;
     let response = await axios
       .get("http://localhost:8000/user/admin", { withCredentials: true })
@@ -62,12 +62,11 @@ function ContainerAdm() {
   }
 
   if (administrator === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
   if (user === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
-  //window.addEventListener('resize', showButton);
 
   return (
     <div id="body">

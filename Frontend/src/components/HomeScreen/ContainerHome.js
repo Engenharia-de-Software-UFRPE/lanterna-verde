@@ -18,9 +18,9 @@ function ContTest2() {
                     <div class="main__container">
                         <h1 class="main__heading">Crescimento Verde</h1>
                         <p class="main__description">Análises e metas concretas para o desempenho da sua empresa</p>
-                        <button class="main__btn">
-                            <a href="/CompanyRegistration">Cadastre-se</a>
-                        </button>
+                        <a href="/CompanyRegistration"><button class="main__btn">
+                            Cadastre-se
+                        </button></a>
                     </div>
                 </div>        
             </main>
