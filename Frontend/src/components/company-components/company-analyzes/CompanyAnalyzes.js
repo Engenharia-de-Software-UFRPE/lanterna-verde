@@ -9,7 +9,7 @@ import GreenStar from '../../../images/green-star.png';
 import HalfGreenStar from '../../../images/half-green-star.png';
 
 const CompanyAnalyzes = () =>{
-    const [analyzes, setAnalyzes] = useState([]);
+    const [analysis, setAnalysis] = useState([]);
 
     useEffect(() => {
         sendGetRequest()
@@ -22,7 +22,7 @@ const CompanyAnalyzes = () =>{
     const sendGetRequest = async () => {
         await axios.get('http://localhost:8000/empresa/analises', { withCredentials: true })
         .then(res => {
-            setAnalyzes(res.data['Analises'])
+            setAnalysis(res.data['Analises'])
         })
         .catch( error=>{
             alert("Erro")
@@ -35,9 +35,9 @@ const CompanyAnalyzes = () =>{
             <h2 className='section-title'>Análises</h2>
 
             <div className='analysis-container'>
-                {analyzes.map((analyzeData, index) => (
-                    <Analyze analyzeDate={getDate(analyzeData.update_date)} analyzeId={analyzeData.id}
-                    analyzeScore={analyzeData.score} previousAnalysisScore={index===(analyzes.length-1) ? 0 : analyzes[index+1].score} />
+                {analysis.map((analysisData, index) => (
+                    <Analysis analysisDate={getDate(analysisData.update_date)} analysisId={analysisData.id}
+                    analysisScore={analysisData.score} previousAnalysisScore={index===(analysis.length-1) ? 0 : analysis[index+1].score} />
                 ))}
             </div>
                 
@@ -48,21 +48,21 @@ const CompanyAnalyzes = () =>{
 export default CompanyAnalyzes;
 
 
-const Analyze = ({analyzeDate, analyzeId, analyzeScore, previousAnalysisScore}) =>{
+const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore}) =>{
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
     }
-    const [openPopup, setOpenPopup] = useState(false);
+    const [popup, setPopup] = useState(false);
     const [stars, setStars] = useState([]);
     const [vectorValue, setVectorValue] = useState("")
     const [vectorValuePositive, setVectorValuePositive] = useState(true)
 
     useEffect(() => {
-        defineVectorValue(analyzeScore, previousAnalysisScore)
+        defineVectorValue(analysisScore, previousAnalysisScore)
         let array = []
-        for(let i=0; i< (analyzeScore/2); i++){
-            if((analyzeScore%2)===1 && i===((analyzeScore/2)-0.5)){
+        for(let i=0; i< (analysisScore/2); i++){
+            if((analysisScore%2)===1 && i===((analysisScore/2)-0.5)){
                 array.push(false)
             }
             else{
@@ -70,12 +70,10 @@ const Analyze = ({analyzeDate, analyzeId, analyzeScore, previousAnalysisScore}) 
             }
         }
         setStars(array);
-        console.log(stars)
-
     }, [])
 
-    function defineVectorValue(analyzeScore, previousAnalysisScore) {
-        let result = (analyzeScore/2) - (previousAnalysisScore/2);
+    function defineVectorValue(analysisScore, previousAnalysisScore) {
+        let result = (analysisScore/2) - (previousAnalysisScore/2);
         if(result>0){
             setVectorValue("+ "+ result)
             setVectorValuePositive(true)
@@ -95,12 +93,12 @@ const Analyze = ({analyzeDate, analyzeId, analyzeScore, previousAnalysisScore}) 
 
     return(
         <>
-            <CompanyConfirmationPopup open= {openPopup} onClose={()=>setOpenPopup(false)}/>
+            <CompanyConfirmationPopup open= {popup} analysisId={analysisId} onClose={()=>setPopup(false)}/>
 
             <div className="analysis">
                 <div className='analysis-text-container'>
                     <h3 className="analysis-title">Análise</h3>
-                    <h4 className='analysis-date'>{analyzeDate}</h4>
+                    <h4 className='analysis-date'>{analysisDate}</h4>
                 </div>
                 
                 <div className="stars">
@@ -125,7 +123,7 @@ const Analyze = ({analyzeDate, analyzeId, analyzeScore, previousAnalysisScore}) 
                     <span className={vectorValuePositive ? "vector-value positive" : "vector-value negative"}>{vectorValue}</span>
                     <img className="vector" src={vectorValuePositive ? CrescentVector : DecrescentVector} alt={vectorValuePositive ? "vetor crescente" : "vetor decrescente"}/>
                 </div>
-                <button className='btn-reanalysis' onClick={() => setOpenPopup(true)}>Reanálise</button>
+                <button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button>
             </div>
         </>
     )

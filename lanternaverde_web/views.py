@@ -376,17 +376,34 @@ def assinar_pacote(request):
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
-def solicitar_reanalise(request):
-    if(request.method == 'PUT'):
+@csrf_exempt
+@login_required
+def solicitar_reanalise(request, pk):
+    if request.method == 'PUT':
         data = json.loads(request.body)
-        analysisRequest = json.loads(solAnalise.get_analysis(request))
+        analise = AvaliacaoAnalista.objects.get(pk=pk)
+        analise.reanalyzed = data['reanalyzed']
+        analise.save()
 
-        analysisRequest.status = data['status']
-        analysisRequest.date = data['date']
-        analysisRequest.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
+@csrf_exempt
+@login_required
+def get_analise_empresa(request, pk):
+    if request.method == 'GET':
+        usuario = request.user
+        empresa = Empresa.objects.get(user=usuario.id)
 
+        analise = AvaliacaoAnalistaSerializer(
+            AvaliacaoAnalista.objects.filter(id=pk, company=empresa.id),
+            many=True,
+            context={'request': None}
+        )
+        ser_return = {
+            'Analises': analise.data
+        }
         
-
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+        

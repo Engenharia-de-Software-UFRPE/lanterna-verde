@@ -35,7 +35,9 @@ urlpatterns = [
     path('empresa/assign-package', views.assinar_pacote, name='assinar_pacote'),
     path('empresa/analises', views.listar_analises_empresa, name='listar_analises_empresa'),
     path('empresa/analises/reanalise', views.listar_analises_passiveis_reanalise, name='listar_analises_empresa'),
-    
+    path('empresa/analise/<str:pk>', views.get_analise_empresa, name='get_analise_empresa'),
+    path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
+
     path('empresas', views.get_empresas, name='get_empresas'),
     
 ]
