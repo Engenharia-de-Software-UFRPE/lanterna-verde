@@ -147,6 +147,7 @@ class Empresa(models.Model):
     tipo = models.CharField(choices=TYPE, max_length=100)
     phoneNumber = models.CharField('Telefone', max_length=12)
     package = models.CharField(choices=PACKAGE, max_length=100, default=NOPACK)
+    score = models.DecimalField('Score',max_digits = 4, decimal_places = 2 , default=0)
 
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 

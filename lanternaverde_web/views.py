@@ -406,4 +406,54 @@ def get_analise_empresa(request, pk):
         
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
-        
+
+def get_empresa(request, id):
+    if request.method == 'GET':
+        empresas = EmpresaSerializer(
+            Empresa.objects.filter(id=id),
+            many=True
+        )
+
+        ser_return = {
+            'Empresa': empresas.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def get_ranking_empresa(request):
+    if request.method == 'GET':
+        empresas = EmpresaSerializer(
+            Empresa.objects.all().order_by('-score'),
+            many=True
+        )
+
+        def set_score_empresas(empresa):
+            analises = AvaliacaoAnalistaSerializer(
+                AvaliacaoAnalista.objects.filter(company=empresa.id, finished=True).order_by('-update_date'),
+                many=True,
+                context={'request': None}
+            )
+            soma_scores = 0
+            for i in range(len(analises.data)):
+                for key,value in analises.data[i].items():
+                    if key == 'score':
+                        soma_scores+= value
+                empresa.score = soma_scores/(len(analises.data))
+                empresa.save()
+
+        usuario = request.user
+        company = Empresa.objects.get(user=usuario.id)
+
+        for i in range(len(empresas.data)):
+            for key,value in empresas.data[i].items():
+                if key == 'id':
+                    if value == company.id:
+                        ser_return = {
+                            'Ranking': (i+1)
+                        }
+
+                    empresa = Empresa.objects.get(id=value)
+                    set_score_empresas(empresa)
+                    
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest() 

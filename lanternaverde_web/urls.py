@@ -39,5 +39,6 @@ urlpatterns = [
     path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
 
     path('empresas', views.get_empresas, name='get_empresas'),
-    
+    path('empresa/ranking', views.get_ranking_empresa, name='get_ranking_empresa'),
+    path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
 ]

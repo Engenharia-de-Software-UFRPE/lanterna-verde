@@ -1,5 +1,5 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import './company-header.css';
 import logo from '../../../images/logo-img.png';
 import companyPicture from '../../../images/apple.png';
@@ -7,10 +7,26 @@ import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfi
 
 const CompanyHeader = ({newButton}) =>{
     const [active, setMode] = useState(false)
+    const [rankingEmpresa, setRankingEmpresa] = useState(0)
     const toggleMode = () =>{
       setMode(!active)
     }
     const [openPopup, setOpenPopup] = useState(false);
+
+    const sendGetRequest = async () => {
+      await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
+      .then(res => {
+          let data = res.data;
+          setRankingEmpresa(data['Ranking'])                     
+      })
+      .catch( error=>{
+          alert("Erro")
+      })
+    }
+
+    useEffect( () => {
+      sendGetRequest();
+    }, []);
 
     return(
       <div className="company-header-container">
@@ -39,7 +55,7 @@ const CompanyHeader = ({newButton}) =>{
               </div>
               <div className="company-info">
                   <h3 className="company-name">Apple</h3>
-                  <h4 className="company-position">4ª posição no ranking</h4>
+                  <h4 className="company-position">{rankingEmpresa}ª posição no ranking</h4>
                   <h4 className="company-category">Tecnologia</h4>
               </div>
           </div>
