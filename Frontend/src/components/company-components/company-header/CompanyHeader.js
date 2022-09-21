@@ -6,7 +6,6 @@ import companyPicture from '../../../images/apple.png';
 import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 
 const CompanyHeader = ({newButton}) =>{
-
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
@@ -15,7 +14,7 @@ const CompanyHeader = ({newButton}) =>{
 
     return(
       <div className="company-header-container">
-        <CompanyConfirmationPopup open= {openPopup} onClose={()=>setOpenPopup(false)}/>
+        <CompanyConfirmationPopup open= {openPopup} isAnalysis={true} onClose={()=>setOpenPopup(false)}/>
 
         <a className="logo" href="/CompanyMainScreen">
           <img className="logo-img" src={logo} alt="Imagem da Logo"/>
@@ -47,12 +46,13 @@ const CompanyHeader = ({newButton}) =>{
 
           <div className="menu-buttons">
               <ul>
+                  <li><a className="btn" href="/CompanyMainScreen/ProfileChange">Editar Perfil</a></li>
                   <li><a className="btn" href="#" onClick={() => setOpenPopup(true)}>Solicitar análise</a></li>
-                  <li><a className="btn" href="#">Emitir relatório geral</a></li>
+                  <li><a className="btn" href="/CompanyMainScreen/CompanyReport">Emitir relatório geral</a></li>
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>
                   <li>{newButton}</li>
-                  <li><a className="btn exit" href="#">Sair</a></li>
+                  <li><a className="btn exit" href="/">Sair</a></li>
               </ul>
           </div>
 

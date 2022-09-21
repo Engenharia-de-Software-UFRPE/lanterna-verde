@@ -114,7 +114,7 @@ def cadastro_empresa(request):
         usuario = Usuario.objects.create_user(username=data['username'], 
                                             email=data['email'], 
                                             password=data['password'])        
-        usuario.save()
+        usuario.save() 
         empresa = Empresa.objects.create(tradeName= data['tradeName'],
                                         corporateName= data['corporateName'],
                                         stateRegistration= data['stateRegistration'],
@@ -133,19 +133,16 @@ def cadastro_empresa(request):
 def alterar_empresa(request):
     if(request.method == 'PUT'):
         data = json.loads(request.body)
-        usuario = Usuario.objects.filter(email=data['email'])
-        empresa = Empresa.objects.get(pk=data['cnpj'])
-        """ 
-        Visto que sao unicos nao sei se seriam alterados
         
+        usuario = request.user
         usuario.username = data['username']
         usuario.email = data['email']
-        empresa.cnpj = data['cnpj'] 
-        """
+        usuario.set_password(data['password'])
+        usuario.save()
 
-        usuario.password = data['password']
-        usuario.save
-
+        update_session_auth_hash(request, request.user)
+        
+        empresa = Empresa.objects.get(user=usuario.id)
         empresa.tradeName = data['tradeName']
         empresa.corporateName = data['corporateName']
         empresa.stateRegistration = data['stateRegistration']
@@ -153,7 +150,6 @@ def alterar_empresa(request):
         empresa.phoneNumber = data['phoneNumber']
         empresa.user = usuario
         empresa.save()
-        print(empresa) #debug
 
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
@@ -292,18 +288,6 @@ def get_solicitacao(request):
     return solAnalise.get_analysis(request)
 
 @login_required
-def create_solicitacao_reanalise(request):
-    if request.method == 'POST':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden()
-        empresa = request.user.empresa
-        if len(empresa.solicitacoes.filter(status__in=[SolicitacaoReanalise.PROCESSING, SolicitacaoReanalise.PENDING])) == 0:
-            SolicitacaoReanalise.objects.create(empresa=empresa, date=timezone.now())
-            return HttpResponse(status=200)
-        return HttpResponse("Há reanálises em andamento para essa empresa", status=422)
-    return HttpResponseBadRequest()
-
-@login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
@@ -311,16 +295,12 @@ def listar_analises(request):
     return avalAnalista.listar_analises(request)
 
 @login_required
-def listar_analises_empresa(request, empresa):
-    return avalAnalista.listar_analises_empresa(request, empresa)
+def listar_analises_empresa(request):
+    return avalAnalista.listar_analises_empresa(request)
 
 @login_required
-def listar_analises_empresa_data(request, empresa):
-    return avalAnalista.listar_analises_empresa_data(request, empresa)
-
-@login_required
-def listar_analises_passiveis_reanalise(request, empresa):
-    return avalAnalista.listar_analises_passiveis_reanalise(request, empresa)
+def listar_analises_passiveis_reanalise(request):
+    return avalAnalista.listar_analises_passiveis_reanalise(request)
 
 @csrf_exempt
 @login_required
@@ -384,21 +364,46 @@ def alterar_senha(request):
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 def assinar_pacote(request):
-    if request.method == 'POST':
-        post = request.POST
+    if(request.method == 'PUT'):
         data = json.loads(request.body)
-        companyPackage = PacoteAnalise.objects.filter(company=data['company'])
-        if companyPackage.exists() :
-            package = PacoteAnaliseSerializer(companyPackage, many=False)
-            package.package = data['package']
-            package.save()
-            return HttpResponse(status=200)
-        else:
-            package = PacoteAnalise.objects.create(company=data['company'], package=data['package'])
-            package.save()
-            return HttpResponse(status=201)
+        usuario = request.user        
+        empresa = Empresa.objects.get(user=usuario.id) 
+        empresa.package = data
+        empresa.save()
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def solicitar_reanalise(request, pk):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        analise = AvaliacaoAnalista.objects.get(pk=pk)
+        analise.reanalyzed = data['reanalyzed']
+        analise.save()
+
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+def get_analise_empresa(request, pk):
+    if request.method == 'GET':
+        usuario = request.user
+        empresa = Empresa.objects.get(user=usuario.id)
+
+        analise = AvaliacaoAnalistaSerializer(
+            AvaliacaoAnalista.objects.filter(id=pk, company=empresa.id),
+            many=True,
+            context={'request': None}
+        )
+        ser_return = {
+            'Analises': analise.data
+        }
+        
+        return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
         
-

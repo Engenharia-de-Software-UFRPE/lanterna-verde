@@ -94,47 +94,37 @@ def listar_analises(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
-def listar_analises_empresa(request, empresa):
+def listar_analises_empresa(request):
     if request.method == 'GET':
-        #pylint: disable=E1101
+
+        empresa = Empresa.objects.get(user= request.user.id)
+
         analises = AvaliacaoAnalistaSerializer(
-            AvaliacaoAnalista.objects.filter(company = empresa),
+            AvaliacaoAnalista.objects.filter(company=empresa.id, finished=True).order_by('-update_date'),
             many=True,
             context={'request': None}
         )
 
         ser_return = {
-            'Analises empresa': analises.data
+            'Analises': analises.data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
-def listar_analises_empresa_data(request, empresa):
+def listar_analises_passiveis_reanalise(request):
     if request.method == 'GET':
-        #pylint: disable=E1101
+
+        empresa = Empresa.objects.get(user= request.user.id)
+
         analises = AvaliacaoAnalistaSerializer(
-            AvaliacaoAnalista.objects.order_by('-update_date').filter(company=empresa),
+            AvaliacaoAnalista.objects.filter(company=empresa.id, finished=True, reanalyzed=False)
+            .order_by('-update_date'),
             many=True,
             context={'request': None}
         )
 
         ser_return = {
-            'Analises empresa': analises.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
-def listar_analises_passiveis_reanalise(request, empresa):
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        analises = AvaliacaoAnalistaSerializer(
-            AvaliacaoAnalista.objects.filter(company=empresa, reanalyzed = False),
-            many=True,
-            context={'request': None}
-        )
-
-        ser_return = {
-            'Analises empresa': analises.data
+            'Analises': analises.data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()

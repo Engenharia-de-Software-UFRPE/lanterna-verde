@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import LineChart from "../company-components/company-report/LineChart";
 import { UserData } from "../company-components/company-report/Data";
-import CompanyBasicHeader from '../company-components/company-basic-header/CompanyBasicHeader';
+import CompanyHeader from '../company-components/company-header/CompanyHeader';
 import '../company-components/company-report/CompanyReport.css'
 
 function CompanyReportScreen() {
@@ -28,7 +28,7 @@ function CompanyReportScreen() {
     
     <div className="Container-ReportScreen">
        <header>
-         <CompanyBasicHeader/>
+         <CompanyHeader/>
       </header>
       <div className="Container-Report">
         <div className="Container-Report-Inside">

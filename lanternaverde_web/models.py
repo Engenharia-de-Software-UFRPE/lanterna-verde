@@ -119,11 +119,26 @@ class Analista(models.Model):
         return self.user.username
 
 class Empresa(models.Model):
-    TYPE = (
-        ('T1', 'Primeiro Setor'),
-        ('T2', 'Segundo Setor'),
-        ('T3', 'Terceiro Setor')
-    )
+    NOPACK = 'Nenhum pacote assinado'
+    MONTHLY = 'Mensal'
+    BIANNUAL = 'Semestral'
+    YEARLY = 'Anual'
+
+    T1 ='Primeiro Setor'
+    T2 = 'Segundo Setor'
+    T3 = 'Terceiro Setor'
+
+    TYPE = [
+        (T1, 'Primeiro Setor'),
+        (T2, 'Segundo Setor'),
+        (T3, 'Terceiro Setor')
+    ]
+    PACKAGE = [
+        (NOPACK, 'Nenhum pacote assinado'),
+        (MONTHLY, 'Mensal'),
+        (BIANNUAL, 'Semestral'),
+        (YEARLY, 'Anual')
+    ]
 
     tradeName = models.CharField('Nome Fantasia', max_length=100)
     corporateName = models.CharField('Razão Social', max_length=100)
@@ -131,6 +146,7 @@ class Empresa(models.Model):
     cnpj = models.CharField('CNPJ', max_length=14, unique=True)
     tipo = models.CharField(choices=TYPE, max_length=100)
     phoneNumber = models.CharField('Telefone', max_length=12)
+    package = models.CharField(choices=PACKAGE, max_length=100, default=NOPACK)
 
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 
@@ -195,7 +211,7 @@ class SolicitacaoReanalise(models.Model):
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
-    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE, default= 1)
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
@@ -218,20 +234,3 @@ class Questao(models.Model):
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
 
-class PacoteAnalise(models.Model):
-    MONTHLY = 'P1'
-    BIANNUAL = 'P2'
-    YEARLY = 'P3'
-    
-    PACKAGE = (
-        (MONTHLY, 'Mensal'),
-        (BIANNUAL, 'Semestral'),
-        (YEARLY, 'Anual')
-    )
-    
-    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    package = models.CharField(choices=PACKAGE, max_length=100, default=0)
-    
-    class Meta:
-        verbose_name = 'Pacote de análise'
-        verbose_name_plural = 'Pacotes de análise'

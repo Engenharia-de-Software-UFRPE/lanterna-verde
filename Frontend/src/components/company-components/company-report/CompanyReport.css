@@ -27,6 +27,7 @@
 
 }
 .Container-ReportScreen .Report-Title{
+    margin-top: 50px;
     color: #3AB06F;
     font-size: 40px;
     font-weight: bold;
