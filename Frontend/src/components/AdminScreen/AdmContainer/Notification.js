@@ -1,5 +1,5 @@
 import './NavbarAdm.css';
-import './SolAnalise.js';
+import '../AnalysisSolicitation/SolAnalise.js';
 
 function NoteBadge(){
     class Badge {

@@ -3,8 +3,6 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import solicita_a_analise from './SolAnalise';
-import SolAnalise from './SolAnalise'
-import SolAnaliseMap from './SolAnaliseMap'
 
 function SolicitaAnaliseDetail(){
 

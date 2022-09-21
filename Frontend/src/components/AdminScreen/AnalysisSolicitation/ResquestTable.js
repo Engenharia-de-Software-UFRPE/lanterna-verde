@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './ContainerAdm.css';
+import '../AdmContainer/ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
 import axios from 'axios';
-import NoteBadge from './Notification';
+import NoteBadge from '../AdmContainer/Notification';
 
 const ResquestTable = () => {
 

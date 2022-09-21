@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './CompanyHistory.css';
-import './ContainerAdm.css';
+import '../AdmContainer/ContainerAdm.css';
 
 const TableListaEmpresas = () => {
     let listaEmpresas = [

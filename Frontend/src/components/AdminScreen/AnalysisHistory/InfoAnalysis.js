@@ -1,6 +1,6 @@
 import './InfoAnalysis.css';
-import React, { useState, useEffect } from 'react';
-import QuestionsFinished from '../Analyst/analysis/QuestionsFinished';
+import React from 'react';
+import QuestionsFinished from '../../Analyst/analysis/QuestionsFinished';
 
 const InfoAnalysis = ({analise}) =>{
     return <div className='listAnalise'>

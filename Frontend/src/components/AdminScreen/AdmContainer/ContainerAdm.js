@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AnalysisTableList from './AnalysisTableList';
+import AnalysisTableList from '../AnalysisHistory/AnalysisTableList';
 import './ContainerAdm.css';
-import TableAnalysisData from './DadosDaAnalise';
-import AnalysisHistory from './AnalysisHistory';
-import ResquestTable from './ResquestTable';
+import TableAnalysisData from '../AnalysisHistory/DadosDaAnalise';
+import AnalysisHistory from '../AnalysisHistory/AnalysisHistory';
+import ResquestTable from '../AnalysisSolicitation/ResquestTable';
 import axios from 'axios';
-import AdmScreenData from './AdmScreenData';
-import AnalystRegistration from './AnalystRegistration';
-import GASForm from './GASForm';
-import TableListaEmpresas from './CompanyHistory';
-import InfoAnalysis from './InfoAnalysis';
+import AdmScreenData from '../AdmDataAccount/AdmScreenData';
+import AnalystRegistration from '../AnalystRegister/AnalystRegistration';
+import GASForm from '../Form/GASForm';
+import TableListaEmpresas from '../AnalysisHistory/CompanyHistory';
+import InfoAnalysis from '../AnalysisHistory/InfoAnalysis';
 
 
 function ContainerAdm() {

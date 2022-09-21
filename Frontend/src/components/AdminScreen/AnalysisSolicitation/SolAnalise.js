@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
-import {useNavigate} from 'react-router-dom';
 import SolicitaAnaliseDetail from './AnalysisDetail';
-import { useState } from 'react';
 
 const SolAnalise = ({solicita_a_analise}) =>{
 
