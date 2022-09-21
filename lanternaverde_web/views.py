@@ -359,11 +359,13 @@ def finalizar_analise(request):
     return avalAnalista.finalizar_analise(request)
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/')
+@administrador_required
 def listar_notificacoesAdm(request):
     return notificacaoAdm.listar_notificacoesAdm(request)
 
 @csrf_exempt
-@login_required
+@login_required(login_url='/')
+@administrador_required
 def notificacao_lida(request):
     return notificacaoAdm.notificacao_lida(request)
