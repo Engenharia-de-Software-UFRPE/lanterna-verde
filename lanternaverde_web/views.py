@@ -12,14 +12,13 @@ import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
 
-from rest_framework.renderers import JSONRenderer
-
 from django.contrib.auth.hashers import check_password
 
 
 #pylint: disable=W0401
 from .models import *
 from .serializers import *
+from .utils.decorators import administrador_required, analista_required, empresa_required
 from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 # Create your views here.
@@ -30,30 +29,27 @@ def index(request):
 
 @csrf_exempt
 @login_required
+@administrador_required
 def cadastro_analista(request):
     if request.method == 'POST':
-        if hasattr(request.user, 'administrador'):
-            data = request.POST
-            try:
-                usuario = Usuario.objects.create_user(username=data.get('username'),
-                                                      email=data.get('email'),
-                                                      password=data.get('password'),
-                                                      first_name=data.get('first_name'),
-                                                      last_name=data.get('last_name')
-                                                      )
-                usuario.save()
-                analista = Analista.objects.create(cpf=data.get('cpf'),
-                                                   specialty=data.get('specialty'),
-                                                   user=usuario
-                                                   )
-                analista.save()
-            except IntegrityError:
-                return HttpResponse("Este usuário já está cadastrado", status=409)
-            return HttpResponse(status=201)
-        else:
-            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+        data = request.POST
+        try:
+            usuario = Usuario.objects.create_user(username=data.get('username'),
+                                                    email=data.get('email'),
+                                                    password=data.get('password'),
+                                                    first_name=data.get('first_name'),
+                                                    last_name=data.get('last_name')
+                                                    )
+            usuario.save()
+            analista = Analista.objects.create(cpf=data.get('cpf'),
+                                                specialty=data.get('specialty'),
+                                                user=usuario
+                                                )
+            analista.save()
+        except IntegrityError:
+            return HttpResponse("Este usuário já está cadastrado", status=409)
+        return HttpResponse(status=201)
     return HttpResponseBadRequest()
-
 
 @csrf_exempt
 @login_required
@@ -80,7 +76,6 @@ def alterar_analista(request):
         user.analista.save()
         return HttpResponse(status=201)
     return HttpResponseBadRequest()
-
 
 @csrf_exempt # TODO: Remover csrf_exempt (REQ. não funcional)
 def login(request):
@@ -139,6 +134,7 @@ def cadastro_empresa(request):
     return HttpResponse(status=201)
 
 @csrf_exempt
+@empresa_required
 def alterar_empresa(request):
     data = request.POST
     empresa = Empresa.objects.get(pk=2)
@@ -170,6 +166,7 @@ def get_logged_usuario(request):
     return HttpResponseBadRequest()
 
 @login_required(login_url='/')
+@administrador_required
 def get_logged_administrador(request):
     """
     Function that creates a response to a GET request for a logged
@@ -177,36 +174,36 @@ def get_logged_administrador(request):
     """
     if request.method == 'GET':
         user = request.user
-        if hasattr(user, 'administrador'):
-            ser_user = UsuarioSerializer(user)
-            ser_admin = AdministradorSerializer(user.administrador)
-            ser_return = {
-                'Usuario': ser_user.data,
-                'Administrador': ser_admin.data
-            }
-            return JSONResponse(ser_return, status=201)
+        ser_user = UsuarioSerializer(user)
+        ser_admin = AdministradorSerializer(user.administrador)
+        ser_return = {
+            'Usuario': ser_user.data,
+            'Administrador': ser_admin.data
+        }
+        return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
 
 @login_required(login_url='/')
+@analista_required
 def get_logged_analista(request):
     """
     Function that creates a response to a GET request for a logged Analista
     """
     if request.method == 'GET':
         user = request.user
-        if hasattr(user, 'analista'):
-            ser_user = UsuarioSerializer(user)
-            ser_anal = AnalistaSerializer(user.analista)
-            ser_return = {
-                'Usuario': ser_user.data,
-                'Analista': ser_anal.data
-            }
-            return JSONResponse(ser_return, status=201)
+        ser_user = UsuarioSerializer(user)
+        ser_anal = AnalistaSerializer(user.analista)
+        ser_return = {
+            'Usuario': ser_user.data,
+            'Analista': ser_anal.data
+        }
+        return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
-@login_required
 @csrf_exempt
+@login_required
+@administrador_required
 def create_questao(request):
     """
     Function that creates a `Questao` object and stores it in the DataBase.
@@ -239,6 +236,7 @@ def get_questoes(request):
 
 @csrf_exempt
 @login_required
+@empresa_required
 def create_solicitacao(request):
     """
     Creates a new Solicitacao Analise Object.
@@ -251,6 +249,7 @@ def create_solicitacao(request):
 
 @csrf_exempt
 @login_required
+@administrador_required
 def get_solicitacoes(request):
     """
     Groups all `SolicitacoesAnalise` objects into a JSON response.
@@ -284,6 +283,7 @@ def detalhar_analise(request):
 
 @csrf_exempt
 @login_required
+@administrador_required
 def criar_analise(request):
     return avalAnalista.criar_analise(request)
 
@@ -314,23 +314,21 @@ def comment_relatorio(request):
 
 @csrf_exempt
 @login_required
+@administrador_required
 def detalhar_analista(request):
     """
     Function that detail a analyst
     """
     if request.method == 'GET':
-        if hasattr(request.user, 'administrador'):
-            analystid = request.GET.get('analystid')
-            analyst = Analista.objects.get(pk=analystid)
-            ser_user = UsuarioSerializer(analyst.user)
-            ser_anal = AnalistaSerializer(analyst)
-            ser_return = {
-                'user': ser_user.data,
-                'analyst': ser_anal.data
-            }
-            return JSONResponse(ser_return, status=200)
-        else:
-            return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
+        analystid = request.GET.get('analystid')
+        analyst = Analista.objects.get(pk=analystid)
+        ser_user = UsuarioSerializer(analyst.user)
+        ser_anal = AnalistaSerializer(analyst)
+        ser_return = {
+            'user': ser_user.data,
+            'analyst': ser_anal.data
+        }
+        return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
     return avalAnalista.atualizar_analise(request)
 

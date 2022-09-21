@@ -101,7 +101,7 @@ function AnalystDataScreen() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>E-email</Form.Label>
+                  <Form.Label>E-mail</Form.Label>
                   <Form.Control
                     size="lg"
                     defaultValue={user.email}
