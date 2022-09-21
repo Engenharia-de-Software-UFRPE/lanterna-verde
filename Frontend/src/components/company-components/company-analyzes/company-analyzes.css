@@ -94,7 +94,7 @@
 .company-analyzes-section .vector-container{
     margin-top: 8px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     gap:10px;
     margin-right: 32px;

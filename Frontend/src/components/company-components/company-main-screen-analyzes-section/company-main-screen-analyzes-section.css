@@ -44,7 +44,7 @@
     margin: 20px 0px 0px 20px;
     font-weight: 600;
     font-size: 1.3em;
-    text-align: start;
+    text-align: flex-start;
     color: var(--company-text-color);
 
 }
@@ -65,7 +65,7 @@
 .company-main-screen-left-section .vector-container{
     margin-top: 8px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     gap:10px;
     margin-right: 32px;

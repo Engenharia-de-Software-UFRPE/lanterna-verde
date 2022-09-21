@@ -48,7 +48,7 @@ const CompanyHeader = ({newButton}) =>{
               <ul>
                   <li><a className="btn" href="/CompanyMainScreen/ProfileChange">Editar Perfil</a></li>
                   <li><a className="btn" href="#" onClick={() => setOpenPopup(true)}>Solicitar análise</a></li>
-                  <li><a className="btn" href="#">Emitir relatório geral</a></li>
+                  <li><a className="btn" href="/CompanyMainScreen/CompanyReport">Emitir relatório geral</a></li>
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>
                   <li>{newButton}</li>
