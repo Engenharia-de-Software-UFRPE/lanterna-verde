@@ -1,3 +1,4 @@
+from curses import ACS_DARROW
 from datetime import datetime
 import json
 from django.db import IntegrityError
@@ -422,14 +423,25 @@ def areas_pior_avaliacao(request):
 
 def verificar_ranking(request):
     if request.method == 'GET':
-        reports = Relatorio.objects.all().order_by('-ascore')
-        ser_reports = RelatorioSerializer(reports, many=True)
-        companyRanking = [company for company in ser_reports.company]
-        scoreRanking = [ascore for ascore in ser_reports.ascore]
+        reportSet = Relatorio.objects.all().order_by('-ascore')
+        reports.repr()
+        reports = list(reportSet)
+        #cada empresa divide o índice com o seu score
+        companyRanking =[]
+        scoreRanking = []
+        for n in range(len(reports)):
+            if reports[n].company in companyRanking:
+                scoreRanking[companyRanking.index(reports[n].company)] += reports.ascore
+            else:
+                companyRanking.append(reports[n].company)
+                scoreRanking.append(reports[n].ascore)
+
+        ranking_final = []
+        for n in range(len(companyRanking)): ranking_final.append((companyRanking[n], scoreRanking[n]))
+        ranking_final.sort(key=lambda tup: -tup[1])
 
         ranking_return = {
-            'Empresa': companyRanking,
-            'Pontuação': scoreRanking
+            'Ranking': ranking_final
         }
         return JSONResponse(ranking_return, status=200)
     return HttpResponseBadRequest()  
