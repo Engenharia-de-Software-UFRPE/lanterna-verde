@@ -1,5 +1,3 @@
-from email.policy import default
-from tkinter import CASCADE
 from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core import validators
