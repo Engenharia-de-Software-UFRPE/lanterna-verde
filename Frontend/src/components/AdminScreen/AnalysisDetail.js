@@ -1,8 +1,10 @@
-import './AnalysisDetail.css';
-import {useState} from 'react';
+import './AnalysisDetail.css'
 import axios from 'axios';
+import React, { useState } from 'react';
 import Popup from 'reactjs-popup';
 import solicita_a_analise from './SolAnalise';
+import SolAnalise from './SolAnalise'
+import SolAnaliseMap from './SolAnaliseMap'
 
 function SolicitaAnaliseDetail(){
 
@@ -26,15 +28,15 @@ function SolicitaAnaliseDetail(){
 
     return(
         <>
-        <div className='container'>
+        <div className='containerSolAnalise'>
              
-             <h2>Detalhes da Análise</h2>
-             <div className="fw-bold">Nome da Empresa que solicitou a análise: {solicita_a_analise.empresa}</div>
-             <div className="fw-bold">ID da Empresa: {solicita_a_analise.id}</div>
-             <Popup trigger={<a href="#">Criar Análise</a>}>
+             <div className="fw-bold">Empresa: {solicita_a_analise.empresa}</div>
+             <div className="fw-bold">ID: {solicita_a_analise.id}</div>
+             <Popup trigger={<a href="#">Aceitar Análise</a>}>
+
                 <form action="http://localhost:8000/solicitacoesAnalise/detail" method='post'>
-                    <Popup trigger={<a href=""><strong>Fechar</strong></a>}/>
-                    <Popup trigger={<input type="submit" defaultValue="Submit Now" />}/>
+                    <Popup trigger={<a href="" className="closebtn"><strong>Fechar</strong></a>}/>
+                    <Popup trigger={<input type="submit" defaultValue="Submit Now" className="submitbtn"/>}/>
                 
                     <div className="input-field">
                         <input type="number" placeholder="Informe a quantidade de analistas" className="number" name = 'number'/>
