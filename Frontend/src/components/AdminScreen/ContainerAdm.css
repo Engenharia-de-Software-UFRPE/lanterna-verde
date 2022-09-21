@@ -46,7 +46,7 @@
 #nameAdmArea{
     box-sizing: border-box;
     width: 180px;
-    height: 20px;
+    height: 0px;
     border-radius: 20px;
     align-self: center;
     text-align: center;
@@ -54,6 +54,21 @@
     margin-bottom: 40px;
 }
 .nameAdm{
+    font-size: 15px;
+    font-weight: normal;
+    margin:0;
+}
+
+#usernameAdmArea{
+    box-sizing: border-box;
+    width: 180px;
+    height: 20px;
+    border-radius: 20px;
+    align-self: center;
+    text-align: center;
+}
+
+.usernameAdm{
     font-size: 15px;
     font-weight: normal;
     margin:0;
