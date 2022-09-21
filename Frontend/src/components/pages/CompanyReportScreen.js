@@ -9,31 +9,15 @@ function CompanyReportScreen() {
     labels: UserData.map((data) => data.year),
     datasets: [
       {
-        label: "Dimensão 1",
-        data: UserData.map((data) => data.userGain),
+        label: "Score",
+        data: UserData.map((data) => data.score),
         backgroundColor: [
           "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
+
         ],
         borderColor: "black",
         borderWidth: 2,
       },
-      {
-        label: "Dimensão 2",
-        data: UserData.map((data) => data.userLost),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-      }
     ],
   });
 
@@ -52,7 +36,9 @@ function CompanyReportScreen() {
           <div className="Container-Graph" >
             <LineChart chartData={userData} />
           </div>
-          <div className="Report-Tips">Recomendações</div>
+          <div className="Report-Tips">
+            <p>Recomendações: </p>
+            </div>
 
 
         </div>

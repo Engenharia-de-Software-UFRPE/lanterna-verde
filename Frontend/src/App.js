@@ -14,11 +14,13 @@ import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
 import CompanyPerformanceScreen from './components/pages/CompanyPerformanceScreen';
 import CompanyProfileChangeScreen from './components/pages/CompanyProfileChangeScreen';
 import CompanyReportScreen from './components/pages/CompanyReportScreen';
+
 //Analyst
 import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScreen';
 import DataAnalyst from './components/Analyst/pages/DataAnalyst';
 import AnalysisScreen from './components/Analyst/pages/AnalysisScreen';
 import DataAnalystEdit from './components/Analyst/pages/DataAnalystEdit';
+import { Radar } from 'react-chartjs-2';
 //import AnalystRegistration from './components/Analyst/pages/AnalystRegistration';
 
 function App() {
@@ -68,6 +70,9 @@ function App() {
           <Route path='/CompanyMainScreen/Performance' element={<CompanyPerformanceScreen />} />
           <Route path='/CompanyProfileChange' element={<CompanyProfileChangeScreen />} />
           <Route path='/CompanyReport' element={<CompanyReportScreen />} />
+          
+          
+
 
           
 
