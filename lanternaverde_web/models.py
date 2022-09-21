@@ -119,10 +119,10 @@ class Analista(models.Model):
         return self.user.username
 
 class Empresa(models.Model):
-    NOPACK = 'P1'
-    MONTHLY = 'P2'
-    BIANNUAL = 'P3'
-    YEARLY = 'P4'
+    NOPACK = 'Nenhum pacote assinado'
+    MONTHLY = 'Mensal'
+    BIANNUAL = 'Semestral'
+    YEARLY = 'Anual'
 
     T1 ='Primeiro Setor'
     T2 = 'Segundo Setor'

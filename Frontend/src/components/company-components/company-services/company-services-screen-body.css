@@ -30,7 +30,7 @@
 
 .company-services-section .service{
     min-width: 300px;
-    width: 50%;
+    width: 25%;
     max-width: 450px;
     height: 500px;
     background: #EEEDED;
@@ -84,8 +84,11 @@
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 640px) {
     .company-services-section .service{
-        height: 560px;
+        height: 520px;
+    }
+    .company-services-section {
+        min-height: 1900px;
     }
 }
