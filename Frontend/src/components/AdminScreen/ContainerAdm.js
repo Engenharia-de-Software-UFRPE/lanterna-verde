@@ -10,6 +10,7 @@ import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
 import GASForm from './GASForm';
+import TableListaEmpresas from './CompanyHistory';
 
 
 function ContainerAdm() {
@@ -95,7 +96,7 @@ function ContainerAdm() {
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
         {active === "FourCard" && <GASForm analise={question}/>}
-        {active === "FiveCard" && <TableAnalysisData />}
+        {active === "FiveCard" && <TableListaEmpresas />}
       </div>
 
       <noscript>You need to enable JavaScript to run this app.</noscript>
