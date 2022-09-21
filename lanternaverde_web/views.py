@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
+import math
 
 from django.contrib.auth.hashers import check_password
 
@@ -431,7 +432,9 @@ def verificar_ranking(request):
         scoreRanking = []
         for n in range(len(reports)):
             if reports[n].company in companyRanking:
-                scoreRanking[companyRanking.index(reports[n].company)] += reports.ascore
+                index = companyRanking.index(reports[n].company)
+                scoreRanking[index] += reports.ascore
+                scoreRanking[index] = math.floor(scoreRanking[index]/2)
             else:
                 companyRanking.append(reports[n].company)
                 scoreRanking.append(reports[n].ascore)
