@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './company-profile-change.css';
 import axios from 'axios';
-import companyImage from '../../../images/testeprojeto.png';
+import companyImage from '../../../images/apple.png';
 
 const CompanyProfileChange = () => {
     const [company, setCompany] = useState({

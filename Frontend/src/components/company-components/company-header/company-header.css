@@ -241,6 +241,26 @@ header{
         width: 120%;
     }
 
+    .company-header-container .menu-buttons .btn{
+        height: 3.5em;
+        line-height: 2.7em;
+    }
+
+    .company-header-container .company-logged-in::after{
+        top: 180px;
+    }
+
+    .company-header-container .company-logged-in{
+        padding: 30px 20px;
+        margin: 45px 10px 15px 10px;
+        width: 300px;
+        border-radius: 25px;
+        display: flex;
+        box-sizing: border-box;
+        flex-direction:row;
+        gap: 20px;
+    }
+
 }
 
 @media screen and (max-width:750px) {
