@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import json
 from django.http import HttpResponse, HttpResponseBadRequest
 
