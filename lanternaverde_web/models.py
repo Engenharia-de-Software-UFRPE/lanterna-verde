@@ -211,7 +211,7 @@ class SolicitacaoReanalise(models.Model):
 
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
-    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE, default= 1)
     score = models.FloatField(default=0)
     comment = models.TextField(blank=True)
     finished = models.BooleanField(default=False)
