@@ -1,6 +1,8 @@
-import '/AnalysisDetail.css'
-import SolAnalise from './SolAnalise'
-import SolAnaliseMap from './SolAnaliseMap'
+import './AnalysisDetail.css';
+import {useState} from 'react';
+import axios from 'axios';
+import Popup from 'reactjs-popup';
+import solicita_a_analise from './SolAnalise';
 
 function SolicitaAnaliseDetail(){
 
