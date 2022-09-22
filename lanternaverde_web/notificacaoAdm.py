@@ -36,4 +36,4 @@ def notificacao_lida(request):
         notificacao.has_been_seen = True
         notificacao.save()
         return HttpResponse(status=200)
-    return HttpResponseBadRequest
+    return HttpResponseBadRequest()
