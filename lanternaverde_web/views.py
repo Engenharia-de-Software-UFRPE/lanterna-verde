@@ -425,7 +425,7 @@ def areas_pior_avaliacao(request):
 def verificar_ranking(request):
     if request.method == 'GET':
         reportSet = Relatorio.objects.all().order_by('-ascore')
-        reports.repr()
+        reportSet.repr()
         reports = list(reportSet)
         #cada empresa divide o índice com o seu score
         companyRanking =[]
@@ -438,6 +438,9 @@ def verificar_ranking(request):
             else:
                 companyRanking.append(reports[n].company)
                 scoreRanking.append(reports[n].ascore)
+
+        for n in range(len(scoreRanking)):
+            scoreRanking[n] = (scoreRanking[n]/(Relatorio.objects.filter(company=companyRanking[n]).len()))
 
         ranking_final = []
         for n in range(len(companyRanking)): ranking_final.append((companyRanking[n], scoreRanking[n]))
