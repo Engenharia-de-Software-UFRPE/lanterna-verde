@@ -16,8 +16,6 @@ def create_solicitacao(request):
     Users.
     """
     if request.method == 'POST':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden(),
         empresa = request.user.empresa
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             SolicitacaoAnalise.objects.create(empresa=empresa,
