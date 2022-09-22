@@ -48,7 +48,7 @@ def detalhar_analise(request):
     Function that detail a analysis
     """
     if request.method == 'GET':
-        analysisid = request.GET.get('analysisid')
+        analysisid = request.GET.get('analysisid')  
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
@@ -56,7 +56,7 @@ def detalhar_analise(request):
         data['company'] = EmpresaSerializer(analysis.analysis_request.empresa).data
         if hasattr(request.user, 'empresa'):
             del data['analyst']
-            if analysis.finished is False:
+            if analysis.status is not AvaliacaoAnalista.FINISHED:
                 return HttpResponse("Essa análise ainda não foi concluída ", status=403)
         ser_return = {
             'analysis': data
@@ -90,12 +90,16 @@ def atualizar_analise(request):
     if request.method == 'POST':
         post = request.POST
         data = json.loads(request.body)
+        print(data)
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
+            analysis.status = AvaliacaoAnalista.PROCESSING
             for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
+                q.justification = question['justification']
+                q.source = question['source']
                 q.save()
         analysis.save()
         return HttpResponse(status=200)
@@ -130,10 +134,10 @@ def finalizar_analise(request):
             password = data['password']
             matchcheck = check_password(password, request.user.password)
             if matchcheck:
-                analysis.finished = True
+                analysis.status = AvaliacaoAnalista.FINISHED
                 analysis.save()
                 analysis_request = analysis.analysis_request
-                if len(analysis_request.analises.filter(finished=False)) == 0:
+                if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
                     relatorio.gerar_relatorio(analysis_request)

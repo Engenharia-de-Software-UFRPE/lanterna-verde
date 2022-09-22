@@ -21,7 +21,7 @@ class AnalistaAdmin(admin.ModelAdmin):
 
 @admin.register(AvaliacaoAnalista)
 class AvaliacaoAnalistaAdmin(admin.ModelAdmin):
-    list_display = ['analyst', 'analysis_request', 'finished']
+    list_display = ['analyst', 'analysis_request', 'status']
 
 
 @admin.register(Pergunta)

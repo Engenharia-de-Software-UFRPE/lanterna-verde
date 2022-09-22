@@ -5,6 +5,7 @@ from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import check_password
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
@@ -23,6 +24,7 @@ from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
+
 
 @csrf_exempt
 @login_required
