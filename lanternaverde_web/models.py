@@ -252,3 +252,18 @@ class Relatorio(models.Model):
         verbose_name = 'Relatorio'
         verbose_name_plural = 'Relatorios'
 
+class NotificacaoAdm(models.Model):
+
+    title = models.TextField(blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    has_been_seen = models.BooleanField(default=False)
+    
+    report = models.ForeignKey(Relatorio, null=True, on_delete=models.CASCADE)
+    request = models.ForeignKey(SolicitacaoAnalise, null=True, on_delete=models.CASCADE)
+
+    receiver = models.ForeignKey(Administrador, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'NotificacaoAdm'
+        verbose_name_plural = 'NotificacoesAdm'
