@@ -1,4 +1,6 @@
 from django.urls import path
+
+from lanternaverde_web.notificacaoAdm import notificacao_lida
 from . import views
 
 urlpatterns = [
@@ -44,5 +46,9 @@ urlpatterns = [
     path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),
-    path('relatorio/comment', views.comment_relatorio, name='comment_relatorio')
+    path('relatorio/comment', views.comment_relatorio, name='comment_relatorio'),
+
+    path('notificacoes', views.listar_notificacoesAdm, name='listar_norificacoes'),
+    path('notificacoes/read', views.notificacao_lida, name='notificacao_lida')
+
 ]

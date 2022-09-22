@@ -5,10 +5,12 @@ from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import check_password
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
+import lanternaverde_web.notificacaoAdm as notificacaoAdm
 
 from django.contrib.auth.hashers import check_password
 
@@ -23,6 +25,7 @@ from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
+
 
 @csrf_exempt
 @login_required
@@ -494,3 +497,15 @@ def get_ranking_empresa(request):
 @login_required
 def finalizar_analise(request):
     return avalAnalista.finalizar_analise(request)
+
+@csrf_exempt
+@login_required(login_url='/')
+@administrador_required
+def listar_notificacoesAdm(request):
+    return notificacaoAdm.listar_notificacoesAdm(request)
+
+@csrf_exempt
+@login_required(login_url='/')
+@administrador_required
+def notificacao_lida(request):
+    return notificacaoAdm.notificacao_lida(request)

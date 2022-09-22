@@ -13,6 +13,46 @@
     text-align: center;
 }
 
+.question-and-answer {
+  
+}
+
+.finish_him {
+  position:absolute;
+  justify-content: center;
+  align-items: center;
+  left: 50vh;
+  width: 20vw;
+  height: 10vw;
+  background-color: #21f33d;
+  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+.inp-pass {
+
+}
+
+.finish-Buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.example-warper {
+  width: 100%;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border: 1px #cfcece dashed;
+}
+
+
+
 .makeAnalysisButton{
   background-color: #21f33d;
   border: none;
@@ -30,7 +70,25 @@
   resize: none;
 }
 
- .btn-save{
+.sourceArea {
+  width: 100%;
+  height: 10vh;
+  border: 3px solid;
+  border-radius: 10px;
+  border-color: rgb(56, 57, 58);
+  resize: none;
+}
+
+.justificationArea {
+  width: 100%;
+  height: 20vh;
+  border: 3px solid;
+  border-radius: 10px;
+  border-color: rgb(56, 57, 58);
+  resize: none;
+}
+
+ .btns{
   margin-top: 20px;
   background-color: rgb(56, 57, 58);
   border-radius: 5px;
