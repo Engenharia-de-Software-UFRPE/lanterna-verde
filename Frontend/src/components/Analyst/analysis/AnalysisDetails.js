@@ -6,7 +6,6 @@ import Score from './Score';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
-import { useAlert } from "react-alert";
 import { Navigate } from 'react-router-dom';
 
 
