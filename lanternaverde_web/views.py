@@ -5,7 +5,6 @@ from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
 from django.contrib.auth.hashers import check_password
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
