@@ -23,7 +23,8 @@ def criar_notificacaoAdm_solicitacao(solicitacao_request):
 
 def listar_notificacoesAdm(request):
     if request.method == 'GET':
-        notificacoesAdm = NotificacoesAdmSerializer(NotificacaoAdm.objects.all(), many=True)
+        destinatario = Administrador.objects.get(user=request.user)
+        notificacoesAdm = NotificacoesAdmSerializer(NotificacaoAdm.objects.filter(receiver=destinatario), many=True)
         ser_return = {'notificacoesAdm': notificacoesAdm.data}
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
