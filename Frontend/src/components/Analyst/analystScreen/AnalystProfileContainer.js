@@ -6,10 +6,11 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import AnalysisMap from "../analysis/AnalysisMap.js";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom';
 
 function AnalystProfileContainer() {
 
-
+  const navigate = useNavigate();
   const [analysis,setAnalysis] = useState(['placeholder']);
 
     //[
@@ -34,11 +35,15 @@ function AnalystProfileContainer() {
   async function listAnalysis() {
     let response = await axios.get(
       "http://localhost:8000/analise",
-      { withCredentials: true }
+      { withCredentials: true },
     )
     .then(response => response)
     setAnalysis(response.data.Analise)
 
+
+    // if (response.status !== 201) {
+    //   navigate("/")
+    // }
     
   }
   console.log(analysis);
@@ -52,6 +57,7 @@ function AnalystProfileContainer() {
 
   
 
+  console.log(analysis)
   return (
     <>
       
@@ -74,7 +80,20 @@ function AnalystProfileContainer() {
                 {/* {analysis.map((item) => (
                   <li>ola</li>
                 ))} */}
-                <AnalysisMap analises ={analysis} boolean = {false} />
+                <AnalysisMap analises ={analysis} boolean =  {0} />
+              </ListGroup>
+            </Col>
+            <Col>
+              <ListGroup as="ol" numbered>
+                <Row className="auto">
+                  <Col md="auto">
+                    <h4>Em Andamento</h4>
+                  </Col>
+                </Row>
+                {/* {analysis.map((item) => (
+                  <li>ola</li>
+                ))} */}
+                <AnalysisMap analises ={analysis} boolean =  {1} />
               </ListGroup>
             </Col>
             <Col>
@@ -84,7 +103,7 @@ function AnalystProfileContainer() {
                     <h4>Analises Finalizadas</h4>
                   </Col>
                 </Row>
-                <AnalysisMap analises={analysis} boolean ={true}/>
+                <AnalysisMap analises={analysis} boolean ={2}/>
               </ListGroup>
             </Col>
           </Row>
