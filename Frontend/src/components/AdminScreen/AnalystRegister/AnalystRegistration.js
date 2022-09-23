@@ -32,7 +32,7 @@ function AnalystRegistration() {
         })
         .catch(function (error) {
             if(error.response.data){
-                alert("Erro");
+                alert("Analista já foi cadastrado.");
             }
         })
     };
@@ -86,6 +86,7 @@ function AnalystRegistration() {
                         (e) => {
                             e.preventDefault();
                             analystRegister(analyst.username, analyst.first_name, analyst.last_name, analyst.email, analyst.cpf, analyst.specialty, analyst.password);
+                           
                     }}/>
                 </div>
                 </form>
