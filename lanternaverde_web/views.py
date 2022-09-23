@@ -29,17 +29,17 @@ def index(request):
 @administrador_required
 def cadastro_analista(request):
     if request.method == 'POST':
-        data = request.POST
+        data = json.loads(request.body)
         try:
-            usuario = Usuario.objects.create_user(username=data.get('username'),
-                                                    email=data.get('email'),
-                                                    password=data.get('password'),
-                                                    first_name=data.get('first_name'),
-                                                    last_name=data.get('last_name')
+            usuario = Usuario.objects.create_user(username=data['username'],
+                                                    email=data['email'],
+                                                    password=data['password'],
+                                                    first_name=data['first_name'],
+                                                    last_name=data['last_name']
                                                     )
             usuario.save()
-            analista = Analista.objects.create(cpf=data.get('cpf'),
-                                                specialty=data.get('specialty'),
+            analista = Analista.objects.create(cpf=data['cpf'],
+                                                specialty=data['specialty'],
                                                 user=usuario
                                                 )
             analista.save()
