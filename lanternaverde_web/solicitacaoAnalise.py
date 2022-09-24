@@ -1,7 +1,8 @@
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.utils import timezone
 
+from lanternaverde_web import notificacaoAdm
 from lanternaverde_web.serializers import SolicitacoesAnaliseSerializer as serializer
 from lanternaverde_web.models import SolicitacaoAnalise
 from lanternaverde_web.utils.jsonresponse import JSONResponse
@@ -15,18 +16,13 @@ def create_solicitacao(request):
     This function restricts who can create new Analysis requirement to Company
     Users.
     """
-    if request.method == 'GET':
-        if not hasattr(request.user, 'empresa'):
-            return HttpResponseForbidden()
+    if request.method == 'POST':
         empresa = request.user.empresa
-        try:
-            #pylint: disable=E1101
-            SolicitacaoAnalise.objects.create(empresa=empresa,
-                                              date=timezone.now())
+        if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
+            solicitacao = SolicitacaoAnalise.objects.create(empresa=empresa, date=timezone.now())
+            notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao)
             return HttpResponse(status=200)
-        except IntegrityError:
-            return HttpResponse("Já existe uma solicitação em andamento "
-                                "para essa empresa", status=409)
+        return HttpResponse("Há análises em andamento para essa empresa", status=422)
     return HttpResponseBadRequest()
 
 def get_solicitacoes(request):
@@ -56,3 +52,4 @@ def get_analysis(request):
         except IntegrityError:
             return HttpResponseNotFound()
     return HttpResponseBadRequest
+     

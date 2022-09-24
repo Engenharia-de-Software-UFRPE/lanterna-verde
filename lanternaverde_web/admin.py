@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pergunta, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, Empresa, SolicitacaoAnalise
+from .models import *
 
 # Register your models here.
 
@@ -20,7 +20,7 @@ class AnalistaAdmin(admin.ModelAdmin):
 
 @admin.register(AvaliacaoAnalista)
 class AvaliacaoAnalistaAdmin(admin.ModelAdmin):
-    list_display = ['analyst', 'company', 'score', 'finished']
+    list_display = ['analyst', 'analysis_request', 'status']
 
 
 @admin.register(Pergunta)
@@ -39,4 +39,12 @@ class EmpresaAdmin(admin.ModelAdmin):
 
 @admin.register(SolicitacaoAnalise)
 class SolicitacaoAnaliseAdmin(admin.ModelAdmin):
-    list_display = ['empresa', 'date']
+    list_display = ['empresa', 'date', 'status']
+
+@admin.register(Relatorio)
+class RelatorioAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(NotificacaoAdm)
+class NotificacaoAdmAdmin(admin.ModelAdmin):
+    pass
