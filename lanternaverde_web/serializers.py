@@ -64,9 +64,13 @@ class QuestaoSerializer(serializers.ModelSerializer):
         model = Questao
         fields = '__all__'
 
-
 class EmpresaSerializer(serializers.ModelSerializer):
+    """
+    Serialization for Empresa Model
+    """
+    
     class Meta:
+        """Empresa serialization metadata"""
         model = Empresa
         fields = '__all__'
 
@@ -82,16 +86,6 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
         model = AvaliacaoAnalista
         fields = '__all__'
         related_object = 'questao'
-
-class EmpresaSerializer(serializers.ModelSerializer):
-    """
-    Serialization for Empresa Model
-    """
-    
-    class Meta:
-        """Empresa serialization metadata"""
-        model = Empresa
-        fields = '__all__'
 
 class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
     """

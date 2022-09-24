@@ -443,8 +443,7 @@ def get_solicitacao_empresa(request, pk):
 def get_empresa(request, id):
     if request.method == 'GET':
         empresas = EmpresaSerializer(
-            Empresa.objects.filter(id=id),
-            many=True
+            Empresa.objects.get(id=id)
         )
         ser_return = {
             'Empresa': empresas.data

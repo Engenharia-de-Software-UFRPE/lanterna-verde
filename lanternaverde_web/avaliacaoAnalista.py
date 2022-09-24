@@ -97,12 +97,10 @@ def listar_analises_empresa(request):
             for analises_key,analises_value in analises.data[i].items():
                 if(analises_key == 'analysis_request'):
                     relatorio = RelatorioSerializer(
-                                Relatorio.objects.filter(request__id = analises_value),
-                                many=True,
-                                context={'request': request}
+                                Relatorio.objects.get(request__id = analises_value)
                     )
                     if len(relatorio.data)>0:
-                        relatorios.append(relatorio.data[0])
+                        relatorios.append(relatorio.data)
                         
         ser_return = {
             'Analises': analises.data,
@@ -128,12 +126,10 @@ def listar_analises_passiveis_reanalise(request):
             for analises_key,analises_value in analises.data[i].items():
                 if(analises_key == 'analysis_request'):
                     relatorio = RelatorioSerializer(
-                                Relatorio.objects.filter(request__id = analises_value),
-                                many=True,
-                                context={'request': request}
+                                Relatorio.objects.get(request__id = analises_value)
                     )
                     if len(relatorio.data)>0:
-                        relatorios.append(relatorio.data[0])
+                        relatorios.append(relatorio.data)
                         
         ser_return = {
             'Analises': analises.data,

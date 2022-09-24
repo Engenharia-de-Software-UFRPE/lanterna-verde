@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './company-header.css';
 import logo from '../../../images/logo-img.png';
@@ -17,6 +18,8 @@ const CompanyHeader = ({newButton}) =>{
       type: "",
     });
     const [ranking, setRanking] = useState([])
+    const [logout,setLogout] = useState(false);
+    const navigate = useNavigate();
 
     useEffect( () => {
       getLoggedCompany()
@@ -48,6 +51,17 @@ const CompanyHeader = ({newButton}) =>{
           alert("Erro")
       })
     };
+
+    const handleLogout = async (username, password) => {
+      axios.defaults.withCredentials = true;
+      await axios.get("http://localhost:8000/logout",{ withCredentials: true })
+      .then((res) => {
+        console.log(res);
+        navigate('/');
+        localStorage.clear();
+        setLogout(true);
+      });
+    }
 
     const setRankingEmpresa = () =>{
       let rankingEmpresa = 0
@@ -99,7 +113,7 @@ const CompanyHeader = ({newButton}) =>{
                   <li><a className="btn" href="#">Receber recomendações</a></li>
                   <li><a className="btn" href="#">Histórico de avaliações</a></li>
                   <li>{newButton}</li>
-                  <li><a className="btn exit" href="/">Sair</a></li>
+                  <li><a className="btn exit" onClick={handleLogout}>Sair</a></li>
               </ul>
           </div>
         </div>
