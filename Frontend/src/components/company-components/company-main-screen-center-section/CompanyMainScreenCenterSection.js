@@ -1,7 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './company-main-screen-center-section.css';
+import axios from 'axios';
 
 const CompanyMainScreenCenterSection = () =>{
+  const [ranking, setRanking] = useState([])
+
+  useEffect( () => {
+    getRanking()
+  }, []);
+
+  const getRanking = async () => {
+    await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
+    .then(res => {
+        let empresas = res.data['Empresas'];
+        /*
+        if(empresas.length == 1){
+
+        }else if(empresas.length == 2){
+          
+        }else{
+
+        }
+        */
+
+        console.log(empresas)
+        setRanking(empresas)
+    })
+    .catch( error=>{
+        alert("Erro")
+    })
+  }
     return(
         <>
         <section class="company-main-screen-center-section">
@@ -27,21 +55,13 @@ const CompanyMainScreenCenterSection = () =>{
                 </thead>
                 
                 <tbody class="table-body">
-                  <tr>
-                    <td>1º</td>
-                    <td>Empresa 1</td>
-                    <td>9,7</td>
-                  </tr>
-                  <tr>
-                    <td>2º</td>
-                    <td>Empresa 2</td>
-                    <td>9,5</td>
-                  </tr>
-                  <tr>
-                    <td>3º</td>
-                    <td>Empresa 3</td>
-                    <td>9,0</td>
-                  </tr>
+                  {ranking.map((companyData, index) => (
+                    <tr>
+                      <td>{index+1}º</td>
+                      <td>{companyData.tradeName}</td>
+                      <td>{companyData.score}</td>
+                    </tr>
+                  ))}
                 </tbody>
 
               </table>

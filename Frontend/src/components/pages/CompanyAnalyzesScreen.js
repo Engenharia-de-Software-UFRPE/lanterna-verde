@@ -1,7 +1,6 @@
 import React from 'react';
 import CompanyHeader from '../company-components/company-header/CompanyHeader';
-import CompanyAnalyzesFiltersSection from '../company-components/company-analyzes-filters-section/CompanyAnalyzesFiltersSection';
-import CompanyAnalyzes from '../company-components/company-analyzes/CompanyAnalyzes';
+import CompanyAnalyzesSection from '../company-components/company-analyzes/CompanyAnalyzesSection';
 
 const CompanyAnalyzesScreen = () =>{
     return (
@@ -10,8 +9,7 @@ const CompanyAnalyzesScreen = () =>{
                 <CompanyHeader/> 
             </header>
             <main>
-                <CompanyAnalyzesFiltersSection/>
-                <CompanyAnalyzes/>
+                <CompanyAnalyzesSection/>
             </main>
         </>
 

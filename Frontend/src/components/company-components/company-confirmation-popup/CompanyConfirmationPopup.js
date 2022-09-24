@@ -19,7 +19,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     };
 
     const requestAnalysis = async () => {
-        await axios.get('http://localhost:8000/solicitacoesAnalise/add', { withCredentials: true })
+        await axios.post('http://localhost:8000/solicitacoesAnalise/add','',{ withCredentials: true })
         .then(res => {
             let data = res.data;
             console.log(data)

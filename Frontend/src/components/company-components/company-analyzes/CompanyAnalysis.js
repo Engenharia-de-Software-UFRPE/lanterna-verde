@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './company-analyzes.css'
-import axios from 'axios';
 import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 import DecrescentVector from '../../../images/decrescent-vector.png';
 import CrescentVector from '../../../images/crescent-vector.png';
@@ -8,47 +7,7 @@ import GrayStar from '../../../images/gray-star.png';
 import GreenStar from '../../../images/green-star.png';
 import HalfGreenStar from '../../../images/half-green-star.png';
 
-const CompanyAnalyzes = () =>{
-    const [analysis, setAnalysis] = useState([]);
-
-    useEffect(() => {
-        sendGetRequest()
-    }, [])
-
-    const getDate = (date) => {
-        return new Date(date).toLocaleDateString()
-    }
-
-    const sendGetRequest = async () => {
-        await axios.get('http://localhost:8000/empresa/analises', { withCredentials: true })
-        .then(res => {
-            setAnalysis(res.data['Analises'])
-        })
-        .catch( error=>{
-            alert("Erro")
-        })
-    }
-
-    return(
-        <section className="company-analyzes-section">
-
-            <h2 className='section-title'>Análises</h2>
-
-            <div className='analysis-container'>
-                {analysis.map((analysisData, index) => (
-                    <Analysis analysisDate={getDate(analysisData.update_date)} analysisId={analysisData.id}
-                    analysisScore={analysisData.score} previousAnalysisScore={index===(analysis.length-1) ? 0 : analysis[index+1].score} />
-                ))}
-            </div>
-                
-        </section>
-
-    );
-}
-export default CompanyAnalyzes;
-
-
-const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore}) =>{
+const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore, analyzesScreen}) =>{
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
@@ -57,6 +16,7 @@ const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScor
     const [stars, setStars] = useState([]);
     const [vectorValue, setVectorValue] = useState("")
     const [vectorValuePositive, setVectorValuePositive] = useState(true)
+    const [isAnalyzesScreen, setIsAnalyzesScreen] = useState(false)
 
     useEffect(() => {
         defineVectorValue(analysisScore, previousAnalysisScore)
@@ -70,6 +30,7 @@ const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScor
             }
         }
         setStars(array);
+        setIsAnalyzesScreen(analyzesScreen)
     }, [])
 
     function defineVectorValue(analysisScore, previousAnalysisScore) {
@@ -89,8 +50,6 @@ const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScor
 
         }
     }
-
-
     return(
         <>
             <CompanyConfirmationPopup open= {popup} analysisId={analysisId} isAnalysis={false} onClose={()=>setPopup(false)}/>
@@ -123,8 +82,10 @@ const Analysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScor
                     <span className={vectorValuePositive ? "vector-value positive" : "vector-value negative"}>{vectorValue}</span>
                     <img className="vector" src={vectorValuePositive ? CrescentVector : DecrescentVector} alt={vectorValuePositive ? "vetor crescente" : "vetor decrescente"}/>
                 </div>
-                <button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button>
+                {isAnalyzesScreen ? <button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button> : <></>}
             </div>
         </>
     )
 }
+    export default CompanyAnalysis;
+

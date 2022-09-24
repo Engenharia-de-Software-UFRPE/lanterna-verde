@@ -57,8 +57,7 @@ const CompanyProfileChange = () => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
 
-        if (name==='stateRegistration' ||
-        name==='cnpj' || name ==='phoneNumber'){
+        if (name ==='phoneNumber'){
             const result = event.target.value.replace(/[^0-9]/, '');
             setCompany({
                 ...company,
@@ -111,9 +110,9 @@ const CompanyProfileChange = () => {
 
                         <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100} onChange={handleInputChange} value={company.corporateName}/>
 
-                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} onChange={handleInputChange} value={company.stateRegistration}/>
+                        <input className="input fixed" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} value={company.stateRegistration}/>
 
-                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} onChange={handleInputChange} value={company.cnpj}/>
+                        <input className="input fixed" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} value={company.cnpj}/>
 
                         <select className='select selected' name="type" onChange={handleInputChange} value={company.type}>
                             <option className="select-option" value="" disabled selected>Selecione o tipo</option>

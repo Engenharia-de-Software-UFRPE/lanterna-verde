@@ -7,26 +7,57 @@ import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfi
 
 const CompanyHeader = ({newButton}) =>{
     const [active, setMode] = useState(false)
-    const [rankingEmpresa, setRankingEmpresa] = useState(0)
     const toggleMode = () =>{
       setMode(!active)
     }
     const [openPopup, setOpenPopup] = useState(false);
+    const [company, setCompany] = useState({
+      tradeName: "",
+      cnpj: "",
+      type: "",
+    });
+    const [ranking, setRanking] = useState([])
 
-    const sendGetRequest = async () => {
+    useEffect( () => {
+      getLoggedCompany()
+      getRanking()
+    }, []);
+
+    const getRanking = async () => {
       await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
       .then(res => {
-          let data = res.data;
-          setRankingEmpresa(data['Ranking'])                     
+          let empresas = res.data['Empresas'];
+          setRanking(empresas)
       })
       .catch( error=>{
           alert("Erro")
       })
     }
 
-    useEffect( () => {
-      sendGetRequest();
-    }, []);
+    const getLoggedCompany = async () => {
+      await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
+      .then(res => {
+          let data = res.data;           
+            setCompany({
+                tradeName: data.Empresa.tradeName,
+                cnpj: data.Empresa.cnpj,
+                type: data.Empresa.tipo,
+            })        
+      })
+      .catch( error=>{
+          alert("Erro")
+      })
+    };
+
+    const setRankingEmpresa = () =>{
+      let rankingEmpresa = 0
+      for(let i = 0; i< ranking.length;i++){
+        if (ranking[i].cnpj === company.cnpj){
+          rankingEmpresa = i+1
+        }
+      }
+      return rankingEmpresa
+    }
 
     return(
       <div className="company-header-container">
@@ -54,9 +85,9 @@ const CompanyHeader = ({newButton}) =>{
                 <img className="company-img" src={companyPicture} alt="Foto de perfil da empresa logada"/>
               </div>
               <div className="company-info">
-                  <h3 className="company-name">Apple</h3>
-                  <h4 className="company-position">{rankingEmpresa}ª posição no ranking</h4>
-                  <h4 className="company-category">Tecnologia</h4>
+                  <h3 className="company-name">{company.tradeName}</h3>
+                  <h4 className="company-position">{setRankingEmpresa()}ª posição no ranking</h4>
+                  <h4 className="company-type">{company.type}</h4>
               </div>
           </div>
 
@@ -71,12 +102,8 @@ const CompanyHeader = ({newButton}) =>{
                   <li><a className="btn exit" href="/">Sair</a></li>
               </ul>
           </div>
-
         </div>
-        
-
       </div>
-
     );
 }
 

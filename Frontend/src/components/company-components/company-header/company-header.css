@@ -132,25 +132,14 @@ header{
 }
 
 .company-header-container .company-logged-in{
-    padding: 30px 20px;
-    margin: 55px 10px 30px 10px;
+    padding: 30px 20px 25px 15px;
+    margin: 55px 10px 10px 10px;
     width: 300px;
-    border-radius: 25px;
+    border-bottom: 2px solid #fff;
     display: flex;
     box-sizing: border-box;
     flex-direction:row;
     gap: 20px;
-}
-
-.company-header-container .company-logged-in::after{
-    top: 210px;
-    left: 6.2%;
-    content: '';
-    position: absolute;
-    width: 280px;
-    height: 2px;
-    border-radius: 25px;
-    background: #fff;
 }
 
 .company-header-container .company-img{
@@ -171,9 +160,10 @@ header{
     margin: 0;
     margin-bottom: 5px;
     color: #fff;
+    width: 180px;
 }
 
-.company-header-container .company-category, .company-position{
+.company-header-container .company-type, .company-position{
     font-weight: 600;
     font-size: 0.9em;
     margin: 0;
@@ -200,8 +190,8 @@ header{
     box-sizing: border-box;
     position: relative;
     width: 280px;
-    height: 4em;
-    line-height: 3.3em;
+    height: 3.2em;
+    line-height: 2.4em;
     text-align: center;
     border-radius: 0px;
     margin-top: 0px;
@@ -214,7 +204,7 @@ header{
 }
 
 .company-header-container .menu-buttons .btn.exit{
-    margin-top: 40px;
+    margin-top: 31px;
     background-color: #dd3535;
     border: 0px;
 }
@@ -225,11 +215,11 @@ header{
 }
 
 .company-header-container .menu-buttons .btn.exit::before{
-    top: -25px;
-    left: 0;
+    top: -20px;
+    left: -15px;
     content: '';
     position: absolute;
-    width: 280px;
+    width: 300px;
     height: 2px;
     border-radius: 25px;
     background: #fff;
@@ -246,19 +236,9 @@ header{
         line-height: 2.7em;
     }
 
-    .company-header-container .company-logged-in::after{
-        top: 180px;
-    }
-
     .company-header-container .company-logged-in{
-        padding: 30px 20px;
-        margin: 45px 10px 15px 10px;
-        width: 300px;
-        border-radius: 25px;
-        display: flex;
-        box-sizing: border-box;
-        flex-direction:row;
-        gap: 20px;
+        margin-top:27px;
+        border-bottom: 2px solid #fff;
     }
 
 }
@@ -329,7 +309,7 @@ header{
         font-size: 1.4em;
     }
     
-    .company-header-container .company-category, .company-position{
+    .company-header-container .company-type, .company-position{
         font-size: 1em;
     }
 

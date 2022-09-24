@@ -12,6 +12,8 @@ import lanternaverde_web.relatorio as relatorio
 
 from django.contrib.auth.hashers import check_password
 
+from datetime import datetime
+
 
 #pylint: disable=W0401
 from .models import *
@@ -115,7 +117,6 @@ def cadastro_empresa(request):
         usuario = Usuario.objects.create_user(username=data['username'], 
                                             email=data['email'], 
                                             password=data['password'])        
-        usuario.save() 
         empresa = Empresa.objects.create(tradeName= data['tradeName'],
                                         corporateName= data['corporateName'],
                                         stateRegistration= data['stateRegistration'],
@@ -125,7 +126,6 @@ def cadastro_empresa(request):
                                         user=usuario)
         empresa.save()
 
-        print(data) #debug
         return HttpResponse(status=201)
     return HttpResponseBadRequest()
 
@@ -147,7 +147,6 @@ def alterar_empresa(request):
         empresa = Empresa.objects.get(user=usuario.id)
         empresa.tradeName = data['tradeName']
         empresa.corporateName = data['corporateName']
-        empresa.stateRegistration = data['stateRegistration']
         empresa.tipo = data['type']
         empresa.phoneNumber = data['phoneNumber']
         empresa.user = usuario
@@ -155,19 +154,6 @@ def alterar_empresa(request):
 
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
-
-def get_empresas(request):
-    if request.method == 'GET':
-        empresas = EmpresaSerializer(
-            Empresa.objects.all(),
-            many=True
-        )
-        ser_return = {
-            'Empresas': empresas.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
 
 @login_required(login_url='/')
 def get_logged_usuario(request):
@@ -218,7 +204,8 @@ def get_logged_analista(request):
         return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
-@login_required(login_url='/')
+@login_required
+@empresa_required
 def get_logged_empresa(request):
     """
     Function that creates a response to a GET request for a logged Empresa
@@ -398,6 +385,12 @@ def alterar_senha(request):
 
 @csrf_exempt
 @login_required
+def finalizar_analise(request):
+    return avalAnalista.finalizar_analise(request)
+
+@csrf_exempt
+@login_required
+@empresa_required
 def assinar_pacote(request):
     if(request.method == 'PUT'):
         data = json.loads(request.body)
@@ -410,6 +403,7 @@ def assinar_pacote(request):
 
 @csrf_exempt
 @login_required
+@empresa_required
 def solicitar_reanalise(request, pk):
     if request.method == 'PUT':
         data = json.loads(request.body)
@@ -424,8 +418,7 @@ def solicitar_reanalise(request, pk):
 @login_required
 def get_analise_empresa(request, pk):
     if request.method == 'GET':
-        usuario = request.user
-        empresa = Empresa.objects.get(user=usuario.id)
+        empresa = request.user.empresa
 
         analise = AvaliacaoAnalistaSerializer(
             AvaliacaoAnalista.objects.filter(id=pk, company=empresa.id),
@@ -452,45 +445,98 @@ def get_empresa(request, id):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
-def get_ranking_empresa(request):
+
+
+def get_ranking(request):
     if request.method == 'GET':
+        empresas = Empresa.objects.all()
+        for i in range(len(empresas)):
+            relatoriosEmpresa = Relatorio.objects.filter(request__empresa__id = empresas[i].id,
+                                                        request__status=3)
+            somaAscores = 0
+            for j in range(len(relatoriosEmpresa)):
+                somaAscores += relatoriosEmpresa[j].ascore
+
+            empresa = Empresa.objects.get(id=empresas[i].id)
+            
+            if somaAscores>0:
+                empresa.score = somaAscores/len(relatoriosEmpresa)
+                print('maior que zero')
+            else :
+                empresa.score = 0
+                print('zero')
+
+            empresa.save()
+
         empresas = EmpresaSerializer(
             Empresa.objects.all().order_by('-score'),
             many=True
         )
-
-        def set_score_empresas(empresa):
-            analises = AvaliacaoAnalistaSerializer(
-                AvaliacaoAnalista.objects.filter(company=empresa.id, finished=True).order_by('-update_date'),
-                many=True,
-                context={'request': None}
-            )
-            soma_scores = 0
-            for i in range(len(analises.data)):
-                for key,value in analises.data[i].items():
-                    if key == 'score':
-                        soma_scores+= value
-                empresa.score = soma_scores/(len(analises.data))
-                empresa.save()
-
-        usuario = request.user
-        company = Empresa.objects.get(user=usuario.id)
-
-        for i in range(len(empresas.data)):
-            for key,value in empresas.data[i].items():
-                if key == 'id':
-                    if value == company.id:
-                        ser_return = {
-                            'Ranking': (i+1)
-                        }
-
-                    empresa = Empresa.objects.get(id=value)
-                    set_score_empresas(empresa)
-                    
+                       
+        ser_return = {
+            'Empresas': empresas.data
+        }
         return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest() 
+    return HttpResponseBadRequest()
 
-@csrf_exempt
+def compilar_relatorio_geral(request):
+    if request.method == 'POST':
+        data = request.POST
+        report = Relatorio.objects.filter(company=data['company'])
+        initialDate = data['init date']
+        finalDate = data['final date']
+
+        if initialDate and finalDate:
+            report = report.objects.filter(dat__gte=datetime.date(initialDate), dat__lte=datetime.date(finalDate))
+            report.objects.scores.repr()
+            ser_report = RelatorioSerializer(report, many=True)
+        else:
+            ser_report = RelatorioSerializer(report, many=True)
+
+        scoresD1 = [scoreD1 for scoreD1 in ser_report.scoreD1]
+        scoresD2 = [scoreD2 for scoreD2 in ser_report.scoreD2]
+        scoresD3 = [scoreD3 for scoreD3 in ser_report.scoreD3]
+        scoresD4 = [scoreD4 for scoreD4 in ser_report.scoreD4]
+        ascores = [ascore for ascore in ser_report.ascore]
+
+        mediumD1 = sum(scoresD1)/len(scoresD1)
+        mediumD2 = sum(scoresD2)/len(scoresD2)
+        mediumD3 = sum(scoresD3)/len(scoresD3)
+        mediumD4 = sum(scoresD4)/len(scoresD4)
+        mediumAscores = sum(ascores)/len(ascores)
+
+        relatorio_geral = {
+            'Score D1': mediumD1.data,
+            'Score D2': mediumD2.data,
+            'Score D3': mediumD3.data, 
+            'Score D4': mediumD4.data,
+            'Média geral': mediumAscores.data
+        } 
+        return JSONResponse(relatorio_geral, status=200)
+    return HttpResponseBadRequest()
+
 @login_required
-def finalizar_analise(request):
-    return avalAnalista.finalizar_analise(request)
+def areas_pior_avaliacao(request):
+    if request.method == 'GET':
+        data = json.loads(request.body)
+        relatorio = json.loads(compilar_relatorio_geral(request))
+
+        scores = [relatorio['Score D1'],
+                    relatorio['Score D2'],
+                    relatorio['Score D3'],
+                    relatorio['Score D4']]
+        scoreSort = scores.sort()
+        piorScore = [scoreSort[0], scoreSort[1]]
+
+        resultado = []
+        [resultado.append("D" + str(i+1) + " = " + str(piorScore[j]))
+            for i in range(len(scores))
+                for j in range(len(piorScore))
+                    if piorScore[j] == scores[i]
+        ]
+
+        resultado_return = {
+            'Primeira área de pior avaliação' : resultado[0].data,
+            'Segunda área de pior avaliação' : resultado[1].data,
+        }
+        return JSONResponse(resultado_return, status=200)

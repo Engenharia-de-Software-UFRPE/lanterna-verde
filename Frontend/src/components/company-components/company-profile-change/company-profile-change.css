@@ -69,6 +69,11 @@
     border-radius: 5px;
     align-items: center;
 }
+
+.company-profile-change .form-profile-change .input.fixed{
+    color: gray;
+}
+
 .company-profile-change .confirm{
     max-width:450px;
     width: 80%;
