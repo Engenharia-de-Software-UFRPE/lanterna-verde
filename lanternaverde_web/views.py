@@ -5,10 +5,12 @@ from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import check_password
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
+import lanternaverde_web.notificacaoAdm as notificacaoAdm
 
 from django.contrib.auth.hashers import check_password
 
@@ -25,6 +27,7 @@ from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
+
 
 @csrf_exempt
 @login_required
@@ -204,6 +207,7 @@ def get_logged_analista(request):
         return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
+@csrf_exempt
 @login_required
 @empresa_required
 def get_logged_empresa(request):
@@ -293,11 +297,15 @@ def listar_analises(request):
     """
     return avalAnalista.listar_analises(request)
 
+@csrf_exempt
 @login_required
+@empresa_required
 def listar_analises_empresa(request):
     return avalAnalista.listar_analises_empresa(request)
 
+@csrf_exempt
 @login_required
+@empresa_required
 def listar_analises_passiveis_reanalise(request):
     return avalAnalista.listar_analises_passiveis_reanalise(request)
 
@@ -407,26 +415,26 @@ def assinar_pacote(request):
 def solicitar_reanalise(request, pk):
     if request.method == 'PUT':
         data = json.loads(request.body)
-        analise = AvaliacaoAnalista.objects.get(pk=pk)
-        analise.reanalyzed = data['reanalyzed']
-        analise.save()
-
+        solicitacao = SolicitacaoAnalise.objects.get(analises__id = pk)
+        solicitacao.reanalysis = False
+        solicitacao.save()
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
 @csrf_exempt
 @login_required
-def get_analise_empresa(request, pk):
+@empresa_required
+def get_solicitacao_empresa(request, pk):
     if request.method == 'GET':
         empresa = request.user.empresa
 
-        analise = AvaliacaoAnalistaSerializer(
-            AvaliacaoAnalista.objects.filter(id=pk, company=empresa.id),
-            many=True,
+        solicitacao = SolicitacoesAnaliseSerializer(
+            SolicitacaoAnalise.objects.get(empresa__id=empresa.id, analises__id = pk),
             context={'request': None}
         )
+        
         ser_return = {
-            'Analises': analise.data
+            'Solicitacao': solicitacao.data
         }
         
         return JSONResponse(ser_return, status=200)
@@ -438,14 +446,11 @@ def get_empresa(request, id):
             Empresa.objects.filter(id=id),
             many=True
         )
-
         ser_return = {
             'Empresa': empresas.data
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
-
-
 
 def get_ranking(request):
     if request.method == 'GET':
@@ -461,10 +466,8 @@ def get_ranking(request):
             
             if somaAscores>0:
                 empresa.score = somaAscores/len(relatoriosEmpresa)
-                print('maior que zero')
             else :
                 empresa.score = 0
-                print('zero')
 
             empresa.save()
 
@@ -540,3 +543,18 @@ def areas_pior_avaliacao(request):
             'Segunda área de pior avaliação' : resultado[1].data,
         }
         return JSONResponse(resultado_return, status=200)
+
+def finalizar_analise(request):
+    return avalAnalista.finalizar_analise(request)
+
+@csrf_exempt
+@login_required(login_url='/')
+@administrador_required
+def listar_notificacoesAdm(request):
+    return notificacaoAdm.listar_notificacoesAdm(request)
+
+@csrf_exempt
+@login_required(login_url='/')
+@administrador_required
+def notificacao_lida(request):
+    return notificacaoAdm.notificacao_lida(request)

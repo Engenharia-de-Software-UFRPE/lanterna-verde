@@ -193,7 +193,7 @@ class SolicitacaoAnalise(models.Model):
     professional analysis from a team of Analists. Administrators will evaluate
     each `SolicitacaoAnalise` in order to create a new Analysis.
     """
-
+    
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='solicitacoes')
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
     reanalysis = models.BooleanField(default=True)
@@ -220,10 +220,20 @@ class SolicitacaoAnalise(models.Model):
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
     comment = models.TextField(blank=True)
-    finished = models.BooleanField(default=False)
-    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises', default='')
+    
+    PENDING = 0
+    PROCESSING = 1
+    FINISHED = 2
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (PROCESSING, 'Processing'),
+        (FINISHED, 'Finished')
+    )
+    
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    
+    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
     update_date = models.DateTimeField(auto_now=True)
-    reanalyzed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
@@ -233,6 +243,9 @@ class Questao(models.Model):
     question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
     answer = models.BooleanField(default=False)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
+    
+    justification = models.TextField(blank=True)
+    source = models.TextField(blank=True)
 
     class Meta:
         """database metadata"""
@@ -254,3 +267,19 @@ class Relatorio(models.Model):
         """database metadata"""
         verbose_name = 'Relatorio'
         verbose_name_plural = 'Relatorios'
+
+class NotificacaoAdm(models.Model):
+
+    title = models.TextField(blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    has_been_seen = models.BooleanField(default=False)
+    
+    report = models.ForeignKey(Relatorio, null=True, on_delete=models.CASCADE)
+    request = models.ForeignKey(SolicitacaoAnalise, null=True, on_delete=models.CASCADE)
+
+    receiver = models.ForeignKey(Administrador, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        """database metadata"""
+        verbose_name = 'NotificacaoAdm'
+        verbose_name_plural = 'NotificacoesAdm'

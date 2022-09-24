@@ -12,14 +12,16 @@
 }
 
 .company-main-screen-center-section .greenwashing{
+    min-width: 650px;
+    width: 40%;
+    max-width: 850px;
     padding: 10px 50px;
     display: flex;
     background: #FBFBFB;
     box-shadow: 0px 4px 15px rgba(216, 210, 252, 0.64);
     border-radius: 16px;
-    align-items: center;
+    justify-content: center;
     gap: 32px;
-    max-width: 650px;
 }
 
 .company-main-screen-center-section .greenwashing .contract-services-title{
@@ -53,6 +55,8 @@
 
 .company-main-screen-center-section .ranking{
     min-width: 480px;
+    width: 40%;
+    max-width: 650px;
     padding:30px;
     background: #FBFBFB;
     box-shadow: 0px 4px 15px rgba(216, 210, 252, 0.64);
@@ -71,7 +75,6 @@
 }
 
 .company-main-screen-center-section .table{
-    height: 200px;
     background-color: var(--company-table-color);
     border-radius: 25px;
 }
@@ -82,7 +85,7 @@
 
 .company-main-screen-center-section .table .table-body td{
     font-size: 0.9em;
-    line-height: 30px;
+    line-height: 35px;
 }
 
 .company-main-screen-center-section .table .table-header th{

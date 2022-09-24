@@ -12,19 +12,16 @@ const CompanyMainScreenCenterSection = () =>{
   const getRanking = async () => {
     await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
     .then(res => {
-        let empresas = res.data['Empresas'];
-        /*
-        if(empresas.length == 1){
-
-        }else if(empresas.length == 2){
-          
+        let data = res.data['Empresas']
+        if(data.length > 3){
+          let companies = []
+          for (let i=0; i<data.length;i++){
+            companies.push(data[i])
+          }
+          setRanking(companies)
         }else{
-
+          setRanking(data)
         }
-        */
-
-        console.log(empresas)
-        setRanking(empresas)
     })
     .catch( error=>{
         alert("Erro")

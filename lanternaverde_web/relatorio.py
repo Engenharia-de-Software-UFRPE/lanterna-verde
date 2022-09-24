@@ -2,8 +2,9 @@ import json
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
+from lanternaverde_web import notificacaoAdm
 from .utils.jsonresponse import JSONResponse
-from .models import Relatorio, SolicitacaoAnalise
+from .models import Relatorio, SolicitacaoAnalise, NotificacaoAdm
 from .serializers import RelatorioSerializer, AvaliacaoAnalistaSerializer
 from .utils.countdimension import _count_dimension
 
@@ -39,8 +40,7 @@ def gerar_relatorio(analysis_request):
                          report.scoreD4)/4
 
         report.save()
-
-
+        notificacaoAdm.criar_notificacaoAdm_relatorio(report)
 
 
 def get_relatorios(request):

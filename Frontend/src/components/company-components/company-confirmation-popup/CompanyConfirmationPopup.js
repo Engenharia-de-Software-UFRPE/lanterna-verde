@@ -1,32 +1,40 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './company-confirmation-popup.css';
 
 const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     const [modal, setModal] = useState({open});
-    const [reanalyzed, setReanalyzed] = useState(true)
-    
+    const [analysisReanalyzed, setAnalysisReanalyzed] = useState(false)
+
     const requestReanalysis = async () => {
-        await axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,{reanalyzed} , { withCredentials: true })
+        await axios.get(`http://localhost:8000/empresa/analise/${analysisId}`, { withCredentials: true })
         .then(res=>{
-            console.log(res.data)
-            alert("Reanálise solicitada com sucesso")
+            let data = res.data
+            if((data['Solicitacao'].reanalysis) == true){
+                axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,{analysisReanalyzed} , { withCredentials: true })
+                .then(res=>{
+                    alert("Reanálise solicitada com sucesso")
+                })
+                .catch( error=>{
+                    alert("Erro")
+                })
+            }else alert("Já existe uma solicitação de análise em andamento")
         })
         .catch( error=>{
-            alert("Erro")
+            alert("erro")
         })
     };
 
     const requestAnalysis = async () => {
-        await axios.post('http://localhost:8000/solicitacoesAnalise/add','',{ withCredentials: true })
+        await axios.post('http://localhost:8000/solicitacoesAnalise/add', '',{ withCredentials: true })
         .then(res => {
             let data = res.data;
             console.log(data)
             alert("Análise solicitada com sucesso")
         })
         .catch( error=>{
-            alert("Erro")
+            alert("Já existe uma solicitação de análise em andamento")
         })
       };
 

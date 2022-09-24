@@ -31,7 +31,7 @@ function App() {
     const response = await axios
     .post(
       'http://localhost:8000/login',
-      { username: username, password: password}
+      { username: username, password: password},{withCredentials:true}
     )
     .then((response) => response);
     dispatch({ type: LOGIN, token: response.data.token })

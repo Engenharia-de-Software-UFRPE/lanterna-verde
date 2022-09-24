@@ -21,7 +21,7 @@ const CompanyHeader = ({newButton}) =>{
     useEffect( () => {
       getLoggedCompany()
       getRanking()
-    }, []);
+    }, [active]);
 
     const getRanking = async () => {
       await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
@@ -37,7 +37,7 @@ const CompanyHeader = ({newButton}) =>{
     const getLoggedCompany = async () => {
       await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
       .then(res => {
-          let data = res.data;           
+          let data = res.data;
             setCompany({
                 tradeName: data.Empresa.tradeName,
                 cnpj: data.Empresa.cnpj,
