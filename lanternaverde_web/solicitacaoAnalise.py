@@ -18,8 +18,6 @@ def create_solicitacao(request):
     """
     if request.method == 'POST':
         empresa = request.user.empresa
-        print(request.user.username)
-        print(request.user.empresa.cnpj)
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             solicitacao = SolicitacaoAnalise.objects.create(empresa=empresa, date=timezone.now())
             notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao)

@@ -127,6 +127,7 @@ def cadastro_empresa(request):
                                         tipo= data['type'],
                                         phoneNumber= data['phoneNumber'],
                                         user=usuario)
+        usuario.save()
         empresa.save()
 
         return HttpResponse(status=201)
@@ -542,9 +543,6 @@ def areas_pior_avaliacao(request):
             'Segunda área de pior avaliação' : resultado[1].data,
         }
         return JSONResponse(resultado_return, status=200)
-
-def finalizar_analise(request):
-    return avalAnalista.finalizar_analise(request)
 
 @csrf_exempt
 @login_required(login_url='/')
