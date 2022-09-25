@@ -1,0 +1,114 @@
+.company-payment-form-modal{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+    background-color: transparent;
+    position: absolute;
+    background-color: rgba(129, 126, 126, 0.9);
+    top: 60px;
+}
+
+.company-payment-form-modal .payment-title{
+    font-weight: 700;
+    font-size: 2em;
+    color: var(--company-buttons-color);
+}
+
+.company-payment-form-modal .payment-wrapper{
+    margin-top: 50px;
+    display: flex;
+    min-width: 300px;
+    width: 30%;
+    max-width: 400px;
+    min-height: 340px;
+    height: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background-color: #EEEDED;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    top: 10%;
+    position: fixed;
+    z-index: 1;
+}
+/*
+.company-payment-form-modal .package-selected-container{
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.company-payment-form-modal .package-selected-container .package{
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--company-text-color);
+}
+
+.company-payment-form-modal .package-selected-container .package.selected{
+    font-size: 1.4em;
+    font-weight: 400;
+}
+*/
+
+.company-payment-form-modal .payment-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.company-payment-form-modal .payment-form .input{
+    box-sizing: border-box;
+    background-color: #F5F7F9;
+    font-size: 1em;
+    border: 1px solid #2D6628;
+    border-radius: 5px;
+    width: 92%;
+    height: 2.4em;
+    padding: 0px 20px;
+
+}
+
+.company-payment-form-modal .buttons{
+    display: flex;
+    gap: 20px;
+    margin-top:10px;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.company-payment-form-modal .buttons .btn{
+    background-color: var(--company-buttons-color);
+    color: #fff;
+    border: 0px;
+    font-weight: 600;
+    transition:  0.2s background-color ease-in-out ;
+    width: 32%;
+    min-width: 110px;
+}
+
+.company-payment-form-modal .buttons .btn:hover{
+    background-color: var(--company-buttons-hover-color) ;
+}
+
+.company-payment-form-modal .buttons .btn.cancel{
+    background-color: var(--company-decrescent-vector-color);
+    transition:  0.2s background-color ease-in-out ;
+}
+
+.company-payment-form-modal .buttons .btn.cancel:hover{
+    background-color: #a33c31;
+}
+
+@media screen and (max-width: 950px) {
+    .company-payment-form-modal{
+        height: 1400px;
+    }
+
+}

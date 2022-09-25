@@ -1,13 +1,10 @@
 import json
-
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.http import HttpResponse, HttpResponseBadRequest
-
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
-from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer
+from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio
+from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.relatorio as relatorio
 
@@ -83,6 +80,63 @@ def listar_analises(request):
         ser_return = {
             'Analise': data
         }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def listar_analises_empresa(request):
+    if request.method == 'GET':
+        analises = AvaliacaoAnalistaSerializer(
+                    AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
+                                                    analysis_request__status = 3,
+                                                    status = 2).order_by('-update_date'),
+                    many = True,
+                    context={'request': None}
+        )
+        relatorios = list()
+        for i in range(len(analises.data)):
+            for analises_key,analises_value in analises.data[i].items():
+                if(analises_key == 'analysis_request'):
+                    relatorio = RelatorioSerializer(
+                                Relatorio.objects.get(request__id = analises_value)
+                    )
+                    if len(relatorio.data)>0:
+                        relatorios.append(relatorio.data)
+                        
+        ser_return = {
+            'Analises': analises.data,
+            'Relatorios': relatorios
+        }
+
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def listar_analises_passiveis_reanalise(request):
+    if request.method == 'GET':
+
+        analises = AvaliacaoAnalistaSerializer(
+                    AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
+                                                    analysis_request__status = 3,
+                                                    status = 2,
+                                                    analysis_request__reanalysis = True).order_by('-update_date'),
+                    many = True,
+                    context={'request': None}
+        )
+        relatorios = list()
+        for i in range(len(analises.data)):
+            for analises_key,analises_value in analises.data[i].items():
+                if(analises_key == 'analysis_request'):
+                    relatorio = RelatorioSerializer(
+                                Relatorio.objects.get(request__id = analises_value)
+                    )
+                    if len(relatorio.data)>0:
+                        relatorios.append(relatorio.data)
+                        
+        ser_return = {
+            'Analises': analises.data,
+            'Relatorios': relatorios
+        }
+
+        
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 

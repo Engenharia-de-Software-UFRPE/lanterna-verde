@@ -1,0 +1,205 @@
+/*////////////////Filter Section////////////////*/
+    .company-analyzes-filter-section {
+        position: absolute;
+        left: 0;
+        background-color: var(--company-left-section-color);
+        max-width: 300px;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .company-analyzes-filter-section .section-title{
+        font-size: 1.5em;
+        font-weight: 600;
+        text-align: start;
+        margin: 50px 0px 40px 0px;
+    }
+
+    .company-analyzes-filter-section .filter{
+        display: flex;
+        gap: 25px;
+        border-bottom: 2px var(--company-text-color) solid;
+        line-height: 25px;
+        padding: 10px 30px;
+    }
+
+    .company-analyzes-filter-section .filter-name{
+        font-size: 1em;
+        max-width: 150px;
+        text-align: center;
+    }
+
+    .company-analyzes-filter-section .filter-checkbox{
+        width: 25px;
+        
+    }
+
+    .company-analyzes-filter-section .filter-checkbox:checked{
+        color: black;
+        background-color: red;
+    }
+
+/*////////////////Analyzes Section////////////////*/
+    .company-analyzes-section {
+        width: 100%;
+        height: 100vh;
+        min-height: 700px;
+        background-color: var(--company-center-section-color);
+        padding-top: 52px;
+        display: flex;
+        flex-direction:column;
+        align-items: center;
+        gap:30px;
+        box-sizing: border-box;
+        padding-left: 17%;
+    }
+
+    .company-analyzes-section .section-title{
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    .company-analyzes-section .analyzes-container{
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(3, 220px);
+        max-width: 800px;
+        height: 500px;
+        grid-gap: 30px;
+        background: #EEEDED;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 25px 0px 0px 25px;
+        padding: 40px 30px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+
+    .company-analyzes-section .analysis{
+        width: 220px;
+        height: 210px;
+        box-sizing: border-box;
+        background-color: #FFFFFF;
+        border: 1px solid #979797;
+        border-radius: 20px;
+        margin:0px;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .company-analyzes-section .analysis .analysis-text-container{
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .company-analyzes-section .analysis .analysis-title{
+        margin: 20px 0px 0px 20px;
+        font-weight: 600;
+        font-size: 1.3em;
+        text-align: start;
+    }
+
+    .company-analyzes-section .analysis .analysis-date{
+        margin: 0px 0px 0px 20px;
+        font-weight: 600;
+        font-size: 0.9em;
+        text-align: start;
+        color: gray;
+    }
+
+    .company-analyzes-section .analysis .stars{
+        display:flex;
+        justify-content:left;
+        margin-left: 18px;
+    }
+
+    .company-analyzes-section .analysis .stars img{
+        width: 28px;
+        height: 25px;
+        
+    }
+
+    .company-analyzes-section .analysis .stars .gray-stars{
+        display: flex;
+        gap:10px
+    }
+
+    .company-analyzes-section .analysis .stars .green-stars{
+        display: flex;    
+        margin-left: -180px;
+        gap:10px
+    }
+
+
+    .company-analyzes-section .vector-container{
+        margin-top: 8px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap:10px;
+        margin-right: 32px;
+    }
+
+    .company-analyzes-section .vector-container .vector-value{
+        font-weight: 600;
+        font-size: 1em;
+    }
+
+    .company-analyzes-section .vector-container .vector-value.positive{
+        color: var(--company-buttons-color);
+    }
+
+    .company-analyzes-section .vector-container .vector-value.negative{
+        color: var(--company-decrescent-vector-color);
+    }
+
+    .company-analyzes-section .vector-container .vector{
+        height: 22px;
+    }
+    
+    .company-analyzes-section .btn-reanalysis{
+        background-color: var(--company-buttons-color);
+        color: white;
+        font-size: 1em;
+        font-weight: 600;
+        padding: 0px;
+        width: 130px;
+        height: 25px;
+        align-self: center;
+        border: 0px;
+        margin-top: 5px;
+        border-radius: 10px;
+
+        transition:  0.2s background-color ease-in-out ;
+
+    }
+
+    .company-analyzes-section .btn-reanalysis:hover{
+        background-color: var(--company-buttons-hover-color);
+    }
+    
+    @media screen and (max-width: 1200px) {
+        .company-analyzes-section {
+            padding-left: 0;
+        }
+        .company-analyzes-filter-section {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .company-analyzes-section .analyzes-container{
+            grid-template-columns: repeat(2, 220px);
+        }
+    }
+
+    @media screen and (max-width: 550px) {
+        .company-analyzes-section .analyzes-container{
+            grid-template-columns: 220px;
+        }
+    }

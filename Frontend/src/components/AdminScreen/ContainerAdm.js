@@ -57,7 +57,7 @@ function ContainerAdm() {
   //window.addEventListener('resize', showButton);
 
   return (
-    <div id="body">
+    <div className='admBoard-container' id="body">
       <div id="admBoard">
 
         <div id="admPhoto">

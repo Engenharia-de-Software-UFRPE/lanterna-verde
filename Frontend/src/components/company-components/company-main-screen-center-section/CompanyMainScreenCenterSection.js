@@ -1,7 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './company-main-screen-center-section.css';
+import axios from 'axios';
 
 const CompanyMainScreenCenterSection = () =>{
+  const [ranking, setRanking] = useState([])
+
+  useEffect( () => {
+    getRanking()
+  }, []);
+
+  const getRanking = async () => {
+    await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
+    .then(res => {
+        let data = res.data['Empresas']
+        if(data.length > 3){
+          let companies = []
+          for (let i=0; i<data.length;i++){
+            companies.push(data[i])
+          }
+          setRanking(companies)
+        }else{
+          setRanking(data)
+        }
+    })
+    .catch( error=>{
+        alert("Erro")
+    })
+  }
     return(
         <>
         <section class="company-main-screen-center-section">
@@ -20,28 +45,20 @@ const CompanyMainScreenCenterSection = () =>{
                 
                 <thead class="table-header"> 
                   <tr>
-                    <th>#</th>
+                    <th>Rank</th>
                     <th>Nome da Empresa</th>
                     <th>Score</th>
                   </tr>
                 </thead>
                 
                 <tbody class="table-body">
-                  <tr>
-                    <td>1</td>
-                    <td>Empresa 1</td>
-                    <td>9,7</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Empresa 2</td>
-                    <td>9,5</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Empresa 3</td>
-                    <td>9,0</td>
-                  </tr>
+                  {ranking.map((companyData, index) => (
+                    <tr>
+                      <td>{index+1}º</td>
+                      <td>{companyData.tradeName}</td>
+                      <td>{companyData.score}</td>
+                    </tr>
+                  ))}
                 </tbody>
 
               </table>
