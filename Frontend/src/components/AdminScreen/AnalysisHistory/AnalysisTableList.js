@@ -1,8 +1,11 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import ListGroup from "react-bootstrap/ListGroup";
 import CompanyAnalysis from './CompanyAnalysis';
 import './AnalysisTableList.css';
 import CompanyAnalysisMap from './CompanyAnalysisMap';
 import axios from 'axios';
+import InfoAnalysis from './InfoAnalysis';
 
 
 const AnalysisTableList = () => {
@@ -22,19 +25,31 @@ const AnalysisTableList = () => {
         AnalysisList();
       }
 
+      const [active, setActive] = useState(false);
 
-    return (<div id="requestListArea">
+    const detailsHandler = () => {
+        setActive((prevState) => !prevState);
+    }
+
+
+    return (
+     
+      <div id="requestListArea">
+      <ListGroup.Item>
         <h6 class="requestList"><strong>Análises da empresa selecionada</strong></h6>
         <div id="table-wrapper">
             <div id="table-scroll">
                 <table>
                     <tbody> 
                     <CompanyAnalysisMap analisesEmpresa ={analysisList} />
+                    <button onClick={detailsHandler} class='btn'> Abrir análise</button>
                     </tbody>
                 </table>
             </div>
-            <button type="button" class="btnVoltarPlistaEmpresa">Voltar</button>
+            {active ? <InfoAnalysis/> : ''}
         </div>
-    </div >)
-}
+        </ListGroup.Item>
+    </div >
+    )
+};
 export default AnalysisTableList;

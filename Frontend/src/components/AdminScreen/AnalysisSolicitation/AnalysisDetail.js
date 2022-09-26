@@ -37,7 +37,7 @@ function SolicitaAnaliseDetail(){
                     <Popup trigger={<input type="submit" defaultValue="Submit Now" className="submitbtn"/>}/>
                 
                     <div className="input-field">
-                        <input type="number" placeholder="Informe a quantidade de analistas" className="number" name = 'number'/>
+                        <input type="number" placeholder="Quantidade de analistas" className="number" name = 'number'/>
                         <i className="bx bx-hide show-hide" />
                     </div>
                 </form>

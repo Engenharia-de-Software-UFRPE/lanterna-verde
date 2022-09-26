@@ -19,7 +19,7 @@ const SolAnalise = ({solicita_a_analise}) =>{
                 >
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
-                    ID da Empresa: {solicita_a_analise.id}
+                    ID da Empresa: {solicita_a_analise.company}
                     <button onClick={detailsHandler} class='btn'> Abrir análise</button>
                 </div>
             </div>

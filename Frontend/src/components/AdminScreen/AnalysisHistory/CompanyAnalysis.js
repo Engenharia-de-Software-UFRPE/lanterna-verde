@@ -10,7 +10,7 @@ const CompanyAnalysis = ({analises_da_empresa}) =>{
                 className="d-flex justify-content-between align-items-start"
                 >
             <div className='ms-2 me-auto'>
-                <div className="fw-bold">Análise: {analises_da_empresa.listar_analises}</div>
+                <div className="fw-bold">Análise: {analises_da_empresa.listar_analises_empresa}</div>
                 </div>
             </ListGroup.Item>
     );

@@ -28,7 +28,7 @@ const ResquestTable = () => {
             <div id="table-scroll">
                 <table>
                     <tbody> 
-                    <SolAnaliseMap solicitacoes_analise ={solAnalise} />
+                    <SolAnaliseMap solicitacoes_analise ={solAnalise}/>
                     </tbody>
                 </table>
                 <NoteBadge></NoteBadge>

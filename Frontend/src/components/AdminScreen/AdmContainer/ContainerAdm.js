@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AnalysisTableList from '../AnalysisHistory/AnalysisTableList';
 import './ContainerAdm.css';
 import TableAnalysisData from '../AnalysisHistory/DadosDaAnalise';
-import AnalysisHistory from '../AnalysisHistory/AnalysisHistory';
+import CompanyList from '../AnalysisHistory/CompanyList';
 import ResquestTable from '../AnalysisSolicitation/ResquestTable';
 import axios from 'axios';
 import AdmScreenData from '../AdmDataAccount/AdmScreenData';
@@ -92,7 +92,7 @@ function ContainerAdm() {
 
       <div className='tables'>
         {/* Depois vamos trocar a posição de RequestTable com  TableListaEmpresas*/}
-        {active === "FirstCard" && <TableListaEmpresas />}
+        {active === "FirstCard" && <CompanyList />}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
         {active === "FourthCard" && <GASForm analise={question}/>}
