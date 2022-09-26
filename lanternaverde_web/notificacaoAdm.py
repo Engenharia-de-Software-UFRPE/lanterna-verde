@@ -25,7 +25,9 @@ def listar_notificacoesAdm(request):
     if request.method == 'GET':
         destinatario = Administrador.objects.get(user=request.user)
         notificacoesAdm = NotificacoesAdmSerializer(NotificacaoAdm.objects.filter(receiver=destinatario), many=True)
-        ser_return = {'notificacoesAdm': notificacoesAdm.data}
+        qtd_notificacoes_adm_nao_lidas = len(NotificacaoAdm.objects.filter(receiver=destinatario, has_been_seen=False))
+        ser_return = {'notificacoesAdm': notificacoesAdm.data,
+                      'qtd_notificacoes_nao_lidas': qtd_notificacoes_adm_nao_lidas}
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
