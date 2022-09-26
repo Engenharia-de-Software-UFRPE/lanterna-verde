@@ -9,7 +9,7 @@ const SolAnalise = ({solicita_a_analise}) =>{
                 className="d-flex justify-content-between align-items-start"
                 >
             <div className='ms-2 me-auto'>
-                <div className="fw-bold">ID da Empresa: {solicita_a_analise.empresa}</div>
+                <div className="fw-bold">ID da Empresa: {solicita_a_analise.id}</div>
                 </div>
             </ListGroup.Item>
     );

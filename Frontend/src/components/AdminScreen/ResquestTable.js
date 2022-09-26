@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
 import axios from 'axios';
-import NoteBadge from './Notification';
 
 const Tableadmin = () => {
   
@@ -19,7 +18,7 @@ const Tableadmin = () => {
     
     if (solAnalise[0] === "placeholder") {
         solicitaAnalise();
-      }
+    }
       
       console.log(solAnalise)
     return (<div id="requestListArea">
@@ -28,10 +27,9 @@ const Tableadmin = () => {
             <div id="table-scroll">
                 <table>
                     <tbody> 
-                    <SolAnaliseMap soliciatoes_analise ={solAnalise} />
+                    <SolAnaliseMap soliciatoes_analise ={solAnalise}/>
                     </tbody>
                 </table>
-                <NoteBadge></NoteBadge>
             </div>
         </div>
     </div >
