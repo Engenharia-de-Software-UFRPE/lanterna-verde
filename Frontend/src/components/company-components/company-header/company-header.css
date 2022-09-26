@@ -3,11 +3,12 @@ header{
 }
 
 .company-header-container{
-    margin: 0px 30px 0px 30px;
+    padding: 5px 0px 5px 30px;
     display:flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: var(--company-header-color);  
+    background-color: var(--company-header-color);
+    width: 100%;
+    /*position: fixed;*/
 }
 /***********************LOGO & SEARCH BOX***********************/
 .company-header-container .logo{
@@ -36,27 +37,27 @@ header{
 }
 
 .company-header-container .search-box{
-    position: absolute;
-    left: 30%;
-    width: 50%;
+    margin-left: 8%;
+    width: 80%;
     height: 2.2em;
     background: #FBFBFB;
     border: 1px solid #D9D9D9;
     border-radius: 25px;
     font-size: 16px;
     padding-left: 20px;
-
 }
+
 /************************HAMBURGER MENU*************************/
 .company-header-container .icon{
     width: 32px;
-    height: 40px;
+    height: 32px;
     position: absolute;
-    z-index: 4;
-    right: 2%;
+    z-index: 3;
+    right: 30px;
     cursor:pointer;
-    top: 1.2%;
+    vertical-align: center;
 }
+
 .company-header-container .icon.icon-active{
     position:fixed;
 }
@@ -80,12 +81,10 @@ header{
 
 .company-header-container .hamburger{
     position: absolute;
-    top: 50%;
-    left: 10%;
+    top: 40%;
     width: 32px;
     height: 5px;
     background-color: var(--company-text-color);
-    position: absolute;
     border-radius: 25px;
     transition: 0.3s;
 
@@ -114,17 +113,16 @@ header{
 }
 
 .company-header-container .menu.menu-open{
-    background-color: #373a47;
+    background-color: var(--company-text-color);
+    box-sizing: border-box;
     position: fixed;
     top:0;
     right: 0;
-    width: 20%;
-    height: 100vh;
-    margin: 0;
-    padding: 20px 16px 0px 0px;
-    opacity: 1;
-    height: 100vh;
+    width: 320px;
+    opacity: 0.985;
+    height: 107vh;
     transition: opacity 0.2s ease-out;
+    z-index: 2;
 }
 
 .company-header-container .menu.menu-close{
@@ -134,18 +132,19 @@ header{
 }
 
 .company-header-container .company-logged-in{
-    width: 92%;
-    margin: 40px 0px 0px 20.7px;
+    padding: 30px 20px 25px 15px;
+    margin: 55px 10px 10px 10px;
+    width: 300px;
+    border-bottom: 2px solid #fff;
     display: flex;
     box-sizing: border-box;
     flex-direction:row;
     gap: 20px;
-    padding-bottom: 50px;
-    border-bottom: 1.2px solid #fff;
 }
 
 .company-header-container .company-img{
     width: 75px;
+    height: 75px;
     border-radius: 50px;
 }
 
@@ -161,19 +160,19 @@ header{
     margin: 0;
     margin-bottom: 5px;
     color: #fff;
+    width: 180px;
 }
 
-.company-header-container .company-category, .company-position{
+.company-header-container .company-type, .company-position{
     font-weight: 600;
     font-size: 0.9em;
     margin: 0;
-    color: #fff;
+    color: #c7c7c7;
 }
 
 .company-header-container .menu-buttons{
     display:flex;
     flex-direction: column;
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -182,27 +181,153 @@ header{
     margin: 0px 20px;
     display: flex;
     flex-direction: column;
-    gap: 5em;
 }
 
 .company-header-container .menu-buttons .btn{
     color: white;
     font-size: 1em;
     font-weight: bold;
-    border-bottom: 1.2px solid #fff;
     box-sizing: border-box;
-    position: fixed;
-    width: 17.4%;
-    height: 5.1em;
-    line-height: 4.3em;
+    position: relative;
+    width: 280px;
+    height: 3.2em;
+    line-height: 2.4em;
     text-align: center;
     border-radius: 0px;
     margin-top: 0px;
     transition:  0.2s background-color ease-in-out ;
-
 }
 
 .company-header-container .menu-buttons .btn:hover{
     background-color: #FBFBFB;
     color:#373a47;
+}
+
+.company-header-container .menu-buttons .btn.exit{
+    margin-top: 31px;
+    background-color: #dd3535;
+    border: 0px;
+}
+
+.company-header-container .menu-buttons .btn.exit:hover{
+    background-color: rgb(165, 43, 43);
+    color: #fff;
+}
+
+.company-header-container .menu-buttons .btn.exit::before{
+    top: -20px;
+    left: -15px;
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 2px;
+    border-radius: 25px;
+    background: #fff;
+}
+
+@media screen and (max-width:1050px) {
+    .company-header-container .search-box{
+        margin-left: 5%;
+        width: 120%;
+    }
+
+    .company-header-container .menu-buttons .btn{
+        height: 3.5em;
+        line-height: 2.7em;
+    }
+
+    .company-header-container .company-logged-in{
+        margin-top:27px;
+        border-bottom: 2px solid #fff;
+    }
+
+}
+
+@media screen and (max-width:750px) {
+    .company-header-container .search-box{
+        margin-left: 3%;
+        width: 180%;
+    }
+
+    .company-header-container .logo .logo-name > div{
+        display:none;
+    }
+
+    .company-header-container .not-menu.menu-open{
+        background-color: transparent;
+        box-sizing: border-box;
+        position: fixed;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 107vh;
+        transition: opacity 0.2s ease-out;
+        z-index: 2;
+    }
+    
+    .company-header-container .not-menu.menu-close{
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .company-header-container .search-box{
+        margin-left: 5%;
+    }
+
+    .company-header-container .logo .logo-name{
+        display:none;
+    }
+
+    .company-header-container .menu.menu-open{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .company-header-container .company-logged-in{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap:25px
+    }
+    
+    .company-header-container .company-logged-in::after{
+        width: 87%;
+    }
+
+    .company-header-container .company-img{
+        width: 90px;
+        height: 90px;
+        border-radius: 50px;
+    }
+    
+    .company-header-container .company-name{
+        font-size: 1.4em;
+    }
+    
+    .company-header-container .company-type, .company-position{
+        font-size: 1em;
+    }
+
+    .company-header-container .menu-buttons{
+        width: 100%;
+    }
+
+    .company-header-container .menu-buttons .btn{
+        width: 100%;
+    }
+
+    .company-header-container .menu-buttons .btn.exit{
+        margin-top: 40px;
+        background-color: #dd3535;
+        border: 0px;
+    }
+
+    .company-header-container .menu-buttons .btn.exit::before{
+        width: 100%;
+    }
 }

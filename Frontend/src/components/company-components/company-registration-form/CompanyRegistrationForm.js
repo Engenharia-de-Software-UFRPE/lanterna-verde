@@ -1,19 +1,109 @@
 import React from 'react';
 import {useState} from 'react';
+import axios from 'axios';
 import './company-form.css';
 import stamp from '../../../images/stamp.png';
 
-var counter = 0;
-
 const CompanyRegistrationForm = () => {
-    const [selected, setMode] = useState(false)
-    const changeMode = () =>{
-        console.log(counter);
-        if(counter===0){
-            setMode(true);
-            counter = 1;
+    const [company, setCompany] = useState({
+        username: "",
+        email: "",
+        password: "",
+        tradeName: "",
+        corporateName: "",
+        stateRegistration: "",
+        cnpj: "",
+        type: "",
+        phoneNumber: ""
+    });
+    const[selected, setSelected] = useState(false);
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    
+
+    const handleInputChange = (event) => {
+        let { name, value } = event.target;
+
+        if (name==='stateRegistration' ||
+        name==='cnpj' || name ==='phoneNumber'){
+            let result = event.target.value.replace(/[^0-9]/, '');
+            setCompany({
+                ...company,
+                [name]: result,
+            });
         }
+        else if (name === 'type'){
+            if(value!==''){
+                setSelected(true);
+                setCompany({
+                    ...company,
+                    [name]: value,
+                });
+            }
+        }
+        else{
+            setCompany({
+                ...company,
+                [name]: value,
+            });
+        }
+    };
+
+    const handlePasswordConfirmation = (event) =>{
+        let result = event.target.value;
+        setPasswordConfirmation(result);
     }
+
+    function isValidEmail(email) {
+        return (/\S+@\S+\.\S+/.test(email));
+    }
+
+    const sendPostRequest = async () => {
+        let data = JSON.stringify(company);
+        
+        await axios.post('http://127.0.0.1:8000/empresa/add', company)
+        .then(res => {
+            {/*console.log(res) DEBUG*/}
+            setCompany({
+                username: "",
+                email: "",
+                password: "",
+                tradeName: "",
+                corporateName: "",
+                stateRegistration: "",
+                cnpj: "",
+                type: "",
+                phoneNumber: ""
+            })
+            setSelected(false)
+            alert("Cadastro confirmado!")
+        })
+        .catch( error=>{
+            {/*console.log(error) DEBUG*/}
+            alert("Erro")
+        })
+
+        console.log( data)
+    };
+
+
+    const confirm = (event) =>{
+        let confirm = true;
+        
+        if(passwordConfirmation !== company.password){
+            confirm = false
+        }
+
+        if(!isValidEmail(company.email)){
+            confirm = false
+        }
+
+        if(confirm === true){
+            sendPostRequest()
+        }
+        
+    }
+
+
     return(
         <section className='company-form-section'>
             <div className="form-container">
@@ -21,31 +111,37 @@ const CompanyRegistrationForm = () => {
 
                 <div className="form-div">
                     <form className="form">
-                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite a Razão Social " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="" id=""/>
-                        <input className="input" type="text" placeholder="Digite o CNPJ" name="" id=""/>
+                        <input className="input" type="text" placeholder="Digite o username " name="username" maxLength={100} onChange={handleInputChange} value={company.username} />
 
-                        <select className={selected ? "select selected" : "select"} onChangeCapture={changeMode} id="">
-                            <option className="select-option" value="" disabled selected>Selecione o segmento</option>
-                            <option className="select-option" value="">Indústria</option>
-                            <option className="select-option" value="">Comércio</option>
-                            <option className="select-option" value="">Serviços</option>
+                        <input className="input" type="text" placeholder="Digite o nome Fantasia " name="tradeName" maxLength={100} onChange={handleInputChange} value={company.tradeName}/>
+                        
+                        <input className="input" type="text" placeholder="Digite a Razão Social " name="corporateName" maxLength={100} onChange={handleInputChange} value={company.corporateName}/>
+                        
+                        <input className="input" type="text" placeholder="Digite Inscrição Estadual " name="stateRegistration" maxLength={9} onChange={handleInputChange} value={company.stateRegistration}/>
+                        
+                        <input className="input" type="text" placeholder="Digite o CNPJ" name="cnpj" maxLength={14} onChange={handleInputChange} value={company.cnpj}/>
+                        
+                        <select className={selected ? "select selected" : "select"} name="type" onChange={handleInputChange} value={company.type}>
+                            <option className="select-option" value="" disabled selected>Selecione o tipo</option>
+                            <option className="select-option" value="Primeiro Setor">Primeiro Setor</option>
+                            <option className="select-option" value="Segundo Setor">Segundo Setor</option>
+                            <option className="select-option" value="Terceiro Setor">Terceiro Setor</option>
                         </select>
+                        
+                        <input className="input" type="email" placeholder="Digite o seu email" name="email" maxLength={100} onChange={handleInputChange} value={company.email}/>
+                        
+                        <input className="input" type="text" placeholder="Digite o seu Telefone " name="phoneNumber" maxLength={12} onChange={handleInputChange} value={company.phoneNumber}/>
 
-                        <div className="password">
-                            <input className="input last" type="password" placeholder="Digite uma senha" name="" id=""/>
-                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="" id=""/>
-                        </div>
-                        <div className="contacts">
-                            <input className="input last" type="text" placeholder="Digite o seu Telefone " name="" id=""/>
-                            <input className="input last" type="text" placeholder="Digite o seu email" name="" id=""/>
+                        <div className="password" on>
+                            <input className="input last" type="password" placeholder="Digite uma senha" name="password" maxLength={100} onChange={handleInputChange} value={company.password} />
+                            
+                            <input className="input last" type="password" placeholder="Confirme a sua senha" name="passwordConfirmation" maxLength={100} onChange={handlePasswordConfirmation} />
                         </div>
 
                     </form>
                 </div>
 
-                <a href="#loginScreen" class="confirm">Confirmar</a>
+                <a href="#loginScreen" class="confirm" onClick={confirm}>Confirmar</a>
             </div>
 
             <div className="stamp-container">

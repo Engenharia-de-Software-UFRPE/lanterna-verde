@@ -1,13 +1,10 @@
 import json
-
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.http import HttpResponse, HttpResponseBadRequest
-
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise
-from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer
+from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio
+from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.relatorio as relatorio
 
@@ -48,7 +45,7 @@ def detalhar_analise(request):
     Function that detail a analysis
     """
     if request.method == 'GET':
-        analysisid = request.GET.get('analysisid')
+        analysisid = request.GET.get('analysisid')  
         analysis = AvaliacaoAnalista.objects.get(pk=analysisid)
         ser_anal = AvaliacaoAnalistaSerializer(analysis)
         data = ser_anal.data
@@ -56,7 +53,7 @@ def detalhar_analise(request):
         data['company'] = EmpresaSerializer(analysis.analysis_request.empresa).data
         if hasattr(request.user, 'empresa'):
             del data['analyst']
-            if analysis.finished is False:
+            if analysis.status is not AvaliacaoAnalista.FINISHED:
                 return HttpResponse("Essa análise ainda não foi concluída ", status=403)
         ser_return = {
             'analysis': data
@@ -87,43 +84,76 @@ def listar_analises(request):
     return HttpResponseBadRequest()
 
 def listar_analises_empresa(request):
-    """
-    Method that groups `AvaliacaoAnalista` from a specific company into a JSON
-    response.
-    """
     if request.method == 'GET':
-        body_request = json.loads(request.body)
-        company = Empresa.objects.get(id=body_request['companyid'])
-        ser_company = EmpresaSerializer(company)
-
-        #pylint: disable=E1101
-        analysis_set = [AvaliacaoAnalista.objects.filter(analysis_request=analysis_request) for analysis_request in SolicitacaoAnalise.objects.filter(empresa=company)]
-        if len(analysis_set) == 0:
-            return HttpResponse(content="A empresa solicitada nunca foi "
-                                "analisada por analistas", status=422)
-
-        ser_analysis_set = {}
-        for analysis, local_id in zip(analysis_set, range(len(analysis_set))):
-            ser_analysis_set[str(local_id)] = AvaliacaoAnalistaSerializer(
-                analysis, many=True).data
-
+        analises = AvaliacaoAnalistaSerializer(
+                    AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
+                                                    analysis_request__status = 3,
+                                                    status = 2).order_by('-update_date'),
+                    many = True,
+                    context={'request': None}
+        )
+        relatorios = list()
+        for i in range(len(analises.data)):
+            for analises_key,analises_value in analises.data[i].items():
+                if(analises_key == 'analysis_request'):
+                    relatorio = RelatorioSerializer(
+                                Relatorio.objects.get(request__id = analises_value)
+                    )
+                    if len(relatorio.data)>0:
+                        relatorios.append(relatorio.data)
+                        
         ser_return = {
-            'company': ser_company.data,
-            'analysis': ser_analysis_set
+            'Analises': analises.data,
+            'Relatorios': relatorios
         }
+
         return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()    
+    return HttpResponseBadRequest()
+
+def listar_analises_passiveis_reanalise(request):
+    if request.method == 'GET':
+
+        analises = AvaliacaoAnalistaSerializer(
+                    AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
+                                                    analysis_request__status = 3,
+                                                    status = 2,
+                                                    analysis_request__reanalysis = True).order_by('-update_date'),
+                    many = True,
+                    context={'request': None}
+        )
+        relatorios = list()
+        for i in range(len(analises.data)):
+            for analises_key,analises_value in analises.data[i].items():
+                if(analises_key == 'analysis_request'):
+                    relatorio = RelatorioSerializer(
+                                Relatorio.objects.get(request__id = analises_value)
+                    )
+                    if len(relatorio.data)>0:
+                        relatorios.append(relatorio.data)
+                        
+        ser_return = {
+            'Analises': analises.data,
+            'Relatorios': relatorios
+        }
+
+        
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
 
 def atualizar_analise(request):
     if request.method == 'POST':
         post = request.POST
         data = json.loads(request.body)
+        print(data)
         analysis = AvaliacaoAnalista.objects.get(pk=data['id'])
         if analysis.analyst.user == request.user:
             analysis.comment = data['comment']
+            analysis.status = AvaliacaoAnalista.PROCESSING
             for question in data['questao_set']:
                 q = Questao.objects.get(pk=question['id'])
                 q.answer = question['answer']
+                q.justification = question['justification']
+                q.source = question['source']
                 q.save()
         analysis.save()
         return HttpResponse(status=200)
@@ -158,10 +188,10 @@ def finalizar_analise(request):
             password = data['password']
             matchcheck = check_password(password, request.user.password)
             if matchcheck:
-                analysis.finished = True
+                analysis.status = AvaliacaoAnalista.FINISHED
                 analysis.save()
                 analysis_request = analysis.analysis_request
-                if len(analysis_request.analises.filter(finished=False)) == 0:
+                if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
                     relatorio.gerar_relatorio(analysis_request)

@@ -6,9 +6,10 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
-
+import {useNavigate} from 'react-router-dom';
 
 function AnalystDataScreen() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(["placeholder"]);
   const [analyst, setAnalyst] = useState(["placeholder"]);
 
@@ -20,6 +21,10 @@ function AnalystDataScreen() {
       .then((response) => response);
     setAnalyst(response.data.Analista);
     setUser(response.data.Usuario);
+
+    // if (response.status !== 201) {
+    //   navigate("/")
+    // }
   }
 
   if (analyst[0] === "placeholder") {
@@ -38,6 +43,8 @@ function AnalystDataScreen() {
 
   console.log(user)
   console.log(analyst)
+
+
   return (
     <>
       <Container className="cont">

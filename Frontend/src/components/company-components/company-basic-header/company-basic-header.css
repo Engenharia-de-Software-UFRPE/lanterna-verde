@@ -1,9 +1,11 @@
 .company-basic-header-container{
-    margin: 0px 30px 0px 30px;
+    margin: 0px 25px;
+    padding: 5px 0px;
     display:flex;
     justify-content: space-between;
     align-items: center;
     background-color: var(--company-header-color);
+    box-sizing: border-box;
 }
 
 .company-basic-header-container .logo{
@@ -19,7 +21,7 @@
     font-size: 1.5em;
     font-weight: bold;
     gap: 4px;
-    margin-top: 8px;
+    margin-top: 10px;
 
 }
 
@@ -47,6 +49,23 @@
 
 .company-basic-header-container .login:hover{
     background-color: var(--company-buttons-hover-color);
+}
+
+@media screen and (max-width:420px){
+    .company-basic-header-container{
+        margin: 0 20px;
+    }
+
+    .company-basic-header-container .logo{
+        gap: 5px;
+    }
+
+    .company-basic-header-container .logo .logo-name > div{
+        display: none;
+        gap: 0px;
+        flex-direction: column;
+    }
+
 }
 
 
