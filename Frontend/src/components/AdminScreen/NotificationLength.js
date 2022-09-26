@@ -1,7 +1,6 @@
-import './NavbarAdm.css';
-import './SolAnalise.js';
 
-function NoteBadge(){
+const NotificationLength = ({ notifSize }) => {
+
     class Badge {
         constructor(element, options) {
         this.value = 0;
@@ -96,36 +95,15 @@ function NoteBadge(){
     let notificationElement = document.querySelector('.notification');
     let customNotification = new Badge(notificationElement);
 
-    // let solicitationElement = document.querySelector('.increase');
-    // let customSolicitation = new Badge(solicitationElement);
-    
-    //Atribuir essa funcionalidade às solicitações de análises para que incremente quando uma chegar
-    const increase = document.querySelector('.increase');
-    console.log(increase);
-    if(increase){
-        increase.addEventListener('click', () => {
-            customNotification.increase();
-            console.log('btn clicked');
-        });
+    const action = document.querySelector('.notification'); 
+    if(action){
+        if(notifSize > 0){
+            customNotification.increase(notifSize);
+            action.addEventListener('click', () => {
+                customNotification.set(0);
+            }); 
+        } 
     }
-    //Ao clicar no sininho da NavBar, o contador é setado para 0 e o dot identificador some 
-    const set = document.querySelector('.notification'); 
-    console.log(set);
-    if(set){
-        set.addEventListener('click', () => {
-            customNotification.set(0);
-            console.log('btn clicked 2');
-        });
-    }
-
-    // document.querySelector('.hide').addEventListener('click', () => {
-    //     customNotification.set(0);
-    // });
-
-    return(<>
-        <div class="controls"> 
-            <button className="increase" type="button">Increase</button>
-        </div>
-    </>);
 }
-export default NoteBadge;
+
+export default NotificationLength;
