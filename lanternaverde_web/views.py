@@ -227,7 +227,7 @@ def get_logged_empresa(request):
             return JSONResponse(ser_return, status=201)
     return HttpResponseBadRequest()
 
-@administrador_required
+@csrf_exempt
 @login_required
 @administrador_required
 def create_questao(request):
