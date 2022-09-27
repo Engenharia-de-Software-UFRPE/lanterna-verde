@@ -36,7 +36,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
         .catch( error=>{
             alert("Já existe uma solicitação de análise em andamento")
         })
-      };
+    };
 
     if(!open) return null;
     else return(
