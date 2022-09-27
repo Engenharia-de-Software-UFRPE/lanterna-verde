@@ -1,0 +1,183 @@
+.analysis-info-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--company-center-section-color);
+}
+
+.analysis-info-section .analysis-info-container{
+    width: 750px;
+    box-sizing: border-box;
+    background: #EEEDED;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    margin: 100px 0px 100px 0px;
+    padding: 45px 30px;
+    gap: 50px;
+}
+
+.analysis-info-section .analysis-date{
+    font-size: 1.2em;
+    align-self: flex-end;
+}
+
+.analysis-info-section .title{
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.analysis-info-section .dimensions{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
+
+.analysis-info-section .dimensions .dimension{
+    background-color: #fdfdfd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    width: 160px;
+}
+
+.analysis-info-section .dimensions .dimension h3{
+    font-size: 1.3em;
+    font-weight: bold;
+    align-self: center;
+    border-bottom: 2px solid var(--company-center-section-color);
+    padding:0px 2px 8px 2px;
+}
+
+.analysis-info-section .dimensions .dimension h4{
+    padding-top: 5px;
+    font-size: 1em;
+}
+.analysis-info-section .ascore-container{
+    width: 100%;
+    background-color: #fdfdfd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    display: flex;
+    justify-content:space-between;
+    padding: 10px 20px;
+}
+
+.analysis-info-section .ascore-container .ascore{
+    font-weight: 400;
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.analysis-info-section .ascore-container .ascore-stars{
+    display: flex;
+    width: 190px;
+}
+
+.analysis-info-section .ascore-container .ascore-stars img{
+    width: 30px;
+    height: 28px;
+}
+
+.analysis-info-section .ascore-container .ascore-stars .gray-stars{
+    display: flex;
+    gap: 10px;
+}
+
+.analysis-info-section .ascore-container .ascore-stars .green-stars{
+    display: flex;
+    gap: 10px;
+    position: relative;
+    left: -190px;
+}
+
+.analysis-info-section .comments{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.analysis-info-section .comments .comment .comment-title{
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.analysis-info-section .comments .comment .comment-text{
+    width: 100%;
+    background-color: #fdfdfd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.analysis-info-section .btn-reanalysis{
+    background-color: var(--company-buttons-color);
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    height: 35px;
+    align-self: center;
+    border: 0px;
+    margin-top: 20px;
+    border-radius: 8px;
+    width: 50%;
+    min-width: 200px;
+    transition:  0.2s background-color ease-in-out ;
+
+}
+
+.analysis-info-section .btn-reanalysis:hover{
+    background-color: var(--company-buttons-hover-color);
+}
+
+@media screen and (max-width: 950px) {
+    .analysis-info-section{
+        min-height: 1200px;
+    }
+    
+    .analysis-info-section .analysis-info-container{
+        width: 60%;
+        min-width: 400px;
+    }
+
+    .analysis-info-section .dimensions{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .analysis-info-section .ascore-container{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .analysis-info-section{
+        min-height: 1600px;
+    }
+
+    .analysis-info-section .analysis-info-container{
+        min-width: 300px;
+    }
+
+    .analysis-info-section .dimensions{
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-info-section .dimensions .dimension{
+        width: 240px;
+    }
+
+    .analysis-info-section .comments .comment .comment-title{
+        text-align: center;
+    }
+
+}
