@@ -35,6 +35,21 @@ function ContainerAdm() {
   //   listAnalysisHistory();
   // }
 
+  const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
+
+  async function solicitaAnalise() {
+    let response = await axios.get(
+      "http://localhost:8000/solicitacoesAnalise",
+      { withCredentials: true }
+    )
+    .then(response => response)
+    setSolicitaAnalise(response.data.solicitacoes_analise)
+  }
+  
+  if (solAnalise[0] === "placeholder") {
+    solicitaAnalise();
+  }
+  console.log(solAnalise);
 
   async function listQuestions() {
       let response = await axios.get(
@@ -96,7 +111,7 @@ function ContainerAdm() {
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
         {active === "FourthCard" && <GASForm analise={question}/>}
-        {active === "FifthCard" && <ResquestTable/>}
+        {active === "FifthCard" && <ResquestTable solAnalise={solAnalise}/>}
         {/*{active === "FifthCard" && <InfoAnalysis analise={historicoAnalises}/>}*/}
       </div>
 

@@ -1,16 +1,16 @@
 .containerSolAnalise{
-    max-height: 100%;
-    width: 700px;
-    background-color: rgb(44, 196, 163);
-    border-radius: 10px;
-    color:  rgb(56, 57, 58);
-    margin-left: 40px;
-    margin-top: 10px;
-    text-align: center;
-    padding: 8px 8px 8px 8px;
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
+  max-height: 100%;
+  width: 700px;
+  background-color: rgb(44, 196, 163);
+  border-radius: 10px;
+  color:  rgb(56, 57, 58);
+  margin-left: 40px;
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 8px 8px 8px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .containerSolAnalise a{
@@ -25,6 +25,16 @@
 .containerSolAnalise form {
   margin-top: 60px;
   background-color: #3AB06F;
+}
+
+form{
+  background-color: white;
+  border-radius: 10px;
+  width: 238px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-top: 3px;
 }
 
 form .field {
@@ -42,7 +52,7 @@ form .input-field {
   color: white;
   border: 0;
   border-radius: 4px;
-  margin-left: 10px;
+  margin-left: 100px;
   padding-left: 7px;
   padding-right: 7px;
 }
