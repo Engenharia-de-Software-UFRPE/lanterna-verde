@@ -1,26 +1,27 @@
 .company-main-screen-center-section {
     width: 100%;
     height: 100vh;
-    background-color: #DADADA;
+    background-color: var(--company-center-section-color);
     padding-top: 52px;
     display: flex;
-    flex-direction:column;
     align-items: center;
+    padding-left: 15%;
+    flex-direction:column;
     gap:50px;
     box-sizing: border-box;
-    padding: 50px 80px;
-    padding-left: 240px;
 }
 
 .company-main-screen-center-section .greenwashing{
+    min-width: 650px;
+    width: 40%;
+    max-width: 850px;
     padding: 10px 50px;
     display: flex;
     background: #FBFBFB;
     box-shadow: 0px 4px 15px rgba(216, 210, 252, 0.64);
     border-radius: 16px;
-    align-items: center;
+    justify-content: center;
     gap: 32px;
-
 }
 
 .company-main-screen-center-section .greenwashing .contract-services-title{
@@ -34,7 +35,7 @@
 }
 
 .company-main-screen-center-section .greenwashing .contract-services{
-    width: 120px;
+    width: 150px;
     height: 50px;
     background: var(--company-buttons-color);
     border-radius: 12px;
@@ -43,7 +44,7 @@
     color: #ffffff;
     display:flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
 
     transition:  0.2s background-color ease-in-out ;
 }
@@ -53,7 +54,10 @@
 }
 
 .company-main-screen-center-section .ranking{
-    padding:0px 30px 30px 30px;
+    min-width: 480px;
+    width: 40%;
+    max-width: 650px;
+    padding:30px;
     background: #FBFBFB;
     box-shadow: 0px 4px 15px rgba(216, 210, 252, 0.64);
     border-radius: 47px;
@@ -61,46 +65,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
 }
 
 .company-main-screen-center-section .ranking .table-title{
     font-weight: bold;
     font-size: 1.4em;
-    margin: 25px 0px;
-    text-align: center;
     color: var(--company-text-color);
 }
 
 .company-main-screen-center-section .table{
-    width: 500px;
-    height: 200px;
     background-color: var(--company-table-color);
-    border-radius: 25px 25px 5px 0px;
+    border-radius: 25px;
 }
 
 .company-main-screen-center-section .table .table-body{
-    background-color: #ffffff 
+    background-color: #ffffff;
 }
 
 .company-main-screen-center-section .table .table-body td{
     font-size: 0.9em;
-    padding-top: 15px;
-    padding-left: 20px;
-}
-
-.company-main-screen-center-section .table .table-header{
-    height: 45px;
+    line-height: 35px;
 }
 
 .company-main-screen-center-section .table .table-header th{
     font-size: 0.9em;
-    padding:10px 49px;
-    padding-left: 60px;
+    line-height: 40px;
+
 }
 
 .company-main-screen-center-section .see-full-ranking{
-    margin-top: 40px;
-    padding: 7px 30px;
+    padding: 7px 0px;
+    width: 210px;
     background: var(--company-buttons-color);
     border-radius: 16px;
     font-size: 0.9em;
@@ -113,4 +109,48 @@
 
 .company-main-screen-center-section .see-full-ranking:hover{
     background-color: var(--company-buttons-hover-color);
+}
+
+@media screen and (max-width: 1300px){
+    .company-main-screen-center-section{
+        padding-left: 22%;
+    }    
+}
+
+@media screen and (max-width: 1050px){
+    .company-main-screen-center-section{
+        padding-left: 0%;
+    }    
+}
+
+@media screen and (max-width: 500px){
+    .company-main-screen-center-section .greenwashing{
+        flex-direction: column;
+        padding: 10px 0px;
+        gap: 10px;
+    }
+
+    .company-main-screen-center-section .greenwashing .contract-services{
+        width: 45%;
+        min-width: 140px;
+        border-radius: 20px;
+        justify-content: center;
+        height: 40px;
+    }
+
+    .company-main-screen-center-section .greenwashing .contract-services-title{
+        padding:0px 5px ;
+    }
+
+    .company-main-screen-center-section .ranking{
+        min-width: 95%;
+        padding:30px 20px;
+    }
+
+    .company-main-screen-center-section .see-full-ranking{
+        padding: 7px 0px;
+        width: 48%;
+        min-width: 170px;
+    }
+
 }

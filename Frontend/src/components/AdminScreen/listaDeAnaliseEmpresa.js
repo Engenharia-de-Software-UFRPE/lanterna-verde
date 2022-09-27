@@ -34,7 +34,7 @@ const TableListaEmpresas = () => {
         corpoDaLista.innerHTML = dataHtml;
     }
 
-    return (<div id="requestListArea">
+    return (<div id="requestListArea" className='requestListArea'>
         <h6 class="requestList"><strong>Selecione a empresa que deseja ver o histórico de análises</strong></h6>
         <div id="table-wrapper">
             <div id="table-scroll">

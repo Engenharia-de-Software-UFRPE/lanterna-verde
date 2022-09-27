@@ -5,8 +5,6 @@ from rest_framework import serializers
 
 from .models import NotificacaoAdm, Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise, Empresa
 
-
-
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serialization for Usuario Model
@@ -46,16 +44,6 @@ class PerguntaSerializer(serializers.HyperlinkedModelSerializer):
         model = Pergunta
         exclude = ('url', )
 
-class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
-    """
-    Serialization for SolicitacaoAnalise Model
-    """
-
-    class Meta:
-        """SolicitacaoAnalise metadata"""
-        model = SolicitacaoAnalise
-        fields = '__all__'
-
 class QuestaoSerializer(serializers.ModelSerializer):
     """
     Serialization for Questao Model
@@ -66,12 +54,15 @@ class QuestaoSerializer(serializers.ModelSerializer):
         model = Questao
         fields = '__all__'
 
-
 class EmpresaSerializer(serializers.ModelSerializer):
+    """
+    Serialization for Empresa Model
+    """
+    
     class Meta:
+        """Empresa serialization metadata"""
         model = Empresa
         fields = '__all__'
-
 
 class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
     """

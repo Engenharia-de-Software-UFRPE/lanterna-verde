@@ -90,3 +90,4 @@ migrations
 .env
 db.sqlite3
 .idea/
+package-lock.json

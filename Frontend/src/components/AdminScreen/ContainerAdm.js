@@ -55,7 +55,7 @@ function ContainerAdm() {
   }
 
   return (
-    <div id="body">
+    <div className='admBoard-container' id="body">
       <div id="admBoard">
 
         <div id="admPhoto">

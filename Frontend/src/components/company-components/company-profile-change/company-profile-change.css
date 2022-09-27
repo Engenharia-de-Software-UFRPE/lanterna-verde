@@ -1,0 +1,133 @@
+/* Tela de Alteração do Perfil da Empresa */
+.company-profile-change{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    background-color: #DADADA;
+    height: 100vh;
+    min-height: 1000px;
+    width: 100%;
+    gap: min(10%, 150px);
+    top: 0%;
+    padding-top: 120px;
+}
+
+.company-profile-change .company-container-profile-change{
+    min-width: 300px;
+    width: 70%;
+    max-width: 600px;
+    height: 800px;
+    background: #EEEDED;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    display:flex;
+    flex-direction: column;
+    gap: 35px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.company-profile-change .form-title-profile-change{
+    margin: 40px 0px 0px 0px;
+    font-weight: bold;
+    font-size: 1.6em;
+    color: var(--company-buttons-color);
+    
+}
+
+.company-profile-change .company-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.company-profile-change .form-div-profile-change{
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px;
+}
+
+.company-profile-change .form-profile-change{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.company-profile-change .form-profile-change .input{
+    display: flex;
+    width: 85%;
+    padding: 0px 20px;
+    height: 2.4em;
+    font-size: 12px;
+    font-weight: 400;
+    background: #F5F7F9;
+    border: 1px solid #406b3c;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.company-profile-change .form-profile-change .input.fixed{
+    color: gray;
+}
+
+.company-profile-change .confirm{
+    max-width:450px;
+    width: 80%;
+    line-height: 2.4em;
+    background: var(--company-buttons-color);
+    border-radius: 8px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+
+    transition:  0.2s background-color ease-in-out ;
+}
+
+.company-profile-change .form-profile-change .select.selected{
+    width: 85%;
+    padding: 0px 15px;
+    height: 2.4em;
+    font-size: 12px;
+    font-weight: 400;
+    background: #F5F7F9;
+    border: 1px solid #406b3c;
+    border-radius: 5px;
+    color: #000;
+
+}
+
+.company-profile-change .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.company-profile-change .buttons .btn{
+    background-color: var(--company-buttons-color);
+    color: #fff;
+    border: 0px;
+    font-weight: 600;
+    transition:  0.2s background-color ease-in-out ;
+    width: 35%;
+}
+
+.company-profile-change .buttons .btn:hover{
+    background-color: var(--company-buttons-hover-color) ;
+}
+
+.company-profile-change .buttons .btn.cancel{
+    background-color: var(--company-decrescent-vector-color);
+    transition:  0.2s background-color ease-in-out ;
+}
+
+.company-profile-change .buttons .btn.cancel:hover{
+    background-color: #a33c31;
+}

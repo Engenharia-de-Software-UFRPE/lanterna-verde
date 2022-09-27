@@ -9,8 +9,6 @@ body{
 /*MAIN SECTION*/
 
 main{
-  background: #09aa4c;
-  padding: 5px;
   min-width: 320px;
   max-width: 100%;
   min-height: 510px;

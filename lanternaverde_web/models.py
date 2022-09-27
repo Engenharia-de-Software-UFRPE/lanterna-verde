@@ -119,19 +119,35 @@ class Analista(models.Model):
         return self.user.username
 
 class Empresa(models.Model):
-    TYPE = (
-        ('T1', 'Primeiro Setor'),
-        ('T2', 'Segundo Setor'),
-        ('T3', 'Terceiro Setor')
-    )
+    NOPACK = 'Nenhum pacote assinado'
+    MONTHLY = 'Mensal'
+    BIANNUAL = 'Semestral'
+    YEARLY = 'Anual'
+
+    T1 ='Primeiro Setor'
+    T2 = 'Segundo Setor'
+    T3 = 'Terceiro Setor'
+
+    TYPE = [
+        (T1, 'Primeiro Setor'),
+        (T2, 'Segundo Setor'),
+        (T3, 'Terceiro Setor')
+    ]
+    PACKAGE = [
+        (NOPACK, 'Nenhum pacote assinado'),
+        (MONTHLY, 'Mensal'),
+        (BIANNUAL, 'Semestral'),
+        (YEARLY, 'Anual')
+    ]
 
     tradeName = models.CharField('Nome Fantasia', max_length=100)
     corporateName = models.CharField('Razão Social', max_length=100)
     stateRegistration = models.CharField('Inscrição Estadual', max_length=9)
     cnpj = models.CharField('CNPJ', max_length=14, unique=True)
     tipo = models.CharField(choices=TYPE, max_length=100)
-    contactName= models.CharField('Nome do Contato', max_length=50)
     phoneNumber = models.CharField('Telefone', max_length=12)
+    package = models.CharField(choices=PACKAGE, max_length=100, default=NOPACK)
+    score = models.DecimalField('Score',max_digits = 4, decimal_places = 2 , default=0)
 
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 
@@ -177,9 +193,10 @@ class SolicitacaoAnalise(models.Model):
     professional analysis from a team of Analists. Administrators will evaluate
     each `SolicitacaoAnalise` in order to create a new Analysis.
     """
-
+    
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='solicitacoes')
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
+    reanalysis = models.BooleanField(default=True)
 
     PENDING = 0
     PROCESSING = 1
@@ -216,7 +233,8 @@ class AvaliacaoAnalista(models.Model):
     
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
     
-    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises',null=True)
+    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
+    update_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.analyst.user.username + ' -> ' + self.analysis_request.empresa.tradeName + ' ' + str(self.id)
@@ -234,7 +252,6 @@ class Questao(models.Model):
         """database metadata"""
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
-
 
 class Relatorio(models.Model):
 

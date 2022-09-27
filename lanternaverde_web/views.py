@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
 
@@ -13,6 +13,8 @@ import lanternaverde_web.relatorio as relatorio
 import lanternaverde_web.notificacaoAdm as notificacaoAdm
 
 from django.contrib.auth.hashers import check_password
+
+from datetime import datetime
 
 
 #pylint: disable=W0401
@@ -113,44 +115,49 @@ def logout(request):
 
 @csrf_exempt
 def cadastro_empresa(request):
-    print(request.POST)
-    if request.method == 'GET':
-        pass
-
-    elif request.method == 'POST':
-        data = request.POST
-        usuario = Usuario.objects.create_user(username=data.get('username'), email=data.get('email'), password=data.get('password'))
-        usuario.save()
-        empresa = Empresa.objects.create(tradeName=data.get('tradeName'),
-                                        corporateName=data.get('corporateName'),
-                                        stateRegistration=data.get('stateRegistration'),
-                                        cnpj=data.get('cnpj'),
-                                        tipo=data.get('tipo'),
-                                        contactName=data.get('contactName'),
-                                        phoneNumber=data.get('phoneNumber'),
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        usuario = Usuario.objects.create_user(username=data['username'], 
+                                            email=data['email'], 
+                                            password=data['password'])        
+        empresa = Empresa.objects.create(tradeName= data['tradeName'],
+                                        corporateName= data['corporateName'],
+                                        stateRegistration= data['stateRegistration'],
+                                        cnpj= data['cnpj'],
+                                        tipo= data['type'],
+                                        phoneNumber= data['phoneNumber'],
                                         user=usuario)
+        usuario.save()
         empresa.save()
 
-    return HttpResponse(status=201)
+        return HttpResponse(status=201)
+    return HttpResponseBadRequest()
 
 @csrf_exempt
+@login_required
 @empresa_required
 def alterar_empresa(request):
-    data = request.POST
-    empresa = Empresa.objects.get(pk=2)
-    empresa.tradeName = data.get("tradeName")
-    empresa.corporateName = data.get("corporateName")
-    empresa.stateRegistration = data.get("stateRegistration")
-    empresa.cnpj = data.get("cnpj")
-    empresa.tipo = data.get("tipo")
-    empresa.contactName = data.get("contactName")
-    empresa.phoneNumber = data.get("phoneNumber")
-    empresa.user.username = data.get("username")
-    empresa.user.email = data.get("email")
-    empresa.user.password = data.get("password")
-    empresa.save()
-    empresa.user.save()
-    return HttpResponse(status=200)
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        
+        usuario = request.user
+        usuario.username = data['username']
+        usuario.email = data['email']
+        usuario.set_password(data['password'])
+        usuario.save()
+
+        update_session_auth_hash(request, request.user)
+        
+        empresa = Empresa.objects.get(user=usuario.id)
+        empresa.tradeName = data['tradeName']
+        empresa.corporateName = data['corporateName']
+        empresa.tipo = data['type']
+        empresa.phoneNumber = data['phoneNumber']
+        empresa.user = usuario
+        empresa.save()
+
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
 
 @login_required(login_url='/')
 def get_logged_usuario(request):
@@ -202,6 +209,25 @@ def get_logged_analista(request):
     return HttpResponseBadRequest()
 
 @csrf_exempt
+@login_required
+@empresa_required
+def get_logged_empresa(request):
+    """
+    Function that creates a response to a GET request for a logged Empresa
+    """
+    if request.method == 'GET':
+        user = request.user
+        if hasattr(user, 'empresa'):
+            ser_user = UsuarioSerializer(user)
+            ser_empr = EmpresaSerializer(user.empresa)
+            ser_return = {
+                'Usuario': ser_user.data,
+                'Empresa': ser_empr.data
+            }
+            return JSONResponse(ser_return, status=201)
+    return HttpResponseBadRequest()
+
+@administrador_required
 @login_required
 @administrador_required
 def create_questao(request):
@@ -271,6 +297,18 @@ def listar_analises(request):
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
     """
     return avalAnalista.listar_analises(request)
+
+@csrf_exempt
+@login_required
+@empresa_required
+def listar_analises_empresa(request):
+    return avalAnalista.listar_analises_empresa(request)
+
+@csrf_exempt
+@login_required
+@empresa_required
+def listar_analises_passiveis_reanalise(request):
+    return avalAnalista.listar_analises_passiveis_reanalise(request)
 
 @csrf_exempt
 @login_required
@@ -354,11 +392,157 @@ def alterar_senha(request):
             return HttpResponse("Senha incorreta, não foi possível alterar", status=401)
     return HttpResponseBadRequest()
 
-
 @csrf_exempt
 @login_required
 def finalizar_analise(request):
     return avalAnalista.finalizar_analise(request)
+
+@csrf_exempt
+@login_required
+@empresa_required
+def assinar_pacote(request):
+    if(request.method == 'PUT'):
+        data = json.loads(request.body)
+        usuario = request.user        
+        empresa = Empresa.objects.get(user=usuario.id) 
+        empresa.package = data
+        empresa.save()
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+@empresa_required
+def solicitar_reanalise(request, pk):
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        solicitacao = SolicitacaoAnalise.objects.get(analises__id = pk)
+        solicitacao.reanalysis = False
+        solicitacao.save()
+        return HttpResponse(status=200)
+    return HttpResponseBadRequest()
+
+@csrf_exempt
+@login_required
+@empresa_required
+def get_solicitacao_empresa(request, pk):
+    if request.method == 'GET':
+        empresa = request.user.empresa
+
+        solicitacao = SolicitacoesAnaliseSerializer(
+            SolicitacaoAnalise.objects.get(empresa__id=empresa.id, analises__id = pk),
+            context={'request': None}
+        )
+        
+        ser_return = {
+            'Solicitacao': solicitacao.data
+        }
+        
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def get_empresa(request, id):
+    if request.method == 'GET':
+        empresas = EmpresaSerializer(
+            Empresa.objects.get(id=id)
+        )
+        ser_return = {
+            'Empresa': empresas.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def get_ranking(request):
+    if request.method == 'GET':
+        empresas = Empresa.objects.all()
+        for i in range(len(empresas)):
+            relatoriosEmpresa = Relatorio.objects.filter(request__empresa__id = empresas[i].id,
+                                                        request__status=3)
+            somaAscores = 0
+            for j in range(len(relatoriosEmpresa)):
+                somaAscores += relatoriosEmpresa[j].ascore
+
+            empresa = Empresa.objects.get(id=empresas[i].id)
+            
+            if somaAscores>0:
+                empresa.score = somaAscores/len(relatoriosEmpresa)
+            else :
+                empresa.score = 0
+
+            empresa.save()
+
+        empresas = EmpresaSerializer(
+            Empresa.objects.all().order_by('-score'),
+            many=True
+        )
+                       
+        ser_return = {
+            'Empresas': empresas.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+def compilar_relatorio_geral(request):
+    if request.method == 'POST':
+        data = request.POST
+        report = Relatorio.objects.filter(company=data['company'])
+        initialDate = data['init date']
+        finalDate = data['final date']
+
+        if initialDate and finalDate:
+            report = report.objects.filter(dat__gte=datetime.date(initialDate), dat__lte=datetime.date(finalDate))
+            report.objects.scores.repr()
+            ser_report = RelatorioSerializer(report, many=True)
+        else:
+            ser_report = RelatorioSerializer(report, many=True)
+
+        scoresD1 = [scoreD1 for scoreD1 in ser_report.scoreD1]
+        scoresD2 = [scoreD2 for scoreD2 in ser_report.scoreD2]
+        scoresD3 = [scoreD3 for scoreD3 in ser_report.scoreD3]
+        scoresD4 = [scoreD4 for scoreD4 in ser_report.scoreD4]
+        ascores = [ascore for ascore in ser_report.ascore]
+
+        mediumD1 = sum(scoresD1)/len(scoresD1)
+        mediumD2 = sum(scoresD2)/len(scoresD2)
+        mediumD3 = sum(scoresD3)/len(scoresD3)
+        mediumD4 = sum(scoresD4)/len(scoresD4)
+        mediumAscores = sum(ascores)/len(ascores)
+
+        relatorio_geral = {
+            'Score D1': mediumD1.data,
+            'Score D2': mediumD2.data,
+            'Score D3': mediumD3.data, 
+            'Score D4': mediumD4.data,
+            'Média geral': mediumAscores.data
+        } 
+        return JSONResponse(relatorio_geral, status=200)
+    return HttpResponseBadRequest()
+
+@login_required
+def areas_pior_avaliacao(request):
+    if request.method == 'GET':
+        data = json.loads(request.body)
+        relatorio = json.loads(compilar_relatorio_geral(request))
+
+        scores = [relatorio['Score D1'],
+                    relatorio['Score D2'],
+                    relatorio['Score D3'],
+                    relatorio['Score D4']]
+        scoreSort = scores.sort()
+        piorScore = [scoreSort[0], scoreSort[1]]
+
+        resultado = []
+        [resultado.append("D" + str(i+1) + " = " + str(piorScore[j]))
+            for i in range(len(scores))
+                for j in range(len(piorScore))
+                    if piorScore[j] == scores[i]
+        ]
+
+        resultado_return = {
+            'Primeira área de pior avaliação' : resultado[0].data,
+            'Segunda área de pior avaliação' : resultado[1].data,
+        }
+        return JSONResponse(resultado_return, status=200)
 
 @csrf_exempt
 @login_required(login_url='/')

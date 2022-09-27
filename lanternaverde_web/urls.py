@@ -16,6 +16,7 @@ urlpatterns = [
     path('user', views.get_logged_usuario, name='test_permission'),
     path('user/admin', views.get_logged_administrador, name='get_admin'),
     path('user/analista', views.get_logged_analista, name='get_anal'),
+    path('user/empresa', views.get_logged_empresa, name='get_empresa'),
     path('user/password/change', views.alterar_senha, name='alterar_senha'),
 
     path('perguntas', views.get_questoes, name='questoes'),
@@ -34,7 +35,14 @@ urlpatterns = [
     path('analise/finish', views.finalizar_analise, name='concluir_analise'),
 
     path('empresa/add', views.cadastro_empresa, name='cadastro_empresa'),
-    path('empresa/update', views.cadastro_empresa, name='alterar_empresa'),
+    path('empresa/update', views.alterar_empresa, name='alterar_empresa'),
+    path('empresa/assign-package', views.assinar_pacote, name='assinar_pacote'),
+    path('empresa/analises', views.listar_analises_empresa, name='listar_analises_empresa'),
+    path('empresa/analises/not-reanalyzed', views.listar_analises_passiveis_reanalise, name='listar_analises_empresa'),
+    path('empresa/analise/<str:pk>', views.get_solicitacao_empresa, name='get_analise_empresa'),
+    path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
+    path('empresa/ranking', views.get_ranking, name='get_ranking'),
+    path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),
     path('relatorio/comment', views.comment_relatorio, name='comment_relatorio'),
