@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
-import SolAnalise from './SolAnalise';
 import axios from 'axios';
 
 const Tableadmin = () => {
-
+  
     const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
     async function solicitaAnalise() {
@@ -19,7 +18,7 @@ const Tableadmin = () => {
     
     if (solAnalise[0] === "placeholder") {
         solicitaAnalise();
-      }
+    }
       
       console.log(solAnalise)
     return (<div id="requestListArea">
@@ -28,11 +27,12 @@ const Tableadmin = () => {
             <div id="table-scroll">
                 <table>
                     <tbody> 
-                    <SolAnaliseMap soliciatoes_analise ={solAnalise} />
+                    <SolAnaliseMap soliciatoes_analise ={solAnalise}/>
                     </tbody>
                 </table>
             </div>
         </div>
-    </div >)
+    </div >
+    )
 }
 export default Tableadmin;

@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ObjectDoesNotExist
+
 from django.http import HttpResponse, HttpResponseBadRequest
 from .utils.jsonresponse import JSONResponse
 from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio

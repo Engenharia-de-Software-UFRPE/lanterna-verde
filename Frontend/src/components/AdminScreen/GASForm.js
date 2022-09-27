@@ -6,7 +6,7 @@ const GASForm = ({ analise }) => {
     console.log(analise);
     return(
         <div className='listAnalise'>
-            Questões: {analise.map((questao) => (<Questionnaire questao={questao}/>))}
+            {analise.map((questao) => (<Questionnaire questao={questao}/>))}
         </div>
     );
 }

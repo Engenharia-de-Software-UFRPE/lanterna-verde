@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TableAnalisesEmpresa from './analisesDaEmpresa';
+import axios from 'axios';
 import './ContainerAdm.css';
 import TableAnalysisData from './DadosDaAnalise';
 import TableListaEmpresas from './listaDeAnaliseEmpresa';
 import Tableadmin from './ResquestTable.js';
-import TableQuestionario from './TelaQuestionario';
-import axios from 'axios';
 import AdmScreenData from './AdmScreenData';
 import AnalystRegistration from './AnalystRegistration';
 import GASForm from './GASForm';
@@ -37,7 +36,7 @@ function ContainerAdm() {
       listQuestions()
   }
 
-  async function listAnalysis() {
+  async function loadAdministrator() {
     axios.defaults.withCredentials = true;
     let response = await axios
       .get("http://localhost:8000/user/admin", { withCredentials: true })
@@ -49,12 +48,11 @@ function ContainerAdm() {
   }
 
   if (administrator === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
   if (user === "placeholder") {
-    listAnalysis();
+    loadAdministrator();
   }
-  //window.addEventListener('resize', showButton);
 
   return (
     <div className='admBoard-container' id="body">
@@ -70,10 +68,8 @@ function ContainerAdm() {
         <div id="usernameAdmArea">
           <h6 class="usernameAdm">Username: {user.username}</h6>
         </div>
-
-
-        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'></h5>Solicitações de Análise</button>
-        <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'></h5>Minha Conta </button>
+        <button onClick={() => setActive("FirstCard")} class='btn'> <h5 className='nameAdm'>Solicitações de Análise</h5></button>
+        <button onClick={() => setActive("SecondCard")} class='btn'> <h5 className='nameAdm'>Minha Conta</h5></button>
         <button onClick={() => setActive("ThirdCard")} className='btn'> <h5 className='nameAdm'>Cadastrar Analista</h5> </button>
         <button onClick={() => setActive("FourCard")} className='btn'> <h5 className='nameAdm'>Ver Questionário</h5> </button>
         <button onClick={() => setActive("FiveCard")} className='btn'> <h5 className='nameAdm'>Histórico de Análises</h5> </button>

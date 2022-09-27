@@ -76,29 +76,17 @@ main{
   position: relative;
   transition: all 0.35s;
   outline: none;
+  color: #09aa4c;
 }
   
-.main__btn a {
+.main__btn a:after {
   position: relative;
   z-index: 2;
-  color: #09aa4c;
   text-decoration: none;
 }
 
-.main__btn:after{
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: #131313;
-  transition: all 0.35s;
-  border-radius: 4px;
-}
-
 .main__btn:hover{
-  color: #fff;
+  color: #131313;
 }
 
 .main__btn:hover:after{
