@@ -11,7 +11,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios';
 import NotificationMap from './NotificationMap';
-import NotificationLength from './NotificationLength';
+import NonReadNotification from './NonReadNotification';
 
 function NavbarAdm() {
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ function NavbarAdm() {
     });
   }
   const[notifications, setNotifications] = useState(['placeholder']);
+  const[qtdNonRead, setQtdNonRead] = useState();
   async function listNotifications(){
     let response = await axios.get(
       "http://localhost:8000/notificacoes", 
@@ -37,8 +38,9 @@ function NavbarAdm() {
     )
     .then(response => response);
     setNotifications(response.data.notificacoesAdm);
+    setQtdNonRead(response.data.qtd_notificacoes_nao_lidas);
   }
-  console.log(notifications);
+  console.log(qtdNonRead);
   if(notifications[0] === 'placeholder'){
     listNotifications();
   }
@@ -69,7 +71,7 @@ function NavbarAdm() {
               </Nav>
               <ul class="navbar-nav ms-auto">
                 <li>
-                  <NotificationLength notifSize={notifications.length}></NotificationLength>
+                  <NonReadNotification nonRead={qtdNonRead}></NonReadNotification>
                   <Popup trigger={
                     <a id="notificationMenuButton" className="notification-link">
                     <span className="notification">

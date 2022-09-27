@@ -1,5 +1,5 @@
 
-const NotificationLength = ({ notifSize }) => {
+const NotificationLength = ({ nonRead }) => {
 
     class Badge {
         constructor(element, options) {
@@ -97,12 +97,13 @@ const NotificationLength = ({ notifSize }) => {
 
     const action = document.querySelector('.notification'); 
     if(action){
-        if(notifSize > 0){
-            customNotification.increase(notifSize);
+        if(nonRead){
+            customNotification.increase(nonRead);
             action.addEventListener('click', () => {
                 customNotification.set(0);
             }); 
-        } 
+        }
+        
     }
 }
 
