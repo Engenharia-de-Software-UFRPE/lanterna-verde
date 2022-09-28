@@ -127,6 +127,7 @@ def cadastro_empresa(request):
                                         tipo= data['type'],
                                         phoneNumber= data['phoneNumber'],
                                         user=usuario)
+        usuario.save()
         empresa.save()
 
         return HttpResponse(status=201)
@@ -561,9 +562,6 @@ def compilar_relatorio_geral_empresa(request):
         
         return JSONResponse(relatorio_geral, status=200)
     return HttpResponseBadRequest()
-
-def finalizar_analise(request):
-    return avalAnalista.finalizar_analise(request)
 
 @csrf_exempt
 @login_required(login_url='/')
