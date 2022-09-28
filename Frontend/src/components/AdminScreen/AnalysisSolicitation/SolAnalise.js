@@ -24,7 +24,8 @@ const SolAnalise = ({solicita_a_analise}) =>{
     const setNumAnalistas = async(analystamount, analysis_request) => {
         const response = await axios.post(
             'http://localhost:8000/analise/add',
-            {'analystamount': analystamount})
+            {'analystamount': analystamount,
+             'analysis_request': analysis_request})
         .then(response => response);
     };
 
