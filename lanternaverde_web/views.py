@@ -527,13 +527,22 @@ def compilar_relatorio_geral_empresa(request):
             scoresD4 += relatorios[i]['scoreD4']
             ascores += relatorios[i]['ascore']
 
-        scores = {
-            'D1': scoresD1/len(relatorios),
-            'D2': scoresD2/len(relatorios),
-            'D3': scoresD3/len(relatorios), 
-            'D4': scoresD4/len(relatorios),
-            'Ascore': ascores/len(relatorios)
-        }
+        if (len(relatorios) >0 ) :
+            scores = {
+                'D1': scoresD1/len(relatorios),
+                'D2': scoresD2/len(relatorios),
+                'D3': scoresD3/len(relatorios), 
+                'D4': scoresD4/len(relatorios),
+                'Ascore': ascores/len(relatorios)
+            }
+        else:
+            scores = {
+                'D1': scoresD1,
+                'D2': scoresD2,
+                'D3': scoresD3, 
+                'D4': scoresD4,
+                'Ascore': ascores
+            }
         
         array_scores = [scores['D1'],
                     scores['D2'],

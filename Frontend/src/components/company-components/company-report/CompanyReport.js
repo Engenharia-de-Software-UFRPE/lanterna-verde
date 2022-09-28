@@ -32,48 +32,54 @@ function CompanyReportScreen() {
         await axios.get('http://localhost:8000/empresa/report', { withCredentials: true })
         .then(res => {
             let data = res.data;
-            console.log(data)
-            getData()
-        })
-        .catch( error=>{
-            alert("Erro")
-        })
+            console.log(res.data['ScorePorData'])
+            const array = []
+            const formatDate = (date) => {
+                return new Date(date).toLocaleDateString()
+            }
+
+            const scores = [(res.data['Scores']['Ascore']),
+                        (res.data['Scores']['D1']),
+                        (res.data['Scores']['D2']),
+                        (res.data['Scores']['D3']),
+                        (res.data['Scores']['D4'])]
+            const labelsLineGraph = []
+            const dataLineGraph = []
+            if (res.data['ScorePorData'].length >0){
+                for (let i =0 ;i < res.data['ScorePorData'].length; i++ ){
+                    labelsLineGraph.push(formatDate(res.data['ScorePorData'][i]['data']))
+                    dataLineGraph.push(res.data['ScorePorData'][i]['ascore'])
+                }
+            }
+
+            setLineGraphData({
+                labels: labelsLineGraph,
+                datasets:[{
+                    label:'Grafico de linha',
+                    data:dataLineGraph,
+
+                    backgroundColor: "rgba(27, 181, 92, 0.5)",
+                    borderColor: "rgba(27, 181, 92, 0.4)",
+    
+                }]
+            })
+
+            setRadarGraphData({
+                labels:['ASCORE','D1', 'D2', 'D3', 'D4'],
+                datasets:[{
+                    label:'Radar',
+                    data: scores,
+
+                    backgroundColor: "rgba(27, 181, 92, 0.4)",
+                    borderColor: "rgba(27, 181, 92, 0.4)",
+                }]
+            })
+
+            })
+            .catch( error=>{
+                alert("Erro")
+            })
     };
-
-    const getData = () => {
-        
-        console.log(lineGraphData)
-        console.log(lineGraphData['labels'])
-        console.log(lineGraphData['datasets'][0])
-        console.log(lineGraphData['datasets'][0]['label'])
-        console.log(lineGraphData['datasets'][0]['data'])
-        
-        
-        const array = [10,10,10,10,10]
-
-        setLineGraphData({
-            labels:[0,0,2,1,0],
-            datasets:[{
-                label:'Grafico de linha',
-                data:array,
-
-                backgroundColor: "rgba(27, 181, 92, 0.5)",
-                borderColor: "rgba(27, 181, 92, 0.4)",
-  
-            }]
-        })
-
-        setRadarGraphData({
-            labels:['ASCORE','D1', 'D2', 'D3', 'D4'],
-            datasets:[{
-                label:'Radar',
-                data: array,
-
-                backgroundColor: "rgba(27, 181, 92, 0.4)",
-                borderColor: "rgba(27, 181, 92, 0.4)",
-            }]
-        })
-    }
 
   return (
     
@@ -95,7 +101,11 @@ function CompanyReportScreen() {
                     </div>
                     
                     <div className="Report-Tips">
-                        <p>Recomendações: </p>
+                        <h3 className="tips-title">Dicas</h3>
+                        <h4 className="tip"><strong>D1: </strong> Dica D1 </h4>
+                        <h4 className="tip"><strong>D2: </strong> Dica D2</h4>
+                        <h4 className="tip"><strong>D3: </strong> Dica D3 </h4>
+                        <h4 className="tip"><strong>D4: </strong> Dica D4</h4>
                     </div>
 
                 </div>

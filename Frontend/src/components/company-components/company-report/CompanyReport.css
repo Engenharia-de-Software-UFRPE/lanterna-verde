@@ -7,9 +7,15 @@
     position: absolute;
     background:  #DADADA;
     top: 60px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 800px;
 }
 
 .Container-Report-Inside{
+    box-sizing: border-box;
+    width: 650px;
     margin-top: 50px;
     margin-bottom: 50px;
     background: #EEEDED;
@@ -26,11 +32,35 @@
 .Container-ReportScreen .Report-Title{
     margin-top: 50px;
     color: #3AB06F;
-    font-size: 40px;
+    font-size: 2em;
     font-weight: bold;
     text-align: center;
 }
 
 .Container-Report .graphs{
     max-width: 400px;
+}
+
+.Container-Graph{
+    width: 400px;
+}
+
+.Report-Tips{
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 0px 0px 10px 0px;
+}
+
+.Report-Tips .tips-title{
+    background-color: var(--company-buttons-color);
+    padding: 10px 20px;
+    border-radius: 25px 25px 0px 0px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+.Report-Tips .tip{
+    padding: 5px 20px;
+    font-size: 1.2em;
 }
