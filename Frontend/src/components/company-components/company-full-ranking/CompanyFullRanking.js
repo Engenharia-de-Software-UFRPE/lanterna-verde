@@ -14,7 +14,7 @@ const CompanyFullRanking = () =>{
         await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
         .then(res => {
             let data = res.data['Empresas']
-            setRanking(teste)
+            setRanking(data)
             setTop3(data)
         })
         .catch( error=>{
