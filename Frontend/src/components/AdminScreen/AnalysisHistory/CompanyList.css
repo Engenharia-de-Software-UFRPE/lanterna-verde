@@ -32,22 +32,3 @@
     color: white;
     background-color: #3AB06F;
   }
-
-  .btnVoltarPtelaPrincipal{
-    width: 90px;
-    position: relative;
-    left: 87%;
-    height: 40px;
-    top: 30%;
-    padding: 10px 24px;
-    border: 0;
-    outline: none;
-    cursor: pointer;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 10px;
-    border-radius: 8px;
-    background: #3AB06F;
-}

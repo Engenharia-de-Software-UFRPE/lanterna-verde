@@ -7,8 +7,7 @@ import CompanyAnalysisMap from './CompanyAnalysisMap';
 import axios from 'axios';
 import InfoAnalysis from './InfoAnalysis';
 
-
-const AnalysisTableList = () => {
+const AnalysisTableList = ({analisesEmpresa}) => {
     
     const [analysisList,setAnalysisList] = useState(['placeholder']);
 
@@ -33,23 +32,20 @@ const AnalysisTableList = () => {
 
 
     return (
-     
-      <div id="requestListArea">
-      <ListGroup.Item>
-        <h6 class="requestList"><strong>Análises da empresa selecionada</strong></h6>
-        <div id="table-wrapper">
-            <div id="table-scroll">
-                <table>
-                    <tbody> 
-                    <CompanyAnalysisMap analisesEmpresa ={analysisList} />
-                    <button onClick={detailsHandler} class='btn'> Abrir análise</button>
-                    </tbody>
-                </table>
-            </div>
-            {active ? <InfoAnalysis/> : ''}
-        </div>
-        </ListGroup.Item>
-    </div >
+        <> 
+          <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+              >
+          <div className='ms-2 me-auto'>
+              <div className="fw-bold">
+                Analises: {analisesEmpresa}
+                <button onClick={detailsHandler} class='btn'> Abrir análise</button>
+              </div>
+          </div>
+          </ListGroup.Item>
+          {active ? <InfoAnalysis/> : ''}
+        </>
     )
 };
 export default AnalysisTableList;
