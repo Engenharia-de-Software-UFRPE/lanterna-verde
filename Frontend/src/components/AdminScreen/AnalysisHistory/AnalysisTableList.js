@@ -35,12 +35,12 @@ const AnalysisTableList = ({analisesEmpresa}) => {
         <> 
           <ListGroup.Item
               as="li"
-              className="d-flex justify-content-between align-items-start"
+              className="bg-success d-flex justify-content-between align-items-start"
               >
           <div className='ms-2 me-auto'>
               <div className="fw-bold">
                 Analises: {analisesEmpresa}
-                <button onClick={detailsHandler} class='btn'> Abrir análise</button>
+                <button onClick={detailsHandler} class='btn'> Ver relatório</button>
               </div>
           </div>
           </ListGroup.Item>

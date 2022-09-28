@@ -20,7 +20,7 @@ console.log(list_of_companies)
                 >
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
-                    Empresa: {list_of_companies}
+                    Empresa: {list_of_companies.tradeName}
                     <button onClick={detailsHandler} class='btn'> Ver análises</button>
                 </div>
             </div>

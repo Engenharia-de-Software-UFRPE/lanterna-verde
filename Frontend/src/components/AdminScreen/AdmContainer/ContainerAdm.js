@@ -40,15 +40,16 @@ function ContainerAdm() {
   async function listingCompanies(){
     let response = await axios.get(
       "http://localhost:8000/empresa", {withCredentials: true}
-      ).then(response => response)
-      setCompanies(response.data.Empresa);
+      )
+      .then(response => response);
+      setCompanies(response.data.listaEmpresa);
   }
 
   if(companies[0] === 'placeholder'){
     listingCompanies();
   }
 
-  console.log(companies)
+  console.log(companies);
   const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
   async function solicitaAnalise() {
