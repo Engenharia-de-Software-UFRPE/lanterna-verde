@@ -42,6 +42,7 @@ urlpatterns = [
     path('empresa/analise/<str:pk>', views.get_solicitacao_empresa, name='get_analise_empresa'),
     path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
     path('empresa/ranking', views.get_ranking, name='get_ranking'),
+    path('empresa', views.listar_empresas, name='listar_empresas'),
     path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),

@@ -450,6 +450,18 @@ def get_solicitacao_empresa(request, pk):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+@login_required
+@administrador_required
+def listar_empresas(request):
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        empresas = EmpresaSerializer(Empresa.objects.all(), many=True)
+        ser_return = {
+            'listaEmpresa': empresas.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
 def get_empresa(request, id):
     if request.method == 'GET':
         empresas = EmpresaSerializer(
