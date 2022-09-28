@@ -11,6 +11,7 @@ import AnalystRegistration from '../AnalystRegister/AnalystRegistration';
 import GASForm from '../Form/GASForm';
 import TableListaEmpresas from '../AnalysisHistory/CompanyHistory';
 import InfoAnalysis from '../AnalysisHistory/InfoAnalysis';
+import CompanyListMap from '../AnalysisHistory/CompanyListMap';
 
 
 function ContainerAdm() {
@@ -35,6 +36,19 @@ function ContainerAdm() {
   //   listAnalysisHistory();
   // }
 
+  const [companies, setCompanies] = useState(['placeholder']);
+  async function listingCompanies(){
+    let response = await axios.get(
+      "http://localhost:8000/empresa", {withCredentials: true}
+      ).then(response => response)
+      setCompanies(response.data.Empresa);
+  }
+
+  if(companies[0] === 'placeholder'){
+    listingCompanies();
+  }
+
+  console.log(companies)
   const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
   async function solicitaAnalise() {
@@ -107,7 +121,7 @@ function ContainerAdm() {
 
       <div className='tables'>
         {/* Depois vamos trocar a posição de RequestTable com  TableListaEmpresas*/}
-        {active === "FirstCard" && <CompanyList />}
+        {active === "FirstCard" && <CompanyListMap companies_list={companies}/>}
         {active === "SecondCard" && <AdmScreenData />}
         {active === "ThirdCard" && <AnalystRegistration />}
         {active === "FourthCard" && <GASForm analise={question}/>}
