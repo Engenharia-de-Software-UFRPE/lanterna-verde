@@ -75,15 +75,15 @@
 }
 
 .tables{
-    height: 100vh;
-    width: 800px;
+    height: 99vh;
+    width: 1000px;
     overflow:auto;
 }
-.tabela{
+/* .tabela{
     margin: 90px;
     width: 958px;
     text-align: center;
-}
+} */
 
 @media (max-width: 1250px)
 {

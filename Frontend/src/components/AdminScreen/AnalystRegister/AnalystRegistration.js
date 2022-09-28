@@ -39,8 +39,8 @@ function AnalystRegistration() {
  
     return (
         <>
-        <div className="cont">
-            <div className="container">
+        <div className="cont2">
+            {/* <div className="container2"> */}
           
                 <form>
                 <h2>Cadastro Analista</h2>
@@ -90,7 +90,7 @@ function AnalystRegistration() {
                     }}/>
                 </div>
                 </form>
-            </div>
+            {/* </div> */}
         </div>
         </>
     );
