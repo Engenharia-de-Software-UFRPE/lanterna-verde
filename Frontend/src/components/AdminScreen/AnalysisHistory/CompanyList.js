@@ -11,7 +11,7 @@ const CompanyList = ({list_of_companies}) =>{
     const detailsHandler = () => {
        setActive((prevState) => !prevState);
    }
-
+console.log(list_of_companies)
     return (
         <> 
             <ListGroup.Item
