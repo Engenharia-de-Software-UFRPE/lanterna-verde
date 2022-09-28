@@ -8,22 +8,25 @@ import './SolAnalise.css';
 const SolAnalise = ({solicita_a_analise}) =>{
 
     const [active, setActive] = useState(false);
-    const [analistas, setAnalistas] = useState(false);
+    const[analystAm, setAnalystAm] = useState({
+        analystamount: ''
+    });
+    
+    const{analystamount} = analystAm;
 
-    const setNumAnalistas = async (number) => {
-        const response = await axios
-        .post(
-          'http://localhost:8000/solicitacoesAnalise/add',
-          { number: number}
-        )
-        .then((response) => response)
-        .catch(function (error) {
-          if(error.response){
-            console.log(analistas.response.data);
-            setAnalistas(true);
-          }
+    const setAnalystAmount = ({target}) => {
+        setAnalystAm({
+            ...analystAm,
+            [target.name]:target.value
         });
-      };
+    };
+    
+    const setNumAnalistas = async(analystamount, analysis_request) => {
+        const response = await axios.post(
+            'http://localhost:8000/analise/add',
+            {'analystamount': analystamount})
+        .then(response => response);
+    };
 
     const detailsHandler = () => {
         setActive((prevState) => !prevState);
@@ -37,7 +40,7 @@ const SolAnalise = ({solicita_a_analise}) =>{
                 >
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
-                    Empresa {solicita_a_analise.empresa.tradeName}
+                    Empresa: {solicita_a_analise.empresa.tradeName}
                     <button onClick={detailsHandler} class='btn'> Abrir análise</button>
                 </div>
             </div>
@@ -49,14 +52,16 @@ const SolAnalise = ({solicita_a_analise}) =>{
                     <div className="fw-bold">ID: {solicita_a_analise.empresa.id}</div>
                     <Popup trigger={<a href="#">Aceitar Análise</a>}>
 
-                    <form action="http://localhost:8000/solicitacoesAnalise/detail" method='post'>
-                        <Popup trigger={<a href="" className="closebtn"><strong>Fechar</strong></a>}/>
-                        <Popup trigger={<input type="submit" defaultValue="Submit Now" className="submitbtn"/>}/>
-                    
+                    <form>
+                        
                         <div className="input-field">
-                            <input type="number" placeholder="Quantidade de analistas" className="number" name = 'number'/>
+                            <input type="number" placeholder="Quantidade de analistas" className="number" name = 'analystamount' onChange={setAnalystAmount} value = {analystamount}/>
                             <i className="bx bx-hide show-hide" />
                         </div>
+                        <input type="submit" defaultValue="Submit Now" className="submitbtn" onClick={(e) => {
+                            e.preventDefault();
+                            setNumAnalistas(analystAm.analystamount, solicita_a_analise.id);
+                        }}/>
                     </form>
                     </Popup>
                 </div>

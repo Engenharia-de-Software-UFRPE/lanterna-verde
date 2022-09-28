@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './CompanyList.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
-import AnalysisList from './AnalysisTableList';
+import AnalysisTableList from './AnalysisTableList';
 
 const CompanyList = ({list_of_companies}) =>{
 
@@ -25,7 +25,7 @@ const CompanyList = ({list_of_companies}) =>{
                 </div>
             </div>
             </ListGroup.Item>
-         {active ? <AnalysisList/> : ''}
+         {active ? <AnalysisTableList/> : ''}
         </>
     );
 };

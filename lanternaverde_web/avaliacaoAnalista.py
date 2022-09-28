@@ -161,7 +161,7 @@ def atualizar_analise(request):
 
 def _select_Analist(amount):
     analists = Analista.objects.filter(
-        available=True).order_by('analysis')[:amount]
+        available=True).order_by('analysis')[:int(amount)]
     return analists
 
 
