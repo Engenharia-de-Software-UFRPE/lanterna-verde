@@ -6,6 +6,7 @@ import './AnalysisTableList.css';
 import CompanyAnalysisMap from './CompanyAnalysisMap';
 import axios from 'axios';
 import InfoAnalysis from './InfoAnalysis';
+import './CompanyList.css';
 
 const AnalysisTableList = ({analisesEmpresa}) => {
     
@@ -35,7 +36,7 @@ const AnalysisTableList = ({analisesEmpresa}) => {
         <> 
           <ListGroup.Item
               as="li"
-              className="bg-success d-flex justify-content-between align-items-start"
+              className="list ms-3 bg-success d-flex justify-content-between align-items-start"
               >
           <div className='ms-2 me-auto'>
               <div className="fw-bold">
