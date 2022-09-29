@@ -356,6 +356,11 @@ def get_relatorios(request):
 
 @csrf_exempt
 @login_required
+def get_relatorios_por_empresa(request):
+    return relatorio.get_relatorios_por_empresa(request)
+
+@csrf_exempt
+@login_required
 def comment_relatorio(request):
     return relatorio.comment_relatorio(request)
 

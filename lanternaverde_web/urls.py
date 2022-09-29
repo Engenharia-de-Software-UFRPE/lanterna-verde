@@ -47,6 +47,7 @@ urlpatterns = [
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),
     path('relatorio/comment', views.comment_relatorio, name='comment_relatorio'),
+    path('relatorio/empresa', views.get_relatorios_por_empresa, name='get_relatorios_por_empresa'),
 
     path('notificacoes', views.listar_notificacoesAdm, name='listar_norificacoes'),
     path('notificacoes/read', views.notificacao_lida, name='notificacao_lida')
