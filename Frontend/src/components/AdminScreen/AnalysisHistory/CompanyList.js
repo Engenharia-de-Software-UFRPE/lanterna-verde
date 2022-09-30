@@ -2,16 +2,27 @@ import React, { useState } from 'react';
 import './CompanyList.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
-import AnalysisTableList from './AnalysisTableList';
+import axios from 'axios';
+import ReportsMap from './ReportsMap';
 
 const CompanyList = ({list_of_companies}) =>{
 
     const [active, setActive] = useState(false);
+    const [reports, setReports] = useState(['placeholder']);
+
+    const listReports = async(empresaid) => {
+      const response = await axios.get(
+        "http://localhost:8000/relatorio/empresa", 
+        { 'empresaid': empresaid })
+      .then(response => response);
+      setReports(response.data.relatorios);
+    };
+    console.log(reports);
 
     const detailsHandler = () => {
        setActive((prevState) => !prevState);
-   }
-console.log(list_of_companies)
+    }
+    console.log(list_of_companies);
     return (
         <> 
             <ListGroup.Item
@@ -21,11 +32,27 @@ console.log(list_of_companies)
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
                     Empresa: {list_of_companies.tradeName}
-                    <button onClick={detailsHandler} class='btn'> Ver análises</button>
+                    <button onClick={(e) => {
+                    e.preventDefault();
+                    detailsHandler();
+                    listReports(list_of_companies.id);
+                    }} className='btn'>Relatórios</button>
                 </div>
             </div>
             </ListGroup.Item>
-         {active ? <AnalysisTableList/> : ''}
+         {active ? 
+            <ListGroup.Item
+                as="li"
+                className="list ms-3 bg-success d-flex justify-content-between align-items-start"
+                >
+            <div className='ms-2 me-auto'>
+                <div className="fw-bold">
+                 {/* Relatório: {reports} */}
+                 <ReportsMap companyReports={reports}></ReportsMap>
+                </div>
+            </div>
+            </ListGroup.Item>
+         : ''}
         </>
     );
 };

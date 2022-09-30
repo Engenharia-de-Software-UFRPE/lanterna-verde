@@ -1,7 +1,6 @@
 import React from 'react';
 import '../AdmContainer/ContainerAdm.css';
 import SolAnaliseMap from './SolAnaliseMap';
-import NoteBadge from '../AdmContainer/Notification';
 
 const ResquestTable = ({solAnalise}) => {
 
@@ -14,7 +13,6 @@ const ResquestTable = ({solAnalise}) => {
                     <SolAnaliseMap solicitacoes_analise ={solAnalise}/>
                     </tbody>
                 </table>
-                <NoteBadge></NoteBadge>
             </div>
         </div>
     </div >

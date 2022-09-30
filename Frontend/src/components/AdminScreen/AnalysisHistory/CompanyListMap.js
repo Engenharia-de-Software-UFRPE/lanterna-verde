@@ -1,5 +1,6 @@
 import CompanyList from "./CompanyList";
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const CompanyListMap =({companies_list}) => {
     return(

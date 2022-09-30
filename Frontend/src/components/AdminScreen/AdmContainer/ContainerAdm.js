@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import AnalysisTableList from '../AnalysisHistory/AnalysisTableList';
 import './ContainerAdm.css';
-import TableAnalysisData from '../AnalysisHistory/DadosDaAnalise';
-import CompanyList from '../AnalysisHistory/CompanyList';
 import ResquestTable from '../AnalysisSolicitation/ResquestTable';
 import axios from 'axios';
 import AdmScreenData from '../AdmDataAccount/AdmScreenData';
 import AnalystRegistration from '../AnalystRegister/AnalystRegistration';
 import GASForm from '../Form/GASForm';
-import TableListaEmpresas from '../AnalysisHistory/CompanyHistory';
-import InfoAnalysis from '../AnalysisHistory/InfoAnalysis';
 import CompanyListMap from '../AnalysisHistory/CompanyListMap';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function ContainerAdm() {
 
-  const [active, setActive] = useState("FirstCard")
-  const [minhaConta, setConta] = useState(false);
-  const [configuracoes, setConfiguracoes] = useState(false);
-  const [cadastrarAnalista, setAnalista] = useState(false);
-  const [verQuestionario, setQuestionario] = useState(false);
-  const [historicoAnalises, setHistorico] = useState(['placeholder']);
+  const [active, setActive] = useState("FirstCard");
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
   const [question,setQuestions] = useState(['placeholder']);

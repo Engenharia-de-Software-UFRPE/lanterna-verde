@@ -4,6 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 import './SolAnalise.css';
+import '../AnalysisHistory/CompanyHistory.css';
 
 const SolAnalise = ({solicita_a_analise}) =>{
 
@@ -42,7 +43,7 @@ const SolAnalise = ({solicita_a_analise}) =>{
             <div className='ms-2 me-auto'>
                 <div className="fw-bold">
                     Empresa: {solicita_a_analise.empresa.tradeName}
-                    <button onClick={detailsHandler} class='btn'> Abrir análise</button>
+                    <button onClick={detailsHandler} className='btn'> Abrir análise</button>
                 </div>
             </div>
             </ListGroup.Item>
