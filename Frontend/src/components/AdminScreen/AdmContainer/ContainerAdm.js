@@ -15,18 +15,10 @@ function ContainerAdm() {
   const [user, setUser] = useState("placeholder");
   const [administrator, setAdministrator] = useState("placeholder");
   const [question,setQuestions] = useState(['placeholder']);
-
-  // async function listAnalysisHistory(){
-  //   let response = await axios.get("http://localhost:8000/analise/detail",
-  //   { withCredentials: true }
-  //   ).then(response => response)
-  //   setHistorico(response.data.listar_analises)
-  // } 
-  // if(historicoAnalises[0] === 'placeholder'){
-  //   listAnalysisHistory();
-  // }
-
+  const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
   const [companies, setCompanies] = useState(['placeholder']);
+
+  
   async function listingCompanies(){
     let response = await axios.get(
       "http://localhost:8000/empresa", {withCredentials: true}
@@ -34,13 +26,11 @@ function ContainerAdm() {
       .then(response => response);
       setCompanies(response.data.listaEmpresa);
   }
-
   if(companies[0] === 'placeholder'){
     listingCompanies();
   }
 
   console.log(companies);
-  const [solAnalise,setSolicitaAnalise] = useState(['placeholder']);
 
   async function solicitaAnalise() {
     let response = await axios.get(
@@ -50,7 +40,6 @@ function ContainerAdm() {
     .then(response => response)
     setSolicitaAnalise(response.data.solicitacoes_analise)
   }
-  
   if (solAnalise[0] === "placeholder") {
     solicitaAnalise();
   }
@@ -79,7 +68,6 @@ function ContainerAdm() {
     console.log(response);
 
   }
-
   if (administrator === "placeholder") {
     loadAdministrator();
   }
@@ -88,11 +76,11 @@ function ContainerAdm() {
   }
 
   return (
-    <div id="body">
+    <div className='admBoard-container' id="body">
       <div id="admBoard">
 
         <div id="admPhoto">
-
+          <img src="../images/adm_lantern.jpg" alt=""/>
         </div>
 
         <div id="nameAdmArea">
