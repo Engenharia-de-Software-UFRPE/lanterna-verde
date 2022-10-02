@@ -4,12 +4,13 @@ import './NavbarAdm.css';
 import Popup from 'reactjs-popup';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import ListGroup from "react-bootstrap/ListGroup";
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios';
+import NotificationMap from './NotificationMap';
+import NonReadNotification from './NonReadNotification';
 
 function NavbarAdm() {
   const navigate = useNavigate();
@@ -26,7 +27,21 @@ function NavbarAdm() {
       localStorage.clear();
       setLogout(true);
     });
-    
+  }
+  const[notifications, setNotifications] = useState(['placeholder']);
+  const[qtdNonRead, setQtdNonRead] = useState();
+  async function listNotifications(){
+    let response = await axios.get(
+      "http://localhost:8000/notificacoes", 
+      { withCredentials: true }
+    )
+    .then(response => response);
+    setNotifications(response.data.notificacoesAdm);
+    setQtdNonRead(response.data.qtd_notificacoes_nao_lidas);
+  }
+  console.log(qtdNonRead);
+  if(notifications[0] === 'placeholder'){
+    listNotifications();
   }
 
     return(
@@ -55,6 +70,7 @@ function NavbarAdm() {
               </Nav>
               <ul class="navbar-nav ms-auto">
                 <li>
+                  <NonReadNotification nonRead={qtdNonRead}></NonReadNotification>
                   <Popup trigger={
                     <a id="notificationMenuButton" className="notification-link">
                     <span className="notification">
@@ -64,62 +80,9 @@ function NavbarAdm() {
                     <div className='popupBell'>
                       <h3>Notificações</h3>
                       <hr></hr>
-                      <h6>No notifications</h6>
                        <table>
                         <tbody>
-                          <ListGroup.Item>
-                            {/* Dentro da tag 'ListGroup.Item' haverá a tag do componente
-                              <Notification> vindo do back. Desse modo, as notificações serão
-                              exibidas dentro da table já com as configurações de hover do mouse.
-                              
-                              Abaixo segue apenas um teste para visualizar o ScrollBar funcionando */}
-                            
-                            {/*<tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                             <tr> 
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr>
-                            <tr>
-                              <td><h5>No notifications</h5></td>
-                            </tr> */}
-                          </ListGroup.Item>
+                          <NotificationMap noteAdm={notifications} ></NotificationMap>
                         </tbody>
                       </table> 
                     </div>

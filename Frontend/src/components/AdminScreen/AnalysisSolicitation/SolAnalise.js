@@ -27,7 +27,16 @@ const SolAnalise = ({solicita_a_analise}) =>{
             'http://localhost:8000/analise/add',
             {'analystamount': analystamount,
              'analysis_request': analysis_request})
-        .then(response => response);
+        .then(function (response) {
+            alert("Análise autorizada!");
+        })
+        .catch(function (error) {
+            if(error.response.data){
+              alert(error.response.data);
+            }
+        });
+        console.log(response);
+        console.log(response.data);
     };
 
     const detailsHandler = () => {
@@ -62,6 +71,8 @@ const SolAnalise = ({solicita_a_analise}) =>{
                         </div>
                         <input type="submit" defaultValue="Submit Now" className="submitbtn" onClick={(e) => {
                             e.preventDefault();
+                            console.log(analystAm.analystamount);
+                            console.log(solicita_a_analise.id);
                             setNumAnalistas(analystAm.analystamount, solicita_a_analise.id);
                         }}/>
                     </form>

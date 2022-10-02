@@ -1,0 +1,8 @@
+.notes{
+    cursor: pointer;
+}
+
+.notes:hover{
+    background-color: rgba(58,176,111,255);
+    color: white;
+}

@@ -217,6 +217,7 @@ class SolicitacaoAnalise(models.Model):
         verbose_name = "Solicitação de Análise"
         verbose_name_plural = "Solicitações de Analise"
 
+
 class AvaliacaoAnalista(models.Model):
     analyst = models.ForeignKey(Analista, related_name='analises', on_delete=models.CASCADE)
     comment = models.TextField(blank=True)
