@@ -40,3 +40,37 @@ tr:hover{
 .btn{
   background-color: aliceblue;
 }
+
+.report{
+  margin-top: 30px;
+}
+
+.popupReport{
+  width: 440px;
+  height: 470px;
+  background: rgb(255, 255, 255);
+  border-radius: 6px;
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  left: -400px;
+  z-index: 5; /*1*/
+  transform: translate(-50%, -50%) scale(0.9);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: rgb(51, 51, 51);
+  border: 1px solid rgba(58,176,111,255);
+  visibility: visible;
+  transition: transform 0.4s, top 0.4s;
+  box-shadow: 0px 0px 10px rgb(211, 211, 211);
+  -moz-box-shadow: 0px 0px 10px rgb(211, 211, 211);
+  -webkit-box-shadow: 0px 0px 10px rgba(58,176,111,255);
+
+}
+
+.popupReport h5{
+  font-size: 17px;
+  font-weight: lighter;
+  text-align: left;
+  margin-top: 10px;
+}

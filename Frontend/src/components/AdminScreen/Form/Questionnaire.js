@@ -4,9 +4,9 @@ import './Questionnaire.css';
 const Questionnaire = ({ questao }) => {
     
 
-    return <div className='listQuestoes'>
-                Questão: {questao.body} 
-            </div>
+    return (<div className='questionList'>
+                <strong>Questão:</strong><h5 className="questionBody">{questao.body}</h5> 
+            </div>);
 }
 
 export default Questionnaire;

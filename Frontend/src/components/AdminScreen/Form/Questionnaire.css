@@ -1,14 +1,18 @@
-.listQuestoes{
+.questionList{
+    position: relative;
+    top: 60px;
     max-height: 100%;
-    background-color: rgb(44, 196, 163);
-    border-radius: 10px;
+    background-color: rgb(211, 211, 211);
     color:  rgb(56, 57, 58);
-    margin-top: 20xp;
-    text-align: center;
+    margin-top: 17px;
     max-width: 100%;
-    padding: 8px 8px 8px 8px;
-    margin-top: 20px;
+    padding: 8px 25px 8px 8px;
     display: flex;
-    justify-content: space-between;
-    text-align: center;
+}
+
+.questionList .questionBody{
+    font-weight: lighter;
+    font-size: 15px;
+    margin-left: 10px;
+    text-align: left;
 }

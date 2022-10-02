@@ -1,21 +1,20 @@
 #body{
     display: flex;
     flex-direction: row;
-    height: 920px;
+    height: 695px;
 }
 
-.btn{
+.admBoard-container .btn{
     width: 9vw;
     height: 50px;
     cursor: pointer;
     text-align: center;
-    color: #3AB06F;
     border-radius: 8px;
     background: #fff;
     margin:20px;
 }
 
-#logo{
+.admBoard-container #logo{
     width: 178px;
     height: 29px;
     font-size: 20px;
@@ -23,27 +22,42 @@
     margin:20px;
 }
 
-#admBoard{
+.admBoard-container #admBoard{
+    position: relative;
     width: 11.7vw;
-    height: 92.7%;
-    margin-top: 4%;
-    border-radius: 5px;
+    height: 619px;
+    top: 0px;
+    margin-top: 5.6%;
+    border-radius: 2px;
     background: #3AB06F;
     display: flex;
     flex-direction: column;
 }
 
-#admPhoto{
+.admBoard-container #admPhoto{
     justify-content: center;
-    width: 120px;
+    width: 105px;
     height: 120px;
     background: #b3b3b3;
     border-radius: 100px;
     margin:10px;
     align-self: center;
+    display: block;
+    overflow: hidden;
 }
 
-#nameAdmArea{
+.admBoard-container #admPhoto img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+img {
+    overflow: hidden;
+    border: 0;
+}
+
+.admBoard-container #nameAdmArea{
     box-sizing: border-box;
     width: 180px;
     height: 0px;
@@ -53,13 +67,13 @@
     margin-top: 20px;
     margin-bottom: 40px;
 }
-.nameAdm{
+.admBoard-container .nameAdm{
     font-size: 15px;
     font-weight: normal;
     margin:0;
 }
 
-#usernameAdmArea{
+.admBoard-container #usernameAdmArea{
     box-sizing: border-box;
     width: 180px;
     height: 20px;
@@ -68,13 +82,13 @@
     text-align: center;
 }
 
-.usernameAdm{
+.admBoard-container .usernameAdm{
     font-size: 15px;
     font-weight: normal;
     margin:0;
 }
 
-.tables{
+.admBoard-container .tables{
     height: 99vh;
     width: 1000px;
     overflow:auto;
@@ -87,19 +101,19 @@
 
 @media (max-width: 1250px)
 {
-    .nameAdm{
+    .admBoard-container .nameAdm{
         font-size: 10px;
     }
 
-    #admPhoto{
+    .admBoard-container #admPhoto{
         width: 100px;
         height: 100px;
     }
-    .btn{
+    .admBoard-container .btn{
         width: 9vw;
         height: 40px;
     }
-    .nameAdm{
+    .admBoard-container .nameAdm{
         font-size: px;
     }
     
