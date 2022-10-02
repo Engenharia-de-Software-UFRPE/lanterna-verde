@@ -63,3 +63,12 @@ def comment_relatorio(request):
             return HttpResponse('Relatorio finalizado.', status=200)
         return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
+
+
+def get_relatorios_empresa(request):
+    if request.method == 'GET':
+        empresa = request.user.empresa
+        relatorios = RelatorioSerializer(empresa.relatorio, many=True)
+        ser_return = {'relatorios': relatorios.data}
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
