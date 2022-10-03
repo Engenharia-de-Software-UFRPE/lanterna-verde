@@ -300,7 +300,7 @@ def listar_analises(request):
 
 @login_required
 @administrador_required
-def listar_analises_empresa(request):
+def listar_analises_empresa_adm(request):
     """
     Method that groups `AvaliacaoAnalista` from a specific company into a JSON
     response.
@@ -311,7 +311,7 @@ def listar_analises_empresa(request):
 @login_required
 @empresa_required
 def listar_analises_empresa(request):
-    return avalAnalista.listar_analises_empresa(request)
+    return solAnalise.listar_analises_empresa(request)
 
 @csrf_exempt
 @login_required

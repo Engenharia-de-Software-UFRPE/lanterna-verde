@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from .utils.jsonresponse import JSONResponse
 from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio
-from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
+from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer, SolicitacoesAnaliseSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.relatorio as relatorio
 
@@ -85,6 +85,8 @@ def listar_analises(request):
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
+
+
 
 def listar_analises_empresa(request):
     if request.method == 'GET':

@@ -255,9 +255,9 @@ class Questao(models.Model):
 
 class Relatorio(models.Model):
 
-    request = models.OneToOneField(SolicitacaoAnalise, on_delete=models.CASCADE)
+    request = models.OneToOneField(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='relatorio')
     adm_comment = models.TextField(blank=True)
-    company = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    company = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='relatorio')
     scoreD1 = models.FloatField(default=0)
     scoreD2 = models.FloatField(default=0)
     scoreD3 = models.FloatField(default=0)

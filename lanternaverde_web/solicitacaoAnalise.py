@@ -52,4 +52,13 @@ def get_analysis(request):
         except IntegrityError:
             return HttpResponseNotFound()
     return HttpResponseBadRequest
+
+
+def listar_analises_empresa(request):
+    if request.method == 'GET':
+        empresa = request.user.empresa
+        analises = serializer(empresa.solicitacoes, many=True)
+        ser_return = {'Relatorios': analises.data}
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
      

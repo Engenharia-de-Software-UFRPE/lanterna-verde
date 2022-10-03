@@ -6,8 +6,11 @@ import CrescentVector from '../../../images/crescent-vector.png';
 import GrayStar from '../../../images/gray-star.png';
 import GreenStar from '../../../images/green-star.png';
 import HalfGreenStar from '../../../images/half-green-star.png';
+import {useNavigate} from 'react-router-dom';
 
 const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore, analyzesScreen}) =>{
+    const navigate = useNavigate();
+
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
@@ -50,6 +53,13 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
 
         }
     }
+
+    function goToAnalysisDetail(analysisId){
+        console.log(analysisId)
+        navigate('/CompanyMainScreen/CompanyAnalysisDetail',{
+            state: {analysisId} }
+       );
+    }
     return(
         <>
             <CompanyConfirmationPopup open= {popup} analysisId={analysisId} isAnalysis={false} onClose={()=>setPopup(false)}/>
@@ -83,7 +93,9 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
                     <img className="vector" src={vectorValuePositive ? CrescentVector : DecrescentVector} alt={vectorValuePositive ? "vetor crescente" : "vetor decrescente"}/>
                 </div>
                 {isAnalyzesScreen ? <button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button> : <></>}
+                {isAnalyzesScreen ? <button className='btn-reanalysis' onClick={() => goToAnalysisDetail(analysisId)}>Ver Relatorio</button> : <></>}
             </div>
+            
         </>
     )
 }

@@ -62,8 +62,8 @@ const CompanyAnalyzes = () =>{
 
                 <div className='analyzes-container'>
                     {reports.map((reportsData, index) => (
-                        <CompanyAnalysis analysisDate={getDate(analyzes[index].update_date)} 
-                        analysisId={analyzes[index].id}
+                        <CompanyAnalysis analysisDate={getDate(reports[index].date)} 
+                        analysisId={reports[index].id}
                         analysisScore={reportsData.ascore} 
                         previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore} 
                         analyzesScreen={true}/>
