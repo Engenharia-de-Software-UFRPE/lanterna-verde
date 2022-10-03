@@ -1,32 +1,26 @@
-.Container-Report{
-    box-sizing: border-box;
+.Container-ReportScreen{
     display: flex;
     justify-content: center;
-    width: 100%;
-    background-color: transparent;
-    position: absolute;
-    background:  #DADADA;
-    top: 60px;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    background-color: #DADADA;
     height: 100vh;
-    min-height: 800px;
+    min-height: 1150px;
+    width: 100%;
 }
 
-.Container-Report-Inside{
-    box-sizing: border-box;
-    width: 650px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.Container-ReportScreen .Container-Report{
+    margin-top: 70px;
+    width: 1000px;
+    height: 1000px;
     background: #EEEDED;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     display:flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 50px;
     box-sizing: border-box;
     align-items: center;
-    padding-bottom: 70px;
 }
 
 .Container-ReportScreen .Report-Title{
@@ -37,30 +31,113 @@
     text-align: center;
 }
 
-.Container-Report .graphs{
-    max-width: 400px;
+.Container-ReportScreen .Container-Report .container-graphs-tips{
+    display: flex;
+    gap: 40px;
 }
 
-.Container-Graph{
-    width: 400px;
+.Container-ReportScreen .Container-Report .graphs{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    border-radius: 25px;
+    padding: 40px 0px 10px 0px;
+    border: 2px solid rgba(128, 128, 128, 0.4);
+    gap: 30px;
 }
 
-.Report-Tips{
-    background-color: #fff;
+.Container-ReportScreen .Container-Graph{
+    width: 450px;
+}
+
+.Container-ReportScreen .Report-Tips{
+    background-color: #f9f9f9;
     border-radius: 25px;
     padding: 0px 0px 10px 0px;
+    border: 2px solid rgba(128, 128, 128, 0.4);;
+    width: 350px;
 }
 
-.Report-Tips .tips-title{
+.Container-ReportScreen .Report-Tips .tips-title{
     background-color: var(--company-buttons-color);
-    padding: 10px 20px;
-    border-radius: 25px 25px 0px 0px;
+    padding: 7px 20px;
+    border-radius: 22px 22px 0px 0px;
     font-weight: bold;
     color: #fff;
     text-align: center;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.4);
 }
 
-.Report-Tips .tip{
-    padding: 5px 20px;
+.Container-ReportScreen .Report-Tips .tips{
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    padding: 15px 20px;
+}
+
+.Container-ReportScreen .Report-Tips .tip{
     font-size: 1.2em;
+    font-weight: 400;
+}
+
+@media screen and (max-width:1150px) {
+    .Container-ReportScreen .Container-ReportScreen{
+        min-height: 1600px;
+    }
+
+    .Container-ReportScreen .Container-Report{
+        min-width: 570px;
+        width: 70%;
+        height: 1500px;
+    }
+
+    .Container-ReportScreen .Report-Title{
+        margin: 30px 10px 0px 10px;
+    }
+
+    .Container-ReportScreen .Container-Report .container-graphs-tips{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .Container-ReportScreen .Report-Tips{
+        width: 500px;
+    }
+}
+
+@media screen and (max-width:650px) {
+    .Container-ReportScreen{
+        min-height: 1700px;
+    }
+
+    .Container-ReportScreen .Container-Report{
+        min-width: 370px;
+        height: 1600px;
+    }
+
+    .Container-ReportScreen .Container-Report .container-graphs-tips{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .Container-ReportScreen .Report-Tips{
+        background-color: #f9f9f9;
+        border-radius: 25px;
+        padding: 0px 0px 10px 0px;
+        border: 2px solid rgba(128, 128, 128, 0.4);;
+        width: 300px;
+    }
+    
+    .Container-ReportScreen .Container-Report .graphs{
+        width: 325px;
+    }
+    
+    .Container-ReportScreen .Container-Graph{
+        width: 300px;
+    }
 }

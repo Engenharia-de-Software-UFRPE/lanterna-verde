@@ -58,9 +58,8 @@ function CompanyReportScreen() {
                     label:'Grafico de linha',
                     data:dataLineGraph,
 
-                    backgroundColor: "rgba(27, 181, 92, 0.5)",
-                    borderColor: "rgba(27, 181, 92, 0.4)",
-    
+                    backgroundColor: "rgba(27, 181, 92, 0.4)",
+                    borderColor: "rgba(27, 181, 92, 0.4)",    
                 }]
             })
 
@@ -88,10 +87,10 @@ function CompanyReportScreen() {
 
         <div className="Container-Report">
 
-            <div className="Container-Report-Inside">
-                <h2 className="Report-Title">Score ao longo do tempo</h2>
+            <h2 className="Report-Title">Score ao longo do tempo</h2>
+
+            <div className="container-graphs-tips"> 
                 <div className="graphs">
-                
                     <div className="Container-Graph" >
                         <Line data={lineGraphData} />
                     </div>
@@ -99,16 +98,19 @@ function CompanyReportScreen() {
                     <div className="Container-Graph" >
                         <Radar data={radarGraphData} />
                     </div>
-                    
-                    <div className="Report-Tips">
-                        <h3 className="tips-title">Dicas</h3>
-                        <h4 className="tip"><strong>D1: </strong> Dica D1 </h4>
-                        <h4 className="tip"><strong>D2: </strong> Dica D2</h4>
-                        <h4 className="tip"><strong>D3: </strong> Dica D3 </h4>
-                        <h4 className="tip"><strong>D4: </strong> Dica D4</h4>
-                    </div>
-
                 </div>
+
+                <div className="Report-Tips">
+                    <h3 className="tips-title">Dicas</h3>
+                    <div className="tips">
+                        <h4 className="tip"><strong>Dica D1: </strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+                        <h4 className="tip"><strong>Dica D2: </strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+                        <h4 className="tip"><strong>Dica D3: </strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h4>
+                        <h4 className="tip"><strong>Dica D4: </strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h4>
+                    </div>
+                </div>
+
+                
             </div>
         </div>
     </div>
