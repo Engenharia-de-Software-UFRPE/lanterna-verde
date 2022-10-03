@@ -1,8 +1,8 @@
-.fw-bold{
+.notes{
     cursor: pointer;
 }
 
-.fw-bold:hover{
+.notes:hover{
     background-color: rgba(58,176,111,255);
     color: white;
 }

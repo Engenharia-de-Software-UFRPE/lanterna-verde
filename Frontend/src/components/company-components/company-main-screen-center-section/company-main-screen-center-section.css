@@ -66,6 +66,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    pointer-events: none;
 }
 
 .company-main-screen-center-section .ranking .table-title{
@@ -86,12 +87,13 @@
 .company-main-screen-center-section .table .table-body td{
     font-size: 0.9em;
     line-height: 35px;
+    border: none;
 }
 
 .company-main-screen-center-section .table .table-header th{
     font-size: 0.9em;
     line-height: 40px;
-
+    border: none;
 }
 
 .company-main-screen-center-section .see-full-ranking{

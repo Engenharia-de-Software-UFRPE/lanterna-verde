@@ -72,7 +72,7 @@ function App() {
           <Route path='/CompanyMainScreen/CompanyReport' element={<CompanyReportScreen />} />        
 
       </Routes>
-    </AuthContext.Provider>
+    </AuthContext.Provider> 
   );
 }
 

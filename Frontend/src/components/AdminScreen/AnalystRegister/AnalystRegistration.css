@@ -1,30 +1,34 @@
-.cont{
-    min-height: 100vh;
+.cont2{
+    min-height: 99vh;
+    width: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
     justify-content: center;
     align-items: center;
   }
-  .container {
+
+  /* .container2 {
     background-color: #3AB06F;
     max-width: 100%;
     height: 692px;
     width: 40%;
     padding: 25px;
     border: 1px solid rgb(205, 201, 201);
-  }
-  .container h2 {
+  } */
+  .cont2 h2 {
     color: white;
   }
-  .container header {
+  .cont2 header {
     font-size: 22px;
     font-weight: 600;
     color: #333;
   }
-  .container form {
+  .cont2 form {
     margin-top: 60px;
+    border-radius: 8px;
     background-color: #3AB06F;
+    width: 700px;
   }
   form .field {
     margin-bottom: 10px;

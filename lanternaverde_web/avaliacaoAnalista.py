@@ -17,14 +17,16 @@ def criar_analise(request):
     """
     if request.method == 'POST':
         data = json.loads(request.body)
-        analysts_set = _select_Analist(data['analystamount'])
+        amount_analyst = int(data['analystamount'])
+        analysis_request = int(data['analysis_request'])
+        analysts_set = _select_Analist(amount_analyst)
         # Check if there's enough Analysts available for the request
-        if data['analystamount'] != len(analysts_set):
+        if amount_analyst != len(analysts_set):
             return HttpResponse("O número de analistas pedidos foi " +
-                                f"{data['analystamount']}, porém apenas "
+                                f"{amount_analyst}, porém apenas "
                                 f"{len(analysts_set)} estão disponíveis.",
                                 status=422)
-        analysis_request = SolicitacaoAnalise.objects.get(pk=data['analysis_request'])
+        analysis_request = SolicitacaoAnalise.objects.get(pk=analysis_request)
         if analysis_request.status == SolicitacaoAnalise.PENDING:
 
             for analyst in list(analysts_set):
