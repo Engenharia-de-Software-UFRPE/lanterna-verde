@@ -73,7 +73,7 @@ class AvaliacaoAnalistaSerializer(serializers.ModelSerializer):
     class Meta:
         """AvaliacaoAnalista serialization metadata"""
         model = AvaliacaoAnalista
-        fields = '__all__'
+        exclude = ["analyst"]
         related_object = 'questao'
 
 class SolicitacoesAnaliseSerializer(serializers.ModelSerializer):
@@ -92,10 +92,12 @@ class RelatorioSerializer(serializers.ModelSerializer):
     """
     Serialization for Relatorio Model
     """
+    request = SolicitacoesAnaliseSerializer()
     class Meta:
         """Relatorio metadata"""
         model = Relatorio
         fields = '__all__'
+        related_object = ['request']
 
 class NotificacoesAdmSerializer(serializers.ModelSerializer):
     """

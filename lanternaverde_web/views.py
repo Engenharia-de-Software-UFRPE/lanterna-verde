@@ -555,3 +555,10 @@ def listar_notificacoesAdm(request):
 @administrador_required
 def notificacao_lida(request):
     return notificacaoAdm.notificacao_lida(request)
+
+
+@csrf_exempt
+@login_required(login_url='/')
+@empresa_required
+def detalhar_relatorio(request):
+    return relatorio.detalhar_relatorio(request)

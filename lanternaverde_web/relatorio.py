@@ -63,3 +63,20 @@ def comment_relatorio(request):
             return HttpResponse('Relatorio finalizado.', status=200)
         return HttpResponse("Você precisa ser um administrador para realizar esta solicitação", status=403)
     return HttpResponseBadRequest()
+
+
+def detalhar_relatorio(request):
+    if request.method == 'GET':
+        data = json.loads(request.body)
+        relatorio = Relatorio.objects.get(pk=data['reportid'])
+        if relatorio.company == request.user.empresa:
+            ser_report = RelatorioSerializer(relatorio)
+            ser_return = {
+                "relatorio": ser_report.data
+            }
+            return JSONResponse(ser_return)
+        return HttpResponse("Este relatório não é da sua empresa", status=403)
+    return HttpResponseBadRequest()
+
+
+
