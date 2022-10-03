@@ -233,7 +233,7 @@ class AvaliacaoAnalista(models.Model):
     
     status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
     
-    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises', null=True)
+    analysis_request = models.ForeignKey(SolicitacaoAnalise, on_delete=models.CASCADE, related_name='analises')
     update_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
