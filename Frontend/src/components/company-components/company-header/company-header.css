@@ -183,7 +183,7 @@ header{
     flex-direction: column;
 }
 
-.company-header-container .menu-buttons .btn{
+.company-header-container .menu-buttons .btnMenu{
     color: white;
     font-size: 1em;
     font-weight: bold;
@@ -198,23 +198,23 @@ header{
     transition:  0.2s background-color ease-in-out ;
 }
 
-.company-header-container .menu-buttons .btn:hover{
+.company-header-container .menu-buttons .btnMenu:hover{
     background-color: #FBFBFB;
     color:#373a47;
 }
 
-.company-header-container .menu-buttons .btn.exit{
+.company-header-container .menu-buttons .btnMenu.exit{
     margin-top: 31px;
     background-color: #dd3535;
     border: 0px;
 }
 
-.company-header-container .menu-buttons .btn.exit:hover{
+.company-header-container .menu-buttons .btnMenu.exit:hover{
     background-color: rgb(165, 43, 43);
     color: #fff;
 }
 
-.company-header-container .menu-buttons .btn.exit::before{
+.company-header-container .menu-buttons .btnMenu.exit::before{
     top: -20px;
     left: -15px;
     content: '';
@@ -231,7 +231,7 @@ header{
         width: 120%;
     }
 
-    .company-header-container .menu-buttons .btn{
+    .company-header-container .menu-buttons .btnMenu{
         height: 3.5em;
         line-height: 2.7em;
     }
@@ -317,17 +317,17 @@ header{
         width: 100%;
     }
 
-    .company-header-container .menu-buttons .btn{
+    .company-header-container .menu-buttons .btnMenu{
         width: 100%;
     }
 
-    .company-header-container .menu-buttons .btn.exit{
+    .company-header-container .menu-buttons .btnMenu.exit{
         margin-top: 40px;
         background-color: #dd3535;
         border: 0px;
     }
 
-    .company-header-container .menu-buttons .btn.exit::before{
+    .company-header-container .menu-buttons .btnMenu.exit::before{
         width: 100%;
     }
 }

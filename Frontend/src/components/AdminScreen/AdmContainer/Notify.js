@@ -1,13 +1,11 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
 import axios from 'axios';
 import './Notification.css';
 
 const Notify = ({ note }) => {
-    const navigate = useNavigate();
-
+  
     async function sendNotificationsRead(notificacaoAdmId){
         let response = await axios.post(
         "http://localhost:8000/notificacoes/read", 
@@ -16,18 +14,18 @@ const Notify = ({ note }) => {
         .then(response => response);
     }
     
-    return ( <ListGroup.Item
+    return ( <><ListGroup.Item
         as="li"
         className="d-flex justify-content-between align-items-start"
         >
         <div className='ms-0'>
-            <div className="fw-bold" onClick={(e) => {
+            <div className="notes fw-bold" onClick={(e) => {
                                         e.preventDefault();
                                         sendNotificationsRead(note.id);
-                                        //navigate("FirstCard"); //It's not working since it's not a proper screen
                                     }}>{note.title}</div>
         </div>
         </ListGroup.Item>
+        </>
     );
     
 }

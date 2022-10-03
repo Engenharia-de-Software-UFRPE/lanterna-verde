@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import './AdmScreenData.css';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
@@ -7,10 +8,15 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 
 function AdmScreenData() {
-    const [user, setUser] = useState("placeholder");
+    const [user, setUser] = useState(["placeholder"]);
     const [administrator, setAdministrator] = useState("placeholder");
+    const [active, setActive] = useState(false);
 
-    async function listAnalysis() {
+    const detailsHandler = () => {
+      setActive((prevState) => !prevState);
+    }
+
+    async function getAdministratorData() {
       axios.defaults.withCredentials = true;
       let response = await axios
         .get("http://localhost:8000/user/admin", { withCredentials: true })
@@ -20,24 +26,15 @@ function AdmScreenData() {
     }
   
     if (administrator === "placeholder") {
-      listAnalysis();
+      getAdministratorData();
     }
     if (user === "placeholder") {
-      listAnalysis();
+      getAdministratorData();
     }
   
-    async function handleButtonClick() {
-      console.log(user);
-    }
-    async function handleButtonClick2() {
-      console.log(administrator);
-    }
-  
-    console.log(user)
-    console.log(administrator)
     return (
       <>
-        <Container className="cont">
+        <Container className="contAdmData">
           <Row class="row align-items-center">
             <Col md="auto" className="col-edit">
 
@@ -58,13 +55,6 @@ function AdmScreenData() {
                     <Form.Label>Senha</Form.Label>
                     <Form.Control size="lg" type="password" value="**********" />
                 </Form.Group>
-                {/* <Row class="row align-items-center">
-                    <Col md="auto">
-                    <a href="/dataAnalystEdit" class="contact-btn">
-                        Alterar Dados
-                    </a>
-                    </Col>
-                </Row> */}
               </Row>
             </Col>
             </Row>

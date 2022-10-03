@@ -50,6 +50,14 @@ def get_relatorios(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+def get_relatorios_por_empresa(request):
+    if request.method == 'GET':
+        empresaid = request.GET.get('empresaid')
+        relatorios = RelatorioSerializer(Relatorio.objects.filter(company=empresaid), many=True)
+        ser_return = {'relatorios': relatorios.data}
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
 def comment_relatorio(request):
     if request.method == 'POST':
         if hasattr(request.user, 'administrador'):
