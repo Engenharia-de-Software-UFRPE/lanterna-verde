@@ -75,8 +75,8 @@ def comment_relatorio(request):
 
 def detalhar_relatorio(request):
     if request.method == 'GET':
-        data = json.loads(request.body)
-        relatorio = Relatorio.objects.get(pk=data['reportid'])
+        data = request.GET
+        relatorio = Relatorio.objects.get(pk=data.get('reportid'))
         if relatorio.company == request.user.empresa:
             ser_report = RelatorioSerializer(relatorio)
             ser_return = {

@@ -11,7 +11,7 @@ import axios from "axios";
 
         async function getList() {
             let response = await axios
-              .get("http://localhost:8000/relatorio/detail",{reportid: analysisId}, { withCredentials: true})
+              .get("http://localhost:8000/relatorio/detail?reportid="+analysisId, { withCredentials: true})
               .then((response) => response);
             console.log(response)
             setAnalysisDetail(response.data.request.analises);
