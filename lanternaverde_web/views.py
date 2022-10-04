@@ -431,6 +431,7 @@ def solicitar_reanalise(request, pk):
     if request.method == 'PUT':
         solicitacao = SolicitacaoAnalise.objects.get(analises__id = pk)
         solicitacao.reanalysis = True
+        solicitacao.status = 0
         solicitacao.save()
         notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
         return HttpResponse(status=200)

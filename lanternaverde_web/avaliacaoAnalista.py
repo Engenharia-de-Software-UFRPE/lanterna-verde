@@ -120,7 +120,7 @@ def listar_analises_passiveis_reanalise(request):
                     AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
                                                     analysis_request__status = 3,
                                                     status = 2,
-                                                    analysis_request__reanalysis = True).order_by('-update_date'),
+                                                    analysis_request__reanalysis = False).order_by('-update_date'),
                     many = True,
                     context={'request': None}
         )
