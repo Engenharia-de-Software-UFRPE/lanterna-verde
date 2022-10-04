@@ -25,6 +25,8 @@ function AnalystDataScreen() {
     // }
   }
 
+
+
   if (analyst[0] === "placeholder") {
     listAnalysis();
   }
@@ -42,8 +44,31 @@ function AnalystDataScreen() {
 
   if (user[0] === "placeholder") {
     passwordUser();
+    
   }
 
+  const passwordChange = async(username, first_name, last_name, email, cpf, specialty, password) => {
+    axios.defaults.withCredentials = true;
+    const response = await axios.post(
+        'http://localhost:8000/analista/add', 
+     {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'cpf': cpf, 'specialty': specialty, 'password': password})
+    .then(function (response) {
+        alert("Cadastro feito com sucesso!");
+        console.log(response);
+    })
+    .catch(function (error) {
+        if(error.response.data){
+            alert("Analista já foi cadastrado.");
+        }
+    })
+};
+  const {oldPassword, newPassword} = passwords;
+    const handleInputChange = ({target}) => {
+        setAnalyst({
+            ...passwords,
+            [target.name]: target.value
+        })
+    };
  
 
  
@@ -149,6 +174,7 @@ function AnalystDataScreen() {
                     type="password"
                     size="lg"
                     name="old"
+                    onChange={handleInputChange}
                   />
                 </Form.Group>
                 <Form.Group className="mb">
@@ -157,6 +183,7 @@ function AnalystDataScreen() {
                     type="password"
                     size="lg"
                     name="new"
+                    onChange={handleInputChange}
                   />
                 </Form.Group>
                 <Row class="row align-items-center">
@@ -166,6 +193,12 @@ function AnalystDataScreen() {
                         className="contact-btn"
                         type="submit"
                         defaultValue="Atualizar Senha"
+                        onClick={
+                          (e) => {
+                              e.preventDefault();
+                              passwordChange(passwords.oldPassword, passwords.newPassword);
+                             
+                      }}
                       />
                     </div>
                   </Col>
