@@ -1,4 +1,5 @@
 import json
+from urllib import request
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
@@ -11,7 +12,7 @@ from .utils.countdimension import _count_dimension
 def gerar_relatorio(analysis_request):
     if analysis_request.status == SolicitacaoAnalise.FINISHED:
         try:
-            report = Relatorio.objects.create(request=analysis_request, company=analysis_request.empresa)
+            report, _ = Relatorio.objects.get_or_create(request=analysis_request, company=analysis_request.empresa)
         except IntegrityError:
             return HttpResponse("Um relatório já foi gerado para esta solicitação", status=409)
         analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
@@ -41,6 +42,7 @@ def gerar_relatorio(analysis_request):
 
         report.save()
         notificacaoAdm.criar_notificacaoAdm_relatorio(report)
+        return HttpResponse("Análise finalizada", status=200)
 
 
 def get_relatorios(request):

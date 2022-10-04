@@ -197,8 +197,7 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
-                    relatorio.gerar_relatorio(analysis_request)
-                return HttpResponse("Análise finalizada", status=200)
+                return relatorio.gerar_relatorio(analysis_request)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()
