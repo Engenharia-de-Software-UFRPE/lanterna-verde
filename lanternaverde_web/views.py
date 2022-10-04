@@ -429,10 +429,10 @@ def assinar_pacote(request):
 @empresa_required
 def solicitar_reanalise(request, pk):
     if request.method == 'PUT':
-        data = json.loads(request.body)
         solicitacao = SolicitacaoAnalise.objects.get(analises__id = pk)
-        solicitacao.reanalysis = False
+        solicitacao.reanalysis = True
         solicitacao.save()
+        notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 

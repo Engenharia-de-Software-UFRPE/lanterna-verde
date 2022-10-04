@@ -13,11 +13,11 @@ def criar_notificacaoAdm_relatorio(relatorio_request):
         notificacao.save()
 
 
-def criar_notificacaoAdm_solicitacao(solicitacao_request):
+def criar_notificacaoAdm_solicitacao(solicitacao_request, tipoSolicitacao):
     administradores = Administrador.objects.all()
     for admin in list(administradores):
         notificacao = NotificacaoAdm.objects.create(request=solicitacao_request, receiver=admin)
-        notificacao.title = solicitacao_request.empresa.tradeName + ' solicitou uma análise'
+        notificacao.title = solicitacao_request.empresa.tradeName + ' solicitou uma ' + tipoSolicitacao
         notificacao.save()
 
 
