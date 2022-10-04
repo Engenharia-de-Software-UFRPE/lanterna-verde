@@ -96,7 +96,7 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
                 </div>
                 {analysisStatus == 2 ? <div className ="analysis-buttons"><button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button><button className='btn-reanalysis' onClick={() => goToAnalysisDetail(analysisId)}>Ver Relatorio</button></div> 
                  : 
-                 <div className = "analysis-buttons"><button className='btn-wait' >Analise em Andamento</button></div>}
+                 <div className = "analysis-buttons"><button className='btn-wait' >Análise em Andamento</button></div>}
                 
             </div>
             
