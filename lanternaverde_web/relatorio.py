@@ -61,8 +61,9 @@ def get_relatorios_por_empresa(request):
 def comment_relatorio(request):
     if request.method == 'POST':
         if hasattr(request.user, 'administrador'):
-            reportid = request.POST.get('reportid')
-            comment = request.POST.get('comment')
+            data = json.loads(request.body)
+            reportid = data['reportid']
+            comment = data['comment']
             report = Relatorio.objects.get(pk=reportid)
             report.adm_comment = comment
             report.request.status = SolicitacaoAnalise.DELIVERED
