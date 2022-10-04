@@ -45,7 +45,7 @@ const Report = ({report}) =>{
                         <h5>Comentário do administrador: <br></br></h5>
                         <textarea id='admCommentField' className='admComment' onChange={handleComentChange}>{report.adm_comment}</textarea>
                         <button className='saveBtnComment' onClick={(e) => {
-                            handleSaveClick(report.id, report.comment)}}>Salvar comentário</button>
+                            handleSaveClick(report.id, report.adm_comment)}}>Salvar comentário</button>
                         <hr></hr>
                         <h4>Pontuação</h4>
                         <hr></hr>
