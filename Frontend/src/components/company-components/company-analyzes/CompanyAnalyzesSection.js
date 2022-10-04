@@ -65,8 +65,7 @@ const CompanyAnalyzes = () =>{
                         <CompanyAnalysis analysisDate={getDate(analyzes[index].update_date)} 
                         analysisId={analyzes[index].id}
                         analysisScore={reportsData.ascore} 
-                        previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore} 
-                        analyzesScreen={true}/>
+                        previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore}/>
                     ))}
                 </div>                
             </section>

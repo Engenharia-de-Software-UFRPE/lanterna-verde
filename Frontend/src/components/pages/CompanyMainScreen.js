@@ -7,7 +7,7 @@ const CompanyMainScreen = () =>{
     return (
         <>
             <header>
-                <CompanyHeader newButton={<a className="btn see-all-analyzes" href="/CompanyMainScreen/Analyzes">Ver todas as análises</a>}/> 
+                <CompanyHeader newButton={<a className="btnMenu see-all-analyzes" href="/CompanyMainScreen/Analyzes">Ver todas as análises</a>}/> 
             </header>
             <main>
                 <CompanyMainScreenAnalyzesSection/>

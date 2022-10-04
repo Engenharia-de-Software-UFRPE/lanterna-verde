@@ -190,8 +190,7 @@ header{
     box-sizing: border-box;
     position: relative;
     width: 280px;
-    height: 3.2em;
-    line-height: 2.4em;
+    line-height: 3.2em;
     text-align: center;
     border-radius: 0px;
     margin-top: 0px;
@@ -232,8 +231,7 @@ header{
     }
 
     .company-header-container .menu-buttons .btnMenu{
-        height: 3.5em;
-        line-height: 2.7em;
+        line-height: 3em;
     }
 
     .company-header-container .company-logged-in{

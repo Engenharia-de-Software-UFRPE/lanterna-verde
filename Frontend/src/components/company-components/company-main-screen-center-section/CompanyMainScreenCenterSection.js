@@ -54,7 +54,7 @@ const CompanyMainScreenCenterSection = () =>{
                 <tbody class="table-body">
                   {ranking.map((companyData, index) => (
                     <tr>
-                      <td>{index+1}º</td>
+                      <td>{index+1}</td>
                       <td>{companyData.tradeName}</td>
                       <td>{companyData.score}</td>
                     </tr>
@@ -63,7 +63,7 @@ const CompanyMainScreenCenterSection = () =>{
 
               </table>
 
-              <a class="see-full-ranking" href="#">Ver Ranking Completo</a>
+              <a class="see-full-ranking" href="/CompanyMainScreen/Ranking">Ver Ranking Completo</a>
 
             </div>
 

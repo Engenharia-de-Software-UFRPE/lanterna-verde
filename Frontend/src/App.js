@@ -11,9 +11,11 @@ import CompanyMainScreen from './components/pages/CompanyMainScreen';
 import CompanyRegistrationScreen from './components/pages/CompanyRegistrationScreen';
 import CompanyServicesScreen from './components/pages/CompanyServicesScreen';
 import CompanyAnalyzesScreen from './components/pages/CompanyAnalyzesScreen';
-import CompanyPerformanceScreen from './components/pages/CompanyPerformanceScreen';
 import CompanyProfileChangeScreen from './components/pages/CompanyProfileChangeScreen';
 import CompanyReportScreen from './components/pages/CompanyReportScreen';
+import CompanyAnalysisInfoScreen from './components/pages/CompanyAnalysisInfoScreen';
+import CompanyFullRankingScreen from './components/pages/CompanyFullRankingScreen';
+
 
 //Analyst
 import AnalystProfileScreen from './components/Analyst/pages/AnalystProfileScreen';
@@ -67,9 +69,10 @@ function App() {
           <Route path='/CompanyRegistration' element={<CompanyRegistrationScreen />} />
           <Route path='/CompanyMainScreen/Services' element={<CompanyServicesScreen />} />
           <Route path='/CompanyMainScreen/Analyzes' element={<CompanyAnalyzesScreen />} />
-          <Route path='/CompanyMainScreen/Performance' element={<CompanyPerformanceScreen />} />
           <Route path='/CompanyMainScreen/ProfileChange' element={<CompanyProfileChangeScreen />} />
           <Route path='/CompanyMainScreen/CompanyReport' element={<CompanyReportScreen />} />        
+          <Route path='/CompanyMainScreen/Analyzes/Analysis' element={<CompanyAnalysisInfoScreen />} />
+          <Route path='/CompanyMainScreen/Ranking' element={<CompanyFullRankingScreen />} />
 
       </Routes>
     </AuthContext.Provider>

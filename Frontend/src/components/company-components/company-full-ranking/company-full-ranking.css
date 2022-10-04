@@ -1,0 +1,141 @@
+.ranking-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 1200px;
+    background-color: var(--company-center-section-color);
+}
+
+.ranking-section .ranking-container{
+    width: 750px;
+    box-sizing: border-box;
+    background: #EEEDED;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    margin: 100px 0px 100px 0px;
+    padding: 45px 30px;
+    gap: 30px;
+}
+
+.ranking-section .ranking-container .top3-title, .ranking-title{
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--company-text-color);
+}
+
+.ranking-section .ranking-container .top3{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.ranking-section .ranking-container .top3::after{
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: var(--company-text-color);
+    margin: 40px 0px 20px 0px;
+}
+
+
+.ranking-section .ranking-container .top3 .company{
+    background-color: #fdfdfd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    box-sizing: border-box;
+    width: 200px;
+}
+
+.ranking-section .ranking-container .top3 .company .tradename{
+    background-color: var(--company-buttons-color);
+    padding: 10px 20px;
+    border-radius: 15px 15px 0px 0px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: white;
+}
+
+.ranking-section .ranking-container .top3 .company .cnpj, .type, .score{
+    font-size: 1.1em;
+    padding: 2px 0px 2px 20px;
+    color: var(--company-text-color);
+}
+
+.ranking-section .ranking-container .ranking{
+    width: 90%;
+    height: 450px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.ranking-section .ranking-container .table{
+    background-color: var(--company-buttons-color);
+    border-radius: 25px;
+}
+
+.ranking-section .ranking-container .ranking .table tr{
+    text-align: center;
+}
+
+.ranking-section .ranking-container .ranking .table .table-header th{
+    font-size: 1.2em;
+    line-height: 40px;
+    color: white;
+}
+
+.ranking-section .ranking-container .ranking .table .table-body{
+    background-color: #ffffff;
+}
+
+.ranking-section .ranking-container .ranking .table .table-body td{
+    font-size: 1.1em;
+    color: var(--company-text-color);
+}
+
+@media screen and (max-width:1000px) {
+    .ranking-section{
+        min-height: 1350px;
+    }
+
+    .ranking-section .ranking-container{
+        width: 70%;
+        min-width: 500px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .ranking-section{
+        min-height: 900px;
+    }
+
+    .ranking-section .ranking-container{
+        min-width: 330px;
+    }
+
+    .ranking-section .ranking-container .top3-title{
+        display: none;
+    }
+    
+    .ranking-section .ranking-container .top3{
+        display:none;
+    }
+    
+    .ranking-section .ranking-container .top3::after{
+        display: none;
+    }
+
+    .ranking-section .ranking-container .ranking .table .table-header th{
+        font-size: 1em;
+    }
+
+    .ranking-section .ranking-container .ranking .table .table-body td{
+        font-size: 1em;
+    }
+}

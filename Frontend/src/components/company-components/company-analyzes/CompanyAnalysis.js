@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import './company-analyzes.css'
-import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup'
 import DecrescentVector from '../../../images/decrescent-vector.png';
 import CrescentVector from '../../../images/crescent-vector.png';
 import GrayStar from '../../../images/gray-star.png';
 import GreenStar from '../../../images/green-star.png';
 import HalfGreenStar from '../../../images/half-green-star.png';
 
-const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore, analyzesScreen}) =>{
+const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnalysisScore}) =>{
     const [active, setMode] = useState(false)
     const toggleMode = () =>{
       setMode(!active)
     }
-    const [popup, setPopup] = useState(false);
     const [stars, setStars] = useState([]);
     const [vectorValue, setVectorValue] = useState("")
     const [vectorValuePositive, setVectorValuePositive] = useState(true)
-    const [isAnalyzesScreen, setIsAnalyzesScreen] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         defineVectorValue(analysisScore, previousAnalysisScore)
@@ -30,7 +29,6 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
             }
         }
         setStars(array);
-        setIsAnalyzesScreen(analyzesScreen)
     }, [])
 
     function defineVectorValue(analysisScore, previousAnalysisScore) {
@@ -50,11 +48,17 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
 
         }
     }
+
+    const openAnalysisInfo=()=>{
+        navigate('/CompanyMainScreen/Analyzes/Analysis',{state:{
+            id: analysisId
+        }})
+    }
+
+
     return(
         <>
-            <CompanyConfirmationPopup open= {popup} analysisId={analysisId} isAnalysis={false} onClose={()=>setPopup(false)}/>
-
-            <div className="analysis">
+            <a className="analysis" onClick={()=>{openAnalysisInfo()}}>
                 <div className='analysis-text-container'>
                     <h3 className="analysis-title">Análise</h3>
                     <h4 className='analysis-date'>{analysisDate}</h4>
@@ -71,9 +75,9 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
                     </div>
                     
                     <div className='green-stars'>
-                    {stars.map((star, index) => (
-                        <img className='greenstar' src={star ? GreenStar : HalfGreenStar} alt={star ? "estrela verde" : "meia estrela verde"}/>
-                    ))}
+                        {stars.map((star, index) => (
+                            <img className='greenstar' src={star ? GreenStar : HalfGreenStar} alt={star ? "estrela verde" : "meia estrela verde"}/>
+                        ))}
                     </div>
                 
                 </div>
@@ -82,8 +86,7 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
                     <span className={vectorValuePositive ? "vector-value positive" : "vector-value negative"}>{vectorValue}</span>
                     <img className="vector" src={vectorValuePositive ? CrescentVector : DecrescentVector} alt={vectorValuePositive ? "vetor crescente" : "vetor decrescente"}/>
                 </div>
-                {isAnalyzesScreen ? <button className='btn-reanalysis' onClick={() => setPopup(true)}>Reanálise</button> : <></>}
-            </div>
+            </a>
         </>
     )
 }

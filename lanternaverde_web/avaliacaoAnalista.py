@@ -120,7 +120,7 @@ def listar_analises_passiveis_reanalise(request):
                     AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
                                                     analysis_request__status = 3,
                                                     status = 2,
-                                                    analysis_request__reanalysis = True).order_by('-update_date'),
+                                                    analysis_request__reanalysis = False).order_by('-update_date'),
                     many = True,
                     context={'request': None}
         )
@@ -197,8 +197,7 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
-                    relatorio.gerar_relatorio(analysis_request)
-                return HttpResponse("Análise finalizada", status=200)
+                return relatorio.gerar_relatorio(analysis_request)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()

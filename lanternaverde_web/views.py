@@ -429,17 +429,18 @@ def assinar_pacote(request):
 @empresa_required
 def solicitar_reanalise(request, pk):
     if request.method == 'PUT':
-        data = json.loads(request.body)
         solicitacao = SolicitacaoAnalise.objects.get(analises__id = pk)
-        solicitacao.reanalysis = False
+        solicitacao.reanalysis = True
+        solicitacao.status = 0
         solicitacao.save()
+        notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
 @csrf_exempt
 @login_required
 @empresa_required
-def get_solicitacao_empresa(request, pk):
+def get_info_analise_empresa(request, pk):
     if request.method == 'GET':
         empresa = request.user.empresa
 
@@ -447,9 +448,13 @@ def get_solicitacao_empresa(request, pk):
             SolicitacaoAnalise.objects.get(empresa__id=empresa.id, analises__id = pk),
             context={'request': None}
         )
+        relatorio = RelatorioSerializer(
+            Relatorio.objects.get(request__id = solicitacao.data['id'])
+        )
         
         ser_return = {
-            'Solicitacao': solicitacao.data
+            'Solicitacao': solicitacao.data,
+            'Relatorio': relatorio.data
         }
         
         return JSONResponse(ser_return, status=200)
@@ -467,6 +472,7 @@ def listar_empresas(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
+"""
 def get_empresa(request, id):
     if request.method == 'GET':
         empresas = EmpresaSerializer(
@@ -477,6 +483,7 @@ def get_empresa(request, id):
         }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
+"""
 
 def get_ranking(request):
     if request.method == 'GET':
@@ -508,67 +515,89 @@ def get_ranking(request):
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 
-def compilar_relatorio_geral(request):
-    if request.method == 'POST':
-        data = request.POST
-        report = Relatorio.objects.filter(company=data['company'])
-        initialDate = data['init date']
-        finalDate = data['final date']
-
-        if initialDate and finalDate:
-            report = report.objects.filter(dat__gte=datetime.date(initialDate), dat__lte=datetime.date(finalDate))
-            report.objects.scores.repr()
-            ser_report = RelatorioSerializer(report, many=True)
-        else:
-            ser_report = RelatorioSerializer(report, many=True)
-
-        scoresD1 = [scoreD1 for scoreD1 in ser_report.scoreD1]
-        scoresD2 = [scoreD2 for scoreD2 in ser_report.scoreD2]
-        scoresD3 = [scoreD3 for scoreD3 in ser_report.scoreD3]
-        scoresD4 = [scoreD4 for scoreD4 in ser_report.scoreD4]
-        ascores = [ascore for ascore in ser_report.ascore]
-
-        mediumD1 = sum(scoresD1)/len(scoresD1)
-        mediumD2 = sum(scoresD2)/len(scoresD2)
-        mediumD3 = sum(scoresD3)/len(scoresD3)
-        mediumD4 = sum(scoresD4)/len(scoresD4)
-        mediumAscores = sum(ascores)/len(ascores)
-
-        relatorio_geral = {
-            'Score D1': mediumD1.data,
-            'Score D2': mediumD2.data,
-            'Score D3': mediumD3.data, 
-            'Score D4': mediumD4.data,
-            'Média geral': mediumAscores.data
-        } 
-        return JSONResponse(relatorio_geral, status=200)
-    return HttpResponseBadRequest()
-
+@csrf_exempt
 @login_required
-def areas_pior_avaliacao(request):
+@empresa_required
+def compilar_relatorio_geral_empresa(request):
     if request.method == 'GET':
-        data = json.loads(request.body)
-        relatorio = json.loads(compilar_relatorio_geral(request))
+        analises = AvaliacaoAnalistaSerializer(
+                    AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
+                                                    analysis_request__status = 3,
+                                                    status = 2).order_by('-update_date'),
+                    many = True,
+                    context={'request': None}
+        )
 
-        scores = [relatorio['Score D1'],
-                    relatorio['Score D2'],
-                    relatorio['Score D3'],
-                    relatorio['Score D4']]
-        scoreSort = scores.sort()
-        piorScore = [scoreSort[0], scoreSort[1]]
+        relatorios = list()
+        ascore_por_data = list()
+        for i in range(len(analises.data)):
+            for analises_key,analises_value in analises.data[i].items():
+                if(analises_key == 'analysis_request'):
+                    relatorio = RelatorioSerializer(
+                                Relatorio.objects.get(request__id = analises_value)
+                    )
+                    if len(relatorio.data)>0:
+                        relatorios.append(relatorio.data)
+                        ascore_por_data.append({
+                            'ascore': relatorio.data['ascore'],
+                            'data': analises.data[i]['update_date']})
 
-        resultado = []
-        [resultado.append("D" + str(i+1) + " = " + str(piorScore[j]))
-            for i in range(len(scores))
-                for j in range(len(piorScore))
-                    if piorScore[j] == scores[i]
+        scoresD1 = 0
+        scoresD2 = 0
+        scoresD3 = 0
+        scoresD4 = 0
+        ascores = 0
+        for i in range(len(relatorios)):
+            scoresD1 += relatorios[i]['scoreD1']
+            scoresD2 += relatorios[i]['scoreD2']
+            scoresD3 += relatorios[i]['scoreD3']
+            scoresD4 += relatorios[i]['scoreD4']
+            ascores += relatorios[i]['ascore']
+
+        if (len(relatorios) >0 ) :
+            scores = {
+                'D1': scoresD1/len(relatorios),
+                'D2': scoresD2/len(relatorios),
+                'D3': scoresD3/len(relatorios), 
+                'D4': scoresD4/len(relatorios),
+                'Ascore': ascores/len(relatorios)
+            }
+        else:
+            scores = {
+                'D1': scoresD1,
+                'D2': scoresD2,
+                'D3': scoresD3, 
+                'D4': scoresD4,
+                'Ascore': ascores
+            }
+        
+        array_scores = [scores['D1'],
+                    scores['D2'],
+                    scores['D3'],
+                    scores['D4']]
+
+        array_scores_sorted = [scores['D1'],
+                    scores['D2'],
+                    scores['D3'],
+                    scores['D4']]
+
+        array_scores_sorted.sort()
+        
+        piores_dimensoes = []
+        [piores_dimensoes.append("D" + str(i+1) + " = " + str(array_scores_sorted[j]))
+            for i in range(len(array_scores))
+                for j in range(2)
+                    if array_scores_sorted[j] == array_scores[i]
         ]
 
-        resultado_return = {
-            'Primeira área de pior avaliação' : resultado[0].data,
-            'Segunda área de pior avaliação' : resultado[1].data,
-        }
-        return JSONResponse(resultado_return, status=200)
+        relatorio_geral = {
+            'Scores': scores,
+            'ScorePorData': ascore_por_data,
+            'PioresDimensoes': piores_dimensoes
+        } 
+        
+        return JSONResponse(relatorio_geral, status=200)
+    return HttpResponseBadRequest()
 
 @csrf_exempt
 @login_required(login_url='/')

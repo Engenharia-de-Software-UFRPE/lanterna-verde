@@ -196,7 +196,7 @@ class SolicitacaoAnalise(models.Model):
     
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='solicitacoes')
     date = models.DateTimeField('Data de solicitação', default=timezone.now)
-    reanalysis = models.BooleanField(default=True)
+    reanalysis = models.BooleanField(default=False)
 
     PENDING = 0
     PROCESSING = 1

@@ -1,19 +1,19 @@
 import React from 'react';
 import CompanyHeader from '../company-components/company-header/CompanyHeader';
-import CompanyPerformance from '../company-components/company-performance/CompanyPerformance';
+import CompanyFullRanking from '../company-components/company-full-ranking/CompanyFullRanking';
 
-const CompanyPerformanceScreen = () =>{
+const CompanyFullRankingScreen = () =>{
     return (
         <>
             <header>
                 <CompanyHeader/> 
             </header>
             <main>
-                <CompanyPerformance />
+                <CompanyFullRanking/>
             </main>
         </>
 
     );
 }
 
-export default CompanyPerformanceScreen;
+export default CompanyFullRankingScreen;

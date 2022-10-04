@@ -11,7 +11,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
         await axios.get(`http://localhost:8000/empresa/analise/${analysisId}`, { withCredentials: true })
         .then(res=>{
             let data = res.data
-            if((data['Solicitacao'].reanalysis) == true){
+            if((data['Solicitacao'].reanalysis) == false){
                 axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,{analysisReanalyzed} , { withCredentials: true })
                 .then(res=>{
                     alert("Reanálise solicitada com sucesso")
@@ -36,7 +36,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
         .catch( error=>{
             alert("Já existe uma solicitação de análise em andamento")
         })
-      };
+    };
 
     if(!open) return null;
     else return(
