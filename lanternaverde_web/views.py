@@ -434,13 +434,11 @@ def verificar_ranking(request):
             if reports[n].company in companyRanking:
                 index = companyRanking.index(reports[n].company)
                 scoreRanking[index] += reports.ascore
-                scoreRanking[index] = math.floor(scoreRanking[index]/2)
             else:
                 companyRanking.append(reports[n].company)
                 scoreRanking.append(reports[n].ascore)
 
-        for n in range(len(scoreRanking)):
-            scoreRanking[n] = (scoreRanking[n]/(Relatorio.objects.filter(company=companyRanking[n]).len()))
+        for n in range(len(scoreRanking)): scoreRanking[n] = (scoreRanking[n]/(Relatorio.objects.filter(company=companyRanking[n]).len()))
 
         ranking_final = []
         for n in range(len(companyRanking)): ranking_final.append((companyRanking[n], scoreRanking[n]))
