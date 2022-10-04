@@ -111,7 +111,7 @@ const CompanyHeader = ({newButton}) =>{
                   <li><a className="btn" href="#" onClick={() => setOpenPopup(true)}>Solicitar análise</a></li>
                   <li><a className="btn" href="/CompanyMainScreen/CompanyReport">Emitir relatório geral</a></li>
                   <li>{newButton}</li>
-                  <li><a className="btn exit" onClick={handleLogout}>Sair</a></li>
+                  <li><a className="btnMenu exit" onClick={handleLogout}>Sair</a></li>
               </ul>
           </div>
         </div>

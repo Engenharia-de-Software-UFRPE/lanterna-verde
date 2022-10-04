@@ -1,0 +1,45 @@
+#requestListArea{
+  position: absolute;
+  width: 78%;
+  color: rgb(0, 0, 0);
+  top: 80px;
+  left: 200px;
+  height:442px;
+  background: rgb(255, 255, 255);
+}
+
+#table-wrapper {
+    position:relative;
+    
+  }
+  #table-scroll {
+    height:442px;
+    overflow:auto;  
+    margin-top:20px;
+    border-radius: 15px;
+  }
+  #table-wrapper table {
+    width:100%;
+  }
+  
+  table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+  }
+
+  td, th{
+    border: 1px solid #000000;
+    padding: 6px;
+    width: 10%;
+  }
+
+  th{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  th:hover{
+    color: white;
+    background-color: #3AB06F;
+  }

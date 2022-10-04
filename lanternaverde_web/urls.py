@@ -27,8 +27,8 @@ urlpatterns = [
     path('solicitacoesAnalise/detail', views.get_solicitacao, name='Get Solicitação Análise'),
     path('solicitacoesAnalise/analises', views.get_analysis_by_request, name='get_analysis_by_request'),
 
-
     path('analise', views.listar_analises, name='listar_analises'),
+    path('analise/empresa', views.listar_analises_empresa, name='listar_analises_empresa'),
     path('analise/add', views.criar_analise, name='criar_analise'),
     path('analise/detail', views.detalhar_analise, name='detalhar_analise'),
     path('analise/update', views.atualizar_analise, name='atualizar_analise'),
@@ -44,10 +44,11 @@ urlpatterns = [
     path('empresa/ranking', views.get_ranking, name='get_ranking'),
     #path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
     path('empresa/report', views.compilar_relatorio_geral_empresa, name='compilar_relatorio_geral_empresa'),
-
+    path('empresa', views.listar_empresas, name='listar_empresas'),
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),
     path('relatorio/comment', views.comment_relatorio, name='comment_relatorio'),
+    path('relatorio/empresa', views.get_relatorios_por_empresa, name='get_relatorios_por_empresa'),
 
     path('notificacoes', views.listar_notificacoesAdm, name='listar_norificacoes'),
     path('notificacoes/read', views.notificacao_lida, name='notificacao_lida')

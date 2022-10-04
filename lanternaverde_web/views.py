@@ -34,17 +34,17 @@ def index(request):
 @administrador_required
 def cadastro_analista(request):
     if request.method == 'POST':
-        data = request.POST
+        data = json.loads(request.body)
         try:
-            usuario = Usuario.objects.create_user(username=data.get('username'),
-                                                    email=data.get('email'),
-                                                    password=data.get('password'),
-                                                    first_name=data.get('first_name'),
-                                                    last_name=data.get('last_name')
+            usuario = Usuario.objects.create_user(username=data['username'],
+                                                    email=data['email'],
+                                                    password=data['password'],
+                                                    first_name=data['first_name'],
+                                                    last_name=data['last_name']
                                                     )
             usuario.save()
-            analista = Analista.objects.create(cpf=data.get('cpf'),
-                                                specialty=data.get('specialty'),
+            analista = Analista.objects.create(cpf=data['cpf'],
+                                                specialty=data['specialty'],
                                                 user=usuario
                                                 )
             analista.save()
@@ -298,6 +298,15 @@ def listar_analises(request):
     """
     return avalAnalista.listar_analises(request)
 
+@login_required
+@administrador_required
+def listar_analises_empresa(request):
+    """
+    Method that groups `AvaliacaoAnalista` from a specific company into a JSON
+    response.
+    """
+    return avalAnalista.listar_analises_empresa(request)
+
 @csrf_exempt
 @login_required
 @empresa_required
@@ -344,6 +353,11 @@ def gerar_relatorio(request):
 @login_required
 def get_relatorios(request):
     return relatorio.get_relatorios(request)
+
+@csrf_exempt
+@login_required
+def get_relatorios_por_empresa(request):
+    return relatorio.get_relatorios_por_empresa(request)
 
 @csrf_exempt
 @login_required
@@ -442,6 +456,18 @@ def get_info_analise_empresa(request, pk):
             'Relatorio': relatorio.data
         }
         
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+
+@login_required
+@administrador_required
+def listar_empresas(request):
+    if request.method == 'GET':
+        #pylint: disable=E1101
+        empresas = EmpresaSerializer(Empresa.objects.all(), many=True)
+        ser_return = {
+            'listaEmpresa': empresas.data
+        }
         return JSONResponse(ser_return, status=200)
     return HttpResponseBadRequest()
 

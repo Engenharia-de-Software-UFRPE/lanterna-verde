@@ -1,0 +1,154 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+img{
+    height: 50px;
+}
+
+b{
+    color: rgb(113, 148, 61);
+}
+
+.position-fixed{
+    z-index: 999;
+}
+
+ul input{
+    background-color: #f8f9fa;
+    color: #818182;
+    border: 0;
+}
+
+/*NOTIFICATION*/
+.notification::before{
+    content: '\f0f3';
+    font-family: FontAwesome;
+    margin: 10px;
+    font-size: 1.3rem;
+    display: inline-block;
+    cursor: pointer;
+    color: #818182;
+}
+
+.notification-badge {
+    display: block;
+    position: absolute;
+    top: 22px;
+    right: 65px;
+    background: #fff;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 13px;
+    height:13px;
+    border: 2px solid #fff;
+    will-change: transform, background;
+    transition: .2s transform ease-in-out, .2s background ease-in-out;
+    transform: scale(0);
+    box-sizing: border-box;
+    box-shadow: 0 0 0 2px #818182;
+}
+
+.notification-badge--active {
+    transform: scale(1);
+}
+
+.notification-badge--limit {
+    background: #F74D4D;
+}
+
+.notification-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    color: rgba(58,176,111,255);
+    font-weight: 600;
+    font-family: open-sans, sans-serif;
+    font-size: 11px;
+    line-height: 18;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.5px;
+    transform: translate3d(0, 0, 0) scaleY(1);
+    opacity: 1;
+    will-change: opacity, transform;
+    transition: .3s transform ease-in-out, .3s opacity ease-in-out;
+}
+
+.notification-counter--old {
+    transform: translate3d(0, 100%, 0) scaleY(0);
+    opacity: 0;
+}
+
+.notification-counter--new {
+    transform: translate3d(0, -100%, 0) scaleY(0);
+    opacity: 0;
+}
+
+.popupBell{
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    height: 450px;
+    width: 300px;
+    background: rgb(255, 255, 255);
+    border-radius: 6px;
+    position: absolute;
+    top: 250px;
+    left: -80px;
+    z-index: 5; /*1*/
+    transform: translate(-50%, -50%) scale(0.9);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: rgb(51, 51, 51);
+    border: 1px solid rgba(58,176,111,255);
+    visibility: visible;
+    transition: transform 0.4s, top 0.4s;
+    box-shadow: 0px 0px 10px rgb(211, 211, 211);
+    -moz-box-shadow: 0px 0px 10px rgb(211, 211, 211);
+    -webkit-box-shadow: 0px 0px 10px rgba(58,176,111,255);
+}
+
+.popupBell h3{
+    display: inline;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    transform: translate(-50%, -50%) scale(0.9);
+
+    font-family: 'Inter';
+    font-size: 1.8rem;
+}
+
+.popupBell hr{
+    position: relative;
+    top: 50px;
+}
+
+.popupBell h6{
+    display: inline;
+    position: absolute;
+    top: 220px;
+    transform: translate(-50%, -50%) scale(0.9);
+
+    font-family: 'Inter';
+    font-size: 1rem;
+}
+
+.popupBell tbody{
+    position: absolute;
+    top: 80px;
+    left: 15px;
+}
+
+
+@media screen and (max-width: 990px) {
+    .popupBell{
+        position: absolute;
+        left: 120px;
+    }
+}

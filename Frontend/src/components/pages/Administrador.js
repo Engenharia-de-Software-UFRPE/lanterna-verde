@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import ContainerAdm from '../AdminScreen/ContainerAdm';
-import NavbarAdm from '../AdminScreen/NavbarAdm';
+import ContainerAdm from '../AdminScreen/AdmContainer/ContainerAdm';
+import NavbarAdm from '../AdminScreen/AdmContainer/NavbarAdm';
 
 function Administrador() {
   return (
