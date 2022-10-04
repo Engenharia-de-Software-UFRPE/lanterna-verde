@@ -42,44 +42,68 @@ const SolAnalise = ({solicita_a_analise}) =>{
     const detailsHandler = () => {
         setActive((prevState) => !prevState);
     }
-  
-    return (
-        <> 
-            <ListGroup.Item
-                as="li"
-                className="d-flex justify-content-between align-items-start"
-                >
-            <div className='ms-2 me-auto'>
-                <div className="fw-bold">
-                    Empresa: {solicita_a_analise.empresa.tradeName}
-                    <button onClick={detailsHandler} className='btn'> Abrir análise</button>
+    
+    if(solicita_a_analise.status === 0){ //status === 0 significa que a solicitação está PENDENTE
+        return (
+            <> 
+                <ListGroup.Item
+                    as="li"
+                    className="d-flex justify-content-between align-items-start"
+                    >
+                <div className='ms-2 me-auto'>
+                    <div className="fw-bold">
+                        Empresa: {solicita_a_analise.empresa.tradeName}
+                        <button onClick={detailsHandler} className='btn'> Abrir análise</button>
+                    </div>
                 </div>
-            </div>
-            </ListGroup.Item>
-            {active ? 
-                <div className='containerSolAnalise'>
-                
-                    <div className="fw-bold">Corporação: {solicita_a_analise.empresa.corporateName}</div>
-                    <div className="fw-bold">ID: {solicita_a_analise.empresa.id}</div>
-                    <Popup trigger={<a href="#">Aceitar Análise</a>}>
-
-                    <form>
+                </ListGroup.Item>
+                {active ? 
+                    <div className='containerSolAnalise'>
+                    
+                        <div className="fw-bold">Corporação: {solicita_a_analise.empresa.corporateName}</div>
+                        <div className="fw-bold">ID: {solicita_a_analise.empresa.id}</div>
+                        <Popup trigger={<a href="#" id="acceptAnalysisBtn">Aceitar Análise</a>}>
                         
-                        <div className="input-field">
-                            <input type="number" placeholder="Quantidade de analistas" className="number" name = 'analystamount' onChange={setAnalystAmount} value = {analystamount}/>
-                            <i className="bx bx-hide show-hide" />
-                        </div>
-                        <input type="submit" defaultValue="Submit Now" className="submitbtn" onClick={(e) => {
-                            e.preventDefault();
-                            console.log(analystAm.analystamount);
-                            console.log(solicita_a_analise.id);
-                            setNumAnalistas(analystAm.analystamount, solicita_a_analise.id);
-                        }}/>
-                    </form>
-                    </Popup>
+                        <form>
+                            
+                            <div className="input-field">
+                                <input type="number" placeholder="Quantidade de analistas" className="number" name = 'analystamount' onChange={setAnalystAmount} value = {analystamount}/>
+                                <i className="bx bx-hide show-hide" />
+                            </div>
+                            <input type="submit" defaultValue="Submit Now" className="submitbtn" onClick={(e) => {
+                                e.preventDefault();
+                                setNumAnalistas(analystAm.analystamount, solicita_a_analise.id);
+                            }}/>
+                        </form>
+                        </Popup>
+                    </div>
+                : ''}
+            </>
+        );
+    } else {
+        return (
+            <> 
+                <ListGroup.Item
+                    as="li"
+                    className="d-flex justify-content-between align-items-start"
+                    >
+                <div className='ms-2 me-auto'>
+                    <div className="fw-bold">
+                        Empresa: {solicita_a_analise.empresa.tradeName}
+                        <button onClick={detailsHandler} className='btn'> Abrir análise</button>
+                    </div>
                 </div>
-            : ''}
-        </>
-    );
+                </ListGroup.Item>
+                {active ? 
+                    <div className='containerSolAnalise'>
+                        <div className="fw-bold">Corporação: {solicita_a_analise.empresa.corporateName}</div>
+                        <div className="fw-bold">ID: {solicita_a_analise.empresa.id}</div>
+                    </div>
+                : ''}
+            </>
+        );
+
+    }
+    
 };
 export default SolAnalise;
