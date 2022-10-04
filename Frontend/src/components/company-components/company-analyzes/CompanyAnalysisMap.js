@@ -9,8 +9,8 @@ const CompanyAnalysisMap =({analises} ) => {
 
     return(
         <>
-            {analises.map((analise) => (
-                <Analysis analise={analise} />
+            {analises.map((analise, index) => (
+                <Analysis analise={analise} id={index}/>
             ))
 
             }
