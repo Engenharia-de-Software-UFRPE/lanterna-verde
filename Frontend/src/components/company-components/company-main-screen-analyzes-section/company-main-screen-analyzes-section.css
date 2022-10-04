@@ -13,7 +13,7 @@
     box-sizing: border-box;
 }
 
-.company-header-container .menu-buttons .btn.see-all-analyzes{
+.company-header-container .menu-buttons .btnMenu.see-all-analyzes{
     display: none;
 }
 
@@ -47,6 +47,7 @@
     flex-direction: column;
     gap: 12px;
     cursor: pointer;
+    pointer-events: none;
 }
 
 .company-main-screen-left-section .analysis:hover{
@@ -145,7 +146,7 @@
         display: none;
     }
 
-    .company-header-container .menu-buttons .btn.see-all-analyzes{
+    .company-header-container .menu-buttons .btnMenu.see-all-analyzes{
         display: block;
     }
 }

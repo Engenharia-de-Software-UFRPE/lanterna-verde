@@ -32,7 +32,6 @@ function CompanyReportScreen() {
         await axios.get('http://localhost:8000/empresa/report', { withCredentials: true })
         .then(res => {
             let data = res.data;
-            console.log(res.data['ScorePorData'])
             const array = []
             const formatDate = (date) => {
                 return new Date(date).toLocaleDateString()
@@ -46,9 +45,10 @@ function CompanyReportScreen() {
             const labelsLineGraph = []
             const dataLineGraph = []
             if (res.data['ScorePorData'].length >0){
-                for (let i =0 ;i < res.data['ScorePorData'].length; i++ ){
+                for (let i = ((res.data['ScorePorData'].length)-1);i >= 0 ; i--){
                     labelsLineGraph.push(formatDate(res.data['ScorePorData'][i]['data']))
                     dataLineGraph.push(res.data['ScorePorData'][i]['ascore'])
+                    console.log(res.data['ScorePorData'][i])
                 }
             }
 
