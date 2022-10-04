@@ -20,7 +20,7 @@ def create_solicitacao(request):
         empresa = request.user.empresa
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             solicitacao = SolicitacaoAnalise.objects.create(empresa=empresa, date=timezone.now())
-            notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
+            notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'análise')
             return HttpResponse(status=200)
         return HttpResponse("Há análises em andamento para essa empresa", status=422)
     return HttpResponseBadRequest()
