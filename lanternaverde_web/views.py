@@ -393,8 +393,8 @@ def concluir_analise(request):
 def alterar_senha(request):
     if request.method == 'POST':
         data = request.POST
-        old_password = data.get('old')
-        new_password = data.get('new')
+        old_password = data.get('oldpw')
+        new_password = data.get('newpw')
         user = request.user
         matchcheck = check_password(old_password, user.password)
         if matchcheck:
