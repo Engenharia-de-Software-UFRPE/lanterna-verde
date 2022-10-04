@@ -66,7 +66,10 @@ const CompanyAnalyzes = () =>{
                         analysisId={reports[index].id}
                         analysisScore={reportsData.ascore} 
                         previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore} 
-                        analyzesScreen={true}/>
+                        analyzesScreen={true}
+                        analysisStatus = {reports[index].status}
+                        />
+                        
                     ))}
                 </div>                
             </section>

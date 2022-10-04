@@ -44,8 +44,8 @@ const CompanyMainScreenAnalyzesSection = () =>{
                 {!hasAnalyzes ? (<h3 className='about-analyzes'>Esta empresa não possui análises</h3>):<></> }
 
                 {reports.map((reportsData, index) => (
-                    <CompanyAnalysis analysisDate={getDate(analysis[index].update_date)} analysisId={analysis[index].id}
-                    analysisScore={reportsData.ascore} previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore} />
+                    <CompanyAnalysis analysisDate={getDate(analysis[index].update_date)}  analysisId={analysis[index].id}
+                    analysisScore={reportsData.ascore} previousAnalysisScore={index===(reports.length-1) ? 0 : reports[index+1].ascore} analysisStatus ={reports[index].status}/>
                 ))}
                 
                 <a className="see-all-analysis" href="/CompanyMainScreen/Analyzes">Ver todas as análises</a>

@@ -179,6 +179,29 @@
 
     }
 
+    .company-analyzes-section .btn-wait{
+        background-color: gray;
+        color: black;
+        font-size: 1em;
+        font-weight: 600;
+        padding: 0px;
+        width: 130px;
+        
+        align-self: center;
+        border: 0px;
+        margin-top: 5px;
+        border-radius: 10px;
+
+        transition:  0.2s background-color ease-in-out ;
+
+    }
+
+    .analysis-buttons{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .company-analyzes-section .btn-reanalysis:hover{
         background-color: var(--company-buttons-hover-color);
     }
