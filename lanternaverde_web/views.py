@@ -392,7 +392,7 @@ def concluir_analise(request):
 @login_required
 def alterar_senha(request):
     if request.method == 'POST':
-        data = request.body
+        data = json.loads(request.body)
         old_password = data['oldpw']
         new_password = data['newpw']
         user = request.user
