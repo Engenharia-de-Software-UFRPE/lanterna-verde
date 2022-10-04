@@ -47,11 +47,11 @@ tr:hover{
 
 .popupReport{
   width: 440px;
-  height: 470px;
+  height: 580px;
   background: rgb(255, 255, 255);
   border-radius: 6px;
   position: absolute;
-  top: 50px;
+  top: 85px;
   right: 0px;
   left: -400px;
   z-index: 5; /*1*/
@@ -73,4 +73,28 @@ tr:hover{
   font-weight: lighter;
   text-align: left;
   margin-top: 10px;
+}
+
+.popupReport .admComment {
+  width: 100%;
+  height: 20vh;
+  border: 3px solid;
+  border-radius: 10px;
+  border-color: rgb(56, 57, 58);
+  resize: none;
+}
+
+.popupReport .saveBtnComment{
+  position: relative;
+  left: 120px;
+  border-radius: 7px;
+  border: 0;
+  background-color: #3AB06F;
+  color: white;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.popupReport .saveBtnComment:hover{
+  color: black;
 }

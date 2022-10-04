@@ -3,9 +3,27 @@ import './CompanyList.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ListGroup from "react-bootstrap/ListGroup";
 import Popup from 'reactjs-popup';
+import axios from "axios";
 
 const Report = ({report}) =>{
     console.log(report);
+
+    const handleComentChange= () => {
+        report.adm_comment= document.getElementById("admCommentField").value;
+        console.log("Valor da chave 'comentário' da analise: " + report.adm_comment);
+    }
+
+    async function handleSaveClick(reportid, comment) {
+        let response = await axios.post("http://localhost:8000/relatorio/comment", 
+        { 'reportid': reportid, 'comment': comment, withCredentials: true })
+        .then(function (response) {
+            alert(response.data);
+        })
+        .catch(function (error) {
+            alert(error.response.data);
+        })
+    }
+  
     return (
         <> 
             <ListGroup.Item
@@ -24,7 +42,10 @@ const Report = ({report}) =>{
                         <hr></hr>
                         <h5>ID da empresa: {report.company}</h5>
                         <h5>ID da solicitação de análise: {report.request}</h5>
-                        <h5>Comentário do administrador: <br></br>{report.adm_comment}</h5>
+                        <h5>Comentário do administrador: <br></br></h5>
+                        <textarea id='admCommentField' className='admComment' onChange={handleComentChange}>{report.adm_comment}</textarea>
+                        <button className='saveBtnComment' onClick={(e) => {
+                            handleSaveClick(report.id, report.adm_comment)}}>Salvar comentário</button>
                         <hr></hr>
                         <h4>Pontuação</h4>
                         <hr></hr>
