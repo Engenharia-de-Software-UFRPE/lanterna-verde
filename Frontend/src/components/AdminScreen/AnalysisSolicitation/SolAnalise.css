@@ -27,7 +27,7 @@
   background-color: #3AB06F;
 }
 
-form{
+.containerSolAnalise form{
   background-color: white;
   border-radius: 10px;
   width: 238px;
@@ -37,11 +37,11 @@ form{
   padding-top: 3px;
 }
 
-form .field {
+.containerSolAnalise form .field {
   margin-bottom: 10px;
 }
 
-form .input-field {
+.containerSolAnalise form .input-field {
   position: relative;
   height: 57px;
   width: 100%;
@@ -57,7 +57,7 @@ form .input-field {
   padding-right: 7px;
 }
 
-.closebtn{
+.containerSolAnalise .closebtn{
   text-decoration: none;
   color: #131313;
 }
