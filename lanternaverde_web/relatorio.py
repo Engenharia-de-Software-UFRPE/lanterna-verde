@@ -79,8 +79,8 @@ def detalhar_relatorio(request):
         relatorio = SolicitacaoAnalise.objects.get(pk=data.get('reportid'))
         try:
             relatorio.relatorio
-        except:
-            return HttpResponse("Esta análise ainda não tem relatório", status=204)
+        except Exception as error:
+            return HttpResponse(error, "(Esta análise ainda não tem relatório)", status=204)
         if relatorio.company == request.user.empresa:
             ser_report = RelatorioSerializer(relatorio)
             ser_return = {
