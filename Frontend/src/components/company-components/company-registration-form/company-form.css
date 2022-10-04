@@ -45,6 +45,7 @@
     gap: 20px;
     box-sizing: border-box;
     align-items: center;
+    background-color: #eeeded;
 }
 
 .company-form-section .form .input{

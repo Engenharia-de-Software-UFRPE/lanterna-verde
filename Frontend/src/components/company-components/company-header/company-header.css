@@ -196,6 +196,7 @@ header{
     border-radius: 0px;
     margin-top: 0px;
     transition:  0.2s background-color ease-in-out ;
+    cursor: pointer;
 }
 
 .company-header-container .menu-buttons .btnMenu:hover{
