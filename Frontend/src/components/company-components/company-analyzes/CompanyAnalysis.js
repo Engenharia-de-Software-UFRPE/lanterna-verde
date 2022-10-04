@@ -56,6 +56,7 @@ const CompanyAnalysis = ({analysisDate, analysisId, analysisScore, previousAnaly
 
     function goToAnalysisDetail(analysisId){
         console.log(analysisId)
+        
         navigate('/CompanyMainScreen/CompanyAnalysisDetail',{
             state: {analysisId} }
        );
