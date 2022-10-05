@@ -2,7 +2,17 @@
     cursor: pointer;
 }
 
-.notes:hover{
-    background-color: rgba(58,176,111,255);
-    color: white;
+.notif{
+    margin-right: 8px;
+    margin-left: -5px;
+    padding-bottom: 10px;
+}
+
+.notes .dateTime-note{
+    color: gray;
+    font-weight: lighter;
+    font-size: 13px;
+    margin-left: 110px;
+    justify-content: left;
+    text-align: left;
 }
