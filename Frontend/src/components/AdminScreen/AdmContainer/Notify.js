@@ -13,7 +13,8 @@ const Notify = ({ note }) => {
         )
         .then(response => response);
     }
-    
+
+    var dh = (new Date(note.date)).toLocaleString();
     return ( <><ListGroup.Item
         as="li"
         className="d-flex justify-content-between align-items-start"
@@ -22,7 +23,7 @@ const Notify = ({ note }) => {
             <div className="notes fw-bold" onClick={(e) => {
                                         e.preventDefault();
                                         sendNotificationsRead(note.id);
-                                    }}>{note.title}{note.date}</div>
+                                    }}>{note.title}{dh}</div>
         </div>
         </ListGroup.Item>
         </>
