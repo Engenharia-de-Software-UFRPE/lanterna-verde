@@ -37,8 +37,10 @@ function ContainerAdm() {
       "http://localhost:8000/solicitacoesAnalise",
       { withCredentials: true }
     )
-    .then(response => response)
-    setSolicitaAnalise(response.data.solicitacoes_analise)
+    .then(response => response);
+    var solicitation = response.data.solicitacoes_analise;
+    solicitation.sort((a,b) =>  new Date(b.date) - new Date(a.date));
+    setSolicitaAnalise(solicitation);
   }
   if (solAnalise[0] === "placeholder") {
     solicitaAnalise();
