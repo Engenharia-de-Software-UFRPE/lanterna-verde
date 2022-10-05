@@ -19,10 +19,16 @@ function AnalystDataScreen() {
       .then((response) => response);
     setAnalyst(response.data.Analista);
     setUser(response.data.Usuario);
+    setData({
+      username: response.data.Usuario.username,
+    first_name: response.data.Usuario.first_name,
+    last_name: response.data.Usuario.last_name,
+    email:  response.data.Usuario.email,
+    cpf: response.data.Analista.cpf,
+    specialty: response.data.Analista.specialty
+    });
 
-    // if (response.status !== 201) {
-    //   navigate("/")
-    // }
+    
   }
 
 
@@ -34,6 +40,18 @@ function AnalystDataScreen() {
     listAnalysis();
   }
 
+  const[data, setData] = useState({
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    cpf: "",
+    specialty: ""
+
+
+  }
+  );
+ 
 
   async function passwordUser() {
     let response = await axios
@@ -47,15 +65,35 @@ function AnalystDataScreen() {
     
   }
 
+  const userChange = async(username, first_name, last_name, email, cpf, specialty) =>{
+    axios.defaults.withCredentials = true;
+    const response = await axios.post(
+      'http://localhost:8000/analista/update',
+      {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'cpf': cpf, 'specialty': specialty,})
+      .then(async function(response){
+        alert("Dados alterados com sucesso!");
+        console.log(response);
+       // await axios.post('http://localhost:8000/logout').then(navigate("/"))
+      }
+    )
+
+    
+  }
+
+
+
   const passwordChange = async(oldPassword,newPassword) => {
     axios.defaults.withCredentials = true;
+
+  
     const response = await axios.post(
         'http://localhost:8000/user/password/change', 
      {'newpw': newPassword, 'oldpw': oldPassword})
     .then(async function (response) {
         alert("Senha Alterada com Sucesso!");
         console.log(response);
-        await axios.post('http://localhost:8000/logout').then(navigate("/"))
+       // await axios.post('http://localhost:8000/logout').then(navigate("/"))
+
     })
     .catch(function (error) {
         if(error.response.data){
@@ -63,6 +101,17 @@ function AnalystDataScreen() {
         }
     })
 };
+ 
+
+  const {username, first_name,last_name,email,cpf,specialty} = data;
+    const handleInputChange2 = ({target}) => {
+          setData({
+            ...data,
+            [target.name]: target.value
+        })
+    };
+
+
 
   const[passwords, setPasswords] = useState({
     oldpw: "",
@@ -82,7 +131,7 @@ function AnalystDataScreen() {
   return (
     <>
     <div className="container">
-      <form action="http://localhost:8000/analista/update" method="post">
+      <form >
         <Container className="cont">
           <Row class="row align-items-center">
             <Col md="auto" className="col-edit">
@@ -106,6 +155,7 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={user.first_name}
                     name="first_name"
+                    onChange={handleInputChange2}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -114,6 +164,8 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={user.last_name}
                     name="last_name"
+                    onChange={handleInputChange2}
+
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -122,6 +174,8 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={user.username}
                     name="username"
+                    onChange={handleInputChange2}
+
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -130,6 +184,8 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={analyst.cpf}
                     name="cpf"
+                    onChange={handleInputChange2}
+
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -138,6 +194,8 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={user.email}
                     name="email"
+                    onChange={handleInputChange2}
+
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -146,6 +204,8 @@ function AnalystDataScreen() {
                     size="lg"
                     defaultValue={analyst.specialty}
                     name="specialty"
+                    onChange={handleInputChange2}
+
                   />
                 </Form.Group>
                 <Row class="row align-items-center">
@@ -155,6 +215,11 @@ function AnalystDataScreen() {
                         className="contact-btn"
                         type="submit"
                         defaultValue="Atualizar Dados"
+                        onClick={
+                          (e) => {
+                              e.preventDefault();
+                              userChange(data.username, data.first_name,data.last_name,data.email,data.cpf,data.specialty);
+                            }}
                       />
                     </div>
                   </Col>
