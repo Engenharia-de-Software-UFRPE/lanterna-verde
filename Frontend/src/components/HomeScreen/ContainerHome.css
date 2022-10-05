@@ -564,42 +564,21 @@ img {
 
 /*RANKING*/
 
-div ol{
-  counter-reset: section;
-  list-style: none;
+.news .rankingTable_Home{
+  border-radius: 25px;
 }
 
-div ol li{
-  text-align:justify;
+.news .rankingTable_Home .rankingTable-Body td{
+  font-family: 'Inter';
+  font-size: 1.5em;
+  line-height: 35px;
+  padding: 20px;
+  padding-left: 100px;
 }
 
-div ol li a{
-  color: #131313;
-  text-decoration: none;
-  text-transform: capitalize;
-  font-size: 20px;
-}
-
-.about2__content ol{
-  counter-increment: section+5;
-  margin-bottom: 71px;
-  margin-top: 56px;
-}
-
-.company-gp1{
-  position: relative;
-  bottom: 30px;
-  left: 130px;
-}
-
-.top__number::before{
-  counter-increment: section;
-  content: counters(section,".") " ";
-  position: relative;
-  left: 80px;
-  top: 14px;
+.news .rankingTable_Home .rankingTable-Body .position-ranking{
   width: 53px;
-  height: 58px;
+  height: 80px;
 
   display: flex;
   justify-content: center;
@@ -611,6 +590,8 @@ div ol li a{
   color: rgb(113, 148, 61);
   text-align: center;
 }
+
+/* FOOTER */
 
 .footer__container {
   background-color: #131313;

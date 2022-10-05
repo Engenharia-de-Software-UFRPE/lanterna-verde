@@ -2,7 +2,8 @@
     cursor: pointer;
 }
 
-.notes:hover{
-    background-color: rgba(58,176,111,255);
-    color: white;
+.notif{
+    margin-right: 8px;
+    margin-left: -5px;
+    padding-bottom: 10px;
 }

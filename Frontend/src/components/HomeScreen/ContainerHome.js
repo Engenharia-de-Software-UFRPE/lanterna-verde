@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './ContainerHome.css';
 
 function ContTest2() {
+
+    const [ranking, setRanking] = useState([])
+
+    useEffect( () => {
+        getRanking()
+    }, []);
+
+    const getRanking = async () => {
+        await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
+        .then(res => {
+            let data = res.data['Empresas']
+            if(data.length > 3){
+            let companies = []
+            for (let i=0; i<data.length;i++){
+                companies.push(data[i])
+            }
+            setRanking(companies)
+            }else{
+            setRanking(data)
+            }
+        })
+        .catch( error=>{
+            alert("Erro")
+        })
+    }
 
     return(
         <>
@@ -75,93 +101,22 @@ function ContTest2() {
                     </div>
                 </div>
             </div>
-            
 
             {/*RANKING SECTION*/}
             <div class="news" id="sign-up">
                 <h1>Ranking Empresas</h1>
-                <div class="about__container">
-                    <div class="about__content">
-                    <ol>
-                        <li>
-                        <a href="#">
-                            <span class="top__number">
-                            <strong class="company-gp1">xyz Papéis</strong>
-                            </span>
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#">
-                            <span class="top__number">
-                            <strong class="company-gp1">abc Makeup</strong>
-                            </span>
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#">
-                            <span class="top__number">
-                            <strong class="company-gp1">klj Tecnologias</strong>
-                            </span>
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#">
-                            <span class="top__number">
-                            <strong class="company-gp1">Ytr Plástico</strong>
-                            </span>
-                        </a>
-                        </li>
-                        <li>
-                        <a href="#">
-                            <span class="top__number">
-                            <strong class="company-gp1">Wqs Piscinas</strong>
-                            </span>
-                        </a>
-                        </li>
-                    </ol>
-                    
-                    </div>
-                    <div class="about2__content">
-                        <ol>
-                        <li>
-                            <a href="#">
-                                <span class="top__number">
-                                <strong class="company-gp1">Qlp Hotel</strong>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="top__number">
-                                <strong class="company-gp1">Xyz Tecidos</strong>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="top__number">
-                                <strong class="company-gp1">Klj Construções</strong>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="top__number">
-                                <strong class="company-gp1">Mnp Supermercado</strong>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="top__number">
-                                <strong class="company-gp1">Opq Energia</strong>
-                                </span>
-                            </a>
-                        </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+
+                <table class="rankingTable_Home">
+                <tbody class="rankingTable-Body">
+                  {ranking.map((companyData, index) => (
+                    <tr>
+                      <td className='position-ranking'>{index+1}</td>
+                      <td>{companyData.tradeName}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div> 
 
             {/*MOST ACCESSED*/}
             <div class="news2" id="sign-up">
