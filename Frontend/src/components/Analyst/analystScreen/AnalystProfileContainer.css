@@ -11,7 +11,7 @@
   
   .d-flex {
     background-color: rgb(210, 221, 231);
-    border: solid black;
+    /*border: solid black;*/
     border-radius: 5px;
     margin-top: 7px;
 }

@@ -101,7 +101,7 @@ class NotificacoesAdmSerializer(serializers.ModelSerializer):
     """
     Serialization for NotificacaoAdm Model
     """
-    date = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
+    #date = serializers.DateTimeField(format="%d-%m-%Y %H:%M")
     class Meta:
         """Relatorio metadata"""
         model = NotificacaoAdm
