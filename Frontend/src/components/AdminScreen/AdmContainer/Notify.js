@@ -23,7 +23,8 @@ const Notify = ({ note }) => {
             <div className="notes fw-bold" onClick={(e) => {
                                         e.preventDefault();
                                         sendNotificationsRead(note.id);
-                                    }}>{note.title}{dh}</div>
+                                    }}>{note.title}<br></br>
+                                    <p className='dateTime-note'>{dh}</p></div>
         </div>
         </ListGroup.Item>
         </>

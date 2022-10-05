@@ -7,3 +7,12 @@
     margin-left: -5px;
     padding-bottom: 10px;
 }
+
+.notes .dateTime-note{
+    color: gray;
+    font-weight: lighter;
+    font-size: 13px;
+    margin-left: 110px;
+    justify-content: left;
+    text-align: left;
+}
