@@ -57,10 +57,10 @@ def cadastro_analista(request):
 @login_required
 def alterar_analista(request):
     if request.method == 'POST':
-        data = request.POST
+        data = json.loads(request.body)
         if hasattr(request.user, 'administrador'):
             try:
-                user = Usuario.objects.get(pk=data.get("id"))
+                user = Usuario.objects.get(pk=data["id"])
             except:
                 return HttpResponse("Usuário não encontrado", status=404)
         elif hasattr(request.user, 'analista'):
@@ -68,12 +68,12 @@ def alterar_analista(request):
         else:
             return HttpResponse("Você não tem permissão para realizar esta solicitação", status=403)
 
-        user.analista.cpf = data.get("cpf")
-        user.analista.specialty = data.get("specialty")
-        user.username = data.get("username")
-        user.first_name = data.get("first_name")
-        user.last_name = data.get("last_name")
-        user.analista.email = data.get("email")
+        user.analista.cpf = data["cpf"]
+        user.analista.specialty = data["specialty"]
+        user.username = data["username"]
+        user.first_name = data["first_name"]
+        user.last_name = data["last_name"]
+        user.analista.email = data["email"]
         user.save()
         user.analista.save()
         return HttpResponse(status=201)
@@ -392,9 +392,9 @@ def concluir_analise(request):
 @login_required
 def alterar_senha(request):
     if request.method == 'POST':
-        data = request.POST
-        old_password = data.get('old')
-        new_password = data.get('new')
+        data = json.loads(request.body)
+        old_password = data['oldpw']
+        new_password = data['newpw']
         user = request.user
         matchcheck = check_password(old_password, user.password)
         if matchcheck:
