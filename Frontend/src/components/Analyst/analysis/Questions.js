@@ -26,6 +26,7 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
     //     // console.log(questao.question.dimension)
     // }
 
+    const [active, setActive] = useState(questao.answer);
 
     function sourceAreaChange() {
         let sourceValue = document.getElementById("questionSource"+questao.id).value
@@ -36,20 +37,29 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         let justificationValue = document.getElementById("questionJustification"+questao.id).value
         handleJustificationChange(justificationValue,questao)
     }
+
+    function CheckBoxClicked(questao) {
+        setActive((prevState) => !prevState);
+        handleCheckBoxClick(questao)
+    }
     return <>
             <div className='listQuestoes'>
                 {/* <div className='question-and-awnser'> */}
                         Questão: {questao.question.body} 
                         <label class="switch">
-                            <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}>
+                            <input type="checkbox" onClickCapture={() => CheckBoxClicked(questao)} defaultChecked={questao.answer}>
                             </input>
                             <span class="slider round">
                             </span>
                         </label> 
                 {/* </div> */}
             </div>
+            {active ? 
+            <>
             Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
             Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
+            </> 
+            : <></>}
             </>
 }; 
 
