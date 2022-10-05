@@ -36,7 +36,9 @@ function NavbarAdm() {
       { withCredentials: true }
     )
     .then(response => response);
-    setNotifications(response.data.notificacoesAdm);
+    var notif = response.data.notificacoesAdm;
+    notif.sort((a,b) =>  new Date(b.date) - new Date(a.date));
+    setNotifications(notif);
     setQtdNonRead(response.data.qtd_notificacoes_nao_lidas);
   }
   console.log(qtdNonRead);
