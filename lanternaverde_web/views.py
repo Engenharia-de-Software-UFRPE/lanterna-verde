@@ -67,18 +67,13 @@ def alterar_analista(request):
             user = request.user
         else:
             return HttpResponse("Você não tem permissão para realizar esta solicitação", status=403)
-        try:
-            user.analista.cpf = data["cpf"]
-            user.analista.specialty = data["specialty"]
-            try:
-                user.username = data["username"]
-            except Exception as error:
-                print(error, "(Nome de usuário não foi modificado)")
-            user.first_name = data["first_name"]
-            user.last_name = data["last_name"]
-            user.analista.email = data["email"]
-        except Exception as error:
-            return HttpResponse(f"{error}", status=204)
+
+        user.analista.cpf = data["cpf"]
+        user.analista.specialty = data["specialty"]
+        user.username = data["username"]
+        user.first_name = data["first_name"]
+        user.last_name = data["last_name"]
+        user.analista.email = data["email"]
         user.save()
         user.analista.save()
         return HttpResponse(status=201)
