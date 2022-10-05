@@ -47,24 +47,31 @@ function AnalystDataScreen() {
     
   }
 
-  const passwordChange = async(username, first_name, last_name, email, cpf, specialty, password) => {
+  const passwordChange = async(oldPassword,newPassword) => {
     axios.defaults.withCredentials = true;
     const response = await axios.post(
-        'http://localhost:8000/analista/add', 
-     {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'cpf': cpf, 'specialty': specialty, 'password': password})
-    .then(function (response) {
-        alert("Cadastro feito com sucesso!");
+        'http://localhost:8000/user/password/change', 
+     {'newpw': newPassword, 'oldpw': oldPassword})
+    .then(async function (response) {
+        alert("Senha Alterada com Sucesso!");
         console.log(response);
+        await axios.post('http://localhost:8000/logout').then(navigate("/"))
     })
     .catch(function (error) {
         if(error.response.data){
-            alert("Analista já foi cadastrado.");
+            alert("Antiga Senha incorreta, por favor tente novamente");
         }
     })
 };
-  const {oldPassword, newPassword} = passwords;
+
+  const[passwords, setPasswords] = useState({
+    oldpw: "",
+    newpw: ""
+  }
+  );
+  const {oldpw, newpw} = passwords;
     const handleInputChange = ({target}) => {
-        setAnalyst({
+          setPasswords({
             ...passwords,
             [target.name]: target.value
         })
@@ -158,7 +165,7 @@ function AnalystDataScreen() {
         </Container>
       </form>
 
-      <form action="http://localhost:8000/user/password/change" method="post">
+      <form>
         
           <Row class="row align-items-center">
             <Col className="col-edit">
@@ -173,7 +180,7 @@ function AnalystDataScreen() {
                   <Form.Control
                     type="password"
                     size="lg"
-                    name="old"
+                    name="oldpw"
                     onChange={handleInputChange}
                   />
                 </Form.Group>
@@ -182,7 +189,7 @@ function AnalystDataScreen() {
                   <Form.Control
                     type="password"
                     size="lg"
-                    name="new"
+                    name="newpw"
                     onChange={handleInputChange}
                   />
                 </Form.Group>
@@ -196,7 +203,7 @@ function AnalystDataScreen() {
                         onClick={
                           (e) => {
                               e.preventDefault();
-                              passwordChange(passwords.oldPassword, passwords.newPassword);
+                              passwordChange(passwords.oldpw, passwords.newpw);
                              
                       }}
                       />
