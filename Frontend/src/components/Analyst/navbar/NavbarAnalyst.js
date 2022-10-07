@@ -7,7 +7,25 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 function NavbarAnalyst() {
+  const navigate = useNavigate();
+  const [logout,setLogout] = useState(false);
+  const logoutBtn = async (username, password) => {
+    axios.defaults.withCredentials = true;
+    const response = await axios.get(
+      "http://localhost:8000/logout",
+      { withCredentials: true }
+    )
+    .then((response) => {
+      console.log(response);
+      navigate('/');
+      localStorage.clear();
+      setLogout(true);
+    });
+  }
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -44,9 +62,10 @@ function NavbarAnalyst() {
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              {/* <a class="nav-link" href="/">
                 Sair
-              </a>
+              </a> */}
+              <input type="button" value="Sair" onClick={logoutBtn}/>
             </li>
           </ul>
         </Navbar.Collapse>
