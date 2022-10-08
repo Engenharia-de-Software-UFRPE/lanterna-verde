@@ -519,7 +519,14 @@ def get_ranking(request):
 @login_required
 @empresa_required
 def compilar_relatorio_geral_empresa(request):
-    if request.method == 'GET':
+    data_inicial = 0
+    data_final = 0
+    
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        data_inicial = request.POST.get('init_date')
+        data_final = request.POST.get('final_date')
+    elif request.method == 'GET':
         analises = AvaliacaoAnalistaSerializer(
                     AvaliacaoAnalista.objects.filter(analysis_request__empresa__id = request.user.empresa.id,
                                                     analysis_request__status = 3,
@@ -527,9 +534,11 @@ def compilar_relatorio_geral_empresa(request):
                     many = True,
                     context={'request': None}
         )
-
+        
         relatorios = list()
+        relatorios_periodo_tempo = list()
         ascore_por_data = list()
+        
         for i in range(len(analises.data)):
             for analises_key,analises_value in analises.data[i].items():
                 if(analises_key == 'analysis_request'):
@@ -541,18 +550,32 @@ def compilar_relatorio_geral_empresa(request):
                         ascore_por_data.append({
                             'ascore': relatorio.data['ascore'],
                             'data': analises.data[i]['update_date']})
+                        if data_final >= analises.data[i]['update_date'] >= data_inicial:
+                            relatorios_periodo_tempo.append(relatorio.data)
 
         scoresD1 = 0
         scoresD2 = 0
         scoresD3 = 0
         scoresD4 = 0
         ascores = 0
+
+        scoresD1_periodo = 0
+        scoresD2_periodo = 0
+        scoresD3_periodo = 0
+        scoresD4_periodo = 0
+        ascores_periodo = 0
         for i in range(len(relatorios)):
             scoresD1 += relatorios[i]['scoreD1']
             scoresD2 += relatorios[i]['scoreD2']
             scoresD3 += relatorios[i]['scoreD3']
             scoresD4 += relatorios[i]['scoreD4']
             ascores += relatorios[i]['ascore']
+            if len(relatorios_periodo_tempo) >= i:
+                scoresD1_periodo += relatorios_periodo_tempo[i]['scoreD1']
+                scoresD2_periodo += relatorios_periodo_tempo[i]['scoreD2']
+                scoresD3_periodo += relatorios_periodo_tempo[i]['scoreD3']
+                scoresD4_periodo += relatorios_periodo_tempo[i]['scoreD4']
+                ascores_periodo += relatorios_periodo_tempo[i]['ascore']
 
         if (len(relatorios) >0 ) :
             scores = {
@@ -570,7 +593,24 @@ def compilar_relatorio_geral_empresa(request):
                 'D4': scoresD4,
                 'Ascore': ascores
             }
-        
+
+        if (len(relatorios_periodo_tempo) > 0):
+            scores_periodo_tempo = {
+                'D1': scoresD1_periodo/len(relatorios_periodo_tempo),
+                'D2': scoresD2_periodo/len(relatorios_periodo_tempo),
+                'D3': scoresD3_periodo/len(relatorios_periodo_tempo), 
+                'D4': scoresD4_periodo/len(relatorios_periodo_tempo),
+                'Ascore': ascores_periodo/len(relatorios_periodo_tempo)
+            }
+        else:
+            scores_periodo_tempo = {
+                'D1': scoresD1_periodo,
+                'D2': scoresD2_periodo,
+                'D3': scoresD3_periodo, 
+                'D4': scoresD4_periodo,
+                'Ascore': ascores_periodo
+            }
+
         array_scores = [scores['D1'],
                     scores['D2'],
                     scores['D3'],
@@ -593,6 +633,7 @@ def compilar_relatorio_geral_empresa(request):
         relatorio_geral = {
             'Scores': scores,
             'ScorePorData': ascore_por_data,
+            'ScoresPeriodoTempo': scores_periodo_tempo,
             'PioresDimensoes': piores_dimensoes
         } 
         
