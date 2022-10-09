@@ -11,6 +11,7 @@ import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
 import lanternaverde_web.notificacaoAdm as notificacaoAdm
+import lanternaverde_web.empresa as empresa
 
 from django.contrib.auth.hashers import check_password
 
@@ -463,14 +464,11 @@ def get_info_analise_empresa(request, pk):
 @login_required
 @administrador_required
 def listar_empresas(request):
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        empresas = EmpresaSerializer(Empresa.objects.all(), many=True)
-        ser_return = {
-            'listaEmpresa': empresas.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
+    return empresa.listar_empresas(request)
+
+
+def listar_empresas_public(request):
+    return empresa.listar_empresas_public(request)
 
 """
 def get_empresa(request, id):
@@ -610,3 +608,13 @@ def listar_notificacoesAdm(request):
 @administrador_required
 def notificacao_lida(request):
     return notificacaoAdm.notificacao_lida(request)
+
+
+def detalhar_empresa_public(request):
+    return empresa.detalhar_empresa_public(request)
+
+
+@login_required(login_url='/')
+@administrador_required
+def detalhar_empresa(request):
+    return empresa.detalhar_empresa(request)

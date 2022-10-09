@@ -105,3 +105,12 @@ class NotificacoesAdmSerializer(serializers.ModelSerializer):
         """Relatorio metadata"""
         model = NotificacaoAdm
         fields = '__all__'
+
+
+class EmpresaPublicSerializer(serializers.ModelSerializer):
+    """
+    Public Serializer for Empresa (public view)
+    """
+    class Meta:
+        model = Empresa
+        fields = ['id', 'tradeName', 'corporateName', 'tipo', 'cnpj', 'score']
