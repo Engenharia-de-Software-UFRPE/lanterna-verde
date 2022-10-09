@@ -37,19 +37,37 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         handleJustificationChange(justificationValue,questao)
     }
     return <>
-            <div className='listQuestoes'>
-                {/* <div className='question-and-awnser'> */}
-                        Questão: {questao.question.body} 
-                        <label class="switch">
-                            <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}>
-                            </input>
-                            <span class="slider round">
-                            </span>
-                        </label> 
-                {/* </div> */}
+            <div className='question-container'>
+
+            
+                <div className='full-question-area'>
+                    {/* <div className='question-and-awnser'> */}
+                    <button className='negative-btn'>X</button>
+                    
+                    {/* <div className='alig-areas'> */}
+                        <div className='questionArea'>
+                            {questao.question.body} 
+                            </div>
+                    {/* </div> */}
+
+                    <button className='positive-btn'>V</button>      
+                            {/* <label class="switch">
+                                <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}></input>
+                                <span class="slider round">
+                                </span>
+                            </label>  */}
+                    {/* </div> */}
+                </div>
+
+                <div className='source-container'>
+                    Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
+                </div>
+
+                <div className='justification-container'>
+                    Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
+                </div>
+
             </div>
-            Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
-            Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
             </>
 }; 
 

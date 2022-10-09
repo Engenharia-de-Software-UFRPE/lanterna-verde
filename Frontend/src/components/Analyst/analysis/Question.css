@@ -1,20 +1,94 @@
-.listQuestoes{
+.question-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.full-question-area{
     max-height: 100%;
-    background-color: rgb(44, 196, 163);
+    background-color: rgb(224, 224, 224);
     border-radius: 10px;
-    color:  rgb(56, 57, 58);
+    color:  rgb(0, 0, 0);
     margin-top: 20xp;
     text-align: center;
-    max-width: 100%;
-    padding: 8px 8px 8px 8px;
+    width: 80vw;
+    /* padding: 8px 8px 8px 8px; */
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
     text-align: center;
 }
 
+/* buttons */
+
+.negative-btn {
+    background-color: red;
+    color: white;
+    font-size: xx-large;
+    height: 100;
+    width: 25%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-width: 0px;
+}
+
+.positive-btn {
+    background-color: greenyellow;
+    color: white;
+    font-size: xx-large;
+    height: 100;
+    width: 25%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-width: 0px;
+}
+
+/* containers */
+
+.source-container{
+    background-color: rgb(224, 224, 224);
+    width: 52%;
+    /* border: 3px solid; */
+    /* border-radius: 10px; */
+    /* border-color: rgb(56, 57, 58);
+    margin: 0px; */
+    
+}
+
+.justification-container{
+    background-color: rgb(224, 224, 224);
+    width: 52%;
+    /* border: 3px solid; */
+    /* border-radius: 10px; */
+    /* border-color: rgb(56, 57, 58);
+    margin: 0px; */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
 
 /* areas */
+
+.alig-areas{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.questionArea {
+    max-height: 100%;
+    background-color: rgb(224, 224, 224);
+    color:  rgb(0, 0, 0);
+    text-align: center;
+    max-width: 100%;
+    padding: 8px 8px 8px 8px;
+    /* border-style: solid;
+    border-color: black; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
 
 .comentArea {
     width: 100%;
@@ -23,23 +97,26 @@
     border-radius: 10px;
     border-color: rgb(56, 57, 58);
     resize: none;
+    
 }
-  
+
 .sourceArea {
-    width: 100%;
-    height: 10vh;
+    width: 90%;
+    height: 5vh;
     border: 3px solid;
     border-radius: 10px;
     border-color: rgb(56, 57, 58);
     resize: none;
+    
 }
   
 .justificationArea {
-    width: 100%;
+    width: 90%;
     height: 20vh;
     border: 3px solid;
     border-radius: 10px;
     border-color: rgb(56, 57, 58);
+
     resize: none;
 }
 
