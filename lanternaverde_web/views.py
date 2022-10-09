@@ -610,12 +610,10 @@ def notificacao_lida(request):
     return notificacaoAdm.notificacao_lida(request)
 
 
-@csrf_exempt
 def detalhar_empresa_public(request):
     return empresa.detalhar_empresa_public(request)
 
 
-@csrf_exempt
 @login_required(login_url='/')
 @administrador_required
 def detalhar_empresa(request):

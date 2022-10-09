@@ -25,7 +25,7 @@ def detalhar_empresa_public(request):
 
 def detalhar_empresa(request):
     """
-    Método para detalhar uma empresa sem necessariamente estar logado (visão do consumidor)
+    Método para detalhar uma empresa com todas os dados
     """
     if request.method == 'GET':
         data = request.GET
@@ -42,6 +42,9 @@ def detalhar_empresa(request):
 
 
 def listar_empresas(request):
+    """
+    Lista as empresas com todos os dados
+    """
     if request.method == 'GET':
         #pylint: disable=E1101
         empresas = EmpresaSerializer(Empresa.objects.all(), many=True)
@@ -53,6 +56,9 @@ def listar_empresas(request):
 
 
 def listar_empresas_public(request):
+    """
+    Lista as empresas com dados limitados (visão de consumidor)
+    """
     if request.method == 'GET':
         # pylint: disable=E1101
         empresas = EmpresaPublicSerializer(Empresa.objects.all(), many=True)

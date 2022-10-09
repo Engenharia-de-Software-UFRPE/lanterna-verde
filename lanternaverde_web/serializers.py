@@ -113,4 +113,4 @@ class EmpresaPublicSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Empresa
-        exclude = ['package', 'stateRegistration', 'phoneNumber', 'user']
+        fields = ['id', 'tradeName', 'corporateName', 'tipo', 'cnpj', 'score']
