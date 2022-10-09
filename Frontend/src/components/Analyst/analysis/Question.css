@@ -1,55 +1,92 @@
 .question-container{
+    
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     text-align: center;
-    align-items: center;
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+    position:relative;
 }
 
 .full-question-area{
+
     max-height: 100%;
     background-color: rgb(224, 224, 224);
     border-radius: 10px;
     color:  rgb(0, 0, 0);
-    margin-top: 20xp;
     text-align: center;
-    width: 80vw;
+    width: 60vw;
     /* padding: 8px 8px 8px 8px; */
-    margin-top: 20px;
+
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    align-items: center;
+    margin-right: auto;
+    margin-left: auto;
+    /* position: absolute; */
+    z-index: 1;
+    
 }
 
 /* buttons */
 
+/* .negative-container{
+
+    margin-right: 0;
+    margin-left:auto;
+    z-index: 0;
+    position: absolute;
+
+} */
 .negative-btn {
     background-color: red;
     color: white;
     font-size: xx-large;
-    height: 100;
-    width: 25%;
+    height: 12vh;
+    width: 50%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-width: 0px;
+    text-align: left;
+    position: absolute;
+    /* left: 0px; */
 }
 
+/* .positive-container{
+
+    margin-right: 0;
+    z-index: 0;
+    position: absolute;
+
+} */
 .positive-btn {
+
     background-color: greenyellow;
     color: white;
     font-size: xx-large;
-    height: 100;
-    width: 25%;
+    height: 12vh;
+    width: 50%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-width: 0px;
+    text-align: right;
+    z-index: 0;
+    position: absolute;
+    right: 0;
+    
+    /* right: 0px; */
+
 }
 
 /* containers */
 
 .source-container{
     background-color: rgb(224, 224, 224);
-    width: 52%;
+    width: 100%;
     /* border: 3px solid; */
     /* border-radius: 10px; */
     /* border-color: rgb(56, 57, 58);
@@ -57,9 +94,15 @@
     
 }
 
+/* .source-container .titulo {
+    text-align: left;
+    margin-left: 50px;
+    
+} */
+
 .justification-container{
     background-color: rgb(224, 224, 224);
-    width: 52%;
+    width: 100%;
     /* border: 3px solid; */
     /* border-radius: 10px; */
     /* border-color: rgb(56, 57, 58);
@@ -67,6 +110,13 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     
+}
+
+.text-and-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
 }
 
 /* areas */
@@ -78,16 +128,18 @@
     text-align: center;
 }
 .questionArea {
-    max-height: 100%;
+    overflow-y: scroll;
+    height: 12vh;
     background-color: rgb(224, 224, 224);
     color:  rgb(0, 0, 0);
     text-align: center;
-    max-width: 100%;
+    width: 100%;
     padding: 8px 8px 8px 8px;
     /* border-style: solid;
     border-color: black; */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 10px;
+    /* position: absolute; */
+    
 }
 
 .comentArea {
@@ -111,75 +163,13 @@
 }
   
 .justificationArea {
+    /* margin-top: 12vh; */
     width: 90%;
     height: 20vh;
     border: 3px solid;
     border-radius: 10px;
     border-color: rgb(56, 57, 58);
-
+    
     resize: none;
-}
-
-
-/* Switch */
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-  
-.switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-  
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-  
-input:checked + .slider {
-    background-color: #21f33d;
-}
-  
-input:focus + .slider {
-    box-shadow: 0 0 1px #21f33d;
-}
-  
-input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-}
-  
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-  
-.slider.round:before {
-    border-radius: 50%;
 }
 
