@@ -54,6 +54,7 @@ urlpatterns = [
     path('notificacoes', views.listar_notificacoesAdm, name='listar_norificacoes'),
     path('notificacoes/read', views.notificacao_lida, name='notificacao_lida'),
 
-
+    path('public/empresa', views.listar_empresas_public, name='listar_empresas'),
+    path('public/empresa/detail', views.detalhar_empresa_public, name='detalhar_empresa'),
 
 ]

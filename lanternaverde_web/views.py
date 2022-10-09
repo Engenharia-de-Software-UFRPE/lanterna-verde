@@ -462,9 +462,26 @@ def get_info_analise_empresa(request, pk):
     return HttpResponseBadRequest()
 
 @login_required
+@administrador_required
 def listar_empresas(request):
     return empresa.listar_empresas(request)
 
+
+def listar_empresas_public(request):
+    return empresa.listar_empresas_public(request)
+
+"""
+def get_empresa(request, id):
+    if request.method == 'GET':
+        empresas = EmpresaSerializer(
+            Empresa.objects.get(id=id)
+        )
+        ser_return = {
+            'Empresa': empresas.data
+        }
+        return JSONResponse(ser_return, status=200)
+    return HttpResponseBadRequest()
+"""
 
 def get_ranking(request):
     if request.method == 'GET':
@@ -594,5 +611,12 @@ def notificacao_lida(request):
 
 
 @csrf_exempt
+def detalhar_empresa_public(request):
+    return empresa.detalhar_empresa_public(request)
+
+
+@csrf_exempt
+@login_required(login_url='/')
+@administrador_required
 def detalhar_empresa(request):
     return empresa.detalhar_empresa(request)
