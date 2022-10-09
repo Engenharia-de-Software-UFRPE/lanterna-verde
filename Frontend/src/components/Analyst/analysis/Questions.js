@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './Analysis.css'
+import './Question.css'
 
 const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, handleSourceChange, handleJustificationChange }) => {
     
