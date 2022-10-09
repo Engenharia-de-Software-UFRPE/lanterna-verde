@@ -11,6 +11,7 @@ import lanternaverde_web.solicitacaoAnalise as solAnalise
 import lanternaverde_web.avaliacaoAnalista as avalAnalista
 import lanternaverde_web.relatorio as relatorio
 import lanternaverde_web.notificacaoAdm as notificacaoAdm
+import lanternaverde_web.empresa as empresa
 
 from django.contrib.auth.hashers import check_password
 
@@ -461,29 +462,9 @@ def get_info_analise_empresa(request, pk):
     return HttpResponseBadRequest()
 
 @login_required
-@administrador_required
 def listar_empresas(request):
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        empresas = EmpresaSerializer(Empresa.objects.all(), many=True)
-        ser_return = {
-            'listaEmpresa': empresas.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
+    return empresa.listar_empresas(request)
 
-"""
-def get_empresa(request, id):
-    if request.method == 'GET':
-        empresas = EmpresaSerializer(
-            Empresa.objects.get(id=id)
-        )
-        ser_return = {
-            'Empresa': empresas.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-"""
 
 def get_ranking(request):
     if request.method == 'GET':
@@ -610,3 +591,8 @@ def listar_notificacoesAdm(request):
 @administrador_required
 def notificacao_lida(request):
     return notificacaoAdm.notificacao_lida(request)
+
+
+@csrf_exempt
+def detalhar_empresa(request):
+    return empresa.detalhar_empresa(request)

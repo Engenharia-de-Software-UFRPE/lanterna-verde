@@ -45,12 +45,15 @@ urlpatterns = [
     #path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
     path('empresa/report', views.compilar_relatorio_geral_empresa, name='compilar_relatorio_geral_empresa'),
     path('empresa', views.listar_empresas, name='listar_empresas'),
+    path('empresa/detail', views.detalhar_empresa, name='detalhar_empresa'),
 
     path('relatorio', views.get_relatorios, name='get_relatorios'),
     path('relatorio/comment', views.comment_relatorio, name='comment_relatorio'),
     path('relatorio/empresa', views.get_relatorios_por_empresa, name='get_relatorios_por_empresa'),
 
     path('notificacoes', views.listar_notificacoesAdm, name='listar_norificacoes'),
-    path('notificacoes/read', views.notificacao_lida, name='notificacao_lida')
+    path('notificacoes/read', views.notificacao_lida, name='notificacao_lida'),
+
+
 
 ]
