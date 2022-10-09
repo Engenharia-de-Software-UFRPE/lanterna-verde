@@ -1,32 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import './Question.css'
 
 const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, handleSourceChange, handleJustificationChange }) => {
     
 
+    useEffect(() => {
+        // setQuest(questao)
+        initAnswer()
+    },[])
 
-    // const handleCheckBoxClick= () => {
-    //       questao.answer= !questao.answer;
+    function initAnswer(){
+        var box = document.getElementById('question'+questao.id)
+        if (questao.answer){
+            box.style.animation = "positive 0.125s linear forwards";
+        }
+        else{
+            box.style.animation = "negative 0.125s linear forwards";
+        }
+    }
+         
+    function answerHandler(){
+        var box = document.getElementById('question'+questao.id)
+        if (questao.answer){
+            box.style.animation = "negative 0.125s linear forwards";
+            questao.answer = !questao.answer
+        }
+        else{
+            box.style.animation = "positive 0.125s linear forwards";
+            questao.answer = !questao.answer
+        }
 
-    //       let valor = 1;
-    //       if(questao.answer === true){
-    //         valor = 1;
-    //       }
-    //       else{
-    //         valor = -1;
-    //       }
-
-    //       analysis.dimension_count[questao.question.dimension].checked += valor
-    //       const copy = analysis.dimension_count
-    //       setDimensions(copy)
-
-    //     //   console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
-        
-    //     console.log(analysis.dimension_count[questao.question.dimension])
-    //     // console.log(questao.question.dimension)
-    // }
-
-
+    }
+      
     function sourceAreaChange() {
         let sourceValue = document.getElementById("questionSource"+questao.id).value
         handleSourceChange(sourceValue,questao)
@@ -36,11 +41,15 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         let justificationValue = document.getElementById("questionJustification"+questao.id).value
         handleJustificationChange(justificationValue,questao)
     }
+
+
+
+    // document.onload = initAnswer();
     return <>
             <div className='question-container'>
 
                 {/* <div className='negative-container'> */}
-                    <button className='negative-btn'>X</button>
+                    <button className='negative-btn' onClick={answerHandler}>X</button>
                 {/* </div> */}
                 
 
@@ -50,13 +59,12 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                     
                     {/* <div className='alig-areas'> */}
 
-                        <div className='questionArea'>
+                        <div className='questionArea' id={'question'+questao.id}>
                         {questao.question.body} 
                         
                         </div>
-                        
-                        <br></br>
-                        <div className='justification-container'>
+
+                        <div className='justification-container' >
                             Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
                         </div>
                         
@@ -77,7 +85,7 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                     {/* </div> */}
                 </div>
                 {/* <div className='positive-container'> */}
-                    <button className='positive-btn'>V</button>   
+                    <button className='positive-btn' onClick={answerHandler}>V</button>   
                 {/* </div> */}
 
 

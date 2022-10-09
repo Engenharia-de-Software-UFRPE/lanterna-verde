@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Analysis.css'
 import Questions from './Questions';
 import QuestionsFinished from './QuestionsFinished';
@@ -19,6 +19,10 @@ const Analysis = ({ analise }) => {
     const [analysis,setAnalysis] = useState("placeholder");
     const [dimensions,setDimensions] = useState({});
 
+    useEffect(() => {
+        analysisDetail()
+    },[])
+
     async function analysisDetail() {
         let response = await axios.get(
           url,
@@ -32,9 +36,9 @@ const Analysis = ({ analise }) => {
         
       }
 
-      if (analysis === "placeholder"){
-        analysisDetail()
-      }
+      // if (analysis === "placeholder"){
+      //   analysisDetail()
+      // }
 
 
 

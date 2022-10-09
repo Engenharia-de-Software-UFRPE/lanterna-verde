@@ -13,11 +13,11 @@
 .full-question-area{
 
     max-height: 100%;
-    background-color: rgb(224, 224, 224);
-    border-radius: 10px;
+    /* background-color: #F0F0F0; */
+    border-radius: 20px;
     color:  rgb(0, 0, 0);
     text-align: center;
-    width: 60vw;
+    width: 90%;
     /* padding: 8px 8px 8px 8px; */
 
     display: flex;
@@ -43,17 +43,18 @@
 
 } */
 .negative-btn {
-    background-color: red;
+    background-color: #E74C3C;
     color: white;
     font-size: xx-large;
     height: 12vh;
     width: 50%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-radius: 20px;
     border-width: 0px;
     text-align: left;
     position: absolute;
+    padding: 15px 15px 15px 15px;
     /* left: 0px; */
+    font-weight:bold;
 }
 
 /* .positive-container{
@@ -65,18 +66,19 @@
 } */
 .positive-btn {
 
-    background-color: greenyellow;
+    background-color: #1BB55C;
     color: white;
     font-size: xx-large;
     height: 12vh;
     width: 50%;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-radius: 20px;
     border-width: 0px;
     text-align: right;
     z-index: 0;
     position: absolute;
+    padding: 15px 15px 15px 15px;
     right: 0;
+    font-weight:bold;
     
     /* right: 0px; */
 
@@ -85,7 +87,7 @@
 /* containers */
 
 .source-container{
-    background-color: rgb(224, 224, 224);
+    background-color: #F0F0F0;
     width: 100%;
     /* border: 3px solid; */
     /* border-radius: 10px; */
@@ -101,7 +103,7 @@
 } */
 
 .justification-container{
-    background-color: rgb(224, 224, 224);
+    background-color: #F0F0F0;
     width: 100%;
     /* border: 3px solid; */
     /* border-radius: 10px; */
@@ -128,17 +130,18 @@
     text-align: center;
 }
 .questionArea {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     height: 12vh;
-    background-color: rgb(224, 224, 224);
+    background-color: #F0F0F0;
     color:  rgb(0, 0, 0);
     text-align: center;
     width: 100%;
     padding: 8px 8px 8px 8px;
     /* border-style: solid;
     border-color: black; */
-    border-radius: 10px;
+    border-radius: 20px;
     /* position: absolute; */
+    position: relative;
     
 }
 
@@ -171,5 +174,37 @@
     border-color: rgb(56, 57, 58);
     
     resize: none;
+}
+
+
+/* animation */
+
+.classname {
+
+    overflow-y: scroll;
+    height: 12vh;
+    background-color: #F0F0F0;
+    color:  rgb(0, 0, 0);
+    text-align: center;
+    width: 100%;
+    padding: 8px 8px 8px 8px;
+    /* border-style: solid;
+    border-color: black; */
+    border-radius: 20px;
+    /* position: absolute; */
+    position: relative;
+    
+    animation-name: negative;
+    animation-duration: 2s;
+    
+
+}
+
+@keyframes negative {
+    100% {transform: translate(6.25%, 0%);}
+}
+
+@keyframes positive {
+    100% {transform: translate(-6.25%, 0%);}
 }
 
