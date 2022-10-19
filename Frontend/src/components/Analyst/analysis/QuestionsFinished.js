@@ -39,16 +39,16 @@ const QuestionsFinished = ({ questao}) => {
                     {/* <div className='alig-areas'> */}
 
                         <div className='questionArea' id={'question'+questao.id}>
-                        {questao.question.body} 
+                            {questao.question.body} 
                         
                         </div>
 
                         <div className='justification-container' >
-                            Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} >{questao.justification}</textarea>  <br></br>
+                            <div className='just-tittle'>Justificativa:</div> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} >{questao.justification}</textarea>  <br></br>
                         </div>
                         
                         <div className='source-container'>
-                            Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
+                            <div className='source-tittle'>Fonte:</div> <textarea  className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
                         </div>
 
 

@@ -12,10 +12,10 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
     function initAnswer(){
         var box = document.getElementById('question'+questao.id)
         if (questao.answer){
-            box.style.animation = "positive 0.125s linear forwards";
+            box.style.animation = "positive-neutral 0.125s linear forwards";
         }
         else{
-            box.style.animation = "negative 0.125s linear forwards";
+            box.style.animation = "negative-neutral 0.125s linear forwards";
         }
     }
          
@@ -49,7 +49,9 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
             <div className='question-container'>
 
                 {/* <div className='negative-container'> */}
-                    <button className='negative-btn' onClick={answerHandler}>X</button>
+                    <button className='negative-btn' onClick={answerHandler}>
+                    <img src="../images/x.svg" alt="X"/>
+                    </button>
                 {/* </div> */}
                 
 
@@ -60,16 +62,17 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                     {/* <div className='alig-areas'> */}
 
                         <div className='questionArea' id={'question'+questao.id}>
-                        {questao.question.body} 
-                        
+                            {questao.question.body} 
                         </div>
 
                         <div className='justification-container' >
-                            Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
+                            <div className='just-tittle'>Justificativa:</div>
+                            <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
                         </div>
                         
                         <div className='source-container'>
-                            Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
+                            <div className='source-tittle'>Fonte:</div>
+                            <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
                         </div>
 
 
@@ -85,7 +88,9 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                     {/* </div> */}
                 </div>
                 {/* <div className='positive-container'> */}
-                    <button className='positive-btn' onClick={answerHandler}>V</button>   
+                    <button className='positive-btn' onClick={answerHandler}>
+                        <img src="../images/v.svg" alt="V"/>
+                    </button>   
                 {/* </div> */}
 
 

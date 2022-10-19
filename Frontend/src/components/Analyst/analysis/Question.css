@@ -1,3 +1,5 @@
+
+
 .question-container{
     
     display: flex;
@@ -8,16 +10,18 @@
     margin-left: 10%;
     margin-right: 10%;
     position:relative;
+    font-weight: bold;
+    font-size: large;
 }
 
 .full-question-area{
-
+    --quest-width: 90%;
     max-height: 100%;
     /* background-color: #F0F0F0; */
     border-radius: 20px;
     color:  rgb(0, 0, 0);
     text-align: center;
-    width: 90%;
+    width: var(--quest-width);
     /* padding: 8px 8px 8px 8px; */
 
     display: flex;
@@ -46,7 +50,7 @@
     background-color: #E74C3C;
     color: white;
     font-size: xx-large;
-    height: 12vh;
+    height: 15vh;
     width: 50%;
     border-radius: 20px;
     border-width: 0px;
@@ -69,7 +73,7 @@
     background-color: #1BB55C;
     color: white;
     font-size: xx-large;
-    height: 12vh;
+    height: 15vh;
     width: 50%;
     border-radius: 20px;
     border-width: 0px;
@@ -93,14 +97,16 @@
     /* border-radius: 10px; */
     /* border-color: rgb(56, 57, 58);
     margin: 0px; */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     
 }
 
-/* .source-container .titulo {
+.source-container .source-tittle {
     text-align: left;
-    margin-left: 50px;
+    margin-left: 5%;
     
-} */
+}
 
 .justification-container{
     background-color: #F0F0F0;
@@ -109,9 +115,14 @@
     /* border-radius: 10px; */
     /* border-color: rgb(56, 57, 58);
     margin: 0px; */
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    /* border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px; */
     
+}
+
+.justification-container .just-tittle{
+    text-align: left;
+    margin-left: 5%;
 }
 
 .text-and-buttons-container {
@@ -131,7 +142,7 @@
 }
 .questionArea {
     /* overflow-y: scroll; */
-    height: 12vh;
+    height: 15vh;
     background-color: #F0F0F0;
     color:  rgb(0, 0, 0);
     text-align: center;
@@ -142,6 +153,11 @@
     border-radius: 20px;
     /* position: absolute; */
     position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     
 }
 
@@ -200,11 +216,31 @@
 
 }
 
-@keyframes negative {
+@keyframes negative-neutral {
     100% {transform: translate(6.25%, 0%);}
 }
 
-@keyframes positive {
+@keyframes positive-neutral {
     100% {transform: translate(-6.25%, 0%);}
 }
 
+
+@keyframes negative {
+    from {
+        transform: translate(-6.25%,0%);
+      }
+    
+      to {
+        transform: translate(6.25%,0%);
+      }
+}
+
+@keyframes positive {
+    from {
+        transform: translate(6.25%,0%);
+      }
+    
+      to {
+        transform: translate(-6.25%,0%);
+      }
+}
