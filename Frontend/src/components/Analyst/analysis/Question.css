@@ -1,3 +1,5 @@
+
+
 .question-container{
     
     display: flex;
@@ -130,11 +132,6 @@
     text-align: center;
 }
 
-.justi-src-container {
-    width: 100%;
-    overflow: hidden;
-}
-
 /* areas */
 
 .alig-areas{
@@ -162,10 +159,6 @@
     align-items: center;
     
     
-}
-
-.questionArea:hover {
-    cursor:pointer;
 }
 
 .comentArea {

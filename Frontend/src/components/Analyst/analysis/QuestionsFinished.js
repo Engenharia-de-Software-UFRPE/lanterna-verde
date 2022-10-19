@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './Question.css'
-import Collapse from 'react-bootstrap/Collapse';
 
 const QuestionsFinished = ({ questao}) => {
     
-    const [active, setActive] = useState(false);
+
     useEffect(() => {
         // setQuest(questao)
         initAnswer()
@@ -20,9 +19,9 @@ const QuestionsFinished = ({ questao}) => {
         }
     }
          
-    function questionClickHandler() {
-        setActive(!active)
-    }
+
+
+
 
     // document.onload = initAnswer();
     return <>
@@ -40,24 +39,21 @@ const QuestionsFinished = ({ questao}) => {
                 
                 
                 {/* <div className='alig-areas'> */}
-                    <div className='questionArea' id={'question'+questao.id} onClick= {questionClickHandler}>
+                    <div className='questionArea' id={'question'+questao.id} >
                         {questao.question.body} 
                     </div>
 
-                    <Collapse in={active}>
-                        <div className='justi-src-container'>
-                            <div className='justification-container' >
-                                <div className='just-tittle'>Justificativa:</div>
-                                <textarea readOnly='true' className='justificationArea' id = {'questionJustification'+questao.id}>{questao.justification}</textarea>  <br></br>
-                            </div>
-                            
-                            <div className='source-container'>
-                                <div className='source-tittle'>Fonte:</div>
-                                <textarea readOnly='true' className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
-                            </div>
-                        </div> 
-                    </Collapse>
-
+                    <div className='justi-src-container'>
+                        <div className='justification-container' >
+                            <div className='just-tittle'>Justificativa:</div>
+                            <textarea readOnly='true' className='justificationArea' id = {'questionJustification'+questao.id}>{questao.justification}</textarea>  <br></br>
+                        </div>
+                        
+                        <div className='source-container'>
+                            <div className='source-tittle'>Fonte:</div>
+                            <textarea readOnly='true' className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
+                        </div>
+                    </div> 
 
 
 
