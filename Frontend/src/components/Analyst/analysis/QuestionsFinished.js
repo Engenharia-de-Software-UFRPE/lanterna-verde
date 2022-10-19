@@ -25,51 +25,48 @@ const QuestionsFinished = ({ questao}) => {
 
     // document.onload = initAnswer();
     return <>
-            <div className='question-container'>
+        <div className='question-container'>
 
-                {/* <div className='negative-container'> */}
-                    <button className='negative-btn'>X</button>
-                {/* </div> */}
+            {/* <div className='negative-container'> */}
+                <button className='negative-btn' >
+                <img src="../images/x.svg" alt="X"/>
+                </button>
+            {/* </div> */}
+
+
+            <div className='full-question-area'>
+                {/* <div className='question-and-awnser'> */}
                 
+                
+                {/* <div className='alig-areas'> */}
+                    <div className='questionArea' id={'question'+questao.id} >
+                        {questao.question.body} 
+                    </div>
 
-                <div className='full-question-area'>
-                    {/* <div className='question-and-awnser'> */}
-                    
-                    
-                    {/* <div className='alig-areas'> */}
-
-                        <div className='questionArea' id={'question'+questao.id}>
-                            {questao.question.body} 
-                        
-                        </div>
-
+                    <div className='justi-src-container'>
                         <div className='justification-container' >
-                            <div className='just-tittle'>Justificativa:</div> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} >{questao.justification}</textarea>  <br></br>
+                            <div className='just-tittle'>Justificativa:</div>
+                            <textarea readOnly='true' className='justificationArea' id = {'questionJustification'+questao.id}>{questao.justification}</textarea>  <br></br>
                         </div>
                         
                         <div className='source-container'>
-                            <div className='source-tittle'>Fonte:</div> <textarea  className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
+                            <div className='source-tittle'>Fonte:</div>
+                            <textarea readOnly='true' className='sourceArea' id = {'questionSource'+questao.id} >{questao.source}</textarea> <br></br>
                         </div>
+                    </div> 
 
-
-
-                    {/* </div> */}
-
-                       
-                            {/* <label class="switch">
-                                <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}></input>
-                                <span class="slider round">
-                                </span>
-                            </label>  */}
-                    {/* </div> */}
-                </div>
-                {/* <div className='positive-container'> */}
-                    <button className='positive-btn'>V</button>   
-                {/* </div> */}
 
 
             </div>
-            </>
+            {/* <div className='positive-container'> */}
+                <button className='positive-btn'>
+                    <img src="../images/v.svg" alt="V"/>
+                </button>   
+            {/* </div> */}
+
+
+        </div>
+        </>
 }; 
 
 export default QuestionsFinished;
