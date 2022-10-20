@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth import login as djangoLogin, logout as djangoLogout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.contrib.auth.hashers import check_password
 
 import lanternaverde_web.solicitacaoAnalise as solAnalise
@@ -80,7 +80,7 @@ def alterar_analista(request):
         return HttpResponse(status=201)
     return HttpResponseBadRequest()
 
-@csrf_exempt # TODO: Remover csrf_exempt (REQ. não funcional)
+@csrf_protect
 def login(request):
     """
     Method that tries to login an user.

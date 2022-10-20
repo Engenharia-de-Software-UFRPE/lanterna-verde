@@ -30,6 +30,8 @@ function App() {
   const [data, dispatch] = useReducer(authReducer, {token: null})
   const loginThunk = async (username, password) => {
     axios.defaults.withCredentials = true;
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     const response = await axios
     .post(
       'http://localhost:8000/login',
