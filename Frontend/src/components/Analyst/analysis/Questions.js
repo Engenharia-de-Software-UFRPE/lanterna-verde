@@ -48,28 +48,18 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         setActive(!active)
     }
 
-    // document.onload = initAnswer();
     return <>
             <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
             <script src="https://unpkg.com/react-collapse/build/react-collapse.min.js"></script>
             <div className='question-container'>
 
-                {/* <div className='negative-container'> */}
-                    <button className='negative-btn' onClick={answerHandler}>
-                    <img src="../images/x.svg" alt="X"/>
-                    </button>
-                {/* </div> */}
+                <button className='negative-btn' onClick={answerHandler}>
+                <img src="../images/x.svg" alt="X"/>
+                </button>
                 
 
                 <div className='full-question-area'>
-                    {/* <div className='question-and-awnser'> */}
-                    
-                    {/* <UnmountClosed isOpened={active} initialStyle={{height: 0, overflow: 'hidden'}}>
-                        alooooooooooooooooooooooooooooooooooo
-                    </UnmountClosed> */}
 
-
-                    {/* <div className='alig-areas'> */}
                         <div className='questionArea' id={'question'+questao.id} onClick= {questionClickHandler}>
                             {questao.question.body} 
                         </div>
@@ -101,11 +91,11 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                             </label>  */}
                     {/* </div> */}
                 </div>
-                {/* <div className='positive-container'> */}
-                    <button className='positive-btn' onClick={answerHandler}>
-                        <img src="../images/v.svg" alt="V"/>
-                    </button>   
-                {/* </div> */}
+
+                <button className='positive-btn' onClick={answerHandler}>
+                    <img src="../images/v.svg" alt="V"/>
+                </button>   
+
 
 
             </div>

@@ -8,6 +8,9 @@ import axios from 'axios';
 import Popup from 'reactjs-popup';
 import { Navigate } from 'react-router-dom';
 
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Analysis = ({ analise }) => {
 
@@ -17,11 +20,14 @@ const Analysis = ({ analise }) => {
 
 
     const [analysis,setAnalysis] = useState("placeholder");
+    const [analysisCount,setCount] = useState(0);
     const [dimensions,setDimensions] = useState({});
 
     useEffect(() => {
-        analysisDetail()
+      analysisDetail()
+        
     },[])
+
 
     async function analysisDetail() {
         let response = await axios.get(
@@ -29,9 +35,13 @@ const Analysis = ({ analise }) => {
           { withCredentials: true }
         )
         .then()
+        
         setDimensions(response.data.analysis.dimension_count)
         setAnalysis(response.data.analysis)
+        setCount(response.data.analysis.questao_set.length)
+    
         console.log(response.data.analysis)
+        
     
         
       }
@@ -122,31 +132,53 @@ const Analysis = ({ analise }) => {
     // console.log(inp)
   }
 
+  function progressTest(){
+    setCount(analysisCount+10)
+  }
+
     console.log(analise.company.tradeName)
     if (analysis.status < 2 ){
         return (<div className='listAnalise'>
         Empresa: {analysis.company.tradeName}<br></br>
         {/* Questões: {analise.questoes} <br></br> */}
-
         Score D1: {((dimensions['D1'].checked)/dimensions['D1'].amount).toFixed(2)}<br></br>
         Score D2: {((dimensions['D2'].checked)/dimensions['D2'].amount).toFixed(2)}<br></br>
         Score D3: {((dimensions['D3'].checked)/dimensions['D3'].amount).toFixed(2)}<br></br>
         Score D4: {((dimensions['D4'].checked)/dimensions['D4'].amount).toFixed(2)}<br></br>
         Score TOTAL: {((((dimensions['D1'].checked)/dimensions['D1'].amount) + ((dimensions['D2'].checked)/dimensions['D2'].amount) + ((dimensions['D3'].checked)/dimensions['D3'].amount) + ((dimensions['D4'].checked)/dimensions['D4'].amount))/4).toFixed(2)} <br></br>
         
-        <button className='btns' onClick={handleSaveClick}>Salvar</button>
 
-        <Popup trigger={<button className='btns'>Finalizar</button>}
-              anchor={null}>
-          <div className='finish_him'>
-            <div className='title'>Insira sua senha</div>
-            <input className='inp-pass' id='password-conf' type="password"></input>
-            <div className='title'>Deseja finalizar a análise?</div>
-            <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NÃO</button></div>
+
+        
+        <button className='btns' onClick={progressTest}>teste</button>
+
+
+        <div className='progress-container'>
+          <div className='bar'>
+            <ProgressBar now={analysisCount} color="green" label={analysisCount + "%"} className="progress"/>
           </div>
-        </Popup><br></br><br></br>
 
-        Questões: {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick} handleSourceChange={handleSourceChange} handleJustificationChange={handleJustificationChange}/>))}
+          {/* <div className='btns-container'> */}
+            
+            {/* <div>{analysisCount}</div>
+            <button onClick={progressTest}>teste</button> */}
+
+            <button className='btns' onClick={handleSaveClick}>Salvar</button>
+
+            <Popup trigger={<button className='btns'>Finalizar</button>} anchor={null} className="pop" modal nested>
+              <div className='finish_him'>
+                <div className='title'>Insira sua senha</div>
+                <input className='inp-pass' id='password-conf' type="password"></input>
+                <div className='title'>Deseja finalizar a análise?</div>
+                <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NÃO</button></div>
+              </div>
+            </Popup>
+            
+          {/* </div> */}
+
+        </div>
+
+        {analysis.questao_set.map((questao) => (<Questions questao={questao} analysis={analysis} setDimensions={setDimensions} handleCheckBoxClick={handleCheckBoxClick} handleSourceChange={handleSourceChange} handleJustificationChange={handleJustificationChange}/>))}
         {/* Score D1: {analise.dimension_count['D1'].checked / analise.dimension_count['D1'].amount}<br></br> */}
 
         {/* Score Atual: {analise.score}<br></br><br></br> */}

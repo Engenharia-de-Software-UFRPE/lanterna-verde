@@ -223,6 +223,7 @@
 
 }
 
+
 @keyframes negative-neutral {
     100% {transform: translate(6.25%, 0%);}
 }
