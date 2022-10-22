@@ -23,6 +23,8 @@ const Analysis = ({ analise }) => {
     const [analysisCount,setCount] = useState(0);
     const [dimensions,setDimensions] = useState({});
 
+    const [isOpen, setIsOpen] = useState(false); //popup
+
     useEffect(() => {
       analysisDetail()
         
@@ -136,6 +138,8 @@ const Analysis = ({ analise }) => {
     setCount(analysisCount+10)
   }
 
+
+
     console.log(analise.company.tradeName)
     if (analysis.status < 2 ){
         return (<div className='listAnalise'>
@@ -165,13 +169,21 @@ const Analysis = ({ analise }) => {
 
             <button className='btns' onClick={handleSaveClick}>Salvar</button>
 
-            <Popup trigger={<button className='btns'>Finalizar</button>} anchor={null} className="pop" modal nested>
+            <Popup trigger={<button className='btns'>Finalizar</button>} className="pop" modal nested
+              open={isOpen}
+              onOpen={() => setIsOpen(!isOpen)}>
+
               <div className='finish_him'>
                 <div className='title'>Insira sua senha</div>
                 <input className='inp-pass' id='password-conf' type="password"></input>
                 <div className='title'>Deseja finalizar a análise?</div>
-                <div className='finish-Buttons'><button onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button><button>NÃO</button></div>
+
+                <div className='finish-Buttons'>
+                  <button className='btns' onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button>
+                  <button className='btns' onClick={() => setIsOpen(!isOpen)}>NÃO</button>
+                </div>
               </div>
+              
             </Popup>
             
           {/* </div> */}

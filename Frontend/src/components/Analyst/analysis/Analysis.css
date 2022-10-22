@@ -76,22 +76,43 @@
 
   justify-content: center;
   align-items: center;
-  left: 50vh;
+  /* left: 50vh; */
   width: 20vw;
-  height: 10vw;
-  background-color: #21f33d;
+  height: 15vw;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: #F5F5F5;
   justify-items: center;
   display: flex;
   flex-direction: column;
   padding: 2rem;
+
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+
+  border: 3px solid;
+  border-color: black;
+  border-radius: 20px;
+}
+
+.finish_him .btns{
+  width: 30%;
 }
 
 .finish-Buttons {
   margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
+
+  width: 100%;
 }
 
+.inp-pass{
+  border: 3px solid;
+  border-radius: 10px ;
+}
 
 
 .example-warper {
@@ -125,4 +146,8 @@
   height: 5vh;
   font-weight: bold;
   font-size: large;
+}
+
+.btns:hover{
+  background-color:#007b33 ;
 }
