@@ -90,15 +90,32 @@ const Analysis = ({ analise }) => {
 
     }
 
-    function handleCheckBoxClick(quest) {
-      quest.answer= !quest.answer;
+    function handleCheckBoxClick(quest,answer) {
+      let wasNotAnswered = false
+      if (quest.answer === 2){
+        wasNotAnswered = true
+      }
+      // quest.answer= !quest.answer;
+      // quest.answer= 2;
+      if (answer === true){
+        quest.answer = 1;
+      }
+      if (answer === false){
+        quest.answer = 0;
+      }
 
       let valor = 1;
-      if(quest.answer === true){
+      if(quest.answer === 1){
         valor = 1;
       }
-      else{
-        valor = -1;
+      if(quest.answer === 0){
+        if (wasNotAnswered === false){
+          valor = -1;
+        }
+        else{
+          valor = 0
+        }
+        
       }
 
       analysis.dimension_count[quest.question.dimension].checked += valor
@@ -108,7 +125,7 @@ const Analysis = ({ analise }) => {
 
     //   console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
     
-    console.log(dimensions);
+    console.log(quest.answer);
     // console.log(questao.question.dimension)
   }
 
@@ -138,9 +155,6 @@ const Analysis = ({ analise }) => {
     setCount(analysisCount+10)
   }
 
-
-
-    console.log(analise.company.tradeName)
     if (analysis.status < 2 ){
         return (<div className='listAnalise'>
         Empresa: {analysis.company.tradeName}<br></br>
