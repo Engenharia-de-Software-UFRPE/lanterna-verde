@@ -20,7 +20,12 @@ const Analysis = ({ analise }) => {
 
 
     const [analysis,setAnalysis] = useState("placeholder");
-    const [analysisCount,setCount] = useState(0);
+
+    // const [analysisTotalCount,setTotalCount] = useState(1);
+    // const [analysisAnsweredCount,setAnsweredCount] = useState(0);
+    const [analysisCountRate,setCountRate] = useState(0);
+    const [totalQuestions,setTotalQuestions] = useState(1);
+
     const [dimensions,setDimensions] = useState({});
 
     const [isOpen, setIsOpen] = useState(false); //popup
@@ -40,13 +45,61 @@ const Analysis = ({ analise }) => {
         
         setDimensions(response.data.analysis.dimension_count)
         setAnalysis(response.data.analysis)
-        setCount(response.data.analysis.questao_set.length)
+
+        setTotalQuestions(response.data.analysis.questao_set.length)
+        // setTotalCount(response.data.analysis.questao_set.length)
+        // calcAnswered(response.data.analysis.questao_set)
+        // let answered = calcAnswered(response.data.analysis.questao_set)
+
+        let answered = calcAnswered(response.data.analysis.questao_set);
+        // for (let i = 0; i < response.data.analysis.questao_set.length; i++){
+        //   if (response.data.analysis.questao_set[i].answer != 2) {
+        //     answered += 1
+        //   }
+        //   // console.log(questions_set[i].answer)
+        //   // setAnsweredCount(answered);
+        // }
+
+        // setAnsweredCount(answered);
+        // setTotalCount(response.data.analysis.questao_set.length);
+  
+        setCountRate(((answered/response.data.analysis.questao_set.length)*100).toFixed(2));
+
+        // console.log("rate inicial: " + analysisCountRate)
+      
+
+        // setCountRate((answered/response.data.analysis.questao_set.length)*100)
+
+        // calcAndSetRate(response.data.analysis.questao_set, response.data.analysis.questao_set.length)
     
-        console.log(response.data.analysis)
-        
-    
+        // console.log(response.data.analysis)
         
       }
+
+    function calcAnswered(questions_set){
+      let answered = 0;
+      for (let i = 0; i < questions_set.length; i++){
+        if (questions_set[i].answer != 2) {
+          answered += 1
+        }
+        // console.log(questions_set[i].answer)
+        // setAnsweredCount(answered);
+      }
+      // console.log("respondidas: " + answered)
+      return answered;
+    }
+
+
+
+    // function calcAndSetRate(questions_set,total){
+    //   let answered = calcAnswered(questions_set);
+
+    //   setAnsweredCount(answered);
+    //   setTotalCount(total);
+
+    //   setCountRate((answered/total)*100);
+    // }
+
 
       // if (analysis === "placeholder"){
       //   analysisDetail()
@@ -95,6 +148,10 @@ const Analysis = ({ analise }) => {
       if (quest.answer === 2){
         wasNotAnswered = true
       }
+      // if (wasNotAnswered === true){
+      //   setAnsweredCount(analysisAnsweredCount+1)
+      //   console.log ("contador total de ")
+      // }
       // quest.answer= !quest.answer;
       // quest.answer= 2;
       if (answer === true){
@@ -122,10 +179,33 @@ const Analysis = ({ analise }) => {
       const copy = analysis.dimension_count
       setDimensions({...copy})
 
+      // calcAndSetRate(analysis.questao_set,analysis.questao_set.length)
+      // let answered = calcAnswered(analysis.questao_set);
+
+      // setAnsweredCount(answered);
+      // setTotalCount(analysis.questao_set.length);
+      
+
+      let answered = calcAnswered(analysis.questao_set);
+      // for (let i = 0; i < analysis.questao_set.length; i++){
+      //   if (analysis.questao_set[i].answer != 2) {
+      //     answered += 1
+      //   }
+      //   // console.log(questions_set[i].answer)
+      //   // setAnsweredCount(answered);
+      // }
+
+      // setAnsweredCount(answered);
+      // setTotalCount(response.data.analysis.questao_set.length);
+
+      setCountRate(((answered/analysis.questao_set.length)*100).toFixed(2));
+
+      // console.log("respondidas: " + analysisAnsweredCount + " e total: " + analysisTotalCount + " e a taxa: " + analysisCountRate)
+
 
     //   console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
     
-    console.log(quest.answer);
+    // console.log(quest.answer)
     // console.log(questao.question.dimension)
   }
 
@@ -152,7 +232,7 @@ const Analysis = ({ analise }) => {
   }
 
   function progressTest(){
-    setCount(analysisCount+10)
+    setCountRate(analysisCountRate+10)
   }
 
     if (analysis.status < 2 ){
@@ -173,7 +253,7 @@ const Analysis = ({ analise }) => {
 
         <div className='progress-container'>
           <div className='bar'>
-            <ProgressBar now={analysisCount} color="green" label={analysisCount + "%"} className="progress"/>
+            <ProgressBar now={analysisCountRate} color="green" label={analysisCountRate + "%"} className="progress"/>
           </div>
 
           {/* <div className='btns-container'> */}

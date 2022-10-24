@@ -7,7 +7,7 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
     useEffect(() => {
         // setQuest(questao)
         initAnswer()
-        console.log(questao.answer)
+        // console.log(questao.answer)
     },[])
 
     function initAnswer(){
