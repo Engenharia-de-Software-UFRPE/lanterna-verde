@@ -231,9 +231,9 @@ const Analysis = ({ analise }) => {
     // console.log(inp)
   }
 
-  function progressTest(){
-    setCountRate(analysisCountRate+10)
-  }
+  // function progressTest(){
+  //   setCountRate(analysisCountRate+10)
+  // }
 
     if (analysis.status < 2 ){
         return (<div className='listAnalise'>
@@ -248,7 +248,7 @@ const Analysis = ({ analise }) => {
 
 
         
-        <button className='btns' onClick={progressTest}>teste</button>
+        {/* <button className='btns' onClick={progressTest}>teste</button> */}
 
 
         <div className='progress-container'>
