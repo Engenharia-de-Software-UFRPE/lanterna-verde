@@ -1,6 +1,5 @@
 from django.urls import path
 
-from lanternaverde_web.notificacaoAdm import notificacao_lida
 from . import views
 
 urlpatterns = [
@@ -42,7 +41,6 @@ urlpatterns = [
     path('empresa/analise/<str:pk>', views.get_info_analise_empresa, name='get_info_analise_empresa'),
     path('empresa/analise/<str:pk>/solicitar-reanalise', views.solicitar_reanalise, name='solicitar_reanalise'),
     path('empresa/ranking', views.get_ranking, name='get_ranking'),
-    #path('empresa/<str:id>', views.get_empresa, name='get_empresa'),
     path('empresa/report', views.compilar_relatorio_geral_empresa, name='compilar_relatorio_geral_empresa'),
     path('empresa', views.listar_empresas, name='listar_empresas'),
     path('empresa/detail', views.detalhar_empresa, name='detalhar_empresa'),

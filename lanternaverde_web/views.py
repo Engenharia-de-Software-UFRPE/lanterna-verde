@@ -1,8 +1,5 @@
-import json
-from django.db import IntegrityError
-
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from lanternaverde_web import control_analista
@@ -15,11 +12,7 @@ from lanternaverde_web import control_relatorio
 from lanternaverde_web import control_session
 from lanternaverde_web import control_solicitacaoAnalise
 
-#pylint: disable=W0401
-from .models import *
-from .serializers import *
 from .utils.decorators import administrador_required, analista_required, empresa_required
-from lanternaverde_web.utils.jsonresponse import JSONResponse
 
 # Create your views here.
 
