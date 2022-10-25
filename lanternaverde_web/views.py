@@ -312,19 +312,6 @@ def listar_empresas(request):
 def listar_empresas_public(request):
     return control_empresa.listar_empresas_public(request)
 
-"""
-def get_empresa(request, id):
-    if request.method == 'GET':
-        empresas = EmpresaSerializer(
-            Empresa.objects.get(id=id)
-        )
-        ser_return = {
-            'Empresa': empresas.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-"""
-
 def get_ranking(request):
     if request.method == 'GET':
         empresas = Empresa.objects.all()
