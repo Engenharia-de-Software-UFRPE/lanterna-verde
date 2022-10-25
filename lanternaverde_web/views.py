@@ -11,6 +11,7 @@ from lanternaverde_web import control_avaliacaoAnalista
 from lanternaverde_web import control_empresa
 from lanternaverde_web import control_notificacaoAdm
 from lanternaverde_web import control_relatorio
+from lanternaverde_web import control_session
 from lanternaverde_web import control_solicitacaoAnalise
 
 #pylint: disable=W0401
@@ -65,13 +66,7 @@ def get_logged_usuario(request):
     """
     Function that creates a response for a GET request for a logged Usuario
     """
-    if request.method == 'GET':
-        serializer = UsuarioSerializer(request.user)
-        ser_return = {
-            'Usuario': serializer.data
-        }
-        return JSONResponse(ser_return, status=201)
-    return HttpResponseBadRequest()
+    return control_session.get_logged_usuario(request)
 
 @login_required(login_url='/')
 @administrador_required
@@ -80,17 +75,7 @@ def get_logged_administrador(request):
     Function that creates a response to a GET request for a logged
     Administrador
     """
-    if request.method == 'GET':
-        user = request.user
-        ser_user = UsuarioSerializer(user)
-        ser_admin = AdministradorSerializer(user.administrador)
-        ser_return = {
-            'Usuario': ser_user.data,
-            'Administrador': ser_admin.data
-        }
-        return JSONResponse(ser_return, status=201)
-    return HttpResponseBadRequest()
-
+    return control_session.get_logged_administrador(request)
 
 @login_required(login_url='/')
 @analista_required
@@ -98,16 +83,7 @@ def get_logged_analista(request):
     """
     Function that creates a response to a GET request for a logged Analista
     """
-    if request.method == 'GET':
-        user = request.user
-        ser_user = UsuarioSerializer(user)
-        ser_anal = AnalistaSerializer(user.analista)
-        ser_return = {
-            'Usuario': ser_user.data,
-            'Analista': ser_anal.data
-        }
-        return JSONResponse(ser_return, status=201)
-    return HttpResponseBadRequest()
+    return control_session.get_logged_analista(request)
 
 @csrf_exempt
 @login_required
@@ -116,17 +92,7 @@ def get_logged_empresa(request):
     """
     Function that creates a response to a GET request for a logged Empresa
     """
-    if request.method == 'GET':
-        user = request.user
-        if hasattr(user, 'empresa'):
-            ser_user = UsuarioSerializer(user)
-            ser_empr = EmpresaSerializer(user.empresa)
-            ser_return = {
-                'Usuario': ser_user.data,
-                'Empresa': ser_empr.data
-            }
-            return JSONResponse(ser_return, status=201)
-    return HttpResponseBadRequest()
+    return control_session.get_logged_empresa(request)
 
 @csrf_exempt
 @login_required
