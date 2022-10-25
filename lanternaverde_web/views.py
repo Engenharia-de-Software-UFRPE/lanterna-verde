@@ -10,6 +10,7 @@ from lanternaverde_web import control_auth
 from lanternaverde_web import control_avaliacaoAnalista
 from lanternaverde_web import control_empresa
 from lanternaverde_web import control_notificacaoAdm
+from lanternaverde_web import control_question
 from lanternaverde_web import control_relatorio
 from lanternaverde_web import control_session
 from lanternaverde_web import control_solicitacaoAnalise
