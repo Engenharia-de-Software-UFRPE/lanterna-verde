@@ -263,22 +263,37 @@ const Analysis = ({ analise }) => {
 
             <button className='btns' onClick={handleSaveClick}>Salvar</button>
 
-            <Popup trigger={<button className='btns'>Finalizar</button>} className="pop" modal nested
+            {analysisCountRate >= 100 ? 
+              <Popup trigger={<button className='btns'>Finalizar</button>} className="pop" modal nested
+                open={isOpen}
+                onOpen={() => setIsOpen(!isOpen)}>
+
+                <div className='finish_him'>
+                  <div className='title'>Insira sua senha</div>
+                  <input className='inp-pass' id='password-conf' type="password"></input>
+                  <div className='title'>Deseja finalizar a análise?</div>
+
+                  <div className='finish-Buttons'>
+                    <button className='btns' onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button>
+                    <button className='btns' onClick={() => setIsOpen(!isOpen)}>NÃO</button>
+                  </div>
+                </div>
+                
+              </Popup>
+            :
+            <Popup trigger={<button className='btns-not-finished'>Finalizar</button>} className="pop" modal nested
               open={isOpen}
               onOpen={() => setIsOpen(!isOpen)}>
 
-              <div className='finish_him'>
-                <div className='title'>Insira sua senha</div>
-                <input className='inp-pass' id='password-conf' type="password"></input>
-                <div className='title'>Deseja finalizar a análise?</div>
-
+              <div className='analysis_not_finished'>
+                <div className='title'>Você ainda não concluiu sua análise, por favor, responda todas as perguntas para poder finalizar</div>
                 <div className='finish-Buttons'>
-                  <button className='btns' onClick={() => {confirmButtonHandler(document.getElementById("password-conf").value)}}>SIM</button>
-                  <button className='btns' onClick={() => setIsOpen(!isOpen)}>NÃO</button>
+                  <button className='btns' onClick={() => setIsOpen(!isOpen)}>Voltar para a análise</button>
                 </div>
               </div>
-              
             </Popup>
+            }
+
             
           {/* </div> */}
 
