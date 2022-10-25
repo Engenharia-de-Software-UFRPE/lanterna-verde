@@ -7,16 +7,11 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
 
-import lanternaverde_web.solicitacaoAnalise as solAnalise
-import lanternaverde_web.avaliacaoAnalista as avalAnalista
-import lanternaverde_web.relatorio as relatorio
-import lanternaverde_web.notificacaoAdm as notificacaoAdm
-import lanternaverde_web.empresa as empresa
-
-from django.contrib.auth.hashers import check_password
-
-from datetime import datetime
-
+from lanternaverde_web import control_avaliacaoAnalista
+from lanternaverde_web import control_empresa
+from lanternaverde_web import control_notificacaoAdm
+from lanternaverde_web import control_relatorio
+from lanternaverde_web import control_solicitacaoAnalise
 
 #pylint: disable=W0401
 from .models import *
@@ -271,7 +266,7 @@ def create_solicitacao(request):
     This function restricts who can create new Analysis requirement to Company
     Users.
     """
-    return solAnalise.create_solicitacao(request)
+    return control_solicitacaoAnalise.create_solicitacao(request)
 
 
 @csrf_exempt
@@ -281,7 +276,7 @@ def get_solicitacoes(request):
     """
     Groups all `SolicitacoesAnalise` objects into a JSON response.
     """
-    return solAnalise.get_solicitacoes(request)
+    return control_solicitacaoAnalise.get_solicitacoes(request)
 
 
 @csrf_exempt
@@ -290,35 +285,29 @@ def get_solicitacao(request):
     """
     Takes a requested analysis by its ID and returns.
     """
-    return solAnalise.get_analysis(request)
+    return control_solicitacaoAnalise.get_analysis(request)
 
 @login_required
 def listar_analises(request):
     """
     Function that groups all `AvaliaçaoAnalista` objects into a JSON response.
     """
-    return avalAnalista.listar_analises(request)
+    return control_avaliacaoAnalista.listar_analises(request)
 
 @login_required
-@administrador_required
+@empresa_required
 def listar_analises_empresa(request):
     """
     Method that groups `AvaliacaoAnalista` from a specific company into a JSON
     response.
     """
-    return avalAnalista.listar_analises_empresa(request)
-
-@csrf_exempt
-@login_required
-@empresa_required
-def listar_analises_empresa(request):
-    return avalAnalista.listar_analises_empresa(request)
+    return control_avaliacaoAnalista.listar_analises_empresa(request)
 
 @csrf_exempt
 @login_required
 @empresa_required
 def listar_analises_passiveis_reanalise(request):
-    return avalAnalista.listar_analises_passiveis_reanalise(request)
+    return control_avaliacaoAnalista.listar_analises_passiveis_reanalise(request)
 
 @csrf_exempt
 @login_required
@@ -326,44 +315,44 @@ def detalhar_analise(request):
     """
     Function that detail a analyst
     """
-    return avalAnalista.detalhar_analise(request)
+    return control_avaliacaoAnalista.detalhar_analise(request)
 
 
 @csrf_exempt
 @login_required
 @administrador_required
 def criar_analise(request):
-    return avalAnalista.criar_analise(request)
+    return control_avaliacaoAnalista.criar_analise(request)
 
 
 @csrf_exempt
 @login_required
 def atualizar_analise(request):
-    return avalAnalista.atualizar_analise(request)
+    return control_avaliacaoAnalista.atualizar_analise(request)
 
 
 def get_analysis_by_request(request):
-    return avalAnalista.get_analysis_by_request(request)
+    return control_avaliacaoAnalista.get_analysis_by_request(request)
 
 @csrf_exempt
 @login_required
 def gerar_relatorio(request):
-    return relatorio.gerar_relatorio(request)
+    return control_relatorio.gerar_relatorio(request)
 
 @csrf_exempt
 @login_required
 def get_relatorios(request):
-    return relatorio.get_relatorios(request)
+    return control_relatorio.get_relatorios(request)
 
 @csrf_exempt
 @login_required
 def get_relatorios_por_empresa(request):
-    return relatorio.get_relatorios_por_empresa(request)
+    return control_relatorio.get_relatorios_por_empresa(request)
 
 @csrf_exempt
 @login_required
 def comment_relatorio(request):
-    return relatorio.comment_relatorio(request)
+    return control_relatorio.comment_relatorio(request)
 
 @csrf_exempt
 @login_required
@@ -386,11 +375,6 @@ def detalhar_analista(request):
 
 @csrf_exempt
 @login_required
-def concluir_analise(request):
-    return avalAnalista.concluir_analise(request)
-
-@csrf_exempt
-@login_required
 def alterar_senha(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -410,7 +394,7 @@ def alterar_senha(request):
 @csrf_exempt
 @login_required
 def finalizar_analise(request):
-    return avalAnalista.finalizar_analise(request)
+    return control_avaliacaoAnalista.finalizar_analise(request)
 
 @csrf_exempt
 @login_required
@@ -434,7 +418,7 @@ def solicitar_reanalise(request, pk):
         solicitacao.reanalysis = True
         solicitacao.status = 0
         solicitacao.save()
-        notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
+        control_notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'reanálise')
         return HttpResponse(status=200)
     return HttpResponseBadRequest()
 
@@ -464,11 +448,11 @@ def get_info_analise_empresa(request, pk):
 @login_required
 @administrador_required
 def listar_empresas(request):
-    return empresa.listar_empresas(request)
+    return control_empresa.listar_empresas(request)
 
 
 def listar_empresas_public(request):
-    return empresa.listar_empresas_public(request)
+    return control_empresa.listar_empresas_public(request)
 
 """
 def get_empresa(request, id):
@@ -601,20 +585,20 @@ def compilar_relatorio_geral_empresa(request):
 @login_required(login_url='/')
 @administrador_required
 def listar_notificacoesAdm(request):
-    return notificacaoAdm.listar_notificacoesAdm(request)
+    return control_notificacaoAdm.listar_notificacoesAdm(request)
 
 @csrf_exempt
 @login_required(login_url='/')
 @administrador_required
 def notificacao_lida(request):
-    return notificacaoAdm.notificacao_lida(request)
+    return control_notificacaoAdm.notificacao_lida(request)
 
 
 def detalhar_empresa_public(request):
-    return empresa.detalhar_empresa_public(request)
+    return control_empresa.detalhar_empresa_public(request)
 
 
 @login_required(login_url='/')
 @administrador_required
 def detalhar_empresa(request):
-    return empresa.detalhar_empresa(request)
+    return control_empresa.detalhar_empresa(request)

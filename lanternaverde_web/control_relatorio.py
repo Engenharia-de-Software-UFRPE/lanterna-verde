@@ -3,7 +3,7 @@ from urllib import request
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
-from lanternaverde_web import notificacaoAdm
+from lanternaverde_web import control_notificacaoAdm
 from .utils.jsonresponse import JSONResponse
 from .models import Relatorio, SolicitacaoAnalise, NotificacaoAdm
 from .serializers import RelatorioSerializer, AvaliacaoAnalistaSerializer
@@ -41,7 +41,7 @@ def gerar_relatorio(analysis_request):
                          report.scoreD4)/4
 
         report.save()
-        notificacaoAdm.criar_notificacaoAdm_relatorio(report)
+        control_notificacaoAdm.criar_notificacaoAdm_relatorio(report)
         return HttpResponse("Análise finalizada", status=200)
 
 
