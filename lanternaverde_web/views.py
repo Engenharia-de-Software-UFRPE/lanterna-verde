@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 
-
+from lanternaverde_web import control_analista
 from lanternaverde_web import control_auth
 from lanternaverde_web import control_avaliacaoAnalista
 from lanternaverde_web import control_empresa
@@ -216,17 +216,7 @@ def detalhar_analista(request):
     """
     Function that detail a analyst
     """
-    if request.method == 'GET':
-        analystid = request.GET.get('analystid')
-        analyst = Analista.objects.get(pk=analystid)
-        ser_user = UsuarioSerializer(analyst.user)
-        ser_anal = AnalistaSerializer(analyst)
-        ser_return = {
-            'user': ser_user.data,
-            'analyst': ser_anal.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
+    return control_analista.detalhar_analista(request)
 
 @csrf_exempt
 @login_required
