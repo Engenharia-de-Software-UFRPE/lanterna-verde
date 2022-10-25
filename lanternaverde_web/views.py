@@ -102,31 +102,14 @@ def create_questao(request):
     """
     Function that creates a `Questao` object and stores it in the DataBase.
     """
-    if request.method == 'POST':
-        try:
-            dimension = request.POST.get('dimension')
-            question = request.POST.get('questao')
-            #pylint: disable=E1101
-            Pergunta.objects.create(dimension=dimension, body=question)
-            return HttpResponse(status=201)
-        except IntegrityError:
-            pass
-    return HttpResponseBadRequest()
+    return control_question.create_questao(request)
 
 @login_required
 def get_questoes(request):
     """
     Function that groups all `Questão` objects into a JSON response.
     """
-    if request.method == 'GET':
-        #pylint: disable=E1101
-        questoes = PerguntaSerializer(Pergunta.objects.all(), many=True)
-        ser_return = {
-            'Questoes': questoes.data
-        }
-        return JSONResponse(ser_return, status=200)
-    return HttpResponseBadRequest()
-
+    return control_question.get_questoes(request)
 
 @csrf_exempt
 @login_required
