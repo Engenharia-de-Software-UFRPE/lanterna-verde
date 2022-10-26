@@ -13,7 +13,7 @@
 }
 
 .full-question-area{
-    --quest-width: 90%;
+    --quest-width: 85%;
     max-height: 100%;
     /* background-color: #F0F0F0; */
     border-radius: 20px;
@@ -223,31 +223,32 @@
 
 }
 
+
 @keyframes negative-neutral {
-    100% {transform: translate(6.25%, 0%);}
+    100% {transform: translate(9%, 0%);}
 }
 
 @keyframes positive-neutral {
-    100% {transform: translate(-6.25%, 0%);}
+    100% {transform: translate(-9%, 0%);}
 }
 
 
 @keyframes negative {
     from {
-        transform: translate(-6.25%,0%);
+        transform: translate(-9%,0%);
       }
     
       to {
-        transform: translate(6.25%,0%);
+        transform: translate(9%,0%);
       }
 }
 
 @keyframes positive {
     from {
-        transform: translate(6.25%,0%);
+        transform: translate(9%,0%);
       }
     
       to {
-        transform: translate(-6.25%,0%);
+        transform: translate(-9%,0%);
       }
 }

@@ -7,30 +7,56 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
     useEffect(() => {
         // setQuest(questao)
         initAnswer()
+        // console.log(questao.answer)
     },[])
 
     function initAnswer(){
         var box = document.getElementById('question'+questao.id)
-        if (questao.answer){
+        if (questao.answer === 1){
             box.style.animation = "positive-neutral 0.125s linear forwards";
+            return;
         }
-        else{
+        // else{
+        if (questao.answer === 0){
             box.style.animation = "negative-neutral 0.125s linear forwards";
+            return;
         }
+        return;
+        // }
     }
          
-    function answerHandler(){
+    function answerHandler(answer){
         var box = document.getElementById('question'+questao.id)
-        if (questao.answer){
-            box.style.animation = "negative 0.125s linear forwards";
-            // questao.answer = !questao.answer
-            
+        console.log("answerhandler answer = " + answer)
+
+        if (questao.answer != true && questao.answer != false){
+            if (answer === true){
+                box.style.animation = "positive-neutral 0.125s linear forwards";
+            }
+            // else{
+            if (answer === false){
+                box.style.animation = "negative-neutral 0.125s linear forwards";
+            }
         }
         else{
-            box.style.animation = "positive 0.125s linear forwards";
-            // questao.answer = !questao.answer
+            answer = !answer
+
+            if (answer === false){
+                box.style.animation = "negative 0.125s linear forwards";
+                // questao.answer = !questao.answer
+                
+                
+            }
+            if (answer === true){
+                box.style.animation = "positive 0.125s linear forwards";
+                // questao.answer = !questao.answer  
+            }
+            
         }
-        handleCheckBoxClick(questao)
+
+        handleCheckBoxClick(questao,answer)
+
+        console.log("answerhandler answer final= " + answer)
 
     }
       
@@ -48,28 +74,18 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         setActive(!active)
     }
 
-    // document.onload = initAnswer();
     return <>
             <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
             <script src="https://unpkg.com/react-collapse/build/react-collapse.min.js"></script>
             <div className='question-container'>
 
-                {/* <div className='negative-container'> */}
-                    <button className='negative-btn' onClick={answerHandler}>
-                    <img src="../images/x.svg" alt="X"/>
-                    </button>
-                {/* </div> */}
+                <button className='negative-btn' onClick={() => answerHandler(false)}>
+                <img src="../images/x.svg" alt="X"/>
+                </button>
                 
 
                 <div className='full-question-area'>
-                    {/* <div className='question-and-awnser'> */}
-                    
-                    {/* <UnmountClosed isOpened={active} initialStyle={{height: 0, overflow: 'hidden'}}>
-                        alooooooooooooooooooooooooooooooooooo
-                    </UnmountClosed> */}
 
-
-                    {/* <div className='alig-areas'> */}
                         <div className='questionArea' id={'question'+questao.id} onClick= {questionClickHandler}>
                             {questao.question.body} 
                         </div>
@@ -86,6 +102,7 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                                 <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
                             </div>
                         </div> 
+                    
                     </Collapse>
 
 
@@ -101,11 +118,12 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
                             </label>  */}
                     {/* </div> */}
                 </div>
-                {/* <div className='positive-container'> */}
-                    <button className='positive-btn' onClick={answerHandler}>
-                        <img src="../images/v.svg" alt="V"/>
-                    </button>   
-                {/* </div> */}
+
+                <button className='positive-btn' onClick={() => answerHandler(true)}>
+                    <img src="../images/v.svg" alt="V"/>
+                </button>   
+                
+
 
 
             </div>
