@@ -1,6 +1,6 @@
 import json
 from urllib import request
-from django.db import IntegrityError
+from django.db import IntegrityError, DataError
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from lanternaverde_web import control_notificacaoAdm
@@ -14,7 +14,7 @@ def gerar_relatorio(analysis_request):
         try:
             report, _ = Relatorio.objects.get_or_create(request=analysis_request, company=analysis_request.empresa)
         except IntegrityError:
-            return HttpResponse("Um relatório já foi gerado para esta solicitação", status=409)
+            raise IntegrityError("Um relatório já foi gerado para esta solicitação")
         analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
         data = analises.data
 
@@ -42,7 +42,8 @@ def gerar_relatorio(analysis_request):
 
         report.save()
         control_notificacaoAdm.criar_notificacaoAdm_relatorio(report)
-        return HttpResponse("Análise finalizada", status=200)
+    else:
+        raise DataError("Esta solicitação de análise ainda não está finalizada")
 
 
 def get_relatorios(request):

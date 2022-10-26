@@ -8,6 +8,7 @@ from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, Sol
 from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.control_relatorio as control_relatorio
+from django.db import DatabaseError, IntegrityError
 
 def criar_analise(request):
     """
@@ -184,7 +185,6 @@ def get_analysis_by_request(request):
 
 def finalizar_analise(request):
     if request.method == 'POST':
-        post = request.POST
         data = json.loads(request.body)
         analysis = AvaliacaoAnalista.objects.get(pk=data['analysisid'])
         if analysis.analyst.user == request.user:
@@ -197,7 +197,12 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
-                return control_relatorio.gerar_relatorio(analysis_request)
+                    try:
+                        control_relatorio.gerar_relatorio(analysis_request)
+                    except IntegrityError as dbe:
+                        return HttpResponse(f"Sua análise foi finalizada, mas algo deu errado no lado do servidor. Em "
+                                            f"caso de divergências, entre em contato com o administrador. Motivo: {dbe}")
+                return HttpResponse("Sua análise foi finalizada com sucesso", status=200)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()
