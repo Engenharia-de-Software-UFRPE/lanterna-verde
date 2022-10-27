@@ -289,8 +289,8 @@ def listar_noticias_empresa(request, company):
     return control_news.listar_noticias_empresa(request, company)
 
 
-def detalhar_noticia(request, company, slug):
-    return control_news.detalhar_noticia(request, company, slug)
+def detalhar_noticia(request, slug):
+    return control_news.detalhar_noticia(request, slug)
 
 
 @csrf_exempt

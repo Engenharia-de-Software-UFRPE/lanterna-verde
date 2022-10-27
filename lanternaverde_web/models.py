@@ -299,13 +299,13 @@ class NotificacaoAdm(models.Model):
 
 
 class News(models.Model):
-    title = models.CharField(max_length=120)
+    title = models.CharField(max_length=120, unique=True)
     abstract = models.TextField(max_length=140)
     creation_date = models.DateTimeField(default=timezone.now)
     edit_date = models.DateTimeField(default=timezone.now)
 
     company = models.ForeignKey(Empresa, related_name='noticias', on_delete=models.CASCADE)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
 
     body = models.TextField()
 

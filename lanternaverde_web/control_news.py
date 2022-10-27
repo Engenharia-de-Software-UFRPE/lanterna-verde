@@ -35,13 +35,12 @@ def listar_noticias_empresa(request, company):
     HttpResponseBadRequest()
 
 
-def detalhar_noticia(request, company, slug):
+def detalhar_noticia(request, slug):
     """
     Function that details a news
     """
     if request.method == 'GET':
-        empresa = Empresa.objects.get(pk=company)
-        noticia = empresa.noticias.get(slug=slug)
+        noticia = News.objects.get(slug=slug)
         ser_news = NewsSerializer(noticia).data
         ser_return = {
             "noticias": ser_news
