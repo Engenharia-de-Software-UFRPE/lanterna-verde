@@ -7,6 +7,9 @@ from django.utils import timezone
 
 
 def listar_noticias(request, amount=0):
+    """
+    Function that lists an amount of news (full list if no amount has been passed)
+    """
     if request.method == 'GET':
         noticias = News.objects.all() if amount == 0 else News.objects.all()[:int(amount)]
         ser_news = NewsSerializer(noticias, many=True).data
@@ -18,6 +21,9 @@ def listar_noticias(request, amount=0):
 
 
 def listar_noticias_empresa(request, company):
+    """
+    Function that lists the news of a company
+    """
     if request.method == 'GET':
         empresa = Empresa.objects.get(pk=company)
         noticias = empresa.noticias
@@ -30,6 +36,9 @@ def listar_noticias_empresa(request, company):
 
 
 def detalhar_noticia(request, company, slug):
+    """
+    Function that details a news
+    """
     if request.method == 'GET':
         empresa = Empresa.objects.get(pk=company)
         noticia = empresa.noticias.get(slug=slug)
@@ -42,6 +51,9 @@ def detalhar_noticia(request, company, slug):
 
 
 def publicar_noticia(request):
+    """
+    Function that posts a news
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         noticia = News.objects.create(title=data['title'],
@@ -54,6 +66,9 @@ def publicar_noticia(request):
 
 
 def editar_noticia(request):
+    """
+    Function that updates a news
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         noticia = News.objects.get(pk=data['newsid'])
