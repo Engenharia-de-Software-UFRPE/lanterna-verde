@@ -4,6 +4,8 @@ from django.core import validators
 from django.db import models
 from django.utils import timezone
 import re
+from django.utils.text import slugify
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, is_staff, is_superuser,
@@ -294,3 +296,20 @@ class NotificacaoAdm(models.Model):
         """database metadata"""
         verbose_name = 'NotificacaoAdm'
         verbose_name_plural = 'NotificacoesAdm'
+
+
+class News(models.Model):
+    title = models.TextField()
+    abstract = models.TextField(max_length=140)
+    creation_date = models.DateTimeField(default=timezone.now)
+    edit_date = models.DateTimeField(default=timezone.now)
+
+    company = models.ForeignKey(Empresa, related_name='noticias', on_delete=models.CASCADE)
+    slug = models.SlugField(auto_created=title)
+
+    body = models.TextField()
+
+    def save(self, *args, **kwargs):
+        slug = slugify(self.title)
+        super().save(*args, **kwargs)
+

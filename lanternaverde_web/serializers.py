@@ -3,7 +3,7 @@ Serializers Models for Django REST Framework
 """
 from rest_framework import serializers
 
-from .models import NotificacaoAdm, Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise, Empresa
+from .models import NotificacaoAdm, Pergunta, Relatorio, Usuario, Administrador, Analista, AvaliacaoAnalista, Questao, SolicitacaoAnalise, Empresa, News
 
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     """
@@ -114,3 +114,12 @@ class EmpresaPublicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Empresa
         fields = ['id', 'tradeName', 'corporateName', 'tipo', 'cnpj', 'score']
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    """
+    Serialization for News model
+    """
+    class Meta:
+        model = News
+        fields = '__all__'

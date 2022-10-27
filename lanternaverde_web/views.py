@@ -11,6 +11,7 @@ from lanternaverde_web import control_question
 from lanternaverde_web import control_relatorio
 from lanternaverde_web import control_session
 from lanternaverde_web import control_solicitacaoAnalise
+from lanternaverde_web import control_news
 
 from .utils.decorators import administrador_required, analista_required, empresa_required
 
@@ -278,3 +279,16 @@ def detalhar_empresa_public(request):
 @administrador_required
 def detalhar_empresa(request):
     return control_empresa.detalhar_empresa(request)
+
+
+def listar_noticias(request):
+    return control_news.listar_noticias(request)
+
+
+def listar_noticias_empresa(request, company):
+    return control_news.listar_noticias_empresa(request, company)
+
+
+def detalhar_noticia(request, company, slug):
+    return control_news.detalhar_noticia(request, company, slug)
+
