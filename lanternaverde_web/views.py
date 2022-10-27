@@ -294,5 +294,12 @@ def detalhar_noticia(request, company, slug):
 
 
 @csrf_exempt
+@empresa_required
 def publicar_noticia(request):
     return control_news.publicar_noticia(request)
+
+
+@csrf_exempt
+@empresa_required
+def editar_noticia(request):
+    return control_news.editar_noticia(request)

@@ -57,8 +57,10 @@ urlpatterns = [
 
     path('noticia/list', views.listar_noticias),
     path('noticia/list/<amount>', views.listar_noticias),
+    path('noticia/update', views.editar_noticia),
     path('noticia/add', views.publicar_noticia),
     path('noticia/<company>', views.listar_noticias_empresa),
     path('noticia/<company>/<slug>', views.detalhar_noticia),
+
 
 ]
