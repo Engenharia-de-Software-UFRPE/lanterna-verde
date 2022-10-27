@@ -55,8 +55,10 @@ urlpatterns = [
     path('public/empresa', views.listar_empresas_public, name='listar_empresas'),
     path('public/empresa/detail', views.detalhar_empresa_public, name='detalhar_empresa'),
 
-    path('noticia', views.listar_noticias),
+    path('noticia/list', views.listar_noticias),
+    path('noticia/list/<amount>', views.listar_noticias),
+    path('noticia/add', views.publicar_noticia),
     path('noticia/<company>', views.listar_noticias_empresa),
-    path('noticia/<company>/<slug>', views.detalhar_noticia)
+    path('noticia/<company>/<slug>', views.detalhar_noticia),
 
 ]

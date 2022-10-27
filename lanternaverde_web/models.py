@@ -299,17 +299,17 @@ class NotificacaoAdm(models.Model):
 
 
 class News(models.Model):
-    title = models.TextField()
+    title = models.CharField(max_length=120)
     abstract = models.TextField(max_length=140)
     creation_date = models.DateTimeField(default=timezone.now)
     edit_date = models.DateTimeField(default=timezone.now)
 
     company = models.ForeignKey(Empresa, related_name='noticias', on_delete=models.CASCADE)
-    slug = models.SlugField(auto_created=title)
+    slug = models.SlugField()
 
     body = models.TextField()
 
     def save(self, *args, **kwargs):
-        slug = slugify(self.title)
+        self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
