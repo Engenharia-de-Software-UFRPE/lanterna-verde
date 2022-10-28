@@ -40,6 +40,8 @@ const CompanyProfileChange = () => {
     };
 
     const sendPutRequest = async () => {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         await axios.put('http://localhost:8000/empresa/update', company, { withCredentials: true })
         .then(res=>{
             console.log(res.data)

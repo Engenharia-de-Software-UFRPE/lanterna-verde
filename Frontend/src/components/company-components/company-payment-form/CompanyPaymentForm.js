@@ -13,6 +13,8 @@ const CompanyPaymentForm = ({open, onClose, packageSelected }) =>{
   }, [])
   
   const sendPutRequest = async () => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
       await axios.put('http://localhost:8000/empresa/assign-package', JSON.stringify(packageSelected), { withCredentials: true })
       .then(res=>{
           console.log(res.data)

@@ -7,6 +7,8 @@ import './Notification.css';
 const Notify = ({ note }) => {
   
     async function sendNotificationsRead(notificacaoAdmId){
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         let response = await axios.post(
         "http://localhost:8000/notificacoes/read", 
         { notificacaoAdmId: notificacaoAdmId, withCredentials: true }

@@ -23,6 +23,8 @@ const SolAnalise = ({solicita_a_analise}) =>{
     };
     
     const setNumAnalistas = async(analystamount, analysis_request) => {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         const response = await axios.post(
             'http://localhost:8000/analise/add',
             {'analystamount': analystamount,

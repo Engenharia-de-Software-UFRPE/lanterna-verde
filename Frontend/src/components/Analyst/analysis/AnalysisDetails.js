@@ -130,6 +130,8 @@ const Analysis = ({ analise }) => {
     }
 
     async function handleSaveClick() {
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+      axios.defaults.xsrfCookieName = "csrftoken";
         let res = await axios.post("http://localhost:8000/analise/update",
         analysis,
         {withCredentials: true},
@@ -212,6 +214,8 @@ const Analysis = ({ analise }) => {
   async function confirmButtonHandler(inp){
 
     handleSaveClick()
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
 
     let res = await axios.post("http://localhost:8000/analise/finish",
     {

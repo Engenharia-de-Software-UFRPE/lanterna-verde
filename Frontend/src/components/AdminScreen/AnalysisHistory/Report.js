@@ -14,6 +14,8 @@ const Report = ({report}) =>{
     }
 
     async function handleSaveClick(reportid, comment) {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         let response = await axios.post("http://localhost:8000/relatorio/comment", 
         { 'reportid': reportid, 'comment': comment, withCredentials: true })
         .then(function (response) {
