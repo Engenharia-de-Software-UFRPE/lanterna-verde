@@ -242,7 +242,17 @@ class AvaliacaoAnalista(models.Model):
 
 class Questao(models.Model):
     question = models.ForeignKey(Pergunta, on_delete=models.CASCADE)
-    answer = models.BooleanField(default=False)
+    
+    NO = 0
+    YES = 1
+    N_A = 2
+    ANSWER_CHOICES = (
+        (NO,"no"),
+        (YES,"yes"),
+        (N_A,"not_answered")
+    )
+    
+    answer = models.IntegerField(choices=ANSWER_CHOICES, default= N_A)
     questionnaire = models.ForeignKey(AvaliacaoAnalista, on_delete=models.CASCADE)
     
     justification = models.TextField(blank=True)

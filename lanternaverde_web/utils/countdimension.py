@@ -4,6 +4,6 @@ def _count_dimension(analysis):
     dimensions = {'D1': {'amount': 0, 'checked': 0}, 'D2': {'amount': 0, 'checked': 0}, 'D3': {'amount': 0, 'checked': 0}, 'D4': {'amount': 0, 'checked': 0}}
     for question in question_set:
         dimensions[question['question']['dimension']]['amount'] += 1
-        if question['answer']:
+        if question['answer'] == 1:
             dimensions[question['question']['dimension']]['checked'] += 1
     return dimensions

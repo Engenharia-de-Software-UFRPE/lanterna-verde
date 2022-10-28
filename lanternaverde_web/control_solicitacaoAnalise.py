@@ -2,7 +2,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.utils import timezone
 
-from lanternaverde_web import notificacaoAdm
+from lanternaverde_web import control_notificacaoAdm
 from lanternaverde_web.serializers import SolicitacoesAnaliseSerializer as serializer
 from lanternaverde_web.models import SolicitacaoAnalise
 from lanternaverde_web.utils.jsonresponse import JSONResponse
@@ -20,7 +20,7 @@ def create_solicitacao(request):
         empresa = request.user.empresa
         if len(empresa.solicitacoes.filter(status__in=[SolicitacaoAnalise.PROCESSING, SolicitacaoAnalise.PENDING])) == 0:
             solicitacao = SolicitacaoAnalise.objects.create(empresa=empresa, date=timezone.now())
-            notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'análise')
+            control_notificacaoAdm.criar_notificacaoAdm_solicitacao(solicitacao, 'análise')
             return HttpResponse(status=200)
         return HttpResponse("Há análises em andamento para essa empresa", status=422)
     return HttpResponseBadRequest()

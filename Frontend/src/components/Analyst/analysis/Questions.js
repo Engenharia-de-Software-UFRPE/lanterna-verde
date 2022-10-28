@@ -1,32 +1,65 @@
-import React, {useState} from 'react';
-import './Analysis.css'
-
+import React, {useEffect, useState} from 'react';
+import './Question.css';
+import Collapse from 'react-bootstrap/Collapse';
 const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, handleSourceChange, handleJustificationChange }) => {
     
+    const [active, setActive] = useState(false);
+    useEffect(() => {
+        // setQuest(questao)
+        initAnswer()
+        // console.log(questao.answer)
+    },[])
 
+    function initAnswer(){
+        var box = document.getElementById('question'+questao.id)
+        if (questao.answer === 1){
+            box.style.animation = "positive-neutral 0.125s linear forwards";
+            return;
+        }
+        // else{
+        if (questao.answer === 0){
+            box.style.animation = "negative-neutral 0.125s linear forwards";
+            return;
+        }
+        return;
+        // }
+    }
+         
+    function answerHandler(answer){
+        var box = document.getElementById('question'+questao.id)
+        console.log("answerhandler answer = " + answer)
 
-    // const handleCheckBoxClick= () => {
-    //       questao.answer= !questao.answer;
+        if (questao.answer != true && questao.answer != false){
+            if (answer === true){
+                box.style.animation = "positive-neutral 0.125s linear forwards";
+            }
+            // else{
+            if (answer === false){
+                box.style.animation = "negative-neutral 0.125s linear forwards";
+            }
+        }
+        else{
+            answer = !answer
 
-    //       let valor = 1;
-    //       if(questao.answer === true){
-    //         valor = 1;
-    //       }
-    //       else{
-    //         valor = -1;
-    //       }
+            if (answer === false){
+                box.style.animation = "negative 0.125s linear forwards";
+                // questao.answer = !questao.answer
+                
+                
+            }
+            if (answer === true){
+                box.style.animation = "positive 0.125s linear forwards";
+                // questao.answer = !questao.answer  
+            }
+            
+        }
 
-    //       analysis.dimension_count[questao.question.dimension].checked += valor
-    //       const copy = analysis.dimension_count
-    //       setDimensions(copy)
+        handleCheckBoxClick(questao,answer)
 
-    //     //   console.log("resposta da questão ("+ questao.question.body + "): " + questao.answer);
-        
-    //     console.log(analysis.dimension_count[questao.question.dimension])
-    //     // console.log(questao.question.dimension)
-    // }
+        console.log("answerhandler answer final= " + answer)
 
-
+    }
+      
     function sourceAreaChange() {
         let sourceValue = document.getElementById("questionSource"+questao.id).value
         handleSourceChange(sourceValue,questao)
@@ -36,20 +69,64 @@ const Questions = ({ questao, analysis, setDimensions, handleCheckBoxClick, hand
         let justificationValue = document.getElementById("questionJustification"+questao.id).value
         handleJustificationChange(justificationValue,questao)
     }
+
+    function questionClickHandler() {
+        setActive(!active)
+    }
+
     return <>
-            <div className='listQuestoes'>
-                {/* <div className='question-and-awnser'> */}
-                        Questão: {questao.question.body} 
-                        <label class="switch">
-                            <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}>
-                            </input>
-                            <span class="slider round">
-                            </span>
-                        </label> 
-                {/* </div> */}
+            <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+            <script src="https://unpkg.com/react-collapse/build/react-collapse.min.js"></script>
+            <div className='question-container'>
+
+                <button className='negative-btn' onClick={() => answerHandler(false)}>
+                <img src="../images/x.svg" alt="X"/>
+                </button>
+                
+
+                <div className='full-question-area'>
+
+                        <div className='questionArea' id={'question'+questao.id} onClick= {questionClickHandler}>
+                            {questao.question.body} 
+                        </div>
+
+                    <Collapse in={active}>
+                        <div className='justi-src-container'>
+                            <div className='justification-container' >
+                                <div className='just-tittle'>Justificativa:</div>
+                                <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
+                            </div>
+                            
+                            <div className='source-container'>
+                                <div className='source-tittle'>Fonte:</div>
+                                <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
+                            </div>
+                        </div> 
+                    
+                    </Collapse>
+
+
+
+
+                    {/* </div> */}
+
+                       
+                            {/* <label class="switch">
+                                <input type="checkbox" onClickCapture={() => handleCheckBoxClick(questao)} defaultChecked={questao.answer}></input>
+                                <span class="slider round">
+                                </span>
+                            </label>  */}
+                    {/* </div> */}
+                </div>
+
+                <button className='positive-btn' onClick={() => answerHandler(true)}>
+                    <img src="../images/v.svg" alt="V"/>
+                </button>   
+                
+
+
+
             </div>
-            Fonte:<br></br> <textarea  className='sourceArea' id = {'questionSource'+questao.id} onChange={sourceAreaChange}>{questao.source}</textarea> <br></br>
-            Justificativa:<br></br> <textarea  className='justificationArea' id = {'questionJustification'+questao.id} onChange={justificationAreaChange}>{questao.justification}</textarea>  <br></br>
             </>
 }; 
 
