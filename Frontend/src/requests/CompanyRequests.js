@@ -25,8 +25,50 @@ const postRequestAnalysis = async() =>{
     })
 }
 
+//--------------------------------PUTS--------------------------------//
+const putRequestReanalysis = async(analysisId) =>{
+    await axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,
+                    true,
+                    { withCredentials: true })
+    .then(response =>{
+        alert("Reanálise solicitada com sucesso")
+    })
+    .catch(error =>{
+        alert("Erro")
+    })
+}
+
+const putSignedPackage = async(packageSelected) => {
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    await axios.put('http://localhost:8000/empresa/assign-package', 
+                    JSON.stringify(packageSelected),
+                    { withCredentials: true })
+    .then(response =>{
+        alert("Assinatura confirmada com sucesso")
+    })
+    .catch(error =>{
+        alert("Erro")
+    })
+}
+
+const putUpdateProfile = async(company) =>{
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    await axios.put('http://localhost:8000/empresa/update', company, { withCredentials: true })
+    .then(response =>{
+        alert("Dados alterados com sucesso")
+    })
+    .catch(error =>{
+        alert("Erro")
+    })
+}
+
 export {
     postCompanyRegistration,
-    postRequestAnalysis
+    postRequestAnalysis,
+    putRequestReanalysis,
+    putSignedPackage,
+    putUpdateProfile,
 }
 

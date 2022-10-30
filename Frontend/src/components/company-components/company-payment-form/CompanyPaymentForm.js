@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {putSignedPackage} from '../../../requests/CompanyRequests'
 import './company-payment-form.css';
 
 const CompanyPaymentForm = ({open, onClose, packageSelected }) =>{
   const [modal, setModal] = useState({open});
   const [cnpj, setCnpj] = useState('');
   const [companyCnpj, setCompanyCnpj] = useState('')
-  const [packageType, setPackageType] = useState(packageSelected)
 
   useEffect(() => {
     getLoggedCompany()
   }, [])
   
   const sendPutRequest = async () => {
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.defaults.xsrfCookieName = "csrftoken";
-      await axios.put('http://localhost:8000/empresa/assign-package', JSON.stringify(packageSelected), { withCredentials: true })
-      .then(res=>{
-          console.log(res.data)
-          alert("Assinatura confirmada com sucesso")
-      })
-      .catch( error=>{
-          alert("Erro")
-      })
+    await putSignedPackage(packageSelected)
   };
 
   const getLoggedCompany = async () => {

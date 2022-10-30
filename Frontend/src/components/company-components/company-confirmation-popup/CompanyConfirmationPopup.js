@@ -1,12 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import {postRequestAnalysis} from '../../../requests/CompanyRequests'
+import {postRequestAnalysis, putRequestReanalysis} from '../../../requests/CompanyRequests'
 import axios from 'axios'
 import './company-confirmation-popup.css';
 
 const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     const [modal, setModal] = useState({open});
-    const [analysisReanalyzed, setAnalysisReanalyzed] = useState(false)
 
     const requestReanalysis = async () => {
         axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -15,13 +14,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
         .then(res=>{
             let data = res.data
             if((data['Solicitacao'].reanalysis) == false){
-                axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,{analysisReanalyzed} , { withCredentials: true })
-                .then(res=>{
-                    alert("Reanálise solicitada com sucesso")
-                })
-                .catch( error=>{
-                    alert("Erro")
-                })
+                putRequestReanalysis(analysisId)
             }else alert("Já existe uma solicitação de análise em andamento")
         })
         .catch( error=>{

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './company-profile-change.css';
 import axios from 'axios';
+import {putUpdateProfile} from '../../../requests/CompanyRequests'
 import companyImage from '../../../images/apple.png';
 
 const CompanyProfileChange = () => {
@@ -40,16 +41,7 @@ const CompanyProfileChange = () => {
     };
 
     const sendPutRequest = async () => {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-        axios.defaults.xsrfCookieName = "csrftoken";
-        await axios.put('http://localhost:8000/empresa/update', company, { withCredentials: true })
-        .then(res=>{
-            console.log(res.data)
-            alert("Dados alterados com sucesso")
-        })
-        .catch( error=>{
-            alert("Erro")
-        })
+        await putUpdateProfile(company)
     };
 
     useEffect( () => {
