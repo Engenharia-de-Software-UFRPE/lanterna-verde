@@ -8,6 +8,8 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     const [analysisReanalyzed, setAnalysisReanalyzed] = useState(false)
 
     const requestReanalysis = async () => {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         await axios.get(`http://localhost:8000/empresa/analise/${analysisId}`, { withCredentials: true })
         .then(res=>{
             let data = res.data
@@ -27,6 +29,8 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     };
 
     const requestAnalysis = async () => {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
         await axios.post('http://localhost:8000/solicitacoesAnalise/add', '',{ withCredentials: true })
         .then(res => {
             let data = res.data;

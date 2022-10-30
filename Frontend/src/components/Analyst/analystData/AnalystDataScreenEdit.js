@@ -67,6 +67,8 @@ function AnalystDataScreen() {
 
   const userChange = async(username, first_name, last_name, email, cpf, specialty) =>{
     axios.defaults.withCredentials = true;
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     const response = await axios.post(
       'http://localhost:8000/analista/update',
       {'username': username, 'first_name': first_name, 'last_name': last_name, 'email': email, 'cpf': cpf, 'specialty': specialty,})
@@ -84,8 +86,8 @@ function AnalystDataScreen() {
 
   const passwordChange = async(oldPassword,newPassword) => {
     axios.defaults.withCredentials = true;
-
-  
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     const response = await axios.post(
         'http://localhost:8000/user/password/change', 
      {'newpw': newPassword, 'oldpw': oldPassword})

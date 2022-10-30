@@ -19,18 +19,15 @@ from .utils.decorators import administrador_required, analista_required, empresa
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
-@csrf_exempt
 @login_required
 @administrador_required
 def cadastro_analista(request):
     return control_auth.cadastro_analista(request)
 
-@csrf_exempt
 @login_required
 def alterar_analista(request):
     return control_auth.alterar_analista(request)
 
-@csrf_exempt # TODO: Remover csrf_exempt (REQ. não funcional)
 def login(request):
     """
     Method that tries to login an user.
@@ -49,7 +46,6 @@ def logout(request):
 def cadastro_empresa(request):
     return control_auth.cadastro_empresa(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def alterar_empresa(request):
@@ -79,7 +75,6 @@ def get_logged_analista(request):
     """
     return control_session.get_logged_analista(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def get_logged_empresa(request):
@@ -88,7 +83,6 @@ def get_logged_empresa(request):
     """
     return control_session.get_logged_empresa(request)
 
-@csrf_exempt
 @login_required
 @administrador_required
 def create_questao(request):
@@ -104,7 +98,6 @@ def get_questoes(request):
     """
     return control_question.get_questoes(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def create_solicitacao(request):
@@ -116,8 +109,6 @@ def create_solicitacao(request):
     """
     return control_solicitacaoAnalise.create_solicitacao(request)
 
-
-@csrf_exempt
 @login_required
 @administrador_required
 def get_solicitacoes(request):
@@ -127,7 +118,6 @@ def get_solicitacoes(request):
     return control_solicitacaoAnalise.get_solicitacoes(request)
 
 
-@csrf_exempt
 @login_required
 def get_solicitacao(request):
     """
@@ -151,13 +141,11 @@ def listar_analises_empresa(request):
     """
     return control_avaliacaoAnalista.listar_analises_empresa(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def listar_analises_passiveis_reanalise(request):
     return control_avaliacaoAnalista.listar_analises_passiveis_reanalise(request)
 
-@csrf_exempt
 @login_required
 def detalhar_analise(request):
     """
@@ -165,44 +153,35 @@ def detalhar_analise(request):
     """
     return control_avaliacaoAnalista.detalhar_analise(request)
 
-
-@csrf_exempt
 @login_required
 @administrador_required
 def criar_analise(request):
     return control_avaliacaoAnalista.criar_analise(request)
 
-
-@csrf_exempt
 @login_required
 def atualizar_analise(request):
     return control_avaliacaoAnalista.atualizar_analise(request)
 
-
+@login_required
 def get_analysis_by_request(request):
     return control_avaliacaoAnalista.get_analysis_by_request(request)
 
-@csrf_exempt
 @login_required
 def gerar_relatorio(request):
     return control_relatorio.gerar_relatorio(request)
 
-@csrf_exempt
 @login_required
 def get_relatorios(request):
     return control_relatorio.get_relatorios(request)
 
-@csrf_exempt
 @login_required
 def get_relatorios_por_empresa(request):
     return control_relatorio.get_relatorios_por_empresa(request)
 
-@csrf_exempt
 @login_required
 def comment_relatorio(request):
     return control_relatorio.comment_relatorio(request)
 
-@csrf_exempt
 @login_required
 @administrador_required
 def detalhar_analista(request):
@@ -211,29 +190,24 @@ def detalhar_analista(request):
     """
     return control_analista.detalhar_analista(request)
 
-@csrf_exempt
 @login_required
 def alterar_senha(request):
     return control_auth.alterar_senha(request)
 
-@csrf_exempt
 @login_required
 def finalizar_analise(request):
     return control_avaliacaoAnalista.finalizar_analise(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def assinar_pacote(request):
     return control_empresa.assinar_pacote(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def solicitar_reanalise(request, pk):
     return control_empresa.solicitar_reanalise(request, pk)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def get_info_analise_empresa(request, pk):
@@ -244,35 +218,29 @@ def get_info_analise_empresa(request, pk):
 def listar_empresas(request):
     return control_empresa.listar_empresas(request)
 
-
 def listar_empresas_public(request):
     return control_empresa.listar_empresas_public(request)
 
 def get_ranking(request):
     return control_empresa.get_ranking(request)
 
-@csrf_exempt
 @login_required
 @empresa_required
 def compilar_relatorio_geral_empresa(request):
     return control_empresa.compilar_relatorio_geral_empresa(request)
 
-@csrf_exempt
 @login_required(login_url='/')
 @administrador_required
 def listar_notificacoesAdm(request):
     return control_notificacaoAdm.listar_notificacoesAdm(request)
 
-@csrf_exempt
 @login_required(login_url='/')
 @administrador_required
 def notificacao_lida(request):
     return control_notificacaoAdm.notificacao_lida(request)
 
-
 def detalhar_empresa_public(request):
     return control_empresa.detalhar_empresa_public(request)
-
 
 @login_required(login_url='/')
 @administrador_required
