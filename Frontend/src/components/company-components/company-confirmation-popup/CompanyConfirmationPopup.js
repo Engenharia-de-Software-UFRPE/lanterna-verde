@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import {postRequestAnalysis} from '../../../requests/CompanyRequests'
+import axios from 'axios'
 import './company-confirmation-popup.css';
 
 const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
@@ -29,17 +30,7 @@ const CompanyConfirmationPopup = ({open, onClose, analysisId, isAnalysis}) => {
     };
 
     const requestAnalysis = async () => {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-        axios.defaults.xsrfCookieName = "csrftoken";
-        await axios.post('http://localhost:8000/solicitacoesAnalise/add', '',{ withCredentials: true })
-        .then(res => {
-            let data = res.data;
-            console.log(data)
-            alert("Análise solicitada com sucesso")
-        })
-        .catch( error=>{
-            alert("Já existe uma solicitação de análise em andamento")
-        })
+        await postRequestAnalysis()
     };
 
     if(!open) return null;

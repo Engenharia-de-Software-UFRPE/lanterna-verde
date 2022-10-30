@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
-import axios from 'axios';
 import './company-form.css';
 import stamp from '../../../images/stamp.png';
+import {postCompanyRegistration} from '../../../requests/CompanyRequests'
 
 const CompanyRegistrationForm = () => {
     const [company, setCompany] = useState({
@@ -25,7 +25,7 @@ const CompanyRegistrationForm = () => {
 
         if (name==='stateRegistration' ||
         name==='cnpj' || name ==='phoneNumber'){
-            let result = event.target.value.replace(/[^0-9]/, '');
+            let result = event.target.value.replace(/[^0-9]+/, '');
             setCompany({
                 ...company,
                 [name]: result,
@@ -57,39 +57,30 @@ const CompanyRegistrationForm = () => {
         return (/\S+@\S+\.\S+/.test(email));
     }
 
-    const sendPostRequest = async () => {
-        let data = JSON.stringify(company);
-        
-        await axios.post('http://127.0.0.1:8000/empresa/add', company)
-        .then(res => {
-            {/*console.log(res) DEBUG*/}
-            setCompany({
-                username: "",
-                email: "",
-                password: "",
-                tradeName: "",
-                corporateName: "",
-                stateRegistration: "",
-                cnpj: "",
-                type: "",
-                phoneNumber: ""
-            })
-            setSelected(false)
-            alert("Cadastro confirmado!")
+    const sendPostRequest = async () => {     
+        await postCompanyRegistration(company)
+        .then((response) => {            
+            if(response.status == 201){
+                setCompany({
+                    username: "",
+                    email: "",
+                    password: "",
+                    tradeName: "",
+                    corporateName: "",
+                    stateRegistration: "",
+                    cnpj: "",
+                    type: "",
+                    phoneNumber: ""
+                })
+                setSelected(false)
+            }
         })
-        .catch( error=>{
-            {/*console.log(error) DEBUG*/}
-            alert("Erro")
-        })
-
-        console.log( data)
     };
-
 
     const confirm = (event) =>{
         let confirm = true;
         
-        if(passwordConfirmation !== company.password){
+        if(passwordConfirmation !== company.password || company.password===''){
             confirm = false
         }
 
