@@ -304,7 +304,7 @@ class News(models.Model):
     creation_date = models.DateTimeField(default=timezone.now)
     edit_date = models.DateTimeField(default=timezone.now)
 
-    company = models.ForeignKey(Empresa, related_name='noticias', on_delete=models.CASCADE)
+    company = models.ForeignKey(Empresa, related_name='noticias', on_delete=models.CASCADE, null=True)
     slug = models.SlugField(unique=True)
 
     body = models.TextField()

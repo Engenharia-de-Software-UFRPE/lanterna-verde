@@ -32,7 +32,7 @@ def listar_noticias_empresa(request, company):
             "noticias": ser_news
         }
         return JSONResponse(ser_return, status=200)
-    HttpResponseBadRequest()
+    return HttpResponseBadRequest()
 
 
 def detalhar_noticia(request, slug):
@@ -46,7 +46,7 @@ def detalhar_noticia(request, slug):
             "noticias": ser_news
         }
         return JSONResponse(ser_return, status=200)
-    HttpResponseBadRequest()
+    return HttpResponseBadRequest()
 
 
 def publicar_noticia(request):
