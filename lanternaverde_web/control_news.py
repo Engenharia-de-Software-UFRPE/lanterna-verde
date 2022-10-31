@@ -55,9 +55,15 @@ def publicar_noticia(request):
     """
     if request.method == 'POST':
         data = json.loads(request.body)
+        empresa = None
+        if hasattr(request.user, 'empresa'):
+            empresa = request.user.empresa
+        elif hasattr(request.user, 'administrador'):
+            if 'companyid' in data:
+                empresa = Empresa.objects.get(pk=data['companyid'])
         noticia = News.objects.create(title=data['title'],
                                       abstract=data['abstract'],
-                                      company=request.user.empresa,
+                                      company=empresa,
                                       body=data['body'])
         noticia.save()
         return HttpResponse("Notícia publicada com sucesso", status=201)
