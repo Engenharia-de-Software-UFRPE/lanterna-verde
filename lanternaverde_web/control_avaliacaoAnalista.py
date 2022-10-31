@@ -197,12 +197,7 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
-                    try:
-                        control_relatorio.gerar_relatorio(analysis_request)
-                    except DatabaseError as dbe:
-                        return HttpResponse(f"Sua análise foi finalizada, mas algo deu errado no lado do servidor. Em "
-                                            f"caso de divergências, entre em contato com o administrador. Motivo: {dbe}"
-                                            )
+                    control_relatorio.gerar_relatorio(analysis_request)
                 return HttpResponse("Sua análise foi finalizada com sucesso", status=200)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)

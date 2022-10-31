@@ -14,7 +14,7 @@ def gerar_relatorio(analysis_request):
         try:
             report, _ = Relatorio.objects.get_or_create(request=analysis_request, company=analysis_request.empresa)
         except IntegrityError:
-            raise IntegrityError("Um relatório já foi gerado para esta solicitação")
+            return
         analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
         data = analises.data
 
@@ -42,8 +42,6 @@ def gerar_relatorio(analysis_request):
 
         report.save()
         control_notificacaoAdm.criar_notificacaoAdm_relatorio(report)
-    else:
-        raise DataError("Esta solicitação de análise ainda não está finalizada")
 
 
 def get_relatorios(request):
