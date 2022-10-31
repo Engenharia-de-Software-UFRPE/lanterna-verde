@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAllAnalyzes } from '../../../requests/CompanyRequests';
 import './company-main-screen-analyzes-section.css';
 import CompanyAnalysis from '../company-analyzes/CompanyAnalysis'
 import '../company-analyzes/company-analyzes.css'
@@ -14,21 +14,26 @@ const CompanyMainScreenAnalyzesSection = () =>{
     },[])
 
     const getAnalyzes = async () => {
-        await axios.get('http://localhost:8000/empresa/analises', { withCredentials: true })
-        .then(res => {
-            let recentAnalyzes = []
-            let recentReports =[]
-            if(res.data['Analises'].length >=2){
-                for(let i = 0; i < 2; i++){
-                    recentAnalyzes.push(res.data['Analises'][i])
-                    recentReports.push(res.data['Relatorios'][i])
-                }
-            }else if(res.data['Analises'].length === 1){
-                recentAnalyzes.push(res.data['Analises'][0])
-                recentReports.push(res.data['Relatorios'][0])
-            }else setHasAnalyzes(false)
-            setAnalysis(recentAnalyzes)
-            setReports(recentReports)
+        await getAllAnalyzes()
+        .then(response => {
+            if(response.status == 200){
+                let data = response.data
+                let recentAnalyzes = []
+                let recentReports =[]
+
+                if(data.Analises.length >=2){
+                    recentAnalyzes = data.Analises.slice(0,2)
+                    recentReports = data.Relatorios.slice(0,2)
+                    
+                }else if(data.Analises.length === 1){
+                    recentAnalyzes.push(data.Analises[0])
+                    recentReports.push(data.Relatorios[0])
+
+                }else setHasAnalyzes(false)
+
+                setAnalysis(recentAnalyzes)
+                setReports(recentReports)
+            }
         })
     }
 

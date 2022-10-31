@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import './company-analysis-info.css'
-import axios from 'axios';
+import { getAnalysisInfo } from '../../../requests/CompanyRequests';
 import CompanyConfirmationPopup from '../company-confirmation-popup/CompanyConfirmationPopup';
 import GrayStar from '../../../images/gray-star.png';
 import GreenStar from '../../../images/green-star.png';
@@ -20,24 +20,24 @@ const CompanyAnalysisInfo = () =>{
     },[])
 
     const getAnalysis = async () => {
-        await axios.get(`http://localhost:8000/empresa/analise/${location.state.id}`, { withCredentials: true })
-        .then(res=>{
-            let data = res.data
-            setAnalysis(data['Solicitacao'].analises[0])
-            setReport(data['Relatorio'])
-            let array = []
-            for(let i=0; i< (data['Relatorio'].ascore/2); i++){
-                if((data['Relatorio'].ascore%2)===1 && i===((data['Relatorio'].ascore/2)-0.5)){
-                    array.push(false)
+        await getAnalysisInfo(location.state.id)
+        .then(response =>{
+            if(response.status == 200){
+                let data = response.data
+                setAnalysis(data.Solicitacao.analises[0])
+                setReport(data.Relatorio)
+                let array = []
+            //NEED REFACTOR AND CHANGE IN THE LOGIC
+                for(let i=0; i< (data.Relatorio.ascore/2); i++){
+                    if((data.Relatorio.ascore%2)===1 && i===((data.Relatorio.ascore/2)-0.5)){
+                        array.push(false)
+                    }
+                    else{
+                        array.push(true)
+                    }
                 }
-                else{
-                    array.push(true)
-                }
+                setAscoreStars(array);
             }
-            setAscoreStars(array);
-        })
-        .catch( error=>{
-            alert("erro")
         })
     };
 
@@ -92,7 +92,6 @@ const CompanyAnalysisInfo = () =>{
                             </div>
                         </div>
                     </div>
-                    {/* simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. */}
                     <div className='comments'>
                         <div className='comment'>
                             <h3 className='comment-title'>Comentário do analista</h3>

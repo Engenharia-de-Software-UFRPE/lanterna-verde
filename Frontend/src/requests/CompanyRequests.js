@@ -27,6 +27,8 @@ const postRequestAnalysis = async() =>{
 
 //--------------------------------PUTS--------------------------------//
 const putRequestReanalysis = async(analysisId) =>{
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
     await axios.put(`http://localhost:8000/empresa/analise/${analysisId}/solicitar-reanalise`,
                     true,
                     { withCredentials: true })
@@ -64,11 +66,101 @@ const putUpdateProfile = async(company) =>{
     })
 }
 
+//--------------------------------GETS--------------------------------//
+const getAnalysisInfo = async(analysisId) =>{
+    return await axios.get(`http://localhost:8000/empresa/analise/${analysisId}`, 
+                    { withCredentials: true })
+    .then(response =>{
+        return response
+    })
+    .catch(error =>{
+        alert("ERRO")
+    })
+}
+
+const getAllAnalyzes = async () => {
+    return await axios.get('http://localhost:8000/empresa/analises', 
+                    { withCredentials: true })
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        alert('Erro')
+        return 'all analyzes'
+    })
+}
+
+const getAllAnalyzesNotReanalyzed = async () => {
+    return await axios.get('http://localhost:8000/empresa/analises/not-reanalyzed', 
+                    { withCredentials: true })
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        alert('Erro')
+    })
+}
+
+const getCompaniesRanking = async () => {
+    return await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        alert("Erro")
+        return 'companies ranking'
+    })
+}
+
+const getCompanyLoggedIn = async () => {
+    return await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        alert("Erro")
+        return 'company logged in'
+    })
+}
+
+const getLogout = async() =>{
+    //axios.defaults.withCredentials = true; IF WORKS WITHOUT IT TAKE IT OFF
+    return await axios.get("http://localhost:8000/logout", { withCredentials: true })
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        alert("Erro")
+    })
+}
+
+const getReportInfo = async() => {
+    return await axios.get('http://localhost:8000/empresa/report', { withCredentials: true })
+    .then(response =>{
+        return response
+    })
+    .catch(error =>{
+        alert("Erro")
+    })
+}
+
+
+
 export {
     postCompanyRegistration,
     postRequestAnalysis,
+
     putRequestReanalysis,
     putSignedPackage,
     putUpdateProfile,
+
+    getAnalysisInfo,
+    getAllAnalyzes,
+    getAllAnalyzesNotReanalyzed,
+    getCompaniesRanking,
+    getCompanyLoggedIn,
+    getLogout,
+    getReportInfo
+
 }
 

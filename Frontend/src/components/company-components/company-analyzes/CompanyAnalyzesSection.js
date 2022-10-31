@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './company-analyzes.css'
-import axios from 'axios';
+import { getAllAnalyzes, getAllAnalyzesNotReanalyzed } from '../../../requests/CompanyRequests';
 import CompanyAnalysis from './CompanyAnalysis'
 
 const CompanyAnalyzes = () =>{
@@ -13,18 +13,22 @@ const CompanyAnalyzes = () =>{
     },[])
 
     const getAnalyzes = async () => {
-        await axios.get('http://localhost:8000/empresa/analises', { withCredentials: true })
-        .then(res => {
-            setAnalyzes(res.data['Analises'])
-            setReports(res.data['Relatorios'])
+        await getAllAnalyzes()
+        .then(response =>{
+            if(response.status == 200){
+                setAnalyzes(response.data.Analises)
+                setReports(response.data.Relatorios)
+            }
         })
     }
 
     const getAnalyzesNotReanalyzed = async () => {
-        await axios.get('http://localhost:8000/empresa/analises/not-reanalyzed', { withCredentials: true })
-        .then(res => {
-            setAnalyzes(res.data['Analises'])
-            setReports(res.data['Relatorios'])
+        await getAllAnalyzesNotReanalyzed()
+        .then(response =>{
+            if(response.status == 200){
+                setAnalyzes(response.data.Analises)
+                setReports(response.data.Relatorios)
+            }
         })
 
     }

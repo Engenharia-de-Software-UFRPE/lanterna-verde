@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {putSignedPackage} from '../../../requests/CompanyRequests'
+import {putSignedPackage, getCompanyLoggedIn} from '../../../requests/CompanyRequests'
 import './company-payment-form.css';
 
 const CompanyPaymentForm = ({open, onClose, packageSelected }) =>{
@@ -17,14 +17,8 @@ const CompanyPaymentForm = ({open, onClose, packageSelected }) =>{
   };
 
   const getLoggedCompany = async () => {
-    await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
-    .then(res => {
-        let data = res.data;       
-        setCompanyCnpj(data.Empresa.cnpj)  
-    })
-    .catch( error=>{
-        alert("Erro")
-    })
+    await getCompanyLoggedIn()
+    .then(response => setCompanyCnpj(response.data.Empresa.cnpj))
   };
 
   const handleChangeCnpj = event => {

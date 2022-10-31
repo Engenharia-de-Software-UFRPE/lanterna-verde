@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './company-main-screen-center-section.css';
-import axios from 'axios';
+import { getCompaniesRanking } from '../../../requests/CompanyRequests';
 
 const CompanyMainScreenCenterSection = () =>{
   const [ranking, setRanking] = useState([])
@@ -10,23 +10,15 @@ const CompanyMainScreenCenterSection = () =>{
   }, []);
 
   const getRanking = async () => {
-    await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
-    .then(res => {
-        let data = res.data['Empresas']
-        if(data.length > 3){
-          let companies = []
-          for (let i=0; i<data.length;i++){
-            companies.push(data[i])
-          }
-          setRanking(companies)
-        }else{
-          setRanking(data)
-        }
-    })
-    .catch( error=>{
-        alert("Erro")
+    await getCompaniesRanking()
+    .then(response => {
+      if(response.status == 200){
+        let data = response.data.Empresas
+        setRanking(data.length > 3 ? data.slice(0, 3) : data)
+      }
     })
   }
+
     return(
         <>
         <section class="company-main-screen-center-section">

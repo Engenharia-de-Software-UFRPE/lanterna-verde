@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './CompanyReport.css'
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line, Radar } from "react-chartjs-2";
-import axios from 'axios';
+import { getReportInfo } from "../../../requests/CompanyRequests";
 
 
 function CompanyReportScreen() {
@@ -29,56 +29,48 @@ function CompanyReportScreen() {
     ), [])
 
     const getReport = async () => {
-        await axios.get('http://localhost:8000/empresa/report', { withCredentials: true })
-        .then(res => {
-            let data = res.data;
-            const array = []
-            const formatDate = (date) => {
-                return new Date(date).toLocaleDateString()
-            }
-
-            const scores = [(res.data['Scores']['Ascore']),
-                        (res.data['Scores']['D1']),
-                        (res.data['Scores']['D2']),
-                        (res.data['Scores']['D3']),
-                        (res.data['Scores']['D4'])]
-            const labelsLineGraph = []
-            const dataLineGraph = []
-            if (res.data['ScorePorData'].length >0){
-                for (let i = ((res.data['ScorePorData'].length)-1);i >= 0 ; i--){
-                    labelsLineGraph.push(formatDate(res.data['ScorePorData'][i]['data']))
-                    dataLineGraph.push(res.data['ScorePorData'][i]['ascore'])
-                    console.log(res.data['ScorePorData'][i])
+        await getReportInfo()
+        .then(response => {
+            if(response.status == 200){
+                let data = response.data;
+                const formatDate = (date) => {
+                    return new Date(date).toLocaleDateString()
                 }
+
+                const scores = [
+                    (data.Scores.Ascore),
+                    (data.Scores.D1),
+                    (data.Scores.D2),
+                    (data.Scores.D3),
+                    (data.Scores.D4)
+                ]
+                
+                const labelsLineGraph = data.ScorePorData.map(scoreData => formatDate(scoreData.data))
+                const dataLineGraph = data.ScorePorData.map(scoreData => scoreData.ascore)
+
+                setLineGraphData({
+                    labels: labelsLineGraph,
+                    datasets:[{
+                        label:'Grafico de linha',
+                        data:dataLineGraph.reverse(),
+
+                        backgroundColor: "rgba(27, 181, 92, 0.4)",
+                        borderColor: "rgba(27, 181, 92, 0.4)",    
+                    }]
+                })
+                setRadarGraphData({
+                    labels:['ASCORE','D1', 'D2', 'D3', 'D4'],
+                    datasets:[{
+                        label:'Radar',
+                        data: scores,
+
+                        backgroundColor: "rgba(27, 181, 92, 0.4)",
+                        borderColor: "rgba(27, 181, 92, 0.4)",
+                    }]
+                })
             }
-
-            setLineGraphData({
-                labels: labelsLineGraph,
-                datasets:[{
-                    label:'Grafico de linha',
-                    data:dataLineGraph,
-
-                    backgroundColor: "rgba(27, 181, 92, 0.4)",
-                    borderColor: "rgba(27, 181, 92, 0.4)",    
-                }]
-            })
-
-            setRadarGraphData({
-                labels:['ASCORE','D1', 'D2', 'D3', 'D4'],
-                datasets:[{
-                    label:'Radar',
-                    data: scores,
-
-                    backgroundColor: "rgba(27, 181, 92, 0.4)",
-                    borderColor: "rgba(27, 181, 92, 0.4)",
-                }]
-            })
-
-            })
-            .catch( error=>{
-                alert("Erro")
-            })
-    };
+        })
+    }
 
   return (
     

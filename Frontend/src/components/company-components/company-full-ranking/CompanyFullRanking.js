@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './company-full-ranking.css'
-import axios from 'axios';
-
+import { getCompaniesRanking } from '../../../requests/CompanyRequests';
 const CompanyFullRanking = () =>{
     const [ranking, setRanking] = useState([])
     const [top3, setTop3] = useState([])
@@ -11,15 +10,16 @@ const CompanyFullRanking = () =>{
     }, []);
 
     const getRanking = async () => {
-        await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
-        .then(res => {
-            let data = res.data['Empresas']
-            setRanking(data)
-            setTop3(data)
+        getCompaniesRanking()
+        .then(response =>{
+            if(response.status == 200){
+                let data = response.data.Empresas
+                setRanking(data)
+                setTop3(data)
+                if(data.length >3) setTop3(data.slice(0, 3))  
+            }
         })
-        .catch( error=>{
-            alert("Erro")
-        })
+
     }
 
     return (

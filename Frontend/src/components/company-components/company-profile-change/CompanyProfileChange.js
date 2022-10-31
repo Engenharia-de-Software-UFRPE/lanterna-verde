@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './company-profile-change.css';
 import axios from 'axios';
-import {putUpdateProfile} from '../../../requests/CompanyRequests'
+import {putUpdateProfile, getCompanyLoggedIn} from '../../../requests/CompanyRequests'
 import companyImage from '../../../images/apple.png';
 
 const CompanyProfileChange = () => {
@@ -19,9 +19,9 @@ const CompanyProfileChange = () => {
     });
 
     const sendGetRequest = async () => {
-        await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
-        .then(res => {
-            let data = res.data;           
+        await getCompanyLoggedIn()
+        .then(response => {
+            let data = response.data;           
             setCompany({
                 oldUsername: data.Usuario.username,
                 username: data.Usuario.username,
@@ -34,9 +34,6 @@ const CompanyProfileChange = () => {
                 type: data.Empresa.tipo,
                 phoneNumber: data.Empresa.phoneNumber
             })           
-        })
-        .catch( error=>{
-            alert("Erro")
         })
     };
 

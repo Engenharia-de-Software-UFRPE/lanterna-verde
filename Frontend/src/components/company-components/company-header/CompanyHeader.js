@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { getCompaniesRanking, getCompanyLoggedIn, getLogout} from '../../../requests/CompanyRequests';
 import './company-header.css';
 import logo from '../../../images/logo-img.png';
 import companyPicture from '../../../images/apple.png';
@@ -27,51 +27,40 @@ const CompanyHeader = ({newButton}) =>{
     }, [active]);
 
     const getRanking = async () => {
-      await axios.get('http://localhost:8000/empresa/ranking', { withCredentials: true })
-      .then(res => {
-          let empresas = res.data['Empresas'];
-          setRanking(empresas)
-      })
-      .catch( error=>{
-          alert("Erro")
+      await getCompaniesRanking()
+      .then(response =>{
+        if(response.status == 200){
+          let data  = response.data.Empresas
+          let loggedCompanyRanking = data.findIndex(empresa => empresa.cnpj === company.cnpj) + 1
+          setRanking(loggedCompanyRanking)
+        }
       })
     }
 
     const getLoggedCompany = async () => {
-      await axios.get('http://localhost:8000/user/empresa', { withCredentials: true })
-      .then(res => {
-          let data = res.data;
-            setCompany({
-                tradeName: data.Empresa.tradeName,
-                cnpj: data.Empresa.cnpj,
-                type: data.Empresa.tipo,
-            })        
-      })
-      .catch( error=>{
-          alert("Erro")
-      })
+      await getCompanyLoggedIn()
+			.then(response =>{
+				if(response.status == 201){
+					let data = response.data;
+					setCompany({
+            tradeName: data.Empresa.tradeName,
+            cnpj: data.Empresa.cnpj,
+            type: data.Empresa.tipo,
+					})
+				}
+			})
     };
 
-    const handleLogout = async (username, password) => {
-      axios.defaults.withCredentials = true;
-      await axios.get("http://localhost:8000/logout",{ withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        navigate('/');
-        localStorage.clear();
-        setLogout(true);
-      });
-    }
-
-    const setRankingEmpresa = () =>{
-      let rankingEmpresa = 0
-      for(let i = 0; i< ranking.length;i++){
-        if (ranking[i].cnpj === company.cnpj){
-          rankingEmpresa = i+1
-        }
-      }
-      return rankingEmpresa
-    }
+		const handleLogout = async () => {
+			await getLogout()
+			.then(response =>{
+				if(response.status == 200){
+					navigate('/');
+					localStorage.clear();
+					setLogout(true);
+				}
+			})
+		}
 
     return(
       <div className="company-header-container">
@@ -100,7 +89,7 @@ const CompanyHeader = ({newButton}) =>{
               </div>
               <div className="company-info">
                   <h3 className="company-name">{company.tradeName}</h3>
-                  <h4 className="company-position">{setRankingEmpresa()}ª posição no ranking</h4>
+                  <h4 className="company-position">{ranking}ª posição no ranking</h4>
                   <h4 className="company-type">{company.type}</h4>
               </div>
           </div>
