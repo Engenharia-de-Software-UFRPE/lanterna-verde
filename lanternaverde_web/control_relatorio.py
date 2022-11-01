@@ -1,20 +1,16 @@
 import json
-from urllib import request
-from django.db import IntegrityError, DataError
+from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseBadRequest
 
 from lanternaverde_web import control_notificacaoAdm
 from .utils.jsonresponse import JSONResponse
-from .models import Relatorio, SolicitacaoAnalise, NotificacaoAdm
+from .models import Relatorio, SolicitacaoAnalise
 from .serializers import RelatorioSerializer, AvaliacaoAnalistaSerializer
 from .utils.countdimension import _count_dimension
 
 def gerar_relatorio(analysis_request):
     if analysis_request.status == SolicitacaoAnalise.FINISHED:
-        try:
-            report, _ = Relatorio.objects.get_or_create(request=analysis_request, company=analysis_request.empresa)
-        except IntegrityError:
-            return
+        report, _ = Relatorio.objects.get_or_create(request=analysis_request, company=analysis_request.empresa)
         analises = AvaliacaoAnalistaSerializer(analysis_request.analises.all(), many=True, context={'request': None})
         data = analises.data
 

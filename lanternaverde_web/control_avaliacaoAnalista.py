@@ -1,14 +1,12 @@
 import json
 from django.contrib.auth.hashers import check_password
-from django.core.exceptions import ObjectDoesNotExist
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio
+from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, SolicitacaoAnalise, Relatorio
 from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.control_relatorio as control_relatorio
-from django.db import DatabaseError, IntegrityError
 
 def criar_analise(request):
     """
