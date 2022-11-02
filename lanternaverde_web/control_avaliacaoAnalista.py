@@ -1,10 +1,9 @@
 import json
 from django.contrib.auth.hashers import check_password
-from django.core.exceptions import ObjectDoesNotExist
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from .utils.jsonresponse import JSONResponse
-from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, Empresa, SolicitacaoAnalise, Relatorio
+from .models import AvaliacaoAnalista, Analista, Pergunta, Questao, SolicitacaoAnalise, Relatorio
 from .serializers import AvaliacaoAnalistaSerializer, EmpresaSerializer, RelatorioSerializer
 from .utils.countdimension import _count_dimension
 import lanternaverde_web.control_relatorio as control_relatorio
@@ -184,7 +183,6 @@ def get_analysis_by_request(request):
 
 def finalizar_analise(request):
     if request.method == 'POST':
-        post = request.POST
         data = json.loads(request.body)
         analysis = AvaliacaoAnalista.objects.get(pk=data['analysisid'])
         if analysis.analyst.user == request.user:
@@ -197,7 +195,8 @@ def finalizar_analise(request):
                 if len(analysis_request.analises.filter(status__in=[AvaliacaoAnalista.PENDING, AvaliacaoAnalista.PROCESSING])) == 0:
                     analysis_request.status = SolicitacaoAnalise.FINISHED
                     analysis_request.save()
-                return control_relatorio.gerar_relatorio(analysis_request)
+                    control_relatorio.gerar_relatorio(analysis_request)
+                return HttpResponse("Sua análise foi finalizada com sucesso", status=200)
             return HttpResponse("Senha incorreta, a análise não foi finalizada", status=403)
         return HttpResponse("Você não é o responsável por esta análise", status=403)
     return HttpResponseBadRequest()
